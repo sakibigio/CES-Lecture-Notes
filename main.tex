@@ -1,0 +1,142 @@
+\documentclass[12pt,openany]{book}
+
+%--------------------- Preamble ---------------------%
+\input{preamble}
+
+
+\title{Constant Elasticity Structure: \\ Recursive Methods for Macroeconomics and Finance}
+\author{Saki Bigio \\UCLA}
+\date{\today}
+
+\begin{document}
+
+
+\frontmatter
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+%\begin{flushright}
+\vspace{1em}
+\textit{A Clauuuu!}\\[0.5em]
+%\end{flushright}
+\vspace{1em}
+
+\newpage
+
+\input{sections/preface}
+
+\newpage
+
+\input{sections/conventions}
+
+\tableofcontents
+
+\mainmatter
+
+
+
+\newpage
+% \include{chapters/01-overview}
+
+\part*{Overview}
+
+\input{sections/introduction}
+
+% \section{Notation}
+% We use bold symbols for vectors, uppercase letters for matrices, and standard continuous-time notation $dX_t = \mu(X_t)\,dt + \sigma(X_t)\,dB_t$ for diffusions.
+
+\part{Tools}
+
+\chapter{CES Aggregators as Generalized Means}
+\label{ch:ces-aggregators}
+
+% generalized means
+\input{sections/generalized_means}
+
+% ==============================================================
+\chapter{Information Theory}
+\label{ch:information}
+
+\input{sections/gm_information}
+
+% optimization
+\input{sections/canonical_problems_full}
+
+% comparative statics
+\input{sections/comparative_statics}
+
+\input{sections/ces_constraints}
+
+\part{Recursive Structure and Dynamic Programming}
+
+\chapter{Nested and Recursive Structure}
+
+\epigraph{To understand recursion, one must first understand recursion.}{\textit{Anonymous}}
+
+\input{sections/recursive_structure_master}
+
+\chapter{Markovian Risk}
+
+\epigraph{Thus, independence of quantities does not constitute a necessary condition for the law of large numbers.}{\textit{Andrey Markov} (1906)}
+
+\epigraph{In stochastic processes the future is not uniquely determined, but we have at least probability relations enabling us to make predictions.}{\textit{William Feller}, \textit{An Introduction to Probability Theory and Its Applications} (1950)}
+
+\input{sections/markov_chains}
+
+\chapter{Classic Dynamic Programming}
+
+\epigraph{I thought dynamic programming was a good name. It was something not even a Congressman could object to.}{\textit{Richard Bellman}, \textit{Eye of the Hurricane: An Autobiography} (1984)}
+
+\part{Applications}
+
+\chapter{Consumption and Savings}
+
+\input{sections/cs_master}
+
+\chapter{Dynamic Portfolio Choice}
+\label{ch:dynamic-portfolio}
+
+\input{sections/dynamic_portfolio}
+
+\chapter{Investment with Adjustment Costs}
+
+\input{sections/ac_chapter_A}
+
+\input{sections/ac_chapter_B}
+
+\chapter{Labor and Leisure}
+\label{ch:labor-leisure}
+
+\input{sections/labor_leisure}
+
+\chapter{Labor and Capital Interactions}
+\label{ch:labor-leisure}
+
+\input{sections/labor_capital}
+
+\part{Andvanced Topics}
+
+\chapter{Ramsey Taxation}
+
+\chapter{Distributions as State Variables}
+
+[TBA]
+
+\chapter{Production Networks}
+
+[TBA]
+
+\chapter{Discrete Choice}
+
+\input{sections/discrete_choice}
+
+\chapter{Flexibility Choice}
+
+[TBA]
+
+\backmatter
+\bibliographystyle{aer}
+\bibliography{references}
+
+\end{document}

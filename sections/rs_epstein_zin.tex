@@ -1,0 +1,306 @@
+% ==============================================================
+\section{Application: Epstein--Zin Preferences}
+\label{sec:epstein-zin}
+% ==============================================================
+
+We now combine the ingredients from the preceding sections: intertemporal aggregation (\cref{sec:discounted-utility}), risk aggregation (\cref{sec:risk-weighted-averages}), and nested structures (\cref{sec:nested-structures}). The result is Epstein--Zin preferences---a workhorse model in macro-finance that separates risk aversion from intertemporal substitution.
+
+% --------------------------------------------------------------
+\subsection{Motivation: A Tale of Two Lotteries}
+\label{subsec:motivation-breaking}
+% --------------------------------------------------------------
+
+Consider a simple example that reveals the limitations of standard expected utility.
+
+\paragraph{Setup.}
+An agent lives for two periods, $t \in \{0, 1\}$. Consumption at $t=0$ is $c_0 = 1$. Consumption at $t=1$ is uncertain, taking values $c_1 \in \{0.5, 1.5\}$ with equal probability. Compare two scenarios:
+
+\medskip
+\noindent\textbf{Lottery A (i.i.d.\ risk):} In each period, consumption is drawn independently:
+\begin{equation}
+c_0 \in \{0.5, 1.5\}, \quad c_1 \in \{0.5, 1.5\}, \quad \text{independent draws.}
+\end{equation}
+There are four equally likely paths: $(0.5, 0.5)$, $(0.5, 1.5)$, $(1.5, 0.5)$, $(1.5, 1.5)$.
+
+\medskip
+\noindent\textbf{Lottery B (persistent risk):} A coin is flipped once at $t=0$. The outcome determines consumption in \emph{both} periods:
+\begin{equation}
+\text{Heads: } (c_0, c_1) = (1.5, 1.5), \quad \text{Tails: } (c_0, c_1) = (0.5, 0.5).
+\end{equation}
+There are two equally likely paths: $(0.5, 0.5)$ and $(1.5, 1.5)$.
+
+\paragraph{Expected Utility Cannot Distinguish.}
+With standard expected discounted utility $V = \E[\sum_t \beta^t u(c_t)]$:
+\begin{align}
+V_A &= \frac{1}{4}\Big[ u(0.5) + \beta u(0.5) + u(0.5) + \beta u(1.5) + u(1.5) + \beta u(0.5) + u(1.5) + \beta u(1.5) \Big] \notag \\[4pt]
+&= \frac{1}{2}\big[ u(0.5) + u(1.5) \big] + \beta \cdot \frac{1}{2}\big[ u(0.5) + u(1.5) \big], \\[6pt]
+V_B &= \frac{1}{2}\Big[ u(0.5) + \beta u(0.5) \Big] + \frac{1}{2}\Big[ u(1.5) + \beta u(1.5) \Big] \notag \\[4pt]
+&= \frac{1}{2}\big[ u(0.5) + u(1.5) \big] + \beta \cdot \frac{1}{2}\big[ u(0.5) + u(1.5) \big].
+\end{align}
+The two expressions are identical: $V_A = V_B$. Expected utility treats the lotteries as equivalent.
+
+\paragraph{But They Are Different.}
+Intuitively, the lotteries differ in an important way:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Lottery A}: Good and bad outcomes can offset across periods. A bad draw at $t=0$ might be followed by a good draw at $t=1$.
+    \item \textbf{Lottery B}: There is no such diversification. If you draw ``bad,'' you are stuck with low consumption in both periods.
+\end{itemize}
+A risk-averse agent might reasonably prefer Lottery A---it offers some implicit insurance through independence.
+
+\paragraph{The Problem with Expected Utility.}
+Expected utility evaluates paths by summing utilities, then taking expectations. The order of operations---sum then average---means that \emph{only marginal distributions matter}. Since both lotteries have the same marginal distributions ($c_t \in \{0.5, 1.5\}$ with equal probability for each $t$), they receive the same valuation.
+
+This seems wrong. The correlation structure should matter for a risk-averse agent.
+
+\begin{calloutnote}[Imagine This Going On Forever]
+Now extend the example to an infinite horizon. In Lottery A, consumption is i.i.d.\ each period---lots of averaging over time. In Lottery B, a single coin flip at $t=0$ determines consumption forever---no averaging at all. 
+
+An agent who dislikes risk should strongly prefer the i.i.d.\ case: over a long horizon, good and bad draws balance out. But expected utility remains indifferent. Something is missing from the standard model.
+\end{calloutnote}
+
+\paragraph{The Source of the Problem.}
+The issue is that expected utility uses the \emph{same} curvature parameter for two distinct purposes:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Risk aversion}: Dislike of variability \emph{across states} at a given date.
+    \item \textbf{Intertemporal substitution}: Willingness to shift consumption \emph{across time}.
+\end{itemize}
+With power utility $u(c) = c^{1-\gamma}/(1-\gamma)$, both are governed by $\gamma$. The intertemporal elasticity is $\theta = 1/\gamma$. High risk aversion ($\gamma$ large) mechanically implies low willingness to substitute over time ($\theta$ small).
+
+To distinguish Lotteries A and B, we need preferences that separate these two aspects---allowing risk aversion to be high while intertemporal substitution is moderate, or vice versa.
+
+\begin{calloutimportant}[What We Need]
+A preference specification where:
+\begin{itemize}[leftmargin=1.5em]
+    \item Risk aversion ($\gamma$) governs attitudes toward cross-sectional variability.
+    \item Intertemporal elasticity ($\theta$) governs attitudes toward variability over time.
+    \item The two parameters can be set independently.
+\end{itemize}
+This is exactly what Epstein--Zin preferences provide, by nesting risk aggregation inside intertemporal aggregation with different elasticities at each level.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Epstein--Zin Aggregator}
+\label{subsec:ez-aggregator}
+% --------------------------------------------------------------
+
+Epstein--Zin preferences nest risk inside time. At each date, the agent:
+\begin{enumerate}[leftmargin=2em]
+    \item Aggregates over uncertain future outcomes using a \textbf{certainty equivalent} (risk aggregation).
+    \item Aggregates current consumption with the certainty equivalent using an \textbf{intertemporal aggregator} (time aggregation).
+\end{enumerate}
+
+\paragraph{The Certainty Equivalent.}
+Given continuation values $V_{t+1}$ across states, the certainty equivalent is:
+\begin{equation}
+\mu_t(V_{t+1}) = \left( \E_t \left[ V_{t+1}^{1-\gamma} \right] \right)^{1/(1-\gamma)} = \Mbar(V_{t+1}; \bpi_t, 1-\gamma),
+\label{eq:ez-ce}
+\end{equation}
+where $\bpi_t$ are the conditional probabilities over states at $t+1$. This is a classical generalized mean with power parameter $\rho_{\text{risk}} = 1 - \gamma$.
+
+\paragraph{The Intertemporal Aggregator.}
+The value function combines current consumption with the certainty equivalent:
+\begin{equation}
+V_t = \Mbar\Big( c_t, \mu_t(V_{t+1}); 1-\beta, 1-1/\theta \Big) = \left( (1-\beta) c_t^{1-1/\theta} + \beta \, \mu_t(V_{t+1})^{1-1/\theta} \right)^{1/(1-1/\theta)}.
+\label{eq:ez-aggregator}
+\end{equation}
+This is a classical generalized mean with power parameter $\rho_{\text{time}} = 1 - 1/\theta$.
+
+\begin{definition}[Epstein--Zin Preferences]
+\label{def:epstein-zin}
+Epstein--Zin recursive utility is defined by:
+\begin{equation}
+V_t = \left( (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t \left[ V_{t+1}^{1-\gamma} \right] \right)^{\frac{1-1/\theta}{1-\gamma}} \right)^{\frac{1}{1-1/\theta}},
+\end{equation}
+where $\beta \in (0,1)$ is the discount factor, $\theta > 0$ is the intertemporal elasticity of substitution, and $\gamma > 0$ is the coefficient of relative risk aversion.
+\end{definition}
+
+% --------------------------------------------------------------
+\subsection{The Nested Structure}
+\label{subsec:ez-nested-structure}
+% --------------------------------------------------------------
+
+Epstein--Zin preferences are a two-level nested generalized mean:
+\begin{equation}
+V_t = \underbrace{\Mbar\Big( c_t, \; \underbrace{\Mbar(V_{t+1}; \bpi_t, 1-\gamma)}_{\text{inner: risk}}; \; 1-\beta, \; 1-1/\theta \Big)}_{\text{outer: time}}.
+\label{eq:ez-nested}
+\end{equation}
+
+\paragraph{Inner Mean (Risk).}
+The inner mean aggregates over states at date $t+1$:
+\begin{itemize}[leftmargin=2em]
+    \item Weights: Probabilities $\pi_s$
+    \item Power: $\rho_{\text{risk}} = 1 - \gamma$
+    \item Output: Certainty equivalent $\mu_t(V_{t+1})$
+\end{itemize}
+
+\paragraph{Outer Mean (Time).}
+The outer mean aggregates current consumption with the certainty equivalent:
+\begin{itemize}[leftmargin=2em]
+    \item Weights: $(1-\beta, \beta)$
+    \item Power: $\rho_{\text{time}} = 1 - 1/\theta$
+    \item Output: Value function $V_t$
+\end{itemize}
+
+\begin{calloutimportant}[Two Elasticities, Two Levels]
+The nested structure allows $\gamma$ and $\theta$ to differ:
+\begin{itemize}[leftmargin=1.5em]
+    \item $\gamma$ governs substitution \emph{across states} (risk)
+    \item $\theta$ governs substitution \emph{across time} (intertemporal)
+\end{itemize}
+When $\gamma = 1/\theta$, the two power parameters coincide ($\rho_{\text{risk}} = \rho_{\text{time}}$), and we recover standard expected discounted utility---the nested structure collapses to a flat mean.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Special Cases}
+\label{subsec:ez-special-cases}
+% --------------------------------------------------------------
+
+Several important special cases emerge from particular parameter values.
+
+\paragraph{Standard Expected Utility.}
+When $\gamma = 1/\theta$ (equivalently, $\rho_{\text{risk}} = \rho_{\text{time}}$):
+\begin{equation}
+V_t = \left( (1-\beta) c_t^{1-\gamma} + \beta \, \E_t[V_{t+1}^{1-\gamma}] \right)^{1/(1-\gamma)}.
+\label{eq:ez-standard}
+\end{equation}
+This is ordinally equivalent to $\E_t[\sum_{s=t}^{\infty} \beta^{s-t} c_s^{1-\gamma}/(1-\gamma)]$. The nesting is immaterial.
+
+\paragraph{Unit IES ($\theta = 1$).}
+When $\theta = 1$, the intertemporal aggregator becomes Cobb--Douglas:
+\begin{equation}
+V_t = c_t^{1-\beta} \cdot \mu_t(V_{t+1})^\beta.
+\label{eq:ez-unit-ies}
+\end{equation}
+Taking logs: $\log V_t = (1-\beta) \log c_t + \beta \log \mu_t(V_{t+1})$.
+
+\paragraph{Log Utility for Risk ($\gamma = 1$).}
+When $\gamma = 1$, the certainty equivalent becomes the geometric mean:
+\begin{equation}
+\mu_t(V_{t+1}) = \exp\left( \E_t[\log V_{t+1}] \right).
+\label{eq:ez-log-risk}
+\end{equation}
+
+\paragraph{Risk Neutrality ($\gamma = 0$).}
+When $\gamma = 0$, the certainty equivalent is the expected value:
+\begin{equation}
+\mu_t(V_{t+1}) = \E_t[V_{t+1}].
+\label{eq:ez-risk-neutral}
+\end{equation}
+
+\begin{calloutnote}[Common Calibrations]
+In macro-finance, common calibrations include:
+\begin{itemize}[leftmargin=1.5em]
+    \item $\gamma \in [5, 10]$: Moderate to high risk aversion
+    \item $\theta \in [1, 2]$: Unit to moderate IES
+    \item $\beta \approx 0.99$: Quarterly discount factor
+\end{itemize}
+Note that $\gamma = 10$ and $\theta = 1.5$ implies $\gamma \neq 1/\theta$, so the nested structure is essential.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Timing of Uncertainty Resolution}
+\label{subsec:timing-resolution}
+% --------------------------------------------------------------
+
+A key feature of Epstein--Zin preferences is that agents are \emph{not} indifferent to the timing of uncertainty resolution.
+
+\paragraph{The Preference.}
+Consider two lotteries that yield the same final distribution of consumption but differ in when uncertainty is resolved:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Early resolution}: Uncertainty about future consumption is revealed today.
+    \item \textbf{Late resolution}: Uncertainty is revealed only when consumption occurs.
+\end{itemize}
+
+With standard expected utility ($\gamma = 1/\theta$), the agent is indifferent---timing does not matter.
+
+With Epstein--Zin preferences ($\gamma \neq 1/\theta$), the agent has a strict preference:
+\begin{itemize}[leftmargin=2em]
+    \item $\gamma > 1/\theta$ (equivalently, $\rho_{\text{risk}} < \rho_{\text{time}}$): Prefers \textbf{early resolution}.
+    \item $\gamma < 1/\theta$ (equivalently, $\rho_{\text{risk}} > \rho_{\text{time}}$): Prefers \textbf{late resolution}.
+\end{itemize}
+
+\paragraph{Intuition.}
+When $\gamma > 1/\theta$, the agent is more averse to risk than to intertemporal variation. Early resolution converts risky future consumption into certain future consumption, which the agent prefers. The reverse holds when $\gamma < 1/\theta$.
+
+\begin{calloutnote}[Why Timing Matters]
+The timing preference arises because the order of aggregation matters in a nested structure. With early resolution, the certainty equivalent is computed first (over degenerate distributions), then intertemporal aggregation occurs. With late resolution, the order is reversed. When $\rho_{\text{risk}} \neq \rho_{\text{time}}$, these give different values.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Recursive Representation}
+\label{subsec:ez-recursive}
+% --------------------------------------------------------------
+
+The Epstein--Zin aggregator is inherently recursive: $V_t$ depends on $V_{t+1}$, which depends on $V_{t+2}$, and so on.
+
+\paragraph{The Recursion.}
+\begin{equation}
+V_t = \left( (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t[V_{t+1}^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right)^{\frac{\theta}{\theta-1}}.
+\label{eq:ez-recursion}
+\end{equation}
+
+\paragraph{Sufficient Statistics.}
+The certainty equivalent $\mu_t(V_{t+1})$ is the sufficient statistic for the distribution of continuation values. Given $\mu_t$, the agent does not need to know the full distribution of $V_{t+1}$---only this single number.
+
+This is the nested version of the sufficient statistic property: within the risk aggregation, $\mu_t$ summarizes all states; within the time aggregation, $\mu_t$ enters as a single input.
+
+\paragraph{Terminal Condition.}
+For finite horizons, we need a terminal condition. A common choice is $V_T = c_T$ (utility from terminal consumption only) or $V_T = 0$ (no value after the terminal date).
+
+% --------------------------------------------------------------
+\subsection{Alternative Representations}
+\label{subsec:ez-alternative}
+% --------------------------------------------------------------
+
+The Epstein--Zin recursion is often written in different but equivalent forms.
+
+\paragraph{The ``Weil'' Form.}
+Substituting the definition of $\mu_t$:
+\begin{equation}
+V_t^{1-1/\theta} = (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t[V_{t+1}^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}}.
+\label{eq:ez-weil}
+\end{equation}
+
+\paragraph{The ``Normalized'' Form.}
+Define $\tilde{V}_t = V_t^{1-1/\theta}$. Then:
+\begin{equation}
+\tilde{V}_t = (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t[\tilde{V}_{t+1}^{\alpha}] \right)^{1/\alpha},
+\label{eq:ez-normalized}
+\end{equation}
+where $\alpha = (1-\gamma)/(1-1/\theta)$ captures the ratio of the two curvature parameters.
+
+\paragraph{The Ratio $\alpha$.}
+The parameter $\alpha$ determines qualitative behavior:
+\begin{itemize}[leftmargin=2em]
+    \item $\alpha = 1$: Standard expected utility ($\gamma = 1/\theta$)
+    \item $\alpha < 1$: Preference for early resolution ($\gamma > 1/\theta$)
+    \item $\alpha > 1$: Preference for late resolution ($\gamma < 1/\theta$)
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ez-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item Epstein--Zin preferences are a \textbf{two-level nested generalized mean}: risk aggregation (inner) nested inside intertemporal aggregation (outer).
+    
+    \item The nesting allows \textbf{separate parameters} for risk aversion ($\gamma$) and intertemporal substitution ($\theta$).
+    
+    \item When $\gamma = 1/\theta$, the nested structure \textbf{collapses to standard expected utility}.
+    
+    \item When $\gamma \neq 1/\theta$, agents have \textbf{preferences over the timing} of uncertainty resolution.
+    
+    \item The \textbf{certainty equivalent} is the sufficient statistic linking the two levels of aggregation.
+\end{enumerate}
+\end{calloutimportant}
+
+\begin{callouttip}[Exercise]
+Consider a two-period setting with $t \in \{0, 1\}$ and two equally likely states at $t=1$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Write out the Epstein--Zin value $V_0$ explicitly as a function of $c_0$, $c_1^H$, $c_1^L$, $\beta$, $\theta$, and $\gamma$.
+    \item Set $c_0 = 1$, $c_1^H = 1.5$, $c_1^L = 0.5$, and $\beta = 0.95$. Compute $V_0$ for: (i) $\theta = 2$, $\gamma = 2$ (standard EU); (ii) $\theta = 2$, $\gamma = 5$; (iii) $\theta = 0.5$, $\gamma = 2$.
+    \item For case (ii), compute the certainty equivalent $\mu_0(V_1)$ and verify it is less than $\E[V_1]$.
+\end{enumerate}
+\end{callouttip}

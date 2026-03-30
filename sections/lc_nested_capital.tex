@@ -1,0 +1,310 @@
+% ==============================================================
+\section{Two Capital Stocks: Nested CES}
+\label{sec:nested-capital}
+% ==============================================================
+
+Many production processes involve multiple types of capital that interact differently with labor. Structures and equipment, for example, may have distinct substitution patterns with workers. This section extends the framework to nested CES aggregators, where an outer layer combines labor with a capital composite, and an inner layer aggregates different capital types. The nested structure allows us to capture rich substitution patterns while maintaining tractability.
+
+% --------------------------------------------------------------
+\subsection{The Nested Structure}
+\label{subsec:nested-structure}
+% --------------------------------------------------------------
+
+Consider a firm that uses labor $L$ and two types of capital: equipment $K_E$ and structures $K_S$. Rather than treating all three as symmetric inputs, we allow for a hierarchical aggregation.
+
+\paragraph{The Two-Level Aggregator.}
+The production function has a nested structure:
+\begin{equation}
+Y = \F^{\text{outer}}\bigl(L, \, \F^{\text{inner}}(K_E, K_S)\bigr),
+\label{eq:nested-production}
+\end{equation}
+where the inner aggregator combines the two capital types into a capital composite $K$, and the outer aggregator combines labor with this composite.
+
+\paragraph{Inner Layer: Capital Aggregation.}
+The capital composite is a CES aggregate of equipment and structures:
+\begin{equation}
+K = \M(K_E, K_S; \bom^K, \sigma_K) = \left( \omega_E^{1-\rho_K} K_E^{\rho_K} + \omega_S^{1-\rho_K} K_S^{\rho_K} \right)^{1/\rho_K},
+\label{eq:capital-composite}
+\end{equation}
+where $\sigma_K = 1/(1-\rho_K)$ is the elasticity of substitution between capital types, and $\omega_E + \omega_S = 1$.
+
+\paragraph{Outer Layer: Labor-Capital Aggregation.}
+Output combines labor and the capital composite:
+\begin{equation}
+Y = A \cdot \M(K, L; \bom, \sigma) = A \left( \omega_K^{1-\rho} K^{\rho} + \omega_L^{1-\rho} L^{\rho} \right)^{1/\rho},
+\label{eq:outer-aggregator}
+\end{equation}
+where $\sigma = 1/(1-\rho)$ is the elasticity of substitution between labor and the capital composite, and $\omega_K + \omega_L = 1$.
+
+\begin{calloutimportant}[Complementary Outer, Substitutable Inner]
+A leading specification sets $\sigma < 1$ (labor and capital are complements) and $\sigma_K > 1$ (equipment and structures are substitutes). This captures the intuition that:
+\begin{itemize}[nosep]
+\item Workers and machines must work together---you cannot produce with capital alone
+\item But within the capital stock, firms can flexibly substitute between different types of machinery and buildings
+\end{itemize}
+This asymmetry has important implications for how technological progress in different sectors affects factor shares.
+\end{calloutimportant}
+
+\paragraph{The Expanded Form.}
+Substituting the capital composite into the outer layer yields the full production function:
+\begin{equation}
+Y = A \left( \omega_K^{1-\rho} \left[ \omega_E^{1-\rho_K} K_E^{\rho_K} + \omega_S^{1-\rho_K} K_S^{\rho_K} \right]^{\rho/\rho_K} + \omega_L^{1-\rho} L^{\rho} \right)^{1/\rho}.
+\label{eq:nested-expanded}
+\end{equation}
+
+This is a three-factor production function with a specific substitution structure encoded in the nesting.
+
+% --------------------------------------------------------------
+\subsection{Nested Price Indices as Nested Means}
+\label{subsec:nested-price-indices}
+% --------------------------------------------------------------
+
+The nested production structure induces a corresponding nested structure in price indices. This connection---between quantity aggregation and price aggregation---is a powerful feature of the CES framework.
+
+\paragraph{The Duality Principle.}
+Recall from \cref{subsec:canonical-production} that the unit cost index is a generalized mean of factor prices:
+\begin{equation}
+\Cstar = \M_{1-\sigma}(\text{factor prices}; \bom).
+\label{eq:duality-principle}
+\end{equation}
+With nested production, this principle applies recursively: each level of quantity aggregation has a corresponding level of price aggregation.
+
+\paragraph{Inner Price Index: The Cost of Capital.}
+The capital composite $K = \M(K_E, K_S; \bom^K, \sigma_K)$ aggregates equipment and structures. Its ``price''---the unit cost of the capital composite---is the dual mean:
+\begin{equation}
+C_K^* = \M_{1-\sigma_K}(r_E, r_S; \bom^K) = \left( \omega_E \, r_E^{1-\sigma_K} + \omega_S \, r_S^{1-\sigma_K} \right)^{1/(1-\sigma_K)}.
+\label{eq:inner-price-index}
+\end{equation}
+
+This is a generalized mean of rental rates with the \emph{same weights} $(\omega_E, \omega_S)$ as the quantity aggregator, but with power parameter $1 - \sigma_K$ instead of $\rho_K = 1 - 1/\sigma_K$.
+
+\paragraph{Outer Price Index: Total Unit Cost.}
+The outer aggregator $Y = A \cdot \M(K, L; \bom, \sigma)$ combines the capital composite with labor. Its dual is the total unit cost:
+\begin{equation}
+\Cstar = \M_{1-\sigma}(C_K^*, w; \bom) = \left( \omega_K \, (C_K^*)^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}.
+\label{eq:outer-price-index}
+\end{equation}
+
+The total unit cost is a generalized mean of the capital price index $C_K^*$ and the wage $w$---a mean of means.
+
+\begin{calloutimportant}[Nested Means All the Way Down]
+The nested structure creates a hierarchy of generalized means:
+\begin{align*}
+\text{Quantities:} \quad & K = \M_{\sigma_K}(K_E, K_S) \quad \longrightarrow \quad Y = A \cdot \M_\sigma(K, L) \\[4pt]
+\text{Prices:} \quad & C_K^* = \M_{1-\sigma_K}(r_E, r_S) \quad \longrightarrow \quad \Cstar = \M_{1-\sigma}(C_K^*, w)
+\end{align*}
+The quantity aggregators use power $\rho = 1 - 1/\sigma$; the price aggregators use power $1 - \sigma$. This duality ensures that the cost function has the multiplicative form $C = \Cstar \cdot Y/A$.
+\end{calloutimportant}
+
+\paragraph{Shares as Induced Weights at Each Level.}
+The induced weight interpretation extends to each level of the nest. At the inner level:
+\begin{equation}
+\frac{s_E}{s_E + s_S} = \omega_E \left( \frac{r_E}{C_K^*} \right)^{1-\sigma_K}, \qquad \frac{s_S}{s_E + s_S} = \omega_S \left( \frac{r_S}{C_K^*} \right)^{1-\sigma_K}.
+\label{eq:inner-shares}
+\end{equation}
+These are the induced weights of the inner price index $C_K^*$.
+
+At the outer level:
+\begin{equation}
+s_K = \omega_K \left( \frac{C_K^*}{\Cstar} \right)^{1-\sigma}, \qquad s_L = \omega_L \left( \frac{w}{\Cstar} \right)^{1-\sigma}.
+\label{eq:outer-shares}
+\end{equation}
+These are the induced weights of the outer price index $\Cstar$.
+
+The total equipment share is the product: $s_E = s_K \cdot (s_E/(s_E + s_S))$---the share of cost going to capital, times the share of capital cost going to equipment.
+
+\paragraph{The Recursive Decomposition.}
+This structure connects to the recursive decomposition of generalized means from \cref{sec:recursive-decomposition}. Define the ``effective prices'' as:
+\begin{equation}
+\tilde{r}_E \equiv \frac{r_E}{C_K^*}, \qquad \tilde{r}_S \equiv \frac{r_S}{C_K^*}, \qquad \tilde{C}_K \equiv \frac{C_K^*}{\Cstar}, \qquad \tilde{w} \equiv \frac{w}{\Cstar}.
+\label{eq:effective-prices}
+\end{equation}
+
+Then the cost shares have the uniform representation:
+\begin{equation}
+s_i = \omega_i \, \tilde{p}_i^{1-\sigma_i},
+\label{eq:uniform-shares}
+\end{equation}
+where $\tilde{p}_i$ is the effective price (price relative to the relevant index) and $\sigma_i$ is the elasticity at that level of the nest.
+
+\begin{calloutnote}[Connection to Discrete Choice]
+The nested CES structure is isomorphic to the nested logit model in discrete choice. In the logit framework, choice probabilities take the form $\pi_i \propto \exp(v_i / \lambda)$, where $v_i$ is the utility of option $i$ and $\lambda$ is a scale parameter. The nested logit allows different scale parameters at different levels of the choice hierarchy.
+
+The CES analog has shares $s_i \propto \omega_i \, p_i^{1-\sigma}$. The elasticity $\sigma$ plays the role of the inverse scale parameter $1/\lambda$. Nested CES allows different elasticities at different levels, just as nested logit allows different scales. This connection is developed further in \cref{sec:discrete-choice}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Factor Prices and Cost Minimization}
+\label{subsec:nested-cost-min}
+% --------------------------------------------------------------
+
+Let $r_E$ and $r_S$ denote the rental rates of equipment and structures, and let $w$ denote the wage. The firm minimizes the cost of producing output $\bar{Y}$.
+
+\paragraph{The Inner Problem.}
+For a given level of the capital composite $K$, the firm minimizes the cost of capital:
+\begin{equation}
+\min_{K_E, K_S} \left\{ r_E K_E + r_S K_S \right\} \quad \text{s.t.} \quad \M(K_E, K_S; \bom^K, \sigma_K) \geq K.
+\label{eq:inner-cost-min}
+\end{equation}
+
+Applying the standard CES solution, the cost-minimizing demands are:
+\begin{equation}
+K_E^* = \omega_E \left( \frac{r_E}{C_K^*} \right)^{-\sigma_K} \cdot \frac{K}{C_K^*}, \qquad K_S^* = \omega_S \left( \frac{r_S}{C_K^*} \right)^{-\sigma_K} \cdot \frac{K}{C_K^*},
+\label{eq:inner-demands}
+\end{equation}
+where the unit cost of the capital composite is:
+\begin{equation}
+C_K^* = \left( \omega_E \, r_E^{1-\sigma_K} + \omega_S \, r_S^{1-\sigma_K} \right)^{1/(1-\sigma_K)}.
+\label{eq:capital-unit-cost}
+\end{equation}
+
+\paragraph{The Outer Problem.}
+Taking $C_K^*$ as the ``price'' of the capital composite, the firm then solves:
+\begin{equation}
+\min_{K, L} \left\{ C_K^* \cdot K + w \cdot L \right\} \quad \text{s.t.} \quad A \cdot \M(K, L; \bom, \sigma) \geq \bar{Y}.
+\label{eq:outer-cost-min}
+\end{equation}
+
+The solution gives:
+\begin{equation}
+K^* = \omega_K \left( \frac{C_K^*}{\Cstar} \right)^{-\sigma} \cdot \frac{\bar{Y}/A}{\Cstar}, \qquad L^* = \omega_L \left( \frac{w}{\Cstar} \right)^{-\sigma} \cdot \frac{\bar{Y}/A}{\Cstar},
+\label{eq:outer-demands}
+\end{equation}
+where the overall unit cost index is:
+\begin{equation}
+\Cstar = \left( \omega_K \, (C_K^*)^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}.
+\label{eq:total-unit-cost}
+\end{equation}
+
+\paragraph{Cost Shares.}
+The share of total cost paid to each factor is:
+\begin{align}
+s_L &= \omega_L \left( \frac{w}{\Cstar} \right)^{1-\sigma}, \label{eq:labor-share-nested} \\[6pt]
+s_K &= \omega_K \left( \frac{C_K^*}{\Cstar} \right)^{1-\sigma} = 1 - s_L, \label{eq:capital-share-nested}
+\end{align}
+and within the capital share:
+\begin{align}
+s_E &= s_K \cdot \omega_E \left( \frac{r_E}{C_K^*} \right)^{1-\sigma_K}, \label{eq:equipment-share} \\[6pt]
+s_S &= s_K \cdot \omega_S \left( \frac{r_S}{C_K^*} \right)^{1-\sigma_K}. \label{eq:structures-share}
+\end{align}
+
+The nested structure implies that the equipment share of total cost, $s_E$, depends on both the outer elasticity $\sigma$ (which governs how the capital share responds to the capital price index) and the inner elasticity $\sigma_K$ (which governs the equipment-structures mix).
+
+% --------------------------------------------------------------
+\subsection{One-Off Technological Progress}
+\label{subsec:tech-progress}
+% --------------------------------------------------------------
+
+We now examine how a one-time improvement in technology affects factor demands and shares. The analysis reveals how the nesting structure shapes the transmission of shocks.
+
+\paragraph{Progress in the Equipment Sector.}
+Suppose equipment-augmenting technology improves: each unit of equipment becomes more productive, which we model as a fall in the effective rental rate $r_E$. What happens to factor shares?
+
+The direct effect operates through the inner layer. With $\sigma_K > 1$ (substitutes), a fall in $r_E$ leads to:
+\begin{itemize}[nosep]
+\item A rise in equipment use relative to structures: $K_E/K_S$ increases
+\item A fall in the equipment share of capital costs: $s_E/(s_E + s_S)$ decreases
+\item A fall in the capital price index $C_K^*$
+\end{itemize}
+
+The indirect effect operates through the outer layer. The fall in $C_K^*$ makes the capital composite cheaper relative to labor. With $\sigma < 1$ (complements):
+\begin{itemize}[nosep]
+\item The capital-labor ratio $K/L$ rises, but not by much
+\item The capital share $s_K$ \emph{falls} (cheaper input, higher share---complements)
+\item The labor share $s_L$ \emph{rises}
+\end{itemize}
+
+\begin{calloutnote}[Equipment-Biased Technical Change]
+With the complementary-outer, substitutable-inner specification, equipment-biased technical change \emph{raises} the labor share. The intuition: cheaper equipment reduces the cost of the capital composite, but with labor-capital complementarity, this benefits workers through higher labor demand. The substitutability within capital means the cost savings are large, amplifying the effect.
+\end{calloutnote}
+
+\paragraph{Progress in the Structures Sector.}
+Now suppose structures-augmenting technology improves (a fall in $r_S$). The logic is symmetric:
+\begin{itemize}[nosep]
+\item Inner layer: structures expand relative to equipment; structures share of capital falls; $C_K^*$ falls
+\item Outer layer: labor share rises (same mechanism as above)
+\end{itemize}
+
+The key difference is the magnitude. If equipment is a larger share of the capital composite ($\omega_E > \omega_S$ or $s_E > s_S$), then progress in equipment has a larger effect on $C_K^*$ and hence a larger effect on the labor share.
+
+\paragraph{Comparative Statics Summary.}
+Define the elasticity of the labor share with respect to the equipment rental rate:
+\begin{equation}
+\eta_{s_L, r_E} \equiv \frac{\partial \log s_L}{\partial \log r_E}.
+\label{eq:labor-share-elasticity}
+\end{equation}
+
+With $\sigma < 1$ and $\sigma_K > 1$, this elasticity is negative: cheaper equipment raises the labor share. The magnitude depends on:
+\begin{enumerate}[nosep]
+\item The outer elasticity $\sigma$: closer to zero means stronger complementarity, larger effect
+\item The inner elasticity $\sigma_K$: larger means more substitution within capital, larger cost reduction
+\item The equipment weight $\omega_E$ and share $s_E$: larger means equipment matters more for $C_K^*$
+\end{enumerate}
+
+\begin{proposition}[Labor Share Response to Equipment Progress]
+\label{prop:labor-share-equipment}
+With $\sigma < 1$ and $\sigma_K > 1$, the elasticity of the labor share with respect to the equipment rental rate is:
+\begin{equation}
+\eta_{s_L, r_E} = -(1 - \sigma) \cdot s_K \cdot \frac{s_E}{s_K} = -(1 - \sigma) \cdot s_E.
+\label{eq:eta-formula}
+\end{equation}
+A one percent fall in the equipment rental rate raises the labor share by $(1-\sigma) \cdot s_E$ percent.
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{Asymmetric Nesting: Labor-Equipment Complementarity}
+\label{subsec:asymmetric-nesting}
+% --------------------------------------------------------------
+
+An alternative specification places labor and equipment in the inner nest, with structures in the outer layer. This captures ``capital-skill complementarity'' when we interpret equipment as skill-intensive capital.
+
+\paragraph{The Alternative Structure.}
+\begin{equation}
+Y = A \cdot \M\Bigl(K_S, \, \M(K_E, L; \bom^{EL}, \sigma_{EL}); \bom, \sigma_S\Bigr),
+\label{eq:alt-nested}
+\end{equation}
+where the inner layer combines equipment and labor with elasticity $\sigma_{EL}$, and the outer layer combines this composite with structures.
+
+\paragraph{Capital-Skill Complementarity.}
+If $\sigma_{EL} < 1$, equipment and labor are complements. Progress in equipment (cheaper $r_E$) then has different effects:
+\begin{itemize}[nosep]
+\item Inner layer: equipment expands; the equipment-labor composite becomes cheaper
+\item With complements, the labor share \emph{within} the inner composite rises
+\item The overall effect on the labor share depends on how the inner composite interacts with structures
+\end{itemize}
+
+This specification is relevant for understanding skill-biased technical change, where computerization (equipment) complements skilled labor but substitutes for unskilled labor.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:nested-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Nested CES Production}
+\label{tab:nested-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Capital composite & $K = \left( \omega_E^{1-\rho_K} K_E^{\rho_K} + \omega_S^{1-\rho_K} K_S^{\rho_K} \right)^{1/\rho_K}$ \\[6pt]
+Capital price index & $C_K^* = \left( \omega_E \, r_E^{1-\sigma_K} + \omega_S \, r_S^{1-\sigma_K} \right)^{1/(1-\sigma_K)}$ \\[6pt]
+Output & $Y = A \left( \omega_K^{1-\rho} K^{\rho} + \omega_L^{1-\rho} L^{\rho} \right)^{1/\rho}$ \\[6pt]
+Total unit cost & $\Cstar = \left( \omega_K \, (C_K^*)^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}$ \\[6pt]
+Labor share & $s_L = \omega_L \left( w / \Cstar \right)^{1-\sigma}$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The nested CES structure allows different substitution patterns at different levels of aggregation:
+\begin{itemize}[nosep]
+\item Outer elasticity $\sigma$: governs labor-capital substitution
+\item Inner elasticity $\sigma_K$: governs substitution across capital types
+\end{itemize}
+With complements at the outer layer ($\sigma < 1$) and substitutes at the inner layer ($\sigma_K > 1$), technological progress that reduces the cost of any capital type \emph{raises} the labor share. The nested structure amplifies this effect by allowing large within-capital substitution.
+
+This framework provides a foundation for analyzing how sector-specific technological change---such as the falling price of computing equipment---affects the distribution of income between labor and capital.
+\end{callouttip}

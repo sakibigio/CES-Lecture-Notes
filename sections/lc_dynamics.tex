@@ -1,0 +1,404 @@
+% ==============================================================
+\section{Dynamics with Labor and Capital}
+\label{sec:lc-dynamics}
+% ==============================================================
+
+We now extend the labor-capital framework to a dynamic setting where capital is accumulated over time. The firm or household chooses how much to invest each period, trading off current consumption against future productive capacity. The elasticity of substitution between labor and capital continues to play a central role, now shaping not only static factor demands but also the dynamics of capital accumulation and the transition to steady state.
+
+% --------------------------------------------------------------
+\subsection{The Infinite Horizon Problem}
+\label{subsec:infinite-horizon}
+% --------------------------------------------------------------
+
+Consider a representative household that owns capital, supplies labor, and makes consumption-saving decisions over an infinite horizon. Output is produced using a CES technology, and the household chooses consumption $\{c_t\}_{t=0}^\infty$ and capital $\{k_{t+1}\}_{t=0}^\infty$ to maximize lifetime utility.
+
+\paragraph{Preferences.}
+The household has time-separable preferences with discount factor $\beta \in (0,1)$ and period utility $u(c) = \frac{c^{1-1/\theta} - 1}{1 - 1/\theta}$, where $\theta > 0$ is the intertemporal elasticity of substitution (IES):
+\begin{equation}
+\V_0 = \sum_{t=0}^{\infty} \beta^t u(c_t) = \sum_{t=0}^{\infty} \beta^t \frac{c_t^{1-1/\theta} - 1}{1 - 1/\theta}.
+\label{eq:lifetime-utility}
+\end{equation}
+
+\paragraph{Technology.}
+Output is produced using capital $k_t$ and labor $\ell_t$ according to the CES production function:
+\begin{equation}
+y_t = A \left( \omega_K^{1-\rho} k_t^\rho + \omega_L^{1-\rho} (B_t \ell_t)^\rho \right)^{1/\rho},
+\label{eq:ces-production-dynamic}
+\end{equation}
+where $A$ is total factor productivity, $B_t$ is labor-augmenting technology (growing at rate $g$: $B_{t+1} = (1+g) B_t$), and $\sigma = 1/(1-\rho)$ is the elasticity of substitution.
+
+\paragraph{Capital Accumulation.}
+Capital depreciates at rate $\delta \in (0,1)$ and is augmented by investment $i_t$:
+\begin{equation}
+k_{t+1} = (1-\delta) k_t + i_t.
+\label{eq:capital-accumulation}
+\end{equation}
+
+\paragraph{Resource Constraint.}
+Output is divided between consumption and investment:
+\begin{equation}
+c_t + i_t = y_t.
+\label{eq:resource-constraint}
+\end{equation}
+
+Substituting the capital accumulation equation:
+\begin{equation}
+c_t + k_{t+1} = y_t + (1-\delta) k_t.
+\label{eq:resource-consolidated}
+\end{equation}
+
+\paragraph{Labor Supply.}
+For simplicity, we assume labor is supplied inelastically at $\ell_t = 1$ for all $t$. This allows us to focus on the capital accumulation margin.
+
+% --------------------------------------------------------------
+\subsection{The Euler Equation}
+\label{subsec:euler-equation}
+% --------------------------------------------------------------
+
+The household's problem is to maximize \cref{eq:lifetime-utility} subject to \cref{eq:resource-consolidated} and the production technology \cref{eq:ces-production-dynamic}. The key optimality condition is the Euler equation.
+
+\paragraph{Derivation.}
+The Lagrangian for the household's problem is:
+\begin{equation}
+\mathcal{L} = \sum_{t=0}^{\infty} \beta^t \left[ u(c_t) + \lambda_t \left( y_t + (1-\delta) k_t - c_t - k_{t+1} \right) \right].
+\label{eq:lagrangian-dynamic}
+\end{equation}
+
+The first-order conditions with respect to $c_t$ and $k_{t+1}$ are:
+\begin{align}
+c_t: \quad & u'(c_t) = \lambda_t, \label{eq:foc-c} \\[4pt]
+k_{t+1}: \quad & \lambda_t = \beta \lambda_{t+1} \left( \frac{\partial y_{t+1}}{\partial k_{t+1}} + 1 - \delta \right). \label{eq:foc-k}
+\end{align}
+
+Combining these yields the Euler equation:
+\begin{equation}
+\boxed{u'(c_t) = \beta \, u'(c_{t+1}) \left( \frac{\partial y_{t+1}}{\partial k_{t+1}} + 1 - \delta \right).}
+\label{eq:euler-equation}
+\end{equation}
+
+\paragraph{The Marginal Product of Capital.}
+From the CES production function \cref{eq:ces-production-dynamic}:
+\begin{equation}
+\frac{\partial y_t}{\partial k_t} = A^\rho \, \omega_K^{1-\rho} \left( \frac{y_t}{k_t} \right)^{1-\rho} = \omega_K^{1-\rho} A^\rho \left( \frac{y_t}{k_t} \right)^{1/\sigma}.
+\label{eq:mpk-dynamic}
+\end{equation}
+
+The marginal product depends on the output-capital ratio raised to the power $1/\sigma$. When $\sigma < 1$ (complements), the marginal product is highly sensitive to the capital-output ratio. When $\sigma > 1$ (substitutes), it is less sensitive.
+
+\paragraph{The Euler Equation in Growth Rates.}
+With CRRA utility, $u'(c) = c^{-1/\theta}$, the Euler equation becomes:
+\begin{equation}
+\left( \frac{c_{t+1}}{c_t} \right)^{1/\theta} = \beta \left( \frac{\partial y_{t+1}}{\partial k_{t+1}} + 1 - \delta \right).
+\label{eq:euler-growth}
+\end{equation}
+
+Defining the gross return on capital as $R_{t+1} \equiv \frac{\partial y_{t+1}}{\partial k_{t+1}} + 1 - \delta$:
+\begin{equation}
+\frac{c_{t+1}}{c_t} = \left( \beta R_{t+1} \right)^\theta.
+\label{eq:consumption-growth}
+\end{equation}
+
+This is the dynamic analog of the consumption ratio formula from the two-period problem. Consumption growth is increasing in the return to capital, with elasticity equal to the IES $\theta$.
+
+% --------------------------------------------------------------
+\subsection{The Intertemporal CES Structure}
+\label{subsec:intertemporal-ces}
+% --------------------------------------------------------------
+
+The dynamic problem inherits the CES structure developed in earlier chapters. We now make this connection explicit, showing how the Euler equation and value function relate to the canonical framework.
+
+\paragraph{Time as Another Dimension of Choice.}
+In \cref{sec:lc-two-period}, we showed that the firm's choice between capital and labor is a CES optimization problem. The consumer's choice between consumption today and tomorrow is \emph{also} a CES problem---time replaces factors as the dimension of choice.
+
+Consider the two-period version of \cref{eq:lifetime-utility}:
+\begin{equation}
+\V = u(c_0) + \beta \, u(c_1) = \frac{c_0^{1-1/\theta}}{1-1/\theta} + \beta \frac{c_1^{1-1/\theta}}{1-1/\theta}.
+\label{eq:two-period-utility}
+\end{equation}
+
+After the monotone transformation to generalized mean form (as in \cref{sec:cs-two-period}), this becomes:
+\begin{equation}
+\V \sim \M(c_0, c_1; \bom^\beta, \theta),
+\label{eq:utility-as-mean}
+\end{equation}
+where the weights $\bom^\beta = (\omega_0, \omega_1)$ are derived from the discount factor $\beta$.
+
+\paragraph{The Intertemporal Price Index.}
+The budget constraint $c_0 + R^{-1} c_1 = W$ has prices $(1, R^{-1})$, where $R^{-1}$ is the price of future consumption in terms of current consumption. The ideal price index is:
+\begin{equation}
+\Pstar_{\text{time}} = \M_{1-\theta}(1, R^{-1}; \bom^\beta) = \left( \omega_0 + \omega_1 \, R^{-(1-\theta)} \right)^{1/(1-\theta)}.
+\label{eq:intertemporal-price-index}
+\end{equation}
+
+This is a generalized mean of intertemporal prices with the same structure as the unit cost index in production.
+
+\paragraph{The Euler Equation as a Relative Price Condition.}
+The first-order condition for the two-period problem equates the marginal rate of substitution to the price ratio:
+\begin{equation}
+\frac{u'(c_0)}{u'(c_1)} = \frac{1}{R^{-1}} = R.
+\label{eq:mrs-price}
+\end{equation}
+
+With CRRA utility, $u'(c) = c^{-1/\theta}$, this becomes:
+\begin{equation}
+\left( \frac{c_0}{c_1} \right)^{-1/\theta} = R \quad \Longrightarrow \quad \frac{c_1}{c_0} = R^\theta.
+\label{eq:consumption-ratio-static}
+\end{equation}
+
+Including the discount factor, the full condition is:
+\begin{equation}
+\frac{u'(c_0)}{\beta \, u'(c_1)} = R \quad \Longrightarrow \quad \frac{c_1}{c_0} = (\beta R)^\theta.
+\label{eq:euler-from-ratio}
+\end{equation}
+
+This is exactly the Euler equation \cref{eq:consumption-growth}. The dynamic first-order condition is the CES ratio condition applied intertemporally.
+
+\begin{calloutimportant}[Three CES Problems, One Structure]
+The chapter has developed three distinct CES optimization problems:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& \textbf{Factors} & \textbf{Capital Types} & \textbf{Time} \\
+\midrule
+Quantities & $K, L$ & $K_E, K_S$ & $c_0, c_1, \ldots$ \\
+Prices & $r, w$ & $r_E, r_S$ & $1, R^{-1}, R^{-2}, \ldots$ \\
+Elasticity & $\sigma$ & $\sigma_K$ & $\theta$ \\
+Price index & $\Cstar$ & $C_K^*$ & $\Pstar_{\text{time}}$ \\
+Shares & $s_K, s_L$ & $s_E, s_S$ & $\wexp_0, \wexp_1, \ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+All three share the same mathematical structure: a generalized mean objective, a linear constraint, and solutions characterized by the ratio condition and induced weights.
+\end{calloutimportant}
+
+\paragraph{The Value Function and Homogeneity.}
+The value function for the infinite-horizon problem inherits the homogeneity of the CES structure. With CRRA utility and constant returns in production, the value function takes the form:
+\begin{equation}
+V(k) = \phi \cdot \frac{k^{1-1/\theta}}{1 - 1/\theta},
+\label{eq:value-function-form}
+\end{equation}
+where $\phi$ is a constant that depends on parameters $(\beta, \delta, A, \omega_K, \omega_L, \sigma, \theta)$.
+
+This homogeneity implies that the policy functions are linear in capital:
+\begin{equation}
+c^*(k) = (1 - s) \cdot y(k), \qquad i^*(k) = s \cdot y(k),
+\label{eq:policy-linear}
+\end{equation}
+where $s$ is the (endogenous) saving rate. The saving rate is constant along the balanced growth path, varying only during transitions.
+
+\paragraph{Connection to the Canonical Problem.}
+The infinite-horizon problem can be viewed as a limit of finite-horizon CES problems. With $T$ periods, lifetime utility is:
+\begin{equation}
+\V_T = \sum_{t=0}^{T} \beta^t u(c_t) \sim \M(c_0, c_1, \ldots, c_T; \bom^\beta_T, \theta),
+\label{eq:finite-horizon}
+\end{equation}
+where the weights $\bom^\beta_T$ are derived from the discount factors $(\beta^0, \beta^1, \ldots, \beta^T)$.
+
+As $T \to \infty$, the finite-horizon problem converges to the infinite-horizon problem. The recursive structure (Bellman equation) emerges as the limiting form of the nested CES aggregation---each period's continuation value is itself a generalized mean of future consumption.
+
+\begin{calloutnote}[The Epstein-Zin Connection]
+With time-separable utility, the IES $\theta$ also governs attitudes toward risk (through the coefficient of relative risk aversion $\gamma = 1/\theta$). Epstein-Zin preferences break this link by using separate parameters for intertemporal substitution and risk aversion.
+
+In the Epstein-Zin framework, the value function is a CES aggregate of current consumption and the certainty equivalent of future utility:
+\[
+V_t = \M(c_t, \CE(V_{t+1}); \bom^\beta, \theta),
+\]
+where $\CE(\cdot)$ is a generalized mean over states with power parameter related to risk aversion. This ``CES over CES'' structure is developed in \cref{sec:epstein-zin}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Steady State}
+\label{subsec:steady-state}
+% --------------------------------------------------------------
+
+A steady state (or balanced growth path) is an allocation where all variables grow at constant rates. With labor-augmenting technical change at rate $g$, the balanced growth path has output, capital, and consumption all growing at rate $g$.
+
+\paragraph{Stationarity in Efficiency Units.}
+Define variables in efficiency units by dividing by $B_t$:
+\begin{equation}
+\tilde{k}_t \equiv \frac{k_t}{B_t}, \qquad \tilde{c}_t \equiv \frac{c_t}{B_t}, \qquad \tilde{y}_t \equiv \frac{y_t}{B_t}.
+\label{eq:efficiency-units}
+\end{equation}
+
+In efficiency units, the production function becomes:
+\begin{equation}
+\tilde{y}_t = A \left( \omega_K^{1-\rho} \tilde{k}_t^\rho + \omega_L^{1-\rho} \right)^{1/\rho},
+\label{eq:production-efficiency}
+\end{equation}
+which is time-invariant when $\tilde{k}_t$ is constant.
+
+\paragraph{The Steady-State Capital Stock.}
+In steady state, consumption grows at rate $g$, so $c_{t+1}/c_t = 1 + g$. The Euler equation \cref{eq:consumption-growth} implies:
+\begin{equation}
+(1+g)^{1/\theta} = \beta R^* \quad \Longrightarrow \quad R^* = \frac{(1+g)^{1/\theta}}{\beta}.
+\label{eq:steady-state-return}
+\end{equation}
+
+The steady-state return $R^*$ is pinned down by preferences and the growth rate, independent of the production technology. This is the modified golden rule.
+
+\paragraph{Solving for Steady-State Capital.}
+The return on capital is $R^* = MPK^* + 1 - \delta$, where $MPK^*$ is the steady-state marginal product. Using \cref{eq:mpk-dynamic}:
+\begin{equation}
+MPK^* = R^* - 1 + \delta = \omega_K^{1-\rho} A^\rho \left( \frac{\tilde{y}^*}{\tilde{k}^*} \right)^{1/\sigma}.
+\label{eq:mpk-steady-state}
+\end{equation}
+
+This equation, together with the production function \cref{eq:production-efficiency}, determines the steady-state capital-output ratio $\tilde{k}^*/\tilde{y}^*$.
+
+\begin{calloutnote}[The Role of $\sigma$ in Steady State]
+The elasticity of substitution $\sigma$ affects the \emph{level} of steady-state capital but not the steady-state \emph{return} (which is pinned down by the Euler equation). With $\sigma < 1$ (complements), a given capital-output ratio implies a higher marginal product of capital; the steady-state capital stock is lower. With $\sigma > 1$ (substitutes), the marginal product is less sensitive to capital intensity; the steady-state capital stock is higher.
+\end{calloutnote}
+
+\paragraph{The Steady-State Capital Share.}
+The capital share in steady state is:
+\begin{equation}
+s_K^* = \frac{MPK^* \cdot \tilde{k}^*}{\tilde{y}^*} = \omega_K^{1-\rho} A^\rho \left( \frac{\tilde{y}^*}{\tilde{k}^*} \right)^{1/\sigma - 1} = \omega_K \left( \frac{MPK^*}{\omega_K^{1-\rho} A^\rho} \right)^{1 - \sigma}.
+\label{eq:capital-share-steady}
+\end{equation}
+
+With Cobb-Douglas ($\sigma = 1$), the capital share equals $\omega_K$ regardless of the level of capital or technology. With $\sigma \neq 1$, the capital share depends on factor prices and technology.
+
+% --------------------------------------------------------------
+\subsection{Transition Dynamics}
+\label{subsec:transition-dynamics}
+% --------------------------------------------------------------
+
+Away from steady state, the economy transitions toward the balanced growth path. The speed and nature of this transition depend critically on the elasticity of substitution.
+
+\paragraph{The Phase Diagram.}
+The dynamics of the economy can be characterized by a system in $(\tilde{k}_t, \tilde{c}_t)$. The resource constraint in efficiency units is:
+\begin{equation}
+\tilde{c}_t + (1+g) \tilde{k}_{t+1} = \tilde{y}_t + (1-\delta) \tilde{k}_t.
+\label{eq:resource-efficiency}
+\end{equation}
+
+The Euler equation in efficiency units becomes:
+\begin{equation}
+\frac{\tilde{c}_{t+1}}{\tilde{c}_t} = \frac{1}{1+g} \left( \beta R_{t+1} \right)^\theta.
+\label{eq:euler-efficiency}
+\end{equation}
+
+\paragraph{The $\dot{k} = 0$ Locus.}
+Capital is constant ($\tilde{k}_{t+1} = \tilde{k}_t$) when:
+\begin{equation}
+\tilde{c} = \tilde{y}(\tilde{k}) - (g + \delta) \tilde{k}.
+\label{eq:k-dot-zero}
+\end{equation}
+
+This is the familiar condition that consumption equals output minus the investment required to maintain capital per efficiency unit.
+
+\paragraph{The $\dot{c} = 0$ Locus.}
+Consumption is constant ($\tilde{c}_{t+1} = \tilde{c}_t$) when the return equals its steady-state value:
+\begin{equation}
+R(\tilde{k}) = MPK(\tilde{k}) + 1 - \delta = R^* = \frac{(1+g)^{1/\theta}}{\beta}.
+\label{eq:c-dot-zero}
+\end{equation}
+
+This pins down a unique value of $\tilde{k}$ (the steady-state capital stock).
+
+\paragraph{Dynamics with Complements vs. Substitutes.}
+The speed of convergence to steady state depends on how rapidly the marginal product of capital changes as capital accumulates.
+
+With $\sigma < 1$ (complements): the marginal product is highly sensitive to capital. Starting below steady state, the high return induces rapid capital accumulation, but the return falls quickly as capital rises. Convergence is relatively fast.
+
+With $\sigma > 1$ (substitutes): the marginal product is less sensitive to capital. The return remains elevated for longer as capital accumulates, sustaining high investment. However, the ``target'' is harder to reach precisely because diminishing returns set in slowly. Convergence can be slower.
+
+\begin{calloutimportant}[Convergence Speed and $\sigma$]
+The local speed of convergence near steady state is governed by the eigenvalues of the linearized system. A key determinant is the elasticity of the marginal product with respect to capital:
+\begin{equation}
+\frac{\partial \log MPK}{\partial \log k} = \frac{1}{\sigma} - 1 = -\frac{1-\sigma}{\sigma}.
+\label{eq:mpk-elasticity}
+\end{equation}
+When $\sigma < 1$, this elasticity is large in magnitude (strong diminishing returns), implying faster convergence. When $\sigma > 1$, the elasticity is smaller, implying slower convergence.
+\end{calloutimportant}
+
+\paragraph{Numerical Illustration.}
+Consider two economies that differ only in $\sigma$, starting from the same initial capital stock below steady state.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& $\sigma = 0.5$ (Complements) & $\sigma = 2$ (Substitutes) \\
+\midrule
+Initial MPK & High & Moderately high \\
+Initial investment rate & Very high & High \\
+MPK decline as $k$ rises & Rapid & Gradual \\
+Half-life to steady state & Short & Long \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The complementary economy exhibits more dramatic swings: high initial returns drive a burst of investment, but returns fall quickly, moderating the investment boom. The substitutable economy has a more gradual transition.
+
+% --------------------------------------------------------------
+\subsection{Capital Accumulation with Two Capital Types}
+\label{subsec:two-capital-dynamics}
+% --------------------------------------------------------------
+
+The dynamic framework extends naturally to the nested CES case with multiple capital types. Let $k_E$ denote equipment and $k_S$ denote structures, each with its own accumulation equation:
+\begin{align}
+k_{E,t+1} &= (1-\delta_E) k_{E,t} + i_{E,t}, \label{eq:equipment-accumulation} \\[4pt]
+k_{S,t+1} &= (1-\delta_S) k_{S,t} + i_{S,t}. \label{eq:structures-accumulation}
+\end{align}
+
+\paragraph{Two Euler Equations.}
+The household now faces two investment margins. The Euler equations are:
+\begin{align}
+u'(c_t) &= \beta \, u'(c_{t+1}) \left( \frac{\partial y_{t+1}}{\partial k_{E,t+1}} + 1 - \delta_E \right), \label{eq:euler-equipment} \\[4pt]
+u'(c_t) &= \beta \, u'(c_{t+1}) \left( \frac{\partial y_{t+1}}{\partial k_{S,t+1}} + 1 - \delta_S \right). \label{eq:euler-structures}
+\end{align}
+
+\paragraph{Equalization of Returns.}
+In equilibrium, the two Euler equations imply that the returns on equipment and structures are equalized:
+\begin{equation}
+\frac{\partial y}{\partial k_E} + 1 - \delta_E = \frac{\partial y}{\partial k_S} + 1 - \delta_S.
+\label{eq:return-equalization}
+\end{equation}
+
+If depreciation rates differ ($\delta_E > \delta_S$ for equipment), the marginal product of equipment must exceed that of structures to compensate.
+
+\paragraph{Transition with Sector-Specific Shocks.}
+Suppose there is a one-time improvement in equipment technology (a permanent fall in the effective price of equipment). The economy transitions to a new steady state with:
+\begin{itemize}[nosep]
+\item Higher equipment-to-structures ratio
+\item Higher capital composite relative to labor
+\item Potentially different factor shares (depending on elasticities)
+\end{itemize}
+
+The transition dynamics involve both capital types adjusting, with equipment rising faster initially due to the direct shock.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dynamics-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Dynamic Labor-Capital Framework}
+\label{tab:dynamics-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Euler equation & $u'(c_t) = \beta \, u'(c_{t+1}) \left( MPK_{t+1} + 1 - \delta \right)$ \\[6pt]
+Consumption growth & $c_{t+1}/c_t = \left( \beta R_{t+1} \right)^\theta$ \\[6pt]
+Marginal product (CES) & $MPK = \omega_K^{1-\rho} A^\rho \left( y/k \right)^{1/\sigma}$ \\[6pt]
+Steady-state return & $R^* = (1+g)^{1/\theta} / \beta$ \\[6pt]
+MPK elasticity & $\partial \log MPK / \partial \log k = (1-\sigma)/\sigma$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The elasticity of substitution $\sigma$ governs the dynamics of capital accumulation:
+\begin{itemize}[nosep]
+\item With complements ($\sigma < 1$): strong diminishing returns, rapid convergence, volatile investment
+\item With substitutes ($\sigma > 1$): weak diminishing returns, slow convergence, smooth investment
+\end{itemize}
+The steady-state return is pinned down by preferences and growth, independent of $\sigma$. But the steady-state capital stock, factor shares, and transition dynamics all depend critically on the degree of substitutability between labor and capital.
+
+This framework provides the foundation for the Real Business Cycle model, where we add stochastic shocks and study fluctuations around the balanced growth path.
+\end{callouttip}

@@ -1,0 +1,259 @@
+% ==============================================================
+\section{Application: Discounted Utility}
+\label{sec:discounted-utility}
+% ==============================================================
+
+We now apply the recursive structure to intertemporal choice. The standard discounted utility model---the workhorse of dynamic economics---turns out to be a monotone transformation of a generalized mean. This connection explains why dynamic problems with CES preferences are tractable.
+
+% --------------------------------------------------------------
+\subsection{The Standard Formulation}
+\label{subsec:standard-formulation}
+% --------------------------------------------------------------
+
+Consider an agent evaluating a consumption stream $\{c_t\}_{t=0}^{T}$ over a finite horizon. The standard objective is:
+\begin{equation}
+V = \sum_{t=0}^{T} \beta^t u(c_t),
+\label{eq:standard-objective}
+\end{equation}
+where $\beta \in (0,1)$ is the discount factor and $u(\cdot)$ is the period utility function.
+
+\paragraph{Power Utility.}
+The most common specification is \emph{power utility} (also called isoelastic or CRRA utility):
+\begin{equation}
+u(c) = \frac{c^{1-1/\theta} - 1}{1 - 1/\theta},
+\label{eq:power-utility}
+\end{equation}
+where $\theta > 0$ is the \emph{intertemporal elasticity of substitution} (IES). This measures the willingness to substitute consumption across time in response to changes in the interest rate.
+
+\begin{calloutnote}[The Role of $-1$]
+The term $-1$ in the numerator ensures continuity at $\theta = 1$. As $\theta \to 1$, L'H\^opital's rule gives:
+\begin{equation}
+\lim_{\theta \to 1} \frac{c^{1-1/\theta} - 1}{1 - 1/\theta} = \log c.
+\end{equation}
+Without the $-1$, the limit would not exist. This is a normalization that affects levels but not optimal choices.
+\end{calloutnote}
+
+The full objective becomes:
+\begin{equation}
+V = \sum_{t=0}^{T} \beta^t \frac{c_t^{1-1/\theta} - 1}{1 - 1/\theta}.
+\label{eq:full-objective}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{Transformation to a Generalized Mean}
+\label{subsec:transformation-mean}
+% --------------------------------------------------------------
+
+We now show that $V$ is a monotone transformation of a classical generalized mean. The key steps are: (i) normalize the weights, (ii) separate the constant terms, and (iii) apply a monotone transformation.
+
+\paragraph{Step 1: Normalizing the Weights.}
+The discount factors $\{\beta^t\}_{t=0}^{T}$ do not sum to one. Define the normalization constant:
+\begin{equation}
+\kappa^{-1} = \sum_{t=0}^{T} \beta^t = \frac{1 - \beta^{T+1}}{1 - \beta}.
+\label{eq:kappa-def}
+\end{equation}
+Then $\bar{\omega}_t \equiv \kappa \beta^t$ satisfies $\sum_{t=0}^{T} \bar{\omega}_t = 1$, forming valid weights for a generalized mean.
+
+\paragraph{Step 2: Separating the Constant.}
+Multiply and divide the objective by $\kappa$:
+\begin{equation}
+V = \kappa^{-1} \sum_{t=0}^{T} \bar{\omega}_t \frac{c_t^{1-1/\theta} - 1}{1 - 1/\theta} = \kappa^{-1} \left[ \frac{1}{1 - 1/\theta} \sum_{t=0}^{T} \bar{\omega}_t c_t^{1-1/\theta} - \frac{1}{1 - 1/\theta} \right].
+\label{eq:separate-constant}
+\end{equation}
+The second term uses $\sum_t \bar{\omega}_t = 1$. Rearranging:
+\begin{equation}
+\kappa V = \frac{1}{1 - 1/\theta} \left[ \sum_{t=0}^{T} \bar{\omega}_t c_t^{1-1/\theta} - 1 \right].
+\label{eq:rearranged}
+\end{equation}
+
+\paragraph{Step 3: Isolating the Inner Sum.}
+Define $\rho \equiv 1 - 1/\theta$, the power parameter. Then:
+\begin{equation}
+\kappa (1 - 1/\theta) V + 1 = \sum_{t=0}^{T} \bar{\omega}_t c_t^{\rho} = \bar{\Ssum}(\bc; \bar{\bom}, \rho),
+\label{eq:inner-sum-isolated}
+\end{equation}
+where $\bar{\Ssum}$ is the inner sum of the classical generalized mean and $\bc = (c_0, \ldots, c_T)$.
+
+\paragraph{Step 4: Applying a Monotone Transformation.}
+The inner sum relates to the classical mean by $\bar{\Ssum} = \Mbar^\rho$. Taking the $1/\rho$ power of both sides:
+\begin{equation}
+\left( \kappa (1 - 1/\theta) V + 1 \right)^{1/\rho} = \Mbar(\bc; \bar{\bom}, \rho).
+\label{eq:monotone-transform}
+\end{equation}
+
+\begin{proposition}[Discounted Utility as a Generalized Mean]
+\label{prop:utility-as-mean}
+The standard discounted power utility $V = \sum_{t=0}^{T} \beta^t u(c_t)$ is a monotone transformation of the classical generalized mean:
+\begin{equation}
+V = \frac{1}{\kappa(1-1/\theta)} \left[ \Mbar(\bc; \bar{\bom}, \rho)^{\rho} - 1 \right],
+\end{equation}
+where $\rho = 1 - 1/\theta$, the weights are $\bar{\omega}_t = \kappa \beta^t$ with $\kappa = (1-\beta)/(1-\beta^{T+1})$, and $\Mbar(\bc; \bar{\bom}, \rho) = \left( \sum_{t=0}^{T} \bar{\omega}_t c_t^\rho \right)^{1/\rho}$.
+\end{proposition}
+
+\begin{calloutimportant}[Why This Matters]
+Since utility is ordinal, maximizing $V$ is equivalent to maximizing $\Mbar(\bc; \bar{\bom}, \rho)$. All the machinery developed for generalized means---recursive decomposition, sufficient statistics, backward induction---applies directly to intertemporal choice.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Canonical Form}
+\label{subsec:canonical-intertemporal}
+% --------------------------------------------------------------
+
+We can also express discounted utility in canonical form. Recall from the transformation theory that:
+\begin{equation}
+\Mbar(\bc; \bar{\bom}, \rho) = \lambda(\bar{\bom}, \rho)^{-1} \M(\bc; \bom, \rho),
+\label{eq:classical-canonical-relation}
+\end{equation}
+where $\bom$ are the canonical weights derived from $\bar{\bom}$ and $\lambda$ is the scaling factor.
+
+\paragraph{Deriving the Canonical Weights.}
+The canonical weights satisfy:
+\begin{equation}
+\omega_t = \frac{\bar{\omega}_t^{1/(1-\rho)}}{\sum_{s=0}^{T} \bar{\omega}_s^{1/(1-\rho)}} = \frac{(\kappa \beta^t)^{\theta}}{\sum_{s=0}^{T} (\kappa \beta^s)^{\theta}} = \frac{\beta^{\theta t}}{\sum_{s=0}^{T} \beta^{\theta s}}.
+\label{eq:canonical-weights}
+\end{equation}
+Define $\tilde{\beta} \equiv \beta^\theta$. Then:
+\begin{equation}
+\omega_t = \frac{\tilde{\beta}^t}{\sum_{s=0}^{T} \tilde{\beta}^s} = \tilde{\kappa} \tilde{\beta}^t,
+\label{eq:canonical-weights-simple}
+\end{equation}
+where $\tilde{\kappa} = (1 - \tilde{\beta})/(1 - \tilde{\beta}^{T+1})$.
+
+\begin{calloutnote}[Effective Discount Factor]
+The canonical weights use an \emph{effective discount factor} $\tilde{\beta} = \beta^\theta$ that combines the primitive discount factor $\beta$ with the intertemporal elasticity $\theta$. When $\theta = 1$ (log utility), $\tilde{\beta} = \beta$. When $\theta > 1$ (high substitutability), $\tilde{\beta} < \beta$---the agent behaves as if more impatient. When $\theta < 1$, $\tilde{\beta} > \beta$.
+\end{calloutnote}
+
+\paragraph{The Canonical Representation.}
+In canonical form, discounted utility becomes:
+\begin{equation}
+\M(\bc; \bom, \rho) = \left( \sum_{t=0}^{T} \omega_t^{1-\rho} c_t^\rho \right)^{1/\rho} = \left( \sum_{t=0}^{T} (\tilde{\kappa} \tilde{\beta}^t)^{1-\rho} c_t^\rho \right)^{1/\rho}.
+\label{eq:canonical-utility}
+\end{equation}
+This form will prove useful when we analyze price indices and expenditure shares in intertemporal settings.
+
+% --------------------------------------------------------------
+\subsection{Recursive Formulation}
+\label{subsec:recursive-utility}
+% --------------------------------------------------------------
+
+The recursive decomposition from \cref{sec:recursive-decomposition} applies directly. Since discounted utility is a generalized mean, it inherits the recursive structure automatically.
+
+\paragraph{Applying the Decomposition.}
+Let $\V_t$ denote the utility from date $t$ onward, expressed as a generalized mean of $\{c_t, c_{t+1}, \ldots, c_T\}$. From \cref{prop:recursive-decomposition}:
+\begin{equation}
+\V_t = \Mbar\Big( c_t, \V_{t+1}; \bar{\omega}_t^{(t)}, \rho \Big),
+\label{eq:bellman-mean}
+\end{equation}
+where $\bar{\omega}_t^{(t)}$ is the renormalized weight on current consumption and $\V_{t+1}$ is the continuation value.
+
+\paragraph{Computing the Renormalized Weight.}
+In the original problem, the weight on $c_t$ is $\bar{\omega}_t = \kappa \beta^t$, and the sum of weights from $t$ onward is:
+\begin{equation}
+\sum_{s=t}^{T} \bar{\omega}_s = \kappa \beta^t \frac{1 - \beta^{T+1-t}}{1 - \beta}.
+\label{eq:weight-sum-from-t}
+\end{equation}
+The renormalized weight on $c_t$ is:
+\begin{equation}
+\bar{\omega}_t^{(t)} = \frac{\bar{\omega}_t}{\sum_{s=t}^{T} \bar{\omega}_s} = \frac{1 - \beta}{1 - \beta^{T+1-t}}.
+\label{eq:renormalized-current}
+\end{equation}
+
+\paragraph{The Infinite-Horizon Limit.}
+As $T \to \infty$, the renormalized weight converges to:
+\begin{equation}
+\bar{\omega}_t^{(t)} \to 1 - \beta.
+\label{eq:weight-infinite}
+\end{equation}
+This is independent of $t$---the problem becomes stationary. The recursion simplifies to:
+\begin{equation}
+\V_t = \Mbar\Big( c_t, \V_{t+1}; 1-\beta, \rho \Big) = \left( (1-\beta) c_t^\rho + \beta \V_{t+1}^\rho \right)^{1/\rho}.
+\label{eq:bellman-infinite}
+\end{equation}
+
+\begin{proposition}[Recursive Discounted Utility]
+\label{prop:recursive-utility}
+In the infinite-horizon limit, discounted power utility satisfies the recursion:
+\begin{equation}
+\V_t = \left( (1-\beta) c_t^\rho + \beta \V_{t+1}^\rho \right)^{1/\rho},
+\end{equation}
+where $\rho = 1 - 1/\theta$. The continuation value $\V_{t+1}$ is a sufficient statistic for all future consumption.
+\end{proposition}
+
+\paragraph{Terminal Condition.}
+For a finite horizon, we need a terminal condition. At $t = T$:
+\begin{equation}
+\V_T = c_T.
+\label{eq:terminal}
+\end{equation}
+We then solve backward: $\V_{T-1} = \Mbar(c_{T-1}, \V_T; \bar{\omega}_{T-1}^{(T-1)}, \rho)$, and so on.
+
+% --------------------------------------------------------------
+\subsection{What Does Not Work}
+\label{subsec:what-does-not-work}
+% --------------------------------------------------------------
+
+The recursive structure relies on the geometric discount weights $\beta^t$. Not all weight structures admit this decomposition.
+
+\paragraph{The Quasi-Hyperbolic Case.}
+Consider the $\beta$-$\delta$ preferences common in behavioral economics:
+\begin{equation}
+V = u(c_0) + \beta \sum_{t=1}^{T} \delta^t u(c_t),
+\label{eq:beta-delta}
+\end{equation}
+where $\beta \in (0,1)$ captures "present bias" and $\delta \in (0,1)$ is the long-run discount factor. The weights are:
+\begin{equation}
+\text{weight on } c_0 = 1, \qquad \text{weight on } c_t = \beta \delta^t \text{ for } t \geq 1.
+\label{eq:beta-delta-weights}
+\end{equation}
+
+\paragraph{Why the Recursion Fails.}
+Attempt to write this recursively by separating $c_0$:
+\begin{equation}
+V = u(c_0) + \beta \delta \sum_{t=1}^{T} \delta^{t-1} u(c_t) = u(c_0) + \beta \delta \cdot V',
+\label{eq:beta-delta-attempt}
+\end{equation}
+where $V' = \sum_{t=1}^{T} \delta^{t-1} u(c_t)$. But from the perspective of period 1, the agent evaluates:
+\begin{equation}
+V_1 = u(c_1) + \beta \sum_{t=2}^{T} \delta^{t-1} u(c_t) \neq V'.
+\label{eq:beta-delta-v1}
+\end{equation}
+The object $V'$ (which discounts geometrically from period 1) is \emph{not the same} as $V_1$ (which applies the present-bias factor $\beta$ again at period 1). The inner object differs from the outer object.
+
+\begin{calloutnote}[The Problem]
+With $\beta$-$\delta$ preferences, the continuation value $V'$ that appears in today's recursion is not the same as the value function $V_1$ that the agent will actually use tomorrow. The weights cannot be factored to produce a self-similar structure.
+
+This is why $\beta$-$\delta$ preferences lead to time-inconsistent behavior: the agent's future self solves a different problem than the current self anticipates. We do not pursue this here, but it illustrates that the recursive structure of standard discounted utility is a substantive restriction, not merely a notational convenience.
+\end{calloutnote}
+
+\paragraph{The General Lesson.}
+For the recursion to work, the weight structure must satisfy:
+\begin{equation}
+\frac{\omega_t}{\sum_{s=t}^{T} \omega_s} = f(\text{parameters only}),
+\label{eq:factorization-condition}
+\end{equation}
+independent of $t$ (at least in the infinite-horizon limit). Geometric weights $\omega_t \propto \beta^t$ satisfy this with $f = 1 - \beta$. Quasi-hyperbolic weights do not.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:discounted-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item Standard discounted power utility is a \textbf{monotone transformation} of a classical generalized mean with weights $\bar{\omega}_t = \kappa \beta^t$.
+    
+    \item The \textbf{canonical form} uses an effective discount factor $\tilde{\beta} = \beta^\theta$, combining impatience and substitutability.
+    
+    \item The \textbf{recursive formulation} is $\V_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho)$ in the infinite-horizon limit, where $\rho = 1 - 1/\theta$.
+    
+    \item The \textbf{continuation value} $\V_{t+1}$ is a sufficient statistic for all future consumption---this is why dynamic programming works with CES preferences.
+\end{enumerate}
+\end{calloutimportant}
+
+\begin{callouttip}[Exercise]
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Verify that when $\theta = 1$ (log utility), the recursion $\V_t = ((1-\beta)c_t^\rho + \beta \V_{t+1}^\rho)^{1/\rho}$ reduces to $\V_t = c_t^{1-\beta} \V_{t+1}^\beta$.
+    \item For the finite-horizon case with $T = 2$, compute $\V_0$ explicitly as a function of $(c_0, c_1, c_2)$ using backward induction.
+    \item Show that the result in (b) equals the classical mean $\Mbar((c_0, c_1, c_2); (\bar{\omega}_0, \bar{\omega}_1, \bar{\omega}_2), \rho)$.
+\end{enumerate}
+\end{callouttip}

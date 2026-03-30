@@ -1,0 +1,508 @@
+% ==============================================================
+\section{Connections to Information Theory and Extreme Values}
+\label{sec:ac-advanced}
+% ==============================================================
+
+This section develops speculative connections between the CES framework and three areas of mathematics: information theory (Kullback-Leibler divergence), extreme value theory (the Gnedenko-Fisher-Tippett theorem), and large deviations (rare event probabilities). These connections suggest that the CES structure may be more fundamental than its current applications in economics indicate---it emerges naturally from information-theoretic principles and from the statistics of extreme outcomes.
+
+\begin{calloutcaution}[Speculative Material]
+The results in this section range from established theorems applied in new contexts to conjectures and open questions. We aim to sketch a research agenda rather than present finished theory. The connections are suggestive and merit further investigation.
+\end{calloutcaution}
+
+% --------------------------------------------------------------
+\subsection{The Kullback-Leibler Divergence}
+\label{subsec:ac-adv-kl}
+% --------------------------------------------------------------
+
+\paragraph{Definition.}
+The Kullback-Leibler (KL) divergence from distribution $\bq = (q_1, \ldots, q_n)$ to distribution $\bp = (p_1, \ldots, p_n)$ is:
+\begin{equation}
+D_{KL}(\bp \| \bq) = \sum_{i=1}^{n} p_i \log \frac{p_i}{q_i}.
+\label{eq:ac-adv-kl-def}
+\end{equation}
+
+The KL divergence measures the ``information cost'' of using $\bq$ to approximate $\bp$. It is non-negative, equals zero if and only if $\bp = \bq$, and is not symmetric.
+
+\paragraph{Connection to CES Optimization.}
+Consider the following variational problem: find the distribution $\bp$ that maximizes expected utility subject to an information constraint:
+\begin{equation}
+\max_{\bp} \; \sum_{i=1}^{n} p_i u_i \quad \text{subject to} \quad D_{KL}(\bp \| \bq) \leq \kappa, \quad \sum_i p_i = 1.
+\label{eq:ac-adv-kl-problem}
+\end{equation}
+
+Here $u_i$ is the utility in state $i$, $\bq$ is a reference (prior) distribution, and $\kappa$ is the information budget.
+
+\paragraph{The Solution.}
+The Lagrangian is:
+\begin{equation}
+\mathcal{L} = \sum_i p_i u_i - \lambda \left( \sum_i p_i \log \frac{p_i}{q_i} - \kappa \right) - \mu \left( \sum_i p_i - 1 \right).
+\label{eq:ac-adv-kl-lagrangian}
+\end{equation}
+
+The FOC for $p_i$ is:
+\begin{equation}
+u_i - \lambda \left( \log \frac{p_i}{q_i} + 1 \right) - \mu = 0.
+\label{eq:ac-adv-kl-foc}
+\end{equation}
+
+Solving:
+\begin{equation}
+p_i = q_i \exp\left( \frac{u_i - \mu - \lambda}{\lambda} \right) = q_i \cdot \frac{\exp(u_i / \lambda)}{Z},
+\label{eq:ac-adv-kl-solution}
+\end{equation}
+where $Z = \sum_j q_j \exp(u_j / \lambda)$ is the normalizing constant.
+
+\begin{calloutimportant}[The Exponential Tilting]
+The optimal distribution is an \emph{exponential tilting} of the prior:
+\[
+p_i^* \propto q_i \exp(u_i / \lambda).
+\]
+This is the Gibbs distribution from statistical mechanics, with $\lambda$ playing the role of temperature. Higher utility states receive more probability mass, with the tilting controlled by the information cost $\lambda$.
+\end{calloutimportant}
+
+\paragraph{The Value Function.}
+The maximized objective, evaluated at the optimum, is:
+\begin{equation}
+V^* = \lambda \log \sum_i q_i \exp(u_i / \lambda) + \lambda \kappa.
+\label{eq:ac-adv-kl-value}
+\end{equation}
+
+The term $\lambda \log \sum_i q_i \exp(u_i / \lambda)$ is the \emph{log-sum-exp} function, also known as the \emph{soft maximum}:
+\begin{equation}
+\text{LSE}_\lambda(\bu; \bq) = \lambda \log \sum_i q_i \exp(u_i / \lambda).
+\label{eq:ac-adv-lse}
+\end{equation}
+
+\paragraph{Connection to Certainty Equivalents.}
+The log-sum-exp is intimately related to the CES certainty equivalent. Consider the limit:
+\begin{align}
+\lim_{\lambda \to 0^+} \text{LSE}_\lambda(\bu; \bq) &= \max_i u_i, \label{eq:ac-adv-lse-limit0} \\
+\lim_{\lambda \to \infty} \text{LSE}_\lambda(\bu; \bq) &= \sum_i q_i u_i = \mathbb{E}_q[u]. \label{eq:ac-adv-lse-limitinf}
+\end{align}
+
+The soft maximum interpolates between the hard maximum ($\lambda \to 0$) and the expectation ($\lambda \to \infty$).
+
+Now compare with the CES certainty equivalent:
+\begin{equation}
+\CE_\gamma(\bc; \bq) = \left( \sum_i q_i c_i^{1-\gamma} \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ac-adv-ce}
+\end{equation}
+
+Taking logs:
+\begin{equation}
+\log \CE_\gamma = \frac{1}{1-\gamma} \log \sum_i q_i \exp\left( (1-\gamma) \log c_i \right).
+\label{eq:ac-adv-ce-log}
+\end{equation}
+
+Setting $u_i = \log c_i$ and $\lambda = 1/(1-\gamma)$:
+\begin{equation}
+\log \CE_\gamma = \text{LSE}_{1/(1-\gamma)}(\log \bc; \bq).
+\label{eq:ac-adv-ce-lse}
+\end{equation}
+
+\begin{proposition}[CES-KL Duality]
+\label{prop:ac-adv-ces-kl}
+The log of the CES certainty equivalent is the value function of a KL-constrained optimization problem:
+\begin{equation}
+\log \CE_\gamma(\bc; \bq) = \max_{\bp} \left\{ \sum_i p_i \log c_i - \frac{1}{1-\gamma} D_{KL}(\bp \| \bq) \right\}.
+\label{eq:ac-adv-ces-kl}
+\end{equation}
+The optimal tilting is $p_i^* \propto q_i c_i^{1-\gamma}$, which is the risk-neutral measure.
+\end{proposition}
+
+\begin{calloutnote}[Interpretation]
+This result provides an information-theoretic foundation for CES preferences:
+\begin{itemize}[nosep]
+\item The household maximizes expected log-consumption.
+\item But it faces a cost for deviating from the reference distribution $\bq$.
+\item Risk aversion $\gamma$ controls this cost: higher $\gamma$ means higher cost of tilting, leading to less deviation from $\bq$.
+\end{itemize}
+
+The risk-neutral measure $p_i^* \propto q_i c_i^{1-\gamma}$ emerges as the optimal belief distortion given the information cost.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Robust Control and Model Uncertainty}
+\label{subsec:ac-adv-robust}
+% --------------------------------------------------------------
+
+The KL-CES connection extends naturally to robust control, where agents face model uncertainty.
+
+\paragraph{The Robust Decision Problem.}
+An agent is uncertain about the true probability distribution over states. The reference model specifies probabilities $\bq$, but the agent entertains alternatives $\bp$ within a KL ball:
+\begin{equation}
+\min_{\bp: D_{KL}(\bp \| \bq) \leq \kappa} \; \sum_i p_i u_i.
+\label{eq:ac-adv-robust}
+\end{equation}
+
+This is the \emph{worst-case} expected utility over models within the uncertainty set.
+
+\paragraph{Solution.}
+By the same calculus:
+\begin{equation}
+p_i^* \propto q_i \exp(-u_i / \theta),
+\label{eq:ac-adv-robust-solution}
+\end{equation}
+where $\theta > 0$ is the Lagrange multiplier on the KL constraint.
+
+The worst-case model tilts toward low-utility states---the agent is pessimistic.
+
+\paragraph{The Value Function.}
+\begin{equation}
+V^{\text{robust}} = -\theta \log \sum_i q_i \exp(-u_i / \theta) = -\text{LSE}_\theta(-\bu; \bq).
+\label{eq:ac-adv-robust-value}
+\end{equation}
+
+This is related to the \emph{risk-sensitive} criterion in control theory and to \emph{multiplier preferences} in economics (Hansen-Sargent).
+
+\paragraph{Connection to CES.}
+With $u_i = \log c_i$:
+\begin{equation}
+V^{\text{robust}} = \log \left( \sum_i q_i c_i^{-1/\theta} \right)^{-\theta} = \log \CE_{1+1/\theta}(\bc; \bq).
+\label{eq:ac-adv-robust-ces}
+\end{equation}
+
+Robust control with KL penalty is equivalent to CES certainty equivalent with risk aversion $\gamma = 1 + 1/\theta$.
+
+\begin{calloutimportant}[Robustness and Risk Aversion]
+The KL framework reveals that risk aversion can be interpreted as robustness to model misspecification:
+\begin{itemize}[nosep]
+\item A risk-neutral agent ($\gamma = 1$) uses the reference model $\bq$ directly.
+\item A risk-averse agent ($\gamma > 1$) implicitly considers worst-case models, tilted toward bad outcomes.
+\item Higher risk aversion corresponds to a smaller KL ball---less tolerance for model uncertainty.
+\end{itemize}
+
+This ``dual'' interpretation of risk aversion---as either curvature of utility or as robustness to misspecification---is a deep insight from the Hansen-Sargent research program.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Extreme Value Theory}
+\label{subsec:ac-adv-evt}
+% --------------------------------------------------------------
+
+We now turn to extreme value theory (EVT), which characterizes the distribution of maxima (or minima) of random variables.
+
+\paragraph{The Setup.}
+Let $X_1, X_2, \ldots, X_n$ be i.i.d. random variables with distribution $F$. Define:
+\begin{equation}
+M_n = \max\{X_1, \ldots, X_n\}.
+\label{eq:ac-adv-Mn}
+\end{equation}
+
+The question: what is the limiting distribution of $M_n$ as $n \to \infty$?
+
+\paragraph{The Gnedenko-Fisher-Tippett Theorem.}
+If there exist normalizing sequences $a_n > 0$ and $b_n$ such that:
+\begin{equation}
+\frac{M_n - b_n}{a_n} \xrightarrow{d} G,
+\label{eq:ac-adv-gft}
+\end{equation}
+then $G$ must be one of three types:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Gumbel} (Type I): $G(x) = \exp(-e^{-x})$, $x \in \mathbb{R}$.
+\item \textbf{Fréchet} (Type II): $G(x) = \exp(-x^{-\alpha})$, $x > 0$, $\alpha > 0$.
+\item \textbf{Weibull} (Type III): $G(x) = \exp(-(-x)^{\alpha})$, $x < 0$, $\alpha > 0$.
+\end{enumerate}
+
+These can be unified into the \emph{Generalized Extreme Value} (GEV) distribution:
+\begin{equation}
+G_\xi(x) = \exp\left( -(1 + \xi x)^{-1/\xi} \right), \qquad 1 + \xi x > 0,
+\label{eq:ac-adv-gev}
+\end{equation}
+where $\xi$ is the shape parameter: $\xi > 0$ (Fréchet), $\xi = 0$ (Gumbel), $\xi < 0$ (Weibull).
+
+\paragraph{Connection to Production with Complements.}
+Recall the Leontief production function:
+\begin{equation}
+Y = \min\{a_1 k_1, a_2 k_2, \ldots, a_n k_n\}.
+\label{eq:ac-adv-leontief}
+\end{equation}
+
+If the productivities $a_i$ are random, then output $Y$ is the \emph{minimum} of $n$ random variables. By EVT, the distribution of $Y$ (suitably normalized) converges to a GEV distribution as $n \to \infty$.
+
+\paragraph{The CES Limit.}
+The CES production function:
+\begin{equation}
+Y = \left( \sum_{i=1}^{n} \alpha_i a_i^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma}
+\label{eq:ac-adv-ces-prod}
+\end{equation}
+interpolates between:
+\begin{itemize}[nosep]
+\item Sum (perfect substitutes): $\sigma = 1$, $Y = \sum_i \alpha_i a_i k_i$.
+\item Geometric mean: $\sigma = 0$, $Y = \prod_i (a_i k_i)^{\alpha_i}$.
+\item Minimum (perfect complements): $\sigma \to -\infty$, $Y = \min_i \{a_i k_i / \alpha_i^{-1/(1-\sigma)}\}$.
+\end{itemize}
+
+As $\sigma \to -\infty$, the CES converges to the Leontief, and EVT governs the distribution of output.
+
+% --------------------------------------------------------------
+\subsection{Pareto Distributions and Closed-Form Solutions}
+\label{subsec:ac-adv-pareto}
+% --------------------------------------------------------------
+
+\paragraph{Pareto Shocks.}
+Suppose each productivity $a_i$ has a Pareto distribution:
+\begin{equation}
+\mathbb{P}[a_i > x] = \left( \frac{\underline{a}_i}{x} \right)^{\alpha_i}, \qquad x \geq \underline{a}_i,
+\label{eq:ac-adv-pareto}
+\end{equation}
+where $\alpha_i > 0$ is the tail exponent (higher $\alpha_i$ means thinner tail, more ``reliable'').
+
+\paragraph{The Leontief Case.}
+With Leontief production ($\sigma \to -\infty$) and full depreciation ($\delta = 1$):
+\begin{equation}
+Y = \min_i \{ a_i k_i \} = \min_i \{ a_i \phi_i \bar{I} \},
+\label{eq:ac-adv-Y-leontief}
+\end{equation}
+where $\phi_i = k_i / \bar{I}$ are portfolio shares.
+
+The distribution of $Y$ given portfolio $\boldsymbol{\phi}$ and total investment $\bar{I}$:
+\begin{equation}
+\mathbb{P}[Y > y] = \mathbb{P}\left[ a_i \phi_i \bar{I} > y, \; \forall i \right] = \prod_i \left( \frac{\phi_i \bar{I} \underline{a}_i}{y} \right)^{\alpha_i}.
+\label{eq:ac-adv-Y-dist}
+\end{equation}
+
+This simplifies to:
+\begin{equation}
+\mathbb{P}[Y > y] = y^{-\sum_i \alpha_i} \cdot \prod_i \left( \phi_i \bar{I} \underline{a}_i \right)^{\alpha_i}.
+\label{eq:ac-adv-Y-dist-simple}
+\end{equation}
+
+Output $Y$ has a Pareto distribution with tail exponent $\sum_i \alpha_i$.
+
+\paragraph{The Certainty Equivalent.}
+With risk aversion $\gamma$, the certainty equivalent is:
+\begin{equation}
+\CE = \left( \mathbb{E}[Y^{1-\gamma}] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ac-adv-CE-pareto}
+\end{equation}
+
+For Pareto-distributed $Y$, this integral is tractable (assuming $\sum_i \alpha_i > 1 - \gamma$ for convergence):
+\begin{equation}
+\CE \propto \prod_i \left( \phi_i \underline{a}_i \right)^{\frac{\alpha_i}{\sum_j \alpha_j}}.
+\label{eq:ac-adv-CE-closed}
+\end{equation}
+
+\paragraph{Optimal Portfolio.}
+Maximizing $\CE$ over $\boldsymbol{\phi}$ subject to $\sum_i \phi_i = 1$:
+\begin{equation}
+\max_{\boldsymbol{\phi}} \prod_i \phi_i^{\alpha_i / \sum_j \alpha_j} \quad \text{s.t.} \quad \sum_i \phi_i = 1.
+\label{eq:ac-adv-portfolio-pareto}
+\end{equation}
+
+This is a Cobb-Douglas optimization problem! The solution is:
+\begin{equation}
+\boxed{\phi_i^* = \frac{\alpha_i}{\sum_j \alpha_j}.}
+\label{eq:ac-adv-phi-pareto}
+\end{equation}
+
+\begin{calloutimportant}[Allocate According to Reliability]
+The optimal portfolio allocates investment proportionally to the \emph{tail exponents} $\alpha_i$:
+\begin{itemize}[nosep]
+\item Higher $\alpha_i$ means the right tail decays faster---capital type $i$ is more ``reliable'' (less prone to extremely low productivity).
+\item Allocate more to reliable capital types.
+\end{itemize}
+
+This result is independent of risk aversion $\gamma$ (as long as the integral converges) and independent of the scale parameters $\underline{a}_i$. Only the tail behavior matters.
+\end{calloutimportant}
+
+\paragraph{Universality Conjecture.}
+The Pareto case yields a remarkably simple result: $\phi_i^* = \alpha_i / \sum_j \alpha_j$. We conjecture that similar results hold more broadly:
+
+\begin{quote}
+\textit{For a wide class of distributions in the domain of attraction of the Fréchet distribution, the optimal portfolio under Leontief technology allocates according to tail exponents.}
+\end{quote}
+
+This conjecture is motivated by the GFT theorem: if the productivities are in the Fréchet domain, their minimum (which is the maximum of $-a_i$) has a limiting Fréchet distribution, and the tail exponents govern the limiting behavior.
+
+% --------------------------------------------------------------
+\subsection{Large Deviations and Rare Events}
+\label{subsec:ac-adv-large-dev}
+% --------------------------------------------------------------
+
+Large deviation theory studies the probability of rare events---outcomes far from the mean.
+
+\paragraph{The Large Deviation Principle.}
+Let $S_n = \frac{1}{n} \sum_{i=1}^{n} X_i$ be the sample mean of i.i.d. random variables. By the law of large numbers, $S_n \to \mu = \mathbb{E}[X]$. Large deviation theory characterizes the rate at which $\mathbb{P}[S_n \approx x]$ decays for $x \neq \mu$:
+\begin{equation}
+\mathbb{P}[S_n \approx x] \asymp e^{-n I(x)},
+\label{eq:ac-adv-ldp}
+\end{equation}
+where $I(x)$ is the \emph{rate function}.
+
+\paragraph{The Rate Function.}
+For many distributions, the rate function is the Legendre transform of the log-moment generating function:
+\begin{equation}
+I(x) = \sup_{\theta} \left\{ \theta x - \log \mathbb{E}[e^{\theta X}] \right\}.
+\label{eq:ac-adv-rate}
+\end{equation}
+
+The rate function $I(x)$ measures how ``surprising'' the outcome $x$ is: higher $I(x)$ means $x$ is exponentially less likely.
+
+\paragraph{Connection to KL Divergence.}
+For discrete distributions, the rate function is the KL divergence:
+\begin{equation}
+I(\bp) = D_{KL}(\bp \| \bq),
+\label{eq:ac-adv-rate-kl}
+\end{equation}
+where $\bp$ is the empirical distribution and $\bq$ is the true distribution.
+
+This connects large deviations to our earlier discussion: the probability of observing an empirical distribution $\bp$ decays exponentially in $n \cdot D_{KL}(\bp \| \bq)$.
+
+\paragraph{Implications for Portfolio Choice.}
+In a portfolio context, rare events are extreme losses (or gains). The large deviation rate function governs:
+\begin{itemize}[nosep]
+\item The probability of portfolio values falling below a threshold.
+\item The tail behavior of returns.
+\item The ``value at risk'' and related measures.
+\end{itemize}
+
+With CES certainty equivalents, the connection to KL divergence implies that the agent implicitly considers the large deviation behavior of outcomes.
+
+% --------------------------------------------------------------
+\subsection{The Central Limit Theorem and Aggregation}
+\label{subsec:ac-adv-clt}
+% --------------------------------------------------------------
+
+The CLT governs the distribution of sums; EVT governs maxima/minima. The CES aggregator interpolates between these extremes.
+
+\paragraph{The CES as Interpolation.}
+Consider:
+\begin{equation}
+M_\rho(\bx) = \left( \frac{1}{n} \sum_{i=1}^{n} x_i^\rho \right)^{1/\rho}.
+\label{eq:ac-adv-M-rho}
+\end{equation}
+
+\begin{itemize}[nosep]
+\item $\rho = 1$: Arithmetic mean $\bar{x} = \frac{1}{n} \sum_i x_i$. Governed by CLT.
+\item $\rho \to 0$: Geometric mean $(\prod_i x_i)^{1/n}$. Log is governed by CLT.
+\item $\rho \to \infty$: Maximum $\max_i x_i$. Governed by EVT.
+\item $\rho \to -\infty$: Minimum $\min_i x_i$. Governed by EVT.
+\end{itemize}
+
+\paragraph{A Unified Limit Theory?}
+The CES power $\rho$ determines which limit theory applies:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Range of $\rho$} & \textbf{Aggregator Behavior} & \textbf{Limit Theory} \\
+\midrule
+$\rho > 0$ (large) & Close to maximum & EVT (GEV) \\
+$\rho \approx 1$ & Close to arithmetic mean & CLT (Gaussian) \\
+$\rho \approx 0$ & Close to geometric mean & CLT for logs \\
+$\rho < 0$ (large $|\rho|$) & Close to minimum & EVT (GEV) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Conjecture: Generalized Limit Theory.}
+We conjecture that there exists a ``generalized limit theory'' for CES aggregators that:
+\begin{enumerate}[nosep]
+\item Reduces to CLT when $\rho \approx 1$.
+\item Reduces to EVT when $|\rho| \to \infty$.
+\item Provides a continuous interpolation for intermediate $\rho$.
+\end{enumerate}
+
+Such a theory would characterize the distribution of CES aggregates as $n \to \infty$ and provide tools for approximating portfolio returns, production functions, and certainty equivalents with many components.
+
+% --------------------------------------------------------------
+\subsection{Entropy and the CES}
+\label{subsec:ac-adv-entropy}
+% --------------------------------------------------------------
+
+\paragraph{Rényi Entropy.}
+The Rényi entropy of order $\alpha$ for distribution $\bp$ is:
+\begin{equation}
+H_\alpha(\bp) = \frac{1}{1-\alpha} \log \sum_i p_i^\alpha.
+\label{eq:ac-adv-renyi}
+\end{equation}
+
+Special cases:
+\begin{itemize}[nosep]
+\item $\alpha \to 1$: Shannon entropy $H_1 = -\sum_i p_i \log p_i$.
+\item $\alpha = 2$: Collision entropy $H_2 = -\log \sum_i p_i^2$.
+\item $\alpha \to \infty$: Min-entropy $H_\infty = -\log \max_i p_i$.
+\end{itemize}
+
+\paragraph{Connection to CES.}
+The CES aggregator can be written in terms of Rényi entropy:
+\begin{equation}
+\log M_\rho(\bx; \bp) = \frac{1}{\rho} \log \sum_i p_i x_i^\rho = \log \left( \sum_i p_i x_i^\rho \right)^{1/\rho}.
+\label{eq:ac-adv-ces-renyi}
+\end{equation}
+
+If we set $x_i = 1/p_i$ (the ``surprise'' of outcome $i$):
+\begin{equation}
+\log M_\rho(1/\bp; \bp) = \frac{1}{\rho} \log \sum_i p_i^{1-\rho} = \frac{1-\rho}{\rho} H_{1-\rho}(\bp).
+\label{eq:ac-adv-ces-entropy}
+\end{equation}
+
+The CES of inverse probabilities is (a transform of) Rényi entropy.
+
+\begin{calloutnote}[Information-Theoretic Interpretation]
+This connection suggests that CES aggregation has an information-theoretic interpretation:
+\begin{itemize}[nosep]
+\item The CES curvature $\rho$ corresponds to the Rényi order $\alpha = 1 - \rho$.
+\item Risk aversion in certainty equivalents corresponds to entropy measures.
+\item Substitution elasticity in preferences corresponds to information diversity.
+\end{itemize}
+
+Exploring these connections may yield insights into the ``meaning'' of CES parameters beyond their standard economic interpretations.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Open Questions}
+\label{subsec:ac-adv-open}
+% --------------------------------------------------------------
+
+We conclude with open questions for future research:
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}]
+\item \textbf{Generalized limit theory}: Can we develop a unified limit theory for CES aggregates that interpolates between CLT and EVT?
+
+\item \textbf{Optimal portfolios under EVT}: For general distributions in the domain of attraction of GEV, what is the optimal portfolio under Leontief (or near-Leontief) production? Does the ``allocate by tail exponent'' rule extend?
+
+\item \textbf{Information-theoretic foundations}: Can CES preferences be axiomatized from information-theoretic principles (e.g., maximizing utility subject to information costs)?
+
+\item \textbf{Large deviations and tail risk}: How does the CES certainty equivalent relate to tail risk measures like Value-at-Risk or Expected Shortfall? Can the KL connection provide new insights?
+
+\item \textbf{Aggregation with dependence}: The results above assume independence. How do correlations between shocks affect the CES-EVT-KL connections?
+
+\item \textbf{Dynamic extensions}: How do these information-theoretic and limit-theory connections extend to dynamic settings with recursive preferences?
+\end{enumerate}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-adv-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Connections to Information Theory and Extreme Values}
+\label{tab:ac-adv-summary}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Area} & \textbf{Key Object} & \textbf{CES Connection} \\
+\midrule
+Information theory & KL divergence $D_{KL}(\bp \| \bq)$ & Risk aversion = info cost \\
+Robust control & Worst-case model & CES certainty equivalent \\
+Extreme value theory & GEV distribution & Leontief $\leftrightarrow$ min \\
+Pareto distributions & Tail exponent $\alpha_i$ & Optimal portfolio $\phi_i^* = \alpha_i / \sum \alpha_j$ \\
+Large deviations & Rate function $I(x)$ & KL divergence \\
+Entropy & Rényi entropy $H_\alpha$ & CES curvature $\rho = 1 - \alpha$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+The speculative connections in this section suggest:
+\begin{itemize}[nosep]
+\item \textbf{CES is fundamental}: The CES structure emerges from information-theoretic principles (KL divergence) and from limit theorems (EVT, CLT).
+\item \textbf{Risk aversion = information cost}: High risk aversion corresponds to high cost of deviating from reference beliefs.
+\item \textbf{Tail exponents matter}: For Leontief production with Pareto shocks, optimal portfolios allocate by reliability (tail exponents).
+\item \textbf{Unified framework}: CES interpolates between CLT (sums) and EVT (extremes), suggesting a generalized limit theory.
+\item \textbf{Entropy connection}: CES curvature maps to Rényi entropy order, hinting at information-theoretic foundations.
+\end{itemize}
+These connections merit further investigation and may reveal deeper structure underlying the CES framework.
+\end{callouttip}

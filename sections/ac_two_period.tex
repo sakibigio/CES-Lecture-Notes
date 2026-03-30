@@ -1,0 +1,583 @@
+% ==============================================================
+\section{The Two-Period Problem with Adjustment Costs}
+\label{sec:ac-two-period}
+% ==============================================================
+
+We now introduce adjustment costs through the CES aggregator. The key insight is that the same machinery governing substitution across goods also governs substitution between consumption and investment. When the aggregator has finite elasticity, transforming output into consumption and investment is costly---the economy faces an implicit adjustment cost even without explicit convex costs in the investment technology.
+
+% --------------------------------------------------------------
+\subsection{From Linear to CES Transformation}
+\label{subsec:ac-linear-to-ces}
+% --------------------------------------------------------------
+
+In the standard neoclassical model, output $Y$ splits linearly into consumption $C$ and investment $I$:
+\begin{equation}
+C + I = Y.
+\label{eq:ac-linear-constraint}
+\end{equation}
+This formulation assumes perfect substitutability: one unit of output can become one unit of consumption or one unit of investment at the margin, with no loss. The relative ``price'' of investment in terms of consumption is always unity.
+
+\paragraph{Introducing the CES Transformation.}
+Now suppose that converting output into consumption and investment requires an aggregation technology. Output $Y$ is related to consumption and investment through a CES aggregator:
+\begin{equation}
+\Hfun(C, I; \bom, \psi) = Y,
+\label{eq:ac-ces-constraint}
+\end{equation}
+where $\Hfun$ is a CES function with elasticity parameter $\psi$ and weights $\bom = (\omega_C, \omega_I)$ satisfying $\omega_C + \omega_I = 1$. In canonical form:
+\begin{equation}
+\Hfun(C, I) = \left( \omega_C^{1-\psi} C^{\psi} + \omega_I^{1-\psi} I^{\psi} \right)^{1/\psi}.
+\label{eq:ac-H-canonical}
+\end{equation}
+
+The parameter $\psi$ governs the elasticity of transformation between consumption and investment. Define the elasticity of substitution:
+\begin{equation}
+\eta \equiv \frac{1}{1 - \psi}.
+\label{eq:ac-eta-def}
+\end{equation}
+
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Case & Power $\psi$ & Elasticity $\eta$ & Interpretation \\
+\midrule
+Linear & $\psi = 1$ & $\eta = \infty$ & Perfect substitutes \\
+Cobb-Douglas & $\psi = 0$ & $\eta = 1$ & Unit elasticity \\
+Leontief & $\psi \to -\infty$ & $\eta = 0$ & Perfect complements \\
+Intermediate & $\psi \in (0,1)$ & $\eta > 1$ & High substitutability \\
+Intermediate & $\psi < 0$ & $\eta < 1$ & Low substitutability \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+When $\eta < \infty$, the economy faces an implicit adjustment cost: shifting resources from consumption to investment (or vice versa) is costly because the transformation frontier is curved.
+
+\paragraph{The Production Possibility Frontier.}
+Given output $Y$, the constraint $\Hfun(C, I) = Y$ defines a \emph{production possibility frontier} (PPF) in $(C, I)$ space. Solving for $I$ as a function of $C$:
+\begin{equation}
+I = \left( \frac{Y^{\psi} - \omega_C^{1-\psi} C^{\psi}}{\omega_I^{1-\psi}} \right)^{1/\psi}.
+\label{eq:ac-ppf}
+\end{equation}
+
+The slope of the PPF is the \emph{marginal rate of transformation} (MRT):
+\begin{equation}
+\text{MRT} \equiv -\frac{dI}{dC} = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{C}{I} \right)^{\psi - 1} = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{I}{C} \right)^{1-\psi}.
+\label{eq:ac-mrt}
+\end{equation}
+
+When $\psi < 1$ (i.e., $\eta < \infty$), the MRT depends on the allocation $(C, I)$. The cost of producing an additional unit of investment---in terms of foregone consumption---varies along the frontier. This is the essence of adjustment costs.
+
+\begin{calloutnote}[The Price of Investment]
+The MRT can be interpreted as the relative price of investment in terms of consumption. When $\eta < \infty$, this price is endogenous: it depends on how much the economy is investing. High investment rates make additional investment expensive at the margin.
+
+This connects to the classic $q$-theory of investment: the shadow price of capital (Tobin's $q$) reflects the marginal cost of transforming output into installed capital.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Two-Period Setup}
+\label{subsec:ac-two-period-setup}
+% --------------------------------------------------------------
+
+Consider a two-period economy, $t \in \{0, 1\}$. The household enters period 0 with capital stock $k_0$ and chooses consumption and investment to maximize lifetime utility.
+
+\paragraph{Technology.}
+Production is linear in capital with productivity $A$:
+\begin{equation}
+Y_t = A k_t.
+\label{eq:ac-production}
+\end{equation}
+Capital fully depreciates ($\delta = 1$), so next-period capital equals current investment:
+\begin{equation}
+k_1 = I_0.
+\label{eq:ac-capital-accum}
+\end{equation}
+The CES aggregator governs the transformation of output:
+\begin{equation}
+\Hfun(C_t, I_t) = Y_t = A k_t.
+\label{eq:ac-resource}
+\end{equation}
+
+\paragraph{Preferences.}
+The household has time-separable preferences with discount factor $\beta \in (0,1)$ and period utility $u(C) = \frac{C^{1-1/\theta} - 1}{1 - 1/\theta}$, where $\theta > 0$ is the intertemporal elasticity of substitution (IES):
+\begin{equation}
+U = u(C_0) + \beta \, u(C_1).
+\label{eq:ac-utility}
+\end{equation}
+
+\paragraph{Terminal Condition.}
+In the final period, there is no investment ($I_1 = 0$), so all output is consumed:
+\begin{equation}
+C_1 = Y_1 = A k_1 = A I_0.
+\label{eq:ac-terminal}
+\end{equation}
+Note that in period 1, the CES constraint becomes $\Hfun(C_1, 0) = Y_1$. For the canonical CES with $\psi < 1$, this requires $C_1 = (\omega_C^{1-\psi})^{-1/\psi} Y_1$ when $I_1 = 0$. To avoid this complication, we assume the CES constraint applies only to period 0; in period 1, output converts directly to consumption.
+
+% --------------------------------------------------------------
+\subsection{The Optimization Problem}
+\label{subsec:ac-optimization}
+% --------------------------------------------------------------
+
+The household's problem is:
+\begin{equation}
+\max_{C_0, I_0} \left\{ u(C_0) + \beta \, u(A I_0) \right\} \quad \text{subject to} \quad \Hfun(C_0, I_0) = A k_0.
+\label{eq:ac-problem}
+\end{equation}
+
+This is a CES optimization problem, but with a twist: the constraint is nonlinear (a CES aggregator rather than a linear budget). We can apply the transformation approach from earlier chapters.
+
+\paragraph{The Dual Interpretation.}
+View the problem as choosing the allocation $(C_0, I_0)$ on the PPF to maximize a CES objective in $(C_0, C_1)$ where $C_1 = A I_0$. The objective is:
+\begin{equation}
+\max_{C_0, I_0} \; \V(C_0, A I_0; \tilde{\bom}, \rho) \quad \text{subject to} \quad \Hfun(C_0, I_0; \bom, \psi) = Y_0,
+\label{eq:ac-dual-problem}
+\end{equation}
+where $\V$ is the intertemporal aggregator with power $\rho = 1 - 1/\theta$ and weights $(\tilde{\omega}_0, \tilde{\omega}_1)$ derived from $\beta$ as in Section~\ref{sec:two-period}.
+
+This is a \emph{CES-on-CES} problem: a CES objective subject to a CES constraint. The interaction between the two elasticities---$\theta$ (intertemporal) and $\eta$ (transformation)---determines the equilibrium.
+
+% --------------------------------------------------------------
+\subsection{First-Order Conditions and the Euler Equation}
+\label{subsec:ac-foc}
+% --------------------------------------------------------------
+
+\paragraph{The Lagrangian.}
+Form the Lagrangian:
+\begin{equation}
+\mathcal{L} = u(C_0) + \beta \, u(A I_0) + \lambda \left[ Y_0 - \Hfun(C_0, I_0) \right].
+\label{eq:ac-lagrangian}
+\end{equation}
+
+\paragraph{First-Order Conditions.}
+Differentiating with respect to $C_0$ and $I_0$:
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial C_0} &= u'(C_0) - \lambda \frac{\partial \Hfun}{\partial C_0} = 0, \label{eq:ac-foc-c} \\
+\frac{\partial \mathcal{L}}{\partial I_0} &= \beta A \, u'(A I_0) - \lambda \frac{\partial \Hfun}{\partial I_0} = 0. \label{eq:ac-foc-i}
+\end{align}
+
+The partial derivatives of the CES aggregator are:
+\begin{align}
+\frac{\partial \Hfun}{\partial C_0} &= \omega_C^{1-\psi} C_0^{\psi-1} \Hfun^{1-\psi} = \omega_C^{1-\psi} \left( \frac{C_0}{\Hfun} \right)^{\psi-1}, \label{eq:ac-dH-dC} \\
+\frac{\partial \Hfun}{\partial I_0} &= \omega_I^{1-\psi} I_0^{\psi-1} \Hfun^{1-\psi} = \omega_I^{1-\psi} \left( \frac{I_0}{\Hfun} \right)^{\psi-1}. \label{eq:ac-dH-dI}
+\end{align}
+
+\paragraph{The Modified Euler Equation.}
+Taking the ratio of \cref{eq:ac-foc-c,eq:ac-foc-i}:
+\begin{equation}
+\frac{u'(C_0)}{\beta A \, u'(C_1)} = \frac{\partial \Hfun / \partial C_0}{\partial \Hfun / \partial I_0} = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{C_0}{I_0} \right)^{\psi-1}.
+\label{eq:ac-euler-ratio}
+\end{equation}
+
+The right-hand side is the MRT from \cref{eq:ac-mrt}. Define the \emph{implicit price of investment}:
+\begin{equation}
+q \equiv \text{MRT} = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{C_0}{I_0} \right)^{\psi-1}.
+\label{eq:ac-q-def}
+\end{equation}
+
+The Euler equation becomes:
+\begin{equation}
+\boxed{u'(C_0) = \beta \, q \, A \, u'(C_1).}
+\label{eq:ac-euler}
+\end{equation}
+
+\begin{calloutimportant}[The Endogenous Interest Rate]
+Compare with the standard Euler equation $u'(C_0) = \beta R \, u'(C_1)$. The gross return $R$ is replaced by $q \cdot A$, where:
+\begin{itemize}[nosep]
+\item $A$ is the marginal product of capital (the ``technological'' return).
+\item $q$ is the relative price of investment (the MRT).
+\end{itemize}
+
+The effective interest rate is $R = q \cdot A$. When $\eta = \infty$ (linear transformation), $q = 1$ and $R = A$---the standard case. When $\eta < \infty$, $q$ depends on the investment rate, making the interest rate endogenous.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Characterizing the Solution}
+\label{subsec:ac-solution}
+% --------------------------------------------------------------
+
+\paragraph{Solving for the Allocation.}
+With CRRA utility, $u'(C) = C^{-1/\theta}$, the Euler equation \cref{eq:ac-euler} becomes:
+\begin{equation}
+C_0^{-1/\theta} = \beta \, q \, A \, C_1^{-1/\theta} = \beta \, q \, A \, (A I_0)^{-1/\theta}.
+\label{eq:ac-euler-crra}
+\end{equation}
+
+Rearranging:
+\begin{equation}
+\frac{C_1}{C_0} = (\beta \, q \, A)^{\theta}.
+\label{eq:ac-consumption-ratio}
+\end{equation}
+
+Using $C_1 = A I_0$ and $q = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} (C_0/I_0)^{\psi-1}$:
+\begin{equation}
+\frac{A I_0}{C_0} = \left( \beta A \cdot \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{C_0}{I_0} \right)^{\psi-1} \right)^{\theta}.
+\label{eq:ac-ratio-expanded}
+\end{equation}
+
+Let $x \equiv I_0 / C_0$ denote the investment-to-consumption ratio. Then:
+\begin{equation}
+A x = \left( \beta A \cdot \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \cdot x^{1-\psi} \right)^{\theta}.
+\label{eq:ac-x-equation}
+\end{equation}
+
+Taking logs:
+\begin{equation}
+\log(A x) = \theta \left[ \log(\beta A) + (1-\psi) \log\left( \frac{\omega_C}{\omega_I} \right) + (1-\psi) \log x \right].
+\label{eq:ac-log-equation}
+\end{equation}
+
+Collecting terms in $\log x$:
+\begin{equation}
+\log x \left[ 1 - \theta(1-\psi) \right] = \theta \log(\beta A) + \theta(1-\psi) \log\left( \frac{\omega_C}{\omega_I} \right) - \log A.
+\label{eq:ac-log-x-solve}
+\end{equation}
+
+Define:
+\begin{equation}
+\xi \equiv 1 - \theta(1-\psi) = 1 - \frac{\theta}{\eta}.
+\label{eq:ac-xi-def}
+\end{equation}
+
+The parameter $\xi$ captures the interaction between the IES $\theta$ and the transformation elasticity $\eta$. When $\xi \neq 0$:
+\begin{equation}
+\log x = \frac{1}{\xi} \left[ (\theta - 1) \log A + \theta \log \beta + \theta(1-\psi) \log\left( \frac{\omega_C}{\omega_I} \right) \right].
+\label{eq:ac-log-x-solution}
+\end{equation}
+
+\paragraph{Special Cases.}
+
+\medskip
+\noindent
+\textit{Case 1: Linear transformation ($\eta = \infty$, $\psi = 1$).} Then $\xi = 1$ and $q = \omega_C / \omega_I$ (constant). The solution reduces to the standard consumption-savings problem with exogenous interest rate $R = A \omega_C / \omega_I$.
+
+\medskip
+\noindent
+\textit{Case 2: Cobb-Douglas transformation ($\eta = 1$, $\psi = 0$).} Then $\xi = 1 - \theta$. The solution is:
+\begin{equation}
+\log x = \frac{(\theta - 1) \log A + \theta \log \beta + \theta \log(\omega_C / \omega_I)}{1 - \theta}.
+\label{eq:ac-cobb-douglas}
+\end{equation}
+For $\theta = 1$, this requires separate analysis (the denominator vanishes).
+
+\medskip
+\noindent
+\textit{Case 3: Unit IES ($\theta = 1$).} Then $\xi = \psi$ and:
+\begin{equation}
+\log x = \frac{\log \beta + (1-\psi) \log(\omega_C / \omega_I)}{\psi}.
+\label{eq:ac-unit-ies}
+\end{equation}
+The investment rate is independent of $A$---income and substitution effects cancel.
+
+\begin{calloutnote}[The Role of $\xi$]
+The parameter $\xi = 1 - \theta/\eta$ determines how the investment rate responds to changes in productivity $A$:
+\begin{itemize}[nosep]
+\item When $\xi > 0$ (i.e., $\theta < \eta$): Higher $A$ increases investment if $\theta > 1$ and decreases investment if $\theta < 1$.
+\item When $\xi < 0$ (i.e., $\theta > \eta$): The responses are reversed.
+\item When $\xi = 0$ (i.e., $\theta = \eta$): The investment rate is independent of $A$.
+\end{itemize}
+The interaction between intertemporal substitution and transformation elasticity creates rich comparative statics.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Transformation Approach}
+\label{subsec:ac-transformation}
+% --------------------------------------------------------------
+
+We now solve the same problem using the transformation approach, which reveals the structural role of the adjustment cost.
+
+\paragraph{Change of Variables.}
+Define the \emph{output shares}:
+\begin{equation}
+s_C \equiv \frac{\omega_C^{1-\psi} C_0^{\psi}}{Y_0^{\psi}}, \qquad s_I \equiv \frac{\omega_I^{1-\psi} I_0^{\psi}}{Y_0^{\psi}}.
+\label{eq:ac-shares-def}
+\end{equation}
+
+By the CES constraint, $s_C + s_I = 1$. These shares measure the ``contribution'' of each component to total output, analogous to expenditure shares in the consumer problem.
+
+\paragraph{Inverting the Transformation.}
+From \cref{eq:ac-shares-def}:
+\begin{equation}
+C_0 = \left( \frac{s_C}{\omega_C^{1-\psi}} \right)^{1/\psi} Y_0, \qquad I_0 = \left( \frac{s_I}{\omega_I^{1-\psi}} \right)^{1/\psi} Y_0.
+\label{eq:ac-invert}
+\end{equation}
+
+\paragraph{Transformed Objective.}
+Substituting into the utility function and using $C_1 = A I_0$:
+\begin{align}
+U &= u\left( \left( \frac{s_C}{\omega_C^{1-\psi}} \right)^{1/\psi} Y_0 \right) + \beta \, u\left( A \left( \frac{s_I}{\omega_I^{1-\psi}} \right)^{1/\psi} Y_0 \right) \notag \\
+&= u\left( \left( \frac{s_C}{\omega_C^{1-\psi}} \right)^{1/\psi} Y_0 \right) + \beta \, u\left( \left( \frac{s_I}{\omega_I^{1-\psi}} \right)^{1/\psi} A Y_0 \right).
+\label{eq:ac-transformed-U}
+\end{align}
+
+This is a standard two-good problem in the shares $(s_C, s_I)$ with the linear constraint $s_C + s_I = 1$. The ``prices'' are embedded in the transformation from shares to quantities.
+
+\paragraph{Effective Prices.}
+Define the effective price of consumption in period $t$ (in terms of the output share):
+\begin{equation}
+\tilde{p}_C = \left( \omega_C^{1-\psi} \right)^{1/\psi}, \qquad \tilde{p}_I = \left( \omega_I^{1-\psi} \right)^{1/\psi} / A.
+\label{eq:ac-effective-prices}
+\end{equation}
+
+The ratio $\tilde{p}_I / \tilde{p}_C$ captures the relative cost of future consumption (via investment) in terms of current consumption.
+
+% --------------------------------------------------------------
+\subsection{Tobin's $Q$ and the Price of Investment}
+\label{subsec:ac-tobin-q}
+% --------------------------------------------------------------
+
+The marginal rate of transformation $q$ defined in \cref{eq:ac-q-def} has a natural interpretation as \emph{Tobin's $Q$}---the shadow price of installed capital in terms of consumption goods.
+
+\begin{definition}[Tobin's $Q$]
+\label{def:tobin-q}
+Tobin's $Q$ is the marginal cost of investment in terms of consumption:
+\begin{equation}
+Q \equiv -\frac{dC}{dI} \bigg|_{\Hfun = Y} = \frac{\partial \Hfun / \partial I}{\partial \Hfun / \partial C} = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I} \right)^{1-\psi}.
+\label{eq:ac-tobin-q}
+\end{equation}
+Equivalently, $Q = 1/q$ where $q$ is the MRT defined earlier.
+\end{definition}
+
+Note the convention: $q = \text{MRT} = -dI/dC$ measures consumption foregone per unit of investment, while $Q = 1/q = -dC/dI$ measures the cost of investment in consumption units. In the $q$-theory literature, it is common to use $Q$ (or lowercase $q$) for the latter. We follow this convention henceforth.
+
+\paragraph{Interpretation.}
+When $Q > 1$, investment is ``expensive''---one unit of installed capital costs more than one unit of output. When $Q < 1$, investment is ``cheap.'' The deviation of $Q$ from unity reflects the curvature of the transformation frontier.
+
+In the CES formulation:
+\begin{equation}
+Q = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I} \right)^{1-\psi} = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I} \right)^{1/\eta}.
+\label{eq:ac-Q-ces}
+\end{equation}
+
+When $\eta < \infty$, $Q$ depends on the consumption-investment ratio. High investment rates (low $C/I$) imply high $Q$: the marginal unit of investment becomes increasingly costly.
+
+\begin{calloutnote}[The Euler Equation with Tobin's $Q$]
+The Euler equation \cref{eq:ac-euler} can be rewritten as:
+\begin{equation}
+u'(C_0) = \beta \frac{A}{Q} u'(C_1).
+\label{eq:ac-euler-Q}
+\end{equation}
+The effective gross return is $R = A/Q$: the marginal product of capital $A$ divided by the cost of acquiring that capital $Q$. This is the fundamental insight of $q$-theory: investment is governed by the ratio of marginal benefit ($A$) to marginal cost ($Q$).
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Comparison with Standard Adjustment Costs}
+\label{subsec:ac-comparison}
+% --------------------------------------------------------------
+
+The literature on investment typically specifies adjustment costs in a different form. We now compare our CES formulation with the standard approach, highlighting several advantages of the CES specification.
+
+\paragraph{The Standard Formulation.}
+The canonical adjustment cost specification in macroeconomics (following Lucas and Prescott, 1971; Hayashi, 1982) is:
+\begin{equation}
+C + I \left[ 1 + \frac{\phi}{2} \left( \frac{I}{K} \right) \right] = Y,
+\label{eq:ac-standard}
+\end{equation}
+or equivalently, defining the adjustment cost function $\Phi(I, K) = \frac{\phi}{2} (I/K)^2 K$:
+\begin{equation}
+C + I + \Phi(I, K) = Y, \qquad \Phi(I, K) = \frac{\phi}{2} \frac{I^2}{K}.
+\label{eq:ac-standard-phi}
+\end{equation}
+
+This specification has become standard because it delivers Tobin's $Q$ as a sufficient statistic for investment and because it is tractable in continuous time.
+
+\paragraph{The Odd Normalization.}
+The standard formulation raises an immediate question: \emph{why normalize by capital $K$?} The adjustment cost $\Phi(I, K) = \frac{\phi}{2} I^2 / K$ is homogeneous of degree one in $(I, K)$, which ensures that the value function is linear in $K$ along a balanced growth path. But this normalization is not derived from first principles---it is imposed for tractability.
+
+Several issues arise:
+\begin{enumerate}[label=(\roman*), nosep]
+\item \textbf{Arbitrary scale}: Why should adjustment costs scale with existing capital? If adjustment costs reflect installation, learning, or organizational frictions, there is no obvious reason why doubling the capital stock should double the cost of a given investment level.
+
+\item \textbf{Asymmetry}: The cost depends on $I/K$, making it asymmetric between investment and consumption. There is no corresponding friction on the consumption side.
+
+\item \textbf{Singularity at $K = 0$}: When $K \to 0$, the adjustment cost per unit of investment explodes: $\Phi/I = \frac{\phi}{2} I/K \to \infty$. This creates technical difficulties for economies starting from low capital.
+\end{enumerate}
+
+\paragraph{The CES Alternative.}
+The CES formulation $\Hfun(C, I) = Y$ avoids these issues:
+\begin{enumerate}[label=(\roman*), nosep]
+\item \textbf{Symmetric treatment}: Both consumption and investment enter the transformation technology symmetrically. The friction applies to the \emph{composition} of output, not to investment per se.
+
+\item \textbf{No arbitrary normalization}: The curvature is governed by a single parameter $\eta$ (the elasticity of transformation) with clear economic meaning.
+
+\item \textbf{Well-behaved limits}: As $\eta \to \infty$, we recover the frictionless case $C + I = Y$. As $\eta \to 0$, the technology becomes Leontief.
+
+\item \textbf{Independence from $K$}: The transformation frontier depends on output $Y$, not on the capital stock. This is natural if the friction reflects the technology for converting final goods into consumption and investment goods.
+\end{enumerate}
+
+\begin{calloutcaution}[When Does $K$ Belong in Adjustment Costs?]
+The dependence on $K$ in the standard formulation can be motivated if adjustment costs represent \emph{internal} installation costs---frictions that occur within the firm and scale with firm size. In contrast, the CES formulation is natural when adjustment costs represent \emph{external} transformation costs---frictions in converting output across uses, perhaps reflecting sectoral reallocation or the technology of the capital goods industry.
+
+The appropriate specification depends on the economic context. For aggregate analysis where ``adjustment costs'' proxy for various frictions, the CES formulation offers a parsimonious and well-behaved alternative.
+\end{calloutcaution}
+
+% --------------------------------------------------------------
+\subsection{Decentralization and the Zero-Profit Property}
+\label{subsec:ac-decentralization}
+% --------------------------------------------------------------
+
+A key advantage of the CES formulation is that it decentralizes cleanly with \emph{zero profits}. The standard adjustment cost formulation, by contrast, generates profits that must be allocated to shareholders.
+
+\paragraph{Decentralizing the CES Economy.}
+Consider a competitive firm that purchases output $Y$ at price $1$ (the numeraire) and sells consumption goods at price $p_C$ and investment goods at price $p_I$. The firm's problem is:
+\begin{equation}
+\max_{C, I} \; p_C C + p_I I \quad \text{subject to} \quad \Hfun(C, I) \leq Y.
+\label{eq:ac-firm-problem}
+\end{equation}
+
+The first-order conditions require:
+\begin{equation}
+\frac{p_C}{p_I} = \frac{\partial \Hfun / \partial C}{\partial \Hfun / \partial I} = \frac{\omega_C^{1-\psi}}{\omega_I^{1-\psi}} \left( \frac{C}{I} \right)^{\psi - 1}.
+\label{eq:ac-firm-foc}
+\end{equation}
+
+\paragraph{Zero Profits.}
+The CES aggregator is homogeneous of degree one: $\Hfun(\lambda C, \lambda I) = \lambda \Hfun(C, I)$. By Euler's theorem:
+\begin{equation}
+\Hfun(C, I) = \frac{\partial \Hfun}{\partial C} C + \frac{\partial \Hfun}{\partial I} I.
+\label{eq:ac-euler-theorem}
+\end{equation}
+
+At the optimum, marginal products equal prices (up to the Lagrange multiplier $\mu$):
+\begin{equation}
+p_C = \mu \frac{\partial \Hfun}{\partial C}, \qquad p_I = \mu \frac{\partial \Hfun}{\partial I}.
+\label{eq:ac-marginal-pricing}
+\end{equation}
+
+Substituting into revenue:
+\begin{equation}
+p_C C + p_I I = \mu \left( \frac{\partial \Hfun}{\partial C} C + \frac{\partial \Hfun}{\partial I} I \right) = \mu \, \Hfun(C, I) = \mu Y.
+\label{eq:ac-revenue}
+\end{equation}
+
+For the constraint to bind, $\mu = 1$ (the shadow price of output equals its market price). Therefore:
+\begin{equation}
+\boxed{\text{Revenue} = p_C C + p_I I = Y = \text{Cost}.}
+\label{eq:ac-zero-profit}
+\end{equation}
+
+\begin{calloutimportant}[Zero Profits from Constant Returns]
+The zero-profit result follows from constant returns to scale in the transformation technology. This is the same logic as in standard production theory: with CRS and competitive pricing, firms earn zero profits.
+
+This property is attractive for general equilibrium analysis. There are no profits to distribute, no need to specify ownership shares, and the decentralization is clean. Households simply face prices $(p_C, p_I)$ for the two goods.
+\end{calloutimportant}
+
+\paragraph{Contrast with Standard Adjustment Costs.}
+In the standard formulation \cref{eq:ac-standard-phi}, the firm's problem is:
+\begin{equation}
+\max_{I} \; p_I I - I - \Phi(I, K) = \max_{I} \; (p_I - 1) I - \frac{\phi}{2} \frac{I^2}{K}.
+\label{eq:ac-standard-firm}
+\end{equation}
+
+The first-order condition gives:
+\begin{equation}
+p_I = 1 + \phi \frac{I}{K} \equiv Q.
+\label{eq:ac-standard-Q}
+\end{equation}
+
+Here $Q = p_I$ is Tobin's $Q$---the market price of installed capital. The firm's profit is:
+\begin{equation}
+\Pi = (p_I - 1) I - \frac{\phi}{2} \frac{I^2}{K} = \phi \frac{I}{K} \cdot I - \frac{\phi}{2} \frac{I^2}{K} = \frac{\phi}{2} \frac{I^2}{K} > 0.
+\label{eq:ac-standard-profit}
+\end{equation}
+
+\emph{Profits are strictly positive whenever $I > 0$.} These profits must be distributed to shareholders, requiring a specification of ownership. This complicates the decentralization and raises questions about the incidence of adjustment costs.
+
+\paragraph{The Spurious Wealth Effect.}
+The positive profits in the standard formulation create a conceptual problem beyond mere accounting. In the CES economy, the household's budget constraint is:
+\begin{equation}
+C + Q \cdot I = Y.
+\label{eq:ac-ces-budget}
+\end{equation}
+All wealth effects operate through prices: changes in $Q$ affect the household's opportunity set, but total resources available equal output $Y$. This is the standard benchmark in consumer theory---wealth effects are fully summarized by the budget constraint evaluated at market prices.
+
+In the standard adjustment cost economy, the household's budget constraint becomes:
+\begin{equation}
+C + Q \cdot I = Y + \Pi(I, K), \qquad \Pi = \frac{\phi}{2} \frac{I^2}{K}.
+\label{eq:ac-standard-budget}
+\end{equation}
+Now there is an \emph{additional} wealth effect: profits $\Pi$ depend on the investment rate $I/K$. When investment rises, profits rise, expanding the household's budget. This creates a feedback loop that is absent in the frictionless model and absent in the CES formulation.
+
+\begin{calloutimportant}[Wealth Effects and the Price System]
+In the CES formulation, all information relevant to the household's decision is summarized by prices $(p_C, p_I)$ and output $Y$. The household can read off wealth effects directly from the budget constraint---no additional channel operates.
+
+In the standard formulation, wealth effects have two components:
+\begin{enumerate}[nosep]
+\item The direct effect through prices (as in the CES case).
+\item An indirect effect through profits, which depend on equilibrium quantities.
+\end{enumerate}
+
+This indirect channel breaks the clean separation between prices and quantities that characterizes competitive equilibrium. The household's wealth depends not just on prices but on the \emph{level} of investment---a quantity that the household itself influences.
+
+For welfare analysis, this distinction matters: the incidence of adjustment costs differs across the two formulations. In the CES economy, costs are fully reflected in relative prices. In the standard economy, part of the cost is offset by profit income, with the net burden depending on ownership shares.
+\end{calloutimportant}
+
+\paragraph{Market Prices in the CES Economy.}
+From the firm's first-order conditions and the zero-profit condition, we can solve for equilibrium prices. Normalizing $p_C = 1$ (consumption as numeraire):
+\begin{equation}
+p_I = \frac{\partial \Hfun / \partial I}{\partial \Hfun / \partial C} = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I} \right)^{1-\psi} = Q.
+\label{eq:ac-p-I}
+\end{equation}
+
+The price of investment goods equals Tobin's $Q$. When $C/I$ is high (low investment rate), $p_I = Q$ is low---investment goods are cheap. When $C/I$ is low (high investment rate), $p_I = Q$ is high---investment goods are expensive.
+
+The household's budget constraint is:
+\begin{equation}
+C + Q \cdot I = Y,
+\label{eq:ac-hh-budget}
+\end{equation}
+which is exactly the CES constraint $\Hfun(C, I) = Y$ expressed in value terms at equilibrium prices.
+
+\begin{table}[H]
+\centering
+\caption{Comparison of Adjustment Cost Formulations}
+\label{tab:ac-comparison}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Property} & \textbf{Standard: $\Phi = \frac{\phi}{2} I^2/K$} & \textbf{CES: $\Hfun(C,I) = Y$} \\
+\midrule
+Normalization & By capital $K$ (ad hoc) & None required \\[4pt]
+Symmetry & Asymmetric (only investment) & Symmetric \\[4pt]
+Profits & $\Pi = \frac{\phi}{2} I^2/K > 0$ & $\Pi = 0$ \\[4pt]
+Wealth effects & Through prices \emph{and} profits & Through prices only \\[4pt]
+Tobin's $Q$ & $Q = 1 + \phi I/K$ & $Q = \dfrac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \dfrac{C}{I} \right)^{1-\psi}$ \\[10pt]
+Behavior at $K = 0$ & Singular & Well-defined \\[4pt]
+Curvature parameter & $\phi$ & $\eta = 1/(1-\psi)$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-two-period-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Two-Period Problem with CES Adjustment Costs}
+\label{tab:ac-two-period-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+CES constraint & $\Hfun(C, I) = \left( \omega_C^{1-\psi} C^{\psi} + \omega_I^{1-\psi} I^{\psi} \right)^{1/\psi} = Y$ \\[6pt]
+Transformation elasticity & $\eta = 1/(1-\psi)$ \\[6pt]
+Tobin's $Q$ & $Q = \dfrac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \dfrac{C}{I} \right)^{1-\psi}$ \\[10pt]
+Euler equation & $u'(C_0) = \beta \dfrac{A}{Q} u'(C_1)$ \\[8pt]
+Effective interest rate & $R = A/Q$ (endogenous) \\[6pt]
+Key parameter & $\xi = 1 - \theta/\eta$ \\[6pt]
+Zero-profit condition & $C + Q \cdot I = Y$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+The two-period problem with CES adjustment costs reveals that:
+\begin{itemize}[nosep]
+\item \textbf{Tobin's $Q$} emerges naturally as the marginal rate of transformation---the shadow price of investment in terms of consumption.
+\item \textbf{The interest rate is endogenous}: $R = A/Q$ depends on the investment rate through Tobin's $Q$.
+\item \textbf{Zero profits}: The CES formulation decentralizes with zero profits, unlike the standard $\phi(I/K)^2$ specification.
+\item \textbf{No odd normalization}: The curvature is governed by a single parameter $\eta$ without arbitrary dependence on $K$.
+\item \textbf{The interaction parameter} $\xi = 1 - \theta/\eta$ governs comparative statics---the interplay between intertemporal substitution and transformation elasticity.
+\end{itemize}
+This structure extends naturally to multiple periods and to settings with uncertainty.
+\end{callouttip}

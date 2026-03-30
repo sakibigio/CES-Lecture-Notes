@@ -1,0 +1,417 @@
+% ==============================================================
+\section{The Finite-Horizon Problem}
+\label{sec:T-period}
+% ==============================================================
+
+We now extend the two-period analysis to a finite horizon of $T+1$ periods, $t \in \{0, 1, \ldots, T\}$. This extension reveals the full structure of intertemporal substitution: how consumption at any date responds to interest rate changes at any other date. These cross-date elasticities are the building blocks of impulse response functions and connect directly to modern sequence-space methods in macroeconomics.
+
+% --------------------------------------------------------------
+\subsection{Setup}
+\label{subsec:T-setup}
+% --------------------------------------------------------------
+
+\paragraph{Preferences.}
+The agent has time-separable preferences with discount factor $\beta \in (0,1)$ and period utility $u(c) = \frac{c^{1-1/\theta} - 1}{1 - 1/\theta}$:
+\begin{equation}
+U = \sum_{t=0}^{T} \beta^t \, u(c_t) = \sum_{t=0}^{T} \beta^t \frac{c_t^{1-1/\theta} - 1}{1 - 1/\theta}.
+\label{eq:U-T-period}
+\end{equation}
+
+\paragraph{Budget Constraints.}
+The agent enters each period $t$ with bond holdings $b_t$, receives income $y_t$, consumes $c_t$, and saves the remainder in bonds $b_{t+1}$:
+\begin{equation}
+c_t + b_{t+1} = R_{t-1} b_t + y_t, \qquad t = 0, 1, \ldots, T,
+\label{eq:budget-sequential-T}
+\end{equation}
+with $b_0$ given, $R_{-1} = 1$ (by convention), and the terminal condition $b_{T+1} = 0$ (no bequests).
+
+Note that the interest rate $R_{t-1}$ earned on bonds carried from period $t-1$ to period $t$ may vary over time. We denote the sequence of gross interest rates by $\mathbf{R} = (R_0, R_1, \ldots, R_{T-1})$, where $R_s$ is the return earned between periods $s$ and $s+1$.
+
+\paragraph{The Lifetime Budget Constraint.}
+Iterating the sequential budgets forward and imposing $b_{T+1} = 0$, we obtain the lifetime budget constraint:
+\begin{equation}
+\sum_{t=0}^{T} Q_t \, c_t = \sum_{t=0}^{T} Q_t \, y_t + b_0 \equiv W,
+\label{eq:lifetime-budget-T}
+\end{equation}
+where $Q_t$ is the price at date $0$ of one unit of consumption at date $t$:
+\begin{equation}
+Q_0 = 1, \qquad Q_t = \prod_{s=0}^{t-1} R_s^{-1} = \frac{1}{R_0 R_1 \cdots R_{t-1}}, \quad t \geq 1.
+\label{eq:Q-def}
+\end{equation}
+
+The discount factor $Q_t$ compounds the sequence of one-period bond prices. Lifetime wealth $W$ is the present discounted value of the income stream plus initial assets.
+
+% --------------------------------------------------------------
+\subsection{Transformation to Generalized Mean Form}
+\label{subsec:T-transformation}
+% --------------------------------------------------------------
+
+Following the same steps as in the two-period case, we transform the objective into a generalized mean.
+
+\paragraph{The Classical Representation.}
+Dropping constants and normalizing, the problem becomes:
+\begin{equation}
+\max_{\{c_t\}_{t=0}^{T}} \; \Mbar(\bc; \tilde{\bom}, \rho) = \left( \sum_{t=0}^{T} \tilde{\omega}_t \, c_t^{\rho} \right)^{1/\rho} \quad \text{s.t.} \quad \sum_{t=0}^{T} Q_t \, c_t = W,
+\label{eq:classical-T}
+\end{equation}
+where $\rho = 1 - 1/\theta$ and the classical weights are:
+\begin{equation}
+\tilde{\omega}_t = \frac{\beta^t}{\sum_{s=0}^{T} \beta^s} = \frac{\beta^t (1-\beta)}{1 - \beta^{T+1}}.
+\label{eq:classical-weights-T}
+\end{equation}
+
+\paragraph{The Canonical Representation.}
+Applying the weight transformation $\omega_t \propto \tilde{\omega}_t^{1/(1-\rho)} = \tilde{\omega}_t^{\theta}$:
+\begin{equation}
+\max_{\{c_t\}_{t=0}^{T}} \; \M(\bc; \bom, \rho) = \left( \sum_{t=0}^{T} \omega_t^{1-\rho} \, c_t^{\rho} \right)^{1/\rho} \quad \text{s.t.} \quad \sum_{t=0}^{T} Q_t \, c_t = W,
+\label{eq:canonical-T}
+\end{equation}
+with canonical weights:
+\begin{equation}
+\omega_t = \frac{\beta^{t\theta}}{\sum_{s=0}^{T} \beta^{s\theta}} = \frac{\beta^{t\theta} (1-\beta^{\theta})}{1 - \beta^{(T+1)\theta}}.
+\label{eq:canonical-weights-T}
+\end{equation}
+
+This is the canonical CES problem with $T+1$ goods, prices $(Q_0, Q_1, \ldots, Q_T)$, and weights $(\omega_0, \omega_1, \ldots, \omega_T)$.
+
+% --------------------------------------------------------------
+\subsection{The Solution}
+\label{subsec:T-solution}
+% --------------------------------------------------------------
+
+Applying the solution formulas from \cref{sec:problem-solution}:
+
+\paragraph{The Intertemporal Price Index.}
+\begin{equation}
+\Pstar = \left( \sum_{t=0}^{T} \omega_t \, Q_t^{1-\theta} \right)^{1/(1-\theta)}.
+\label{eq:price-index-T}
+\end{equation}
+
+\paragraph{Expenditure Shares.}
+The share of lifetime wealth allocated to consumption at date $t$ is:
+\begin{equation}
+\wexp_t \equiv \frac{Q_t \, c_t}{W} = \omega_t \left( \frac{Q_t}{\Pstar} \right)^{1-\theta}.
+\label{eq:shares-T}
+\end{equation}
+
+\paragraph{Optimal Consumption.}
+\begin{equation}
+c_t^* = \omega_t \left( \frac{Q_t}{\Pstar} \right)^{-\theta} \cdot \frac{W}{\Pstar}.
+\label{eq:consumption-T}
+\end{equation}
+
+\paragraph{The Euler Equation.}
+Taking the ratio of consumption at adjacent dates:
+\begin{equation}
+\frac{c_{t+1}^*}{c_t^*} = \frac{\omega_{t+1}}{\omega_t} \left( \frac{Q_{t+1}}{Q_t} \right)^{-\theta} = \beta^{\theta} \left( R_t \right)^{\theta} = (\beta R_t)^{\theta}.
+\label{eq:euler-T}
+\end{equation}
+
+Equivalently, in the familiar form:
+\begin{equation}
+u'(c_t) = \beta R_t \, u'(c_{t+1}), \qquad t = 0, 1, \ldots, T-1.
+\label{eq:euler-T-standard}
+\end{equation}
+
+The Euler equation holds between every pair of adjacent periods, with the local interest rate $R_t$ determining the local consumption growth rate.
+
+% --------------------------------------------------------------
+\subsection{Comparative Statics: Cross-Date Elasticities}
+\label{subsec:T-comparative-statics}
+% --------------------------------------------------------------
+
+We now ask: how does consumption at date $t$ respond to a change in the interest rate at date $s$? This question is central to understanding how monetary policy, anticipated or unanticipated, propagates through the economy.
+
+\paragraph{The Key Insight: Prices as Cumulative Products.}
+The date-$t$ price $Q_t = \prod_{s=0}^{t-1} R_s^{-1}$ depends on all interest rates up to date $t-1$. A change in $R_s$ affects $Q_t$ for all $t > s$, but not for $t \leq s$. This asymmetry---future prices depend on past interest rates---generates the rich pattern of cross-date elasticities.
+
+\paragraph{Elasticity of Prices with Respect to Interest Rates.}
+For $t > s$:
+\begin{equation}
+\frac{\partial \log Q_t}{\partial \log R_s} = -1.
+\label{eq:Q-R-elasticity}
+\end{equation}
+For $t \leq s$: the elasticity is zero.
+
+In vector notation, define the lower-triangular matrix $\mathbf{L}$ with elements:
+\begin{equation}
+L_{ts} = \begin{cases} -1 & \text{if } t > s, \\ 0 & \text{if } t \leq s. \end{cases}
+\label{eq:L-matrix}
+\end{equation}
+
+Then:
+\begin{equation}
+\frac{d \log \mathbf{Q}}{d \log \mathbf{R}} = \mathbf{L}.
+\label{eq:Q-R-matrix}
+\end{equation}
+
+\paragraph{Decomposing the Response of Consumption.}
+The response of $c_t$ to a change in $R_s$ has two components:
+
+\medskip
+\noindent
+\textit{1. Direct price effect.} The change in $Q_t$ (for $t > s$) affects $c_t$ through the demand function, holding the price index $\Pstar$ and wealth $W$ fixed.
+
+\medskip
+\noindent
+\textit{2. Indirect effects.} The change in $R_s$ also affects the price index $\Pstar$ (which aggregates all prices) and lifetime wealth $W$ (through the present value of future income). These indirect effects feed back into all consumption levels.
+
+\paragraph{The Elasticity Formula.}
+From the demand function $c_t = \omega_t (Q_t / \Pstar)^{-\theta} \cdot W / \Pstar$:
+\begin{equation}
+\frac{d \log c_t}{d \log R_s} = -\theta \frac{d \log Q_t}{d \log R_s} + \theta \frac{d \log \Pstar}{d \log R_s} + \frac{d \log W}{d \log R_s} - \frac{d \log \Pstar}{d \log R_s}.
+\label{eq:consumption-elasticity-decomp}
+\end{equation}
+
+Rearranging:
+\begin{equation}
+\frac{d \log c_t}{d \log R_s} = -\theta \left( \frac{d \log Q_t}{d \log R_s} - \frac{d \log \Pstar}{d \log R_s} \right) + \left( \frac{d \log W}{d \log R_s} - \frac{d \log \Pstar}{d \log R_s} \right).
+\label{eq:consumption-elasticity-clean}
+\end{equation}
+
+The first term is the \emph{substitution effect}: the response to the change in the relative price $Q_t / \Pstar$. The second term is the \emph{income effect}: the response to the change in real wealth $W / \Pstar$.
+
+\paragraph{Elasticity of the Price Index.}
+From $\Pstar = \left( \sum_{\tau} \omega_{\tau} Q_{\tau}^{1-\theta} \right)^{1/(1-\theta)}$:
+\begin{equation}
+\frac{d \log \Pstar}{d \log R_s} = \sum_{\tau=0}^{T} \wexp_{\tau} \cdot \frac{d \log Q_{\tau}}{d \log R_s} = -\sum_{\tau > s} \wexp_{\tau},
+\label{eq:P-R-elasticity}
+\end{equation}
+where $\wexp_{\tau}$ is the expenditure share at date $\tau$. The price index falls when $R_s$ rises, with the magnitude equal to the expenditure share on all dates after $s$.
+
+\paragraph{Elasticity of Lifetime Wealth.}
+From $W = \sum_{\tau} Q_{\tau} y_{\tau} + b_0$:
+\begin{equation}
+\frac{d \log W}{d \log R_s} = \sum_{\tau > s} \frac{Q_{\tau} y_{\tau}}{W} \cdot (-1) = -\sum_{\tau > s} \frac{Q_{\tau} y_{\tau}}{W}.
+\label{eq:W-R-elasticity}
+\end{equation}
+
+Define the income share at date $\tau$ as $\phi_{\tau} \equiv Q_{\tau} y_{\tau} / W$. Then:
+\begin{equation}
+\frac{d \log W}{d \log R_s} = -\sum_{\tau > s} \phi_{\tau}.
+\label{eq:W-R-elasticity-clean}
+\end{equation}
+
+\paragraph{The Complete Cross-Elasticity.}
+Substituting into \cref{eq:consumption-elasticity-clean}:
+
+For $t > s$ (consumption after the interest rate change):
+\begin{equation}
+\boxed{\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \left( 1 - \sum_{\tau > s} \wexp_{\tau} \right)}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.}
+\label{eq:cross-elasticity-after}
+\end{equation}
+
+For $t \leq s$ (consumption before or at the interest rate change):
+\begin{equation}
+\boxed{\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \sum_{\tau > s} \wexp_{\tau}}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.}
+\label{eq:cross-elasticity-before}
+\end{equation}
+
+\begin{calloutimportant}[Interpreting the Cross-Elasticities]
+The formulas reveal the structure of intertemporal substitution:
+
+\medskip
+\textbf{Substitution effect.} When $R_s$ rises, consumption at dates $t > s$ becomes cheaper relative to dates $t \leq s$. The substitution effect shifts expenditure toward later dates. The magnitude depends on $\theta$ (the willingness to substitute) and the expenditure shares.
+
+\medskip
+\textbf{Income effect.} The income effect depends on the gap between expenditure shares $\wexp_{\tau}$ and income shares $\phi_{\tau}$ for $\tau > s$. This gap measures the agent's net borrowing or lending position in future periods:
+\begin{itemize}[nosep]
+\item If $\sum_{\tau > s} \wexp_{\tau} > \sum_{\tau > s} \phi_{\tau}$: the agent plans to consume more than they earn after date $s$ (net borrower), so higher $R_s$ makes them poorer.
+\item If $\sum_{\tau > s} \wexp_{\tau} < \sum_{\tau > s} \phi_{\tau}$: the agent plans to consume less than they earn after date $s$ (net saver), so higher $R_s$ makes them wealthier.
+\end{itemize}
+
+\medskip
+\textbf{The Cobb-Douglas benchmark.} When $\theta = 1$, the substitution effect on $c_t$ for $t \leq s$ exactly equals $\sum_{\tau > s} \wexp_{\tau}$, which cancels with the first part of the income effect. The total effect reduces to $-\sum_{\tau > s} \phi_{\tau}$, depending only on the income profile.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Jacobian Matrix}
+\label{subsec:jacobian}
+% --------------------------------------------------------------
+
+The cross-elasticities $\partial \log c_t / \partial \log R_s$ form a $(T+1) \times T$ matrix that completely characterizes how the consumption path responds to interest rate changes. This is the \emph{consumption Jacobian} with respect to interest rates.
+
+\paragraph{Definition.}
+\begin{equation}
+\mathbf{J}^{c,R} \equiv \begin{bmatrix} \dfrac{\partial \log c_0}{\partial \log R_0} & \dfrac{\partial \log c_0}{\partial \log R_1} & \cdots & \dfrac{\partial \log c_0}{\partial \log R_{T-1}} \\[10pt]
+\dfrac{\partial \log c_1}{\partial \log R_0} & \dfrac{\partial \log c_1}{\partial \log R_1} & \cdots & \dfrac{\partial \log c_1}{\partial \log R_{T-1}} \\[10pt]
+\vdots & \vdots & \ddots & \vdots \\[6pt]
+\dfrac{\partial \log c_T}{\partial \log R_0} & \dfrac{\partial \log c_T}{\partial \log R_1} & \cdots & \dfrac{\partial \log c_T}{\partial \log R_{T-1}}
+\end{bmatrix}.
+\label{eq:jacobian-def}
+\end{equation}
+
+Each column $s$ gives the impulse response of the entire consumption path to a change in $R_s$. Each row $t$ gives how consumption at date $t$ responds to interest rate changes at all dates.
+
+\paragraph{Structure of the Jacobian.}
+From the cross-elasticity formulas, $\mathbf{J}^{c,R}$ has a specific structure:
+
+\medskip
+\noindent
+\textit{Lower-triangular component.} The direct substitution effect contributes a term proportional to the lower-triangular matrix $\mathbf{L}$ (reflecting that $Q_t$ depends on $R_s$ only for $t > s$).
+
+\medskip
+\noindent
+\textit{Rank-one adjustments.} The income and price-index effects contribute terms that depend on the expenditure and income share vectors, adding rank-one matrices to the structure.
+
+\paragraph{Explicit Formula.}
+Let $\mathbf{e}$ denote the $(T+1)$-vector of ones, $\bm{\wexp} = (\wexp_0, \ldots, \wexp_T)'$ the expenditure shares, and $\bm{\phi} = (\phi_0, \ldots, \phi_T)'$ the income shares. Define the cumulative shares:
+\begin{equation}
+\bar{\wexp}_s \equiv \sum_{\tau > s} \wexp_{\tau}, \qquad \bar{\phi}_s \equiv \sum_{\tau > s} \phi_{\tau}.
+\label{eq:cumulative-shares}
+\end{equation}
+
+The Jacobian can be written as:
+\begin{equation}
+\mathbf{J}^{c,R} = \theta \mathbf{L} + \theta \, \mathbf{e} \, \bar{\bm{\wexp}}' + \mathbf{e} \left( \bar{\bm{\wexp}} - \bar{\bm{\phi}} \right)',
+\label{eq:jacobian-formula}
+\end{equation}
+where $\bar{\bm{\wexp}} = (\bar{\wexp}_0, \ldots, \bar{\wexp}_{T-1})'$ and $\bar{\bm{\phi}} = (\bar{\phi}_0, \ldots, \bar{\phi}_{T-1})'$ are vectors of cumulative shares.
+
+\begin{calloutnote}[Interpreting the Jacobian Components]
+The three terms in $\mathbf{J}^{c,R}$ correspond to:
+\begin{enumerate}[nosep]
+\item $\theta \mathbf{L}$: Direct substitution---higher $R_s$ makes $c_t$ for $t > s$ cheaper, increasing those consumption levels by factor $\theta$.
+\item $\theta \, \mathbf{e} \, \bar{\bm{\wexp}}'$: Price index effect---higher $R_s$ lowers $\Pstar$, raising all consumption levels proportionally.
+\item $\mathbf{e} (\bar{\bm{\wexp}} - \bar{\bm{\phi}})'$: Income effect---higher $R_s$ changes real wealth, with sign depending on net saving position.
+\end{enumerate}
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Connection to Sequence-Space Jacobians}
+\label{subsec:sequence-space}
+% --------------------------------------------------------------
+
+The consumption Jacobian $\mathbf{J}^{c,R}$ is precisely the object studied in the \emph{sequence-space Jacobian} approach to macroeconomic modeling (Auclert, Bardóczy, Rognlie, and Straub, 2021). This approach characterizes equilibrium as a system of equations in sequences and computes impulse responses using Jacobian matrices.
+
+\paragraph{The Key Insight.}
+In the sequence-space approach, a model's dynamics are encoded in Jacobians that describe how endogenous sequences (consumption, labor, investment) respond to exogenous sequences (interest rates, wages, shocks). For the consumption-savings problem:
+
+\begin{equation}
+d \log \bc = \mathbf{J}^{c,R} \, d \log \mathbf{R} + \mathbf{J}^{c,y} \, d \log \by,
+\label{eq:sequence-space-consumption}
+\end{equation}
+where $\mathbf{J}^{c,y}$ is the Jacobian with respect to income.
+
+\paragraph{From Micro Elasticities to Macro Impulse Responses.}
+The cross-elasticity $\partial \log c_t / \partial \log R_s$ is exactly the impulse response of date-$t$ consumption to a date-$s$ interest rate shock. The Jacobian matrix collects all such impulse responses.
+
+This reveals a deep connection: \textbf{impulse response functions are cross-price elasticities}. The response of consumption today to an anticipated future interest rate change is governed by the same substitution and income effects that govern static demand responses to price changes.
+
+\paragraph{Anticipated versus Unanticipated Shocks.}
+The Jacobian framework naturally distinguishes between:
+
+\medskip
+\noindent
+\textit{Unanticipated shocks (date-0 shock to $R_0$).} Column $s = 0$ of $\mathbf{J}^{c,R}$ gives the response to an immediate interest rate change. Consumption at $t = 0$ responds only through income and price-index effects (since $Q_0 = 1$ is fixed). Consumption at $t > 0$ responds through all three channels.
+
+\medskip
+\noindent
+\textit{Anticipated shocks (future shock to $R_s$, $s > 0$).} Column $s > 0$ gives the response to a pre-announced future interest rate change. Consumption at all dates $t \leq s$ responds in anticipation, through substitution toward/away from the period when rates change.
+
+\begin{calloutimportant}[Forward Guidance and Anticipation Effects]
+The Jacobian structure explains why forward guidance---announcements about future interest rates---can have powerful effects on current consumption:
+
+\medskip
+When the central bank announces that $R_s$ will be higher at some future date $s$, consumption at dates $t < s$ responds immediately through:
+\begin{itemize}[nosep]
+\item \textbf{Substitution}: Current consumption becomes relatively more expensive; agents substitute toward period $s$ and beyond.
+\item \textbf{Income}: Savers become wealthier (higher return on saving); borrowers become poorer.
+\end{itemize}
+
+The magnitude of the anticipation effect depends on $\theta$ (substitution) and the agent's net asset position (income effect). With $\theta > 1$, forward guidance about higher future rates reduces current consumption through the substitution channel.
+\end{calloutimportant}
+
+\paragraph{General Equilibrium and the Jacobian.}
+In a closed economy, interest rates are endogenous, clearing the bond market. The sequence-space approach solves for equilibrium by finding the interest rate path $\mathbf{R}$ such that:
+\begin{equation}
+\sum_{i} \mathbf{J}^{c_i, R} \, d \log \mathbf{R} = d \log \mathbf{Y},
+\label{eq:ge-clearing}
+\end{equation}
+where the sum is over agents $i$ and $\mathbf{Y}$ is the aggregate output sequence. This is a linear system in $d \log \mathbf{R}$, solvable by matrix inversion.
+
+The Jacobian $\mathbf{J}^{c,R}$ thus serves as the fundamental building block for computing general equilibrium impulse responses.
+
+% --------------------------------------------------------------
+\subsection{Example: A Persistent Interest Rate Shock}
+\label{subsec:T-example}
+% --------------------------------------------------------------
+
+To illustrate the cross-elasticity structure, consider a concrete example.
+
+\paragraph{Setup.}
+Let $T = 4$ (five periods), $\beta = 0.95$, $\theta = 2$ (high IES), and suppose income is constant: $y_t = y$ for all $t$. Initial assets are $b_0 = 0$, so lifetime wealth is $W = y \sum_{t=0}^{4} Q_t$.
+
+At the steady state with $R_t = R = 1/\beta$ for all $t$, we have $Q_t = \beta^t$, and consumption is constant: $c_t = c$ for all $t$.
+
+\paragraph{A Persistent Shock.}
+Consider an unexpected, permanent increase in the interest rate: $R_t$ rises from $R$ to $R' = R(1 + \epsilon)$ for all $t \geq 0$. How does the consumption path respond?
+
+\paragraph{Applying the Jacobian.}
+The total response is the sum of responses to each $R_s$:
+\begin{equation}
+d \log c_t = \sum_{s=0}^{T-1} J^{c,R}_{ts} \, d \log R_s = \sum_{s=0}^{T-1} J^{c,R}_{ts} \cdot \epsilon.
+\label{eq:persistent-shock}
+\end{equation}
+
+At the symmetric steady state with equal expenditure and income shares ($\wexp_t = \phi_t = 1/(T+1)$ for all $t$), the cumulative shares are:
+\begin{equation}
+\bar{\wexp}_s = \bar{\phi}_s = \frac{T - s}{T + 1}.
+\label{eq:symmetric-cumulative}
+\end{equation}
+
+The income effect vanishes ($\bar{\wexp}_s = \bar{\phi}_s$), leaving only the substitution effect:
+\begin{equation}
+J^{c,R}_{ts} = \begin{cases} \theta \cdot \dfrac{T - s}{T + 1} & \text{if } t \leq s, \\[8pt] \theta \left( 1 - \dfrac{T - s}{T + 1} \right) + \theta \cdot \dfrac{T - s}{T + 1} = \theta & \text{if } t > s. \end{cases}
+\label{eq:symmetric-jacobian}
+\end{equation}
+
+Wait---this simplifies further. For $t > s$: $J^{c,R}_{ts} = \theta$. For $t \leq s$: $J^{c,R}_{ts} = \theta (T - s)/(T+1)$.
+
+\paragraph{The Impulse Response.}
+Summing across all shocked interest rates:
+\begin{equation}
+d \log c_t = \epsilon \cdot \theta \left[ \sum_{s=0}^{t-1} 1 + \sum_{s=t}^{T-1} \frac{T - s}{T + 1} \right] = \epsilon \cdot \theta \left[ t + \frac{1}{T+1} \sum_{s=t}^{T-1} (T - s) \right].
+\label{eq:impulse-response-calc}
+\end{equation}
+
+The response is increasing in $t$: later consumption rises more than earlier consumption. Intuitively, later periods benefit from the cumulative effect of higher returns, while earlier periods are more expensive relative to later ones.
+
+\begin{calloutnote}[The Consumption Tilt]
+A permanent increase in interest rates tilts the consumption profile upward. With $\theta > 1$, the substitution effect dominates: agents defer consumption to take advantage of higher returns. The tilt is larger when $\theta$ is larger (more willing to substitute) and when the horizon $T$ is longer (more periods over which to compound).
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:T-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Finite-Horizon Consumption-Savings Problem}
+\label{tab:T-period-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Date-$t$ price & $Q_t = \prod_{s=0}^{t-1} R_s^{-1}$ \\[6pt]
+Lifetime wealth & $W = b_0 + \sum_{t=0}^{T} Q_t \, y_t$ \\[6pt]
+Lifetime budget & $\sum_{t=0}^{T} Q_t \, c_t = W$ \\[6pt]
+Euler equation & $u'(c_t) = \beta R_t \, u'(c_{t+1})$ \\[6pt]
+Price index & $\Pstar = \left( \sum_{t=0}^{T} \omega_t \, Q_t^{1-\theta} \right)^{1/(1-\theta)}$ \\[6pt]
+Optimal $c_t$ & $c_t^* = \omega_t \left( Q_t / \Pstar \right)^{-\theta} \cdot W / \Pstar$ \\[6pt]
+Cross-elasticity ($t > s$) & $\dfrac{\partial \log c_t}{\partial \log R_s} = \theta \left( 1 - \sum_{\tau > s} \wexp_{\tau} \right) + \left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)$ \\[8pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Takeaway]
+The finite-horizon problem reveals that \textbf{impulse responses are cross-price elasticities}. The response of consumption at date $t$ to an interest rate change at date $s$ is governed by:
+\begin{itemize}[nosep]
+\item The IES $\theta$, which determines the substitution effect
+\item The expenditure shares $\wexp_{\tau}$, which weight the price-index effect
+\item The gap between expenditure and income shares, which determines the income effect
+\end{itemize}
+This structure is the foundation of the sequence-space Jacobian approach: by computing these elasticities, we characterize the full dynamic response of the economy to shocks.
+\end{callouttip}

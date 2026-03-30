@@ -1,0 +1,186 @@
+% ==============================================================
+% Section: Markov Chains
+% ==============================================================
+
+\section{Markov Chains}
+\label{sec:markov-chains}
+
+In the previous chapter, we studied risk as a weighted average over states, where probabilities $\pi_s$ were fixed and shocks were independent over time. This section extends the framework to settings where the state evolves stochastically according to a \emph{Markov chain}---the probability of tomorrow's state depends on today's state. This generalization is essential for dynamic economics: business cycles, income processes, regime switches, and asset returns all exhibit persistence that i.i.d.\ models cannot capture.
+
+% --------------------------------------------------------------
+\subsection{Finite State Spaces and Transition Matrices}
+\label{subsec:finite-state}
+% --------------------------------------------------------------
+
+We begin with the simplest setting: a finite number of states.
+
+\begin{definition}[State Space]
+\label{def:state-space}
+Let $\mathcal{S} = \{1, 2, \ldots, n\}$ be a finite set of states. At each date $t = 0, 1, 2, \ldots$, the system occupies exactly one state $s_t \in \mathcal{S}$.
+\end{definition}
+
+The key object governing dynamics is the transition matrix.
+
+\begin{definition}[Transition Matrix]
+\label{def:transition-matrix}
+A \emph{transition matrix} $\Pi$ is an $n \times n$ matrix with entries $\pi_{ij} \geq 0$ satisfying
+\begin{equation}
+\sum_{j=1}^{n} \pi_{ij} = 1 \quad \text{for all } i \in \mathcal{S}.
+\label{eq:row-stochastic}
+\end{equation}
+The entry $\pi_{ij}$ is the probability of transitioning from state $i$ to state $j$:
+\begin{equation}
+\pi_{ij} = \Pr(s_{t+1} = j \mid s_t = i).
+\label{eq:transition-prob}
+\end{equation}
+\end{definition}
+
+Condition \eqref{eq:row-stochastic} ensures that each row of $\Pi$ is a probability distribution---from any state, the system must go somewhere. A matrix satisfying this condition is called \emph{row-stochastic}.
+
+\paragraph{Matrix Notation.}
+We write the transition matrix as
+\begin{equation}
+\Pi = \begin{pmatrix}
+\pi_{11} & \pi_{12} & \cdots & \pi_{1n} \\
+\pi_{21} & \pi_{22} & \cdots & \pi_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\pi_{n1} & \pi_{n2} & \cdots & \pi_{nn}
+\end{pmatrix}.
+\label{eq:transition-matrix}
+\end{equation}
+Row $i$ gives the distribution over next-period states conditional on being in state $i$ today. The diagonal entries $\pi_{ii}$ represent \emph{persistence}---the probability of remaining in the current state.
+
+\begin{calloutnote}[Reading the Matrix]
+To find the probability of going from state $i$ to state $j$, look at row $i$, column $j$. Each row sums to one; columns need not.
+\end{calloutnote}
+
+\paragraph{Example: Two-State Chain.}
+Consider an economy that can be in either a ``boom'' (state 1) or ``recession'' (state 2). The transition matrix
+\begin{equation}
+\Pi = \begin{pmatrix}
+0.9 & 0.1 \\
+0.3 & 0.7
+\end{pmatrix}
+\label{eq:two-state-example}
+\end{equation}
+says: from a boom, there is a 90\% chance of remaining in a boom and a 10\% chance of entering a recession; from a recession, there is a 30\% chance of recovery and a 70\% chance of continued recession. Booms are more persistent than recessions.
+
+% --------------------------------------------------------------
+\subsection{Conditional Expectations under Markov Dynamics}
+\label{subsec:conditional-expectation}
+% --------------------------------------------------------------
+
+The transition matrix allows us to compute expectations of future quantities conditional on the current state.
+
+\begin{definition}[Conditional Expectation]
+\label{def:conditional-expectation}
+Let $f: \mathcal{S} \to \R$ be a function assigning a value to each state. The \emph{conditional expectation} of $f(s_{t+1})$ given $s_t = i$ is
+\begin{equation}
+\E[f(s_{t+1}) \mid s_t = i] = \sum_{j=1}^{n} \pi_{ij} \, f(j).
+\label{eq:conditional-expectation}
+\end{equation}
+\end{definition}
+
+This is a weighted average of the function values, with weights given by the transition probabilities from the current state. In vector notation, if $\mathbf{f} = (f(1), \ldots, f(n))^\top$, then the vector of conditional expectations is
+\begin{equation}
+\E[\mathbf{f} \mid s_t] = \Pi \mathbf{f}.
+\label{eq:conditional-expectation-vector}
+\end{equation}
+The $i$-th component of $\Pi \mathbf{f}$ is precisely $\E[f(s_{t+1}) \mid s_t = i]$.
+
+\paragraph{The Markov Property.}
+The defining feature of a Markov chain is that the future depends on the past only through the current state:
+\begin{equation}
+\Pr(s_{t+1} = j \mid s_t, s_{t-1}, \ldots, s_0) = \Pr(s_{t+1} = j \mid s_t) = \pi_{s_t, j}.
+\label{eq:markov-property}
+\end{equation}
+This \emph{memorylessness} is what makes Markov chains tractable. The entire history is summarized by the current state---precisely the recursive structure we exploited in the previous chapter.
+
+\begin{calloutimportant}[From i.i.d.\ to Markov]
+In the previous chapter, probabilities $\pi_s$ were fixed constants. Now they depend on the current state: $\pi_s$ becomes $\pi_{ij}$. The certainty equivalent and recursive formulas carry over, but with state-dependent weights.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Multi-Step Transitions}
+\label{subsec:multi-step}
+% --------------------------------------------------------------
+
+What is the probability of reaching state $j$ in two steps starting from state $i$? The system must pass through some intermediate state $k$:
+\begin{equation}
+\Pr(s_{t+2} = j \mid s_t = i) = \sum_{k=1}^{n} \pi_{ik} \, \pi_{kj}.
+\label{eq:two-step}
+\end{equation}
+This is precisely the $(i,j)$ entry of $\Pi^2$. More generally:
+
+\begin{proposition}[Chapman-Kolmogorov Equations]
+\label{prop:chapman-kolmogorov}
+The $m$-step transition probabilities are given by the matrix power:
+\begin{equation}
+\Pr(s_{t+m} = j \mid s_t = i) = (\Pi^m)_{ij}.
+\label{eq:m-step}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By induction. The case $m = 1$ is the definition. For $m + 1$:
+\begin{equation}
+(\Pi^{m+1})_{ij} = \sum_{k} (\Pi^m)_{ik} \, \pi_{kj} = \sum_{k} \Pr(s_{t+m} = k \mid s_t = i) \, \Pr(s_{t+m+1} = j \mid s_{t+m} = k),
+\end{equation}
+which equals $\Pr(s_{t+m+1} = j \mid s_t = i)$ by the law of total probability.
+\end{proof}
+
+The Chapman-Kolmogorov equations express a fundamental recursive structure: to compute $m$-step transitions, compose one-step transitions. This is the same logic underlying dynamic programming.
+
+\paragraph{Example: Two-Step Transitions.}
+For the boom-recession example \eqref{eq:two-state-example}:
+\begin{equation}
+\Pi^2 = \begin{pmatrix}
+0.9 & 0.1 \\
+0.3 & 0.7
+\end{pmatrix}^2 = \begin{pmatrix}
+0.84 & 0.16 \\
+0.48 & 0.52
+\end{pmatrix}.
+\label{eq:two-step-example}
+\end{equation}
+Starting from a boom, the probability of being in a boom two periods later is 84\%. Starting from a recession, it is 48\%.
+
+% --------------------------------------------------------------
+\subsection{Beyond Finite State Spaces}
+\label{subsec:continuous-extensions}
+% --------------------------------------------------------------
+
+Finite-state Markov chains are workhorses of applied economics, but many applications require richer state spaces.
+
+\paragraph{Continuous State Spaces.}
+When the state $s_t$ takes values in a continuous set (e.g., $\R$ or $\R_+$), the transition matrix becomes a \emph{transition kernel}. Instead of probabilities $\pi_{ij}$, we have a conditional density $p(s' \mid s)$, and conditional expectations become integrals. The most common example in economics is the AR(1) process:
+\begin{equation}
+s_{t+1} = \mu + \rho \, s_t + \sigma \varepsilon_{t+1}, \quad \varepsilon_{t+1} \sim N(0, 1),
+\label{eq:ar1}
+\end{equation}
+where $|\rho| < 1$ ensures stationarity. 
+
+\begin{calloutnote}[Continuous Time]
+In continuous time, the state evolves according to stochastic differential equations. Poisson processes model discrete jumps at random times (defaults, regime switches). Diffusion processes model continuous evolution: $ds_t = \mu(s_t) \, dt + \sigma(s_t) \, dB_t$, where $B_t$ is Brownian motion. The Ornstein-Uhlenbeck process is the continuous-time analog of AR(1). These models share the same recursive structure as discrete chains---sums become integrals, matrices become operators---but require different analytical and numerical tools.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Approximating Continuous Processes}
+\label{subsec:approximations}
+% --------------------------------------------------------------
+
+In practice, continuous-state processes are often approximated by finite-state Markov chains for computational tractability. Two methods are standard.
+
+\paragraph{Tauchen's Method.}
+For an AR(1) process \eqref{eq:ar1}, Tauchen (1986) constructs a finite grid spanning several standard deviations of the unconditional distribution. Transition probabilities are computed by integrating the conditional normal distribution over bins around each grid point.
+
+\paragraph{Rouwenhorst's Method.}
+Rouwenhorst (1995) constructs the transition matrix recursively, matching the conditional mean, variance, and autocorrelation of the AR(1) process exactly. For highly persistent processes ($\rho$ close to 1), Rouwenhorst typically outperforms Tauchen.
+
+\paragraph{Toda's Method.}
+Toda (2021) develops a maximum-entropy approach that matches specified moments of the target distribution while maximizing entropy subject to these constraints. This method is particularly useful when the underlying process is not Gaussian or when matching higher moments (skewness, kurtosis) is important---common in applications with income risk or asset returns.
+
+\begin{callouttip}[Practical Advice]
+For standard AR(1) processes with moderate persistence ($\rho < 0.95$), Tauchen's method with 7--11 grid points usually suffices. For highly persistent processes ($\rho > 0.95$), Rouwenhorst is preferred. For non-Gaussian processes or when higher moments matter, consider Toda's maximum-entropy approach. All methods are implemented in standard software packages (e.g., \texttt{QuantEcon} in Julia and Python).
+\end{callouttip}
+

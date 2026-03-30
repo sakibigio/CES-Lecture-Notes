@@ -1,0 +1,256 @@
+% ==============================================================
+% Section 5: The KL Representation
+% ==============================================================
+
+\section{The KL Representation}
+\label{sec:kl-representation}
+
+This section reveals a deep connection between portfolio choice and information theory. The certainty equivalent that governs risk preferences admits a variational representation involving the Kullback-Leibler divergence. This perspective unifies portfolio optimization with robust control, connects diversification to entropy, and provides bounds useful for asset pricing.
+
+% --------------------------------------------------------------
+\subsection{The Variational Representation}
+\label{subsec:variational}
+% --------------------------------------------------------------
+
+Recall from Chapter~\ref{ch:information} that the classical generalized mean admits a Gibbs variational representation. We now apply this to the certainty equivalent.
+
+\paragraph{The Gibbs Principle for Risk.}
+
+The certainty equivalent of a random variable $X$ under probability measure $\mathbb{P}$ with risk aversion $\gamma$ is
+\begin{equation}
+\CE_{\gamma}(X) = \left( \E^{\mathbb{P}}[X^{1-\gamma}] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ce-definition}
+\end{equation}
+
+When $\gamma > 1$ (the empirically relevant case), this can be written as a minimum over distorted probability measures.
+
+\begin{proposition}[Variational Representation of Certainty Equivalent]
+\label{prop:variational-ce}
+For $\gamma > 1$ and $X > 0$:
+\begin{equation}
+\log \CE_{\gamma}(X) = \min_{\mathbb{Q} \ll \mathbb{P}} \left\{ \E^{\mathbb{Q}}[\log X] + \frac{1}{\gamma - 1} \KL{\mathbb{Q}}{\mathbb{P}} \right\}.
+\label{eq:variational-ce}
+\end{equation}
+The minimum is attained at the \emph{distorted measure}
+\begin{equation}
+\frac{d\mathbb{Q}^*}{d\mathbb{P}} = \frac{X^{1-\gamma}}{\E^{\mathbb{P}}[X^{1-\gamma}]}.
+\label{eq:distorted-measure}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+This follows from the Gibbs variational principle applied to the classical mean with power $\rho = 1 - \gamma < 0$. The sign of the KL term reflects that for $\rho < 0$, the mean is below the geometric mean, achieved by tilting toward low outcomes.
+\end{proof}
+
+\paragraph{Interpretation.}
+
+The variational representation \eqref{eq:variational-ce} says: the certainty equivalent equals the expected log payoff under the \emph{worst-case} probability measure $\mathbb{Q}$, where ``worst-case'' is penalized by KL divergence from the true measure $\mathbb{P}$.
+
+\begin{itemize}[nosep]
+    \item The investor acts as if nature chooses $\mathbb{Q}$ adversarially
+    \item Nature wants to minimize expected payoff but faces an entropy cost
+    \item Higher risk aversion $\gamma$ $\Rightarrow$ lower penalty $(1/(\gamma-1))$ $\Rightarrow$ more distortion toward bad states
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{Connection to Robust Control}
+\label{subsec:robust-control}
+% --------------------------------------------------------------
+
+The variational representation connects naturally to the robust control framework of Hansen and Sargent (2001, 2008).
+
+\paragraph{Model Uncertainty.}
+
+Hansen and Sargent consider an agent who distrusts the baseline probability model $\mathbb{P}$. The agent evaluates decisions under a worst-case model $\mathbb{Q}$ from a set of plausible alternatives:
+\begin{equation}
+V = \min_{\mathbb{Q}: \KL{\mathbb{Q}}{\mathbb{P}} \leq \eta} \E^{\mathbb{Q}}[U].
+\label{eq:robust-minmax}
+\end{equation}
+
+The Lagrangian relaxation of \eqref{eq:robust-minmax} is
+\begin{equation}
+V = \min_{\mathbb{Q}} \left\{ \E^{\mathbb{Q}}[U] + \theta \KL{\mathbb{Q}}{\mathbb{P}} \right\},
+\label{eq:robust-lagrangian}
+\end{equation}
+where $\theta > 0$ is the Lagrange multiplier on the entropy constraint.
+
+\paragraph{Observational Equivalence.}
+
+Comparing \eqref{eq:robust-lagrangian} with \eqref{eq:variational-ce} (taking $U = \log X$):
+\begin{equation}
+\theta = \frac{1}{\gamma - 1}.
+\label{eq:theta-gamma}
+\end{equation}
+
+\begin{calloutimportant}[Risk Aversion vs. Robustness]
+The variational representation reveals an \emph{observational equivalence}:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Interpretation} & \textbf{Parameter} & \textbf{Mechanism} \\
+\midrule
+Risk aversion & $\gamma$ & Curvature of utility \\
+Robustness/ambiguity & $\theta = 1/(\gamma-1)$ & Distrust of probability model \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+An agent with high risk aversion ($\gamma = 10$) behaves identically to an agent with log utility who distrusts the model with penalty $\theta = 1/9$.
+
+This equivalence has profound implications: observed ``risk averse'' behavior may reflect either genuine utility curvature or model uncertainty. Disentangling these requires auxiliary data (e.g., behavior under known probabilities).
+\end{calloutimportant}
+
+\paragraph{The Hansen-Sargent Multiplier.}
+
+Hansen and Sargent (2008) develop a full dynamic theory where the agent solves
+\begin{equation}
+V_t = \max_{c, \balpha} \min_{\mathbb{Q}} \left\{ u(c) + \beta \E_t^{\mathbb{Q}}[V_{t+1}] + \beta \theta \KL{\mathbb{Q}_t}{\mathbb{P}_t} \right\}.
+\label{eq:hs-bellman}
+\end{equation}
+
+The inner minimization distorts beliefs about next-period states; the outer maximization chooses consumption and portfolio. The solution has the same structure as Epstein-Zin with risk aversion $\gamma = 1 + 1/\theta$, but the \emph{interpretation} differs: the agent has unit risk aversion but fears model misspecification.
+
+\begin{calloutnote}[Detection Error Probabilities]
+Hansen and Sargent calibrate $\theta$ using detection error probabilities: how much data would be needed to statistically distinguish $\mathbb{Q}^*$ from $\mathbb{P}$? If the worst-case model is ``close'' to the baseline (high KL cost for small distortions), robustness concerns are mild. Their calibrations suggest $\theta$ values corresponding to $\gamma \approx 5$--$20$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Entropy and Diversification}
+\label{subsec:entropy-diversification}
+% --------------------------------------------------------------
+
+The KL representation also illuminates the diversification motive in portfolio choice.
+
+\paragraph{Portfolio Entropy.}
+
+Consider portfolio weights $\balpha = (\alpha_1, \ldots, \alpha_J)$ with $\alpha_j \geq 0$ and $\sum_j \alpha_j = 1$. The \emph{entropy} of the portfolio is
+\begin{equation}
+H(\balpha) = -\sum_{j=1}^{J} \alpha_j \log \alpha_j.
+\label{eq:portfolio-entropy}
+\end{equation}
+
+Entropy is maximized by the equal-weighted portfolio $\alpha_j = 1/J$, which achieves $H = \log J$. Concentrated portfolios have low entropy.
+
+\paragraph{Diversification as Entropy Maximization.}
+
+Suppose asset returns are exchangeable (symmetric distribution). Then the optimal portfolio maximizes a trade-off:
+\begin{equation}
+\max_{\balpha} \left\{ \E[\log R^p(\balpha)] - \frac{1}{\gamma - 1} H(\balpha) \right\} \quad \text{(for } \gamma < 1 \text{)}
+\label{eq:entropy-tradeoff}
+\end{equation}
+or the analogous minimization for $\gamma > 1$.
+
+The entropy term penalizes concentration. Even with identical expected returns, a risk-averse investor diversifies because concentration increases exposure to idiosyncratic outcomes.
+
+\paragraph{The Maximum Entropy Portfolio.}
+
+In the absence of informative signals about expected returns, the principle of maximum entropy suggests the equal-weighted portfolio:
+\begin{equation}
+\balpha^{ME} = \left( \frac{1}{J}, \ldots, \frac{1}{J} \right).
+\label{eq:max-entropy-portfolio}
+\end{equation}
+
+DeMiguel, Garlappi, and Uppal (2009) document that this naive ``$1/N$'' portfolio often outperforms optimized portfolios out-of-sample, precisely because estimation error in expected returns can overwhelm the gains from optimization.
+
+% --------------------------------------------------------------
+\subsection{Bounds and Asset Pricing}
+\label{subsec:bounds-asset-pricing}
+% --------------------------------------------------------------
+
+The variational representation provides useful bounds for asset pricing and connects to the Hansen-Jagannathan framework.
+
+\paragraph{The Entropy Bound.}
+
+From \eqref{eq:variational-ce}, for any probability measure $\mathbb{Q}$:
+\begin{equation}
+\log \CE_{\gamma}(X) \leq \E^{\mathbb{Q}}[\log X] + \frac{1}{\gamma - 1} \KL{\mathbb{Q}}{\mathbb{P}}.
+\label{eq:entropy-bound}
+\end{equation}
+
+Choosing $\mathbb{Q} = \mathbb{P}$ (no distortion):
+\begin{equation}
+\log \CE_{\gamma}(X) \leq \E^{\mathbb{P}}[\log X].
+\label{eq:ce-log-bound}
+\end{equation}
+
+This confirms that for $\gamma > 1$, the certainty equivalent lies below the geometric mean.
+
+\paragraph{The Stochastic Discount Factor and Entropy.}
+
+Let $M$ be the stochastic discount factor pricing all assets: $\E[MR^j] = 1$. Alvarez and Jermann (2005) show that the entropy of the SDF,
+\begin{equation}
+L(M) = \log \E[M] - \E[\log M],
+\label{eq:sdf-entropy}
+\end{equation}
+provides a lower bound on the maximum expected log return:
+\begin{equation}
+\max_j \E[\log R^j] \leq L(M).
+\label{eq:alvarez-jermann}
+\end{equation}
+
+This ``entropy bound'' complements the Hansen-Jagannathan volatility bound. While the HJ bound constrains $\sigma(M)/\E[M]$, the entropy bound constrains the ``size'' of multiplicative SDF fluctuations.
+
+\paragraph{Implications for the Equity Premium.}
+
+The equity premium puzzle can be restated in entropy terms. If the SDF is $M = \beta(c_{t+1}/c_t)^{-\gamma}$, then
+\begin{equation}
+L(M) \approx \frac{\gamma^2}{2} \sigma^2(\Delta \log c).
+\label{eq:sdf-entropy-crra}
+\end{equation}
+
+With consumption growth volatility $\sigma(\Delta \log c) \approx 2\%$ and equity premium $\E[\log R^e - \log R^f] \approx 6\%$, the bound requires $\gamma \geq 30$---the puzzle in entropy form.
+
+\begin{calloutnote}[Bansal-Yaron Long-Run Risk]
+Bansal and Yaron (2004) resolve the entropy bound by introducing persistent consumption growth shocks. With long-run risk, small shocks to expected growth cumulate over time, generating large entropy in the SDF without requiring extreme risk aversion. The Epstein-Zin preference for early resolution of uncertainty (Section~\ref{subsec:resolution-timing}) amplifies the pricing of long-run risk.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Cost of Suboptimal Portfolios}
+\label{subsec:cost-suboptimal}
+% --------------------------------------------------------------
+
+The KL representation quantifies the welfare cost of deviating from the optimal portfolio.
+
+\paragraph{Welfare Loss.}
+
+Let $\balpha\opt$ be the optimal portfolio and $\balpha$ any suboptimal portfolio. The welfare loss, measured in certainty-equivalent units, is
+\begin{equation}
+\Delta \CE = \CE_{\gamma}(R^{p,*}) - \CE_{\gamma}(R^p(\balpha)).
+\label{eq:welfare-loss}
+\end{equation}
+
+Using the variational representation, this can be bounded in terms of the KL divergence between the distorted measures induced by the two portfolios.
+
+\paragraph{Proportional Loss.}
+
+For small deviations from optimality, the proportional loss is approximately
+\begin{equation}
+\frac{\Delta \CE}{\CE\opt} \approx \frac{\gamma}{2} \cdot \frac{\Var(R^p - R^{p,*})}{(\CE\opt)^2}.
+\label{eq:proportional-loss}
+\end{equation}
+
+The loss is quadratic in the deviation and proportional to risk aversion. This justifies the common approximation that small portfolio mistakes have second-order welfare effects---though with high $\gamma$, even modest deviations can be costly.
+
+\paragraph{The Value of Information.}
+
+The KL framework also quantifies the value of information about returns. If an investor can acquire a signal $s$ about returns at cost $\kappa$, the value of information is
+\begin{equation}
+\text{VoI} = \E_s\left[ \CE_{\gamma}(R^{p,*}(s)) \right] - \CE_{\gamma}(R^{p,*}(\text{no signal})) - \kappa.
+\label{eq:value-of-info}
+\end{equation}
+
+Under rational inattention (Sims 2003, Ma\'{c}kowiak and Wiederholt 2009), the optimal attention allocation balances the marginal value of information against its Shannon entropy cost---another KL-based trade-off.
+
+\begin{calloutimportant}[Summary: KL Divergence in Portfolio Choice]
+The KL divergence appears in multiple guises:
+\begin{enumerate}[nosep]
+    \item \textbf{Variational representation}: $\CE_{\gamma}$ as worst-case expectation with entropy penalty
+    \item \textbf{Robustness}: Equivalent to model uncertainty aversion (Hansen-Sargent)
+    \item \textbf{Diversification}: Entropy of portfolio weights as a diversification measure
+    \item \textbf{Asset pricing bounds}: SDF entropy bounds expected returns
+    \item \textbf{Welfare costs}: KL between optimal and suboptimal portfolio distributions
+    \item \textbf{Information value}: Shannon cost of acquiring return signals
+\end{enumerate}
+This unifying structure connects portfolio theory to information theory, statistical mechanics, and robust control.
+\end{calloutimportant}
+

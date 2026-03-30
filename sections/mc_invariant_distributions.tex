@@ -1,0 +1,216 @@
+% ==============================================================
+% Section: Invariant Distributions and Ergodicity
+% ==============================================================
+
+\section{Invariant Distributions and Ergodicity}
+\label{sec:invariant-distributions}
+
+A central question in the analysis of Markov chains is: what happens in the long run? If we simulate the chain for many periods, does the distribution over states settle down? If so, to what? This section develops the concept of an \emph{invariant distribution}---a distribution that, once reached, perpetuates itself. We show that finding an invariant distribution is a fixed-point problem, connecting directly to the recursive logic of the previous chapter.
+
+% --------------------------------------------------------------
+\subsection{Invariant Distributions as Fixed Points}
+\label{subsec:invariant-fixed-point}
+% --------------------------------------------------------------
+
+Consider a Markov chain with transition matrix $\Pi$. Suppose the current distribution over states is given by a row vector $\boldsymbol{\mu} = (\mu_1, \ldots, \mu_n)$, where $\mu_i \geq 0$ and $\sum_i \mu_i = 1$. What is the distribution next period?
+
+\paragraph{Updating Distributions.}
+The probability of being in state $j$ tomorrow is
+\begin{equation}
+\mu_j' = \sum_{i=1}^{n} \mu_i \, \pi_{ij} = \sum_{i=1}^{n} \Pr(s_t = i) \cdot \Pr(s_{t+1} = j \mid s_t = i).
+\label{eq:distribution-update}
+\end{equation}
+In matrix notation, with $\boldsymbol{\mu}$ as a row vector:
+\begin{equation}
+\boldsymbol{\mu}' = \boldsymbol{\mu} \Pi.
+\label{eq:distribution-update-matrix}
+\end{equation}
+The transition matrix $\Pi$ acts on distributions from the right.
+
+\begin{definition}[Invariant Distribution]
+\label{def:invariant}
+A probability distribution $\boldsymbol{\mu}^* = (\mu_1^*, \ldots, \mu_n^*)$ is \emph{invariant} (or \emph{stationary}) for the Markov chain with transition matrix $\Pi$ if
+\begin{equation}
+\boldsymbol{\mu}^* = \boldsymbol{\mu}^* \Pi.
+\label{eq:invariant-definition}
+\end{equation}
+That is, $\boldsymbol{\mu}^*$ is a fixed point of the map $\boldsymbol{\mu} \mapsto \boldsymbol{\mu} \Pi$.
+\end{definition}
+
+An invariant distribution is self-perpetuating: if the system starts in $\boldsymbol{\mu}^*$, it remains in $\boldsymbol{\mu}^*$ forever. The flows into each state exactly balance the flows out.
+
+\paragraph{The Eigenvalue Interpretation.}
+Equation \eqref{eq:invariant-definition} says that $\boldsymbol{\mu}^*$ is a left eigenvector of $\Pi$ with eigenvalue 1. Since $\Pi$ is row-stochastic, the vector $\mathbf{1} = (1, \ldots, 1)^\top$ satisfies $\Pi \mathbf{1} = \mathbf{1}$, so 1 is always an eigenvalue of $\Pi$. The Perron-Frobenius theorem guarantees that for irreducible chains (defined below), there exists a unique probability distribution satisfying \eqref{eq:invariant-definition}.
+
+\begin{calloutimportant}[Fixed Points Again]
+In the previous chapter, we found value functions as fixed points of the Bellman-like recursion $\mathbf{V} = \mathbf{d} + \beta \Pi \mathbf{V}$. Here, we find distributions as fixed points of $\boldsymbol{\mu} = \boldsymbol{\mu} \Pi$. Both are linear fixed-point problems involving the transition matrix---one for values (column vectors, $\Pi$ acts from the left), one for distributions (row vectors, $\Pi$ acts from the right).
+\end{calloutimportant}
+
+\paragraph{Example: Two-State Chain.}
+For the boom-recession example with
+\begin{equation}
+\Pi = \begin{pmatrix}
+0.9 & 0.1 \\
+0.3 & 0.7
+\end{pmatrix},
+\label{eq:two-state-recall}
+\end{equation}
+we seek $(\mu_1^*, \mu_2^*)$ satisfying $\mu_1^* + \mu_2^* = 1$ and
+\begin{align}
+\mu_1^* &= 0.9 \mu_1^* + 0.3 \mu_2^*, \\
+\mu_2^* &= 0.1 \mu_1^* + 0.7 \mu_2^*.
+\end{align}
+The first equation gives $0.1 \mu_1^* = 0.3 \mu_2^*$, or $\mu_1^* = 3 \mu_2^*$. Combined with $\mu_1^* + \mu_2^* = 1$:
+\begin{equation}
+\mu_1^* = \frac{3}{4} = 0.75, \quad \mu_2^* = \frac{1}{4} = 0.25.
+\label{eq:two-state-invariant}
+\end{equation}
+In the long run, the economy spends 75\% of the time in booms and 25\% in recessions.
+
+% --------------------------------------------------------------
+\subsection{Ergodic Sets and Reducibility}
+\label{subsec:ergodic-sets}
+% --------------------------------------------------------------
+
+Not all Markov chains have a unique long-run distribution. The general case involves multiple \emph{ergodic sets}---subsets of states that, once entered, are never left.
+
+\paragraph{Absorbing States and Ergodic Sets.}
+An \emph{absorbing state} is a state $i$ with $\pi_{ii} = 1$: once the chain enters, it stays forever. More generally, an \emph{ergodic set} (or \emph{closed communicating class}) is a subset $E \subseteq \mathcal{S}$ such that transitions within $E$ are possible, but transitions out of $E$ are not. Formally, $\pi_{ij} = 0$ for all $i \in E$ and $j \notin E$.
+
+When multiple ergodic sets exist, the long-run distribution depends on where the chain starts. Each ergodic set has its own invariant distribution, and the chain eventually settles into one of them.
+
+\paragraph{Transient States.}
+States outside any ergodic set are called \emph{transient}. The chain may visit transient states early on, but eventually leaves them and never returns. In the long run, transient states have zero probability.
+
+\begin{calloutnote}[Example: Multiple Ergodic Sets]
+Consider a chain with three states and transition matrix
+\begin{equation*}
+\Pi = \begin{pmatrix}
+1 & 0 & 0 \\
+0.5 & 0 & 0.5 \\
+0 & 0 & 1
+\end{pmatrix}.
+\end{equation*}
+States 1 and 3 are both absorbing (ergodic sets of size one). State 2 is transient---from state 2, the chain eventually reaches either state 1 or state 3 and stays there forever. The long-run distribution is either $(1, 0, 0)$ or $(0, 0, 1)$ depending on which absorbing state is reached.
+\end{calloutnote}
+
+\paragraph{Our Focus: Irreducible Chains.}
+In these notes, we focus on \emph{irreducible} chains---those with a single ergodic set comprising all states. Equivalently, every state can be reached from every other state. This ensures a unique invariant distribution that is independent of initial conditions.
+
+Most economic applications satisfy irreducibility: business cycles can transition between any phases, income shocks can move between any levels, and so on. When irreducibility fails, one typically analyzes each ergodic set separately.
+
+% --------------------------------------------------------------
+\subsection{Convergence and Ergodicity}
+\label{subsec:ergodicity}
+% --------------------------------------------------------------
+
+For irreducible chains, does the distribution converge to $\boldsymbol{\mu}^*$ regardless of where the chain starts? Under one additional mild condition, yes.
+
+\begin{definition}[Irreducibility]
+\label{def:irreducible}
+A Markov chain is \emph{irreducible} if it consists of a single ergodic set---equivalently, if every state can be reached from every other state with positive probability in some finite number of steps. Formally, for all $i, j \in \mathcal{S}$, there exists $m \geq 1$ such that $(\Pi^m)_{ij} > 0$.
+\end{definition}
+
+\begin{definition}[Aperiodicity]
+\label{def:aperiodic}
+A Markov chain is \emph{aperiodic} if it does not cycle deterministically through subsets of states. Formally, for all $i \in \mathcal{S}$, the greatest common divisor of $\{m \geq 1 : (\Pi^m)_{ii} > 0\}$ equals 1.
+\end{definition}
+
+A simple sufficient condition for aperiodicity is that some state has $\pi_{ii} > 0$---if the chain can stay in place, it cannot be perfectly periodic.
+
+\begin{theorem}[Convergence to Invariant Distribution]
+\label{thm:convergence}
+If a Markov chain is irreducible and aperiodic, then:
+\begin{enumerate}[label=(\roman*)]
+\item There exists a unique invariant distribution $\boldsymbol{\mu}^*$.
+\item For any initial distribution $\boldsymbol{\mu}_0$, the sequence $\boldsymbol{\mu}_t = \boldsymbol{\mu}_0 \Pi^t$ converges to $\boldsymbol{\mu}^*$ as $t \to \infty$.
+\item Equivalently, $\Pi^t \to \mathbf{1} (\boldsymbol{\mu}^*)$ as $t \to \infty$, where each row of the limiting matrix equals $\boldsymbol{\mu}^*$.
+\end{enumerate}
+\end{theorem}
+
+The proof relies on the Perron-Frobenius theorem for nonnegative matrices. The key economic implication is that the long-run behavior of the chain is independent of initial conditions---history is eventually forgotten.
+
+\paragraph{Ergodicity and Time Averages.}
+A chain satisfying the conditions of Theorem~\ref{thm:convergence} is called \emph{ergodic}. For ergodic chains, time averages equal ensemble averages:
+
+\begin{theorem}[Ergodic Theorem]
+\label{thm:ergodic}
+Let $\{s_t\}$ be an ergodic Markov chain with invariant distribution $\boldsymbol{\mu}^*$. For any function $f: \mathcal{S} \to \R$,
+\begin{equation}
+\lim_{T \to \infty} \frac{1}{T} \sum_{t=0}^{T-1} f(s_t) = \sum_{i=1}^{n} \mu_i^* f(i) = \E_{\mu^*}[f]
+\label{eq:ergodic-theorem}
+\end{equation}
+almost surely, regardless of the initial state $s_0$.
+\end{theorem}
+
+The left-hand side is a time average along a single sample path; the right-hand side is an expectation over the invariant distribution. Ergodicity says these coincide in the limit.
+
+\begin{calloutnote}[Why Ergodicity Matters]
+Ergodicity is the foundation of simulation-based computation. To estimate $\E_{\mu^*}[f]$, we can either solve for $\boldsymbol{\mu}^*$ analytically and compute the weighted sum, or simply simulate the chain for a long time and take the sample average. For complex models where $\boldsymbol{\mu}^*$ is hard to compute, simulation is often the only feasible approach.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Computing Invariant Distributions}
+\label{subsec:computing-invariant}
+% --------------------------------------------------------------
+
+Several methods exist for computing the invariant distribution $\boldsymbol{\mu}^*$.
+
+\paragraph{Direct Solution.}
+Solve the linear system $\boldsymbol{\mu}^* (\Pi - I) = \mathbf{0}$ subject to $\sum_i \mu_i^* = 1$. For small state spaces, this is straightforward. Replace one equation (say, the last) with the normalization condition and solve.
+
+\paragraph{Power Iteration.}
+Start from any distribution $\boldsymbol{\mu}_0$ and iterate $\boldsymbol{\mu}_{t+1} = \boldsymbol{\mu}_t \Pi$. By Theorem~\ref{thm:convergence}, $\boldsymbol{\mu}_t \to \boldsymbol{\mu}^*$. This is the distributional analog of value function iteration.
+
+\paragraph{Eigenvalue Decomposition.}
+Compute the left eigenvector of $\Pi$ corresponding to eigenvalue 1, then normalize to sum to 1. Standard numerical libraries provide efficient routines.
+
+\begin{callouttip}[Practical Advice]
+For small state spaces ($n < 100$), direct solution is fast and exact. For larger problems, power iteration or eigenvalue methods are preferred. Sparse matrix techniques can handle state spaces with thousands of states.
+\end{callouttip}
+
+\paragraph{Example: Power Iteration.}
+Starting from $\boldsymbol{\mu}_0 = (1, 0)$ (certain boom) and applying \eqref{eq:two-state-recall}:
+\begin{align}
+\boldsymbol{\mu}_1 &= (1, 0) \begin{pmatrix} 0.9 & 0.1 \\ 0.3 & 0.7 \end{pmatrix} = (0.9, 0.1), \\
+\boldsymbol{\mu}_2 &= (0.9, 0.1) \Pi = (0.84, 0.16), \\
+\boldsymbol{\mu}_3 &= (0.84, 0.16) \Pi = (0.804, 0.196), \\
+&\;\;\vdots \notag \\
+\boldsymbol{\mu}_\infty &= (0.75, 0.25).
+\end{align}
+Convergence is geometric, with rate determined by the second-largest eigenvalue of $\Pi$.
+
+% --------------------------------------------------------------
+\subsection{Connection to Chapter 5}
+\label{subsec:connection-chapter5}
+% --------------------------------------------------------------
+
+The invariant distribution and the value function are dual objects, both defined by fixed-point conditions involving $\Pi$.
+
+\paragraph{Values vs.\ Distributions.}
+Recall from Section 5.6 that under i.i.d.\ risk, the present value satisfies $V = d + \beta \bar{\pi} V$, where $\bar{\pi} = \sum_s \pi_s$ effectively discounts the future. With Markov risk, this becomes a system:
+\begin{equation}
+V(i) = d(i) + \beta \sum_{j} \pi_{ij} V(j), \quad \text{or} \quad \mathbf{V} = \mathbf{d} + \beta \Pi \mathbf{V}.
+\label{eq:value-markov}
+\end{equation}
+The invariant distribution satisfies:
+\begin{equation}
+\mu^*(j) = \sum_{i} \mu^*(i) \pi_{ij}, \quad \text{or} \quad \boldsymbol{\mu}^* = \boldsymbol{\mu}^* \Pi.
+\label{eq:distribution-markov}
+\end{equation}
+
+Both are linear in $\Pi$. The value function aggregates future payoffs (forward-looking); the invariant distribution aggregates past transitions (backward-looking). Together, they characterize the long-run average payoff:
+\begin{equation}
+\bar{d} = \sum_{i} \mu_i^* d(i) = \boldsymbol{\mu}^* \mathbf{d}.
+\label{eq:long-run-average}
+\end{equation}
+
+\begin{calloutimportant}[The Two Fixed Points]
+Every Markov model involves two fixed-point problems:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Value}: $\mathbf{V} = \mathbf{d} + \beta \Pi \mathbf{V}$ gives the state-contingent present value.
+\item \textbf{Distribution}: $\boldsymbol{\mu}^* = \boldsymbol{\mu}^* \Pi$ gives the long-run frequency of each state.
+\end{enumerate}
+The first answers ``what is the value of being in each state?'' The second answers ``how often is the system in each state?'' Both use the same transition matrix $\Pi$.
+\end{calloutimportant}
+

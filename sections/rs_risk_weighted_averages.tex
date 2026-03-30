@@ -1,0 +1,214 @@
+% ==============================================================
+\section{Risk as Weighted Averages}
+\label{sec:risk-weighted-averages}
+% ==============================================================
+
+We now introduce uncertainty. A key observation is that expected utility under risk is simply another generalized mean---with probabilities playing the role of weights. This is a \emph{flat} structure: no nesting is required. The certainty equivalent emerges naturally as the value of the mean.
+
+% --------------------------------------------------------------
+\subsection{States and Lotteries}
+\label{subsec:states-lotteries}
+% --------------------------------------------------------------
+
+Consider an agent facing uncertainty over $n$ states of the world. State $s$ occurs with probability $\pi_s > 0$, where $\sum_{s=1}^{n} \pi_s = 1$. If state $s$ occurs, the agent consumes $c_s$.
+
+\paragraph{Expected Utility.}
+The von Neumann--Morgenstern expected utility is:
+\begin{equation}
+\E[u(c)] = \sum_{s=1}^{n} \pi_s \, u(c_s),
+\label{eq:expected-utility}
+\end{equation}
+where $u(\cdot)$ is the Bernoulli utility function over consumption.
+
+\paragraph{Power Utility.}
+With power utility $u(c) = c^{1-\gamma}/(1-\gamma)$ where $\gamma > 0$ is the coefficient of relative risk aversion:
+\begin{equation}
+\E[u(c)] = \sum_{s=1}^{n} \pi_s \frac{c_s^{1-\gamma}}{1-\gamma} = \frac{1}{1-\gamma} \sum_{s=1}^{n} \pi_s \, c_s^{1-\gamma}.
+\label{eq:expected-power-utility}
+\end{equation}
+
+\begin{calloutnote}[Risk Aversion vs.\ Intertemporal Substitution]
+In the intertemporal context of \cref{sec:discounted-utility}, we used $\theta$ for the intertemporal elasticity of substitution. Here we use $\gamma$ for risk aversion. With standard expected utility, these are linked: $\gamma = 1/\theta$. Epstein--Zin preferences, introduced in \cref{sec:epstein-zin}, break this link by using a nested structure.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Expected Utility as a Generalized Mean}
+\label{subsec:eu-as-mean}
+% --------------------------------------------------------------
+
+The expression \cref{eq:expected-power-utility} is, up to a monotone transformation, a classical generalized mean.
+
+\paragraph{Identifying the Structure.}
+Define $\rho \equiv 1 - \gamma$. Then the inner sum is:
+\begin{equation}
+\sum_{s=1}^{n} \pi_s \, c_s^{\rho} = \bar{\Ssum}(\bc; \bpi, \rho),
+\label{eq:inner-sum-risk}
+\end{equation}
+where $\bpi = (\pi_1, \ldots, \pi_n)$ are the probability weights and $\bc = (c_1, \ldots, c_n)$ is the consumption vector across states.
+
+The classical generalized mean is:
+\begin{equation}
+\Mbar(\bc; \bpi, \rho) = \left( \sum_{s=1}^{n} \pi_s \, c_s^{\rho} \right)^{1/\rho}.
+\label{eq:mean-risk}
+\end{equation}
+
+\paragraph{The Monotone Transformation.}
+Expected utility relates to this mean by:
+\begin{equation}
+\E[u(c)] = \frac{1}{1-\gamma} \left( \Mbar(\bc; \bpi, \rho) \right)^{\rho} = \frac{1}{1-\gamma} \left( \Mbar(\bc; \bpi, \rho) \right)^{1-\gamma}.
+\label{eq:eu-mean-relation}
+\end{equation}
+Since $1/(1-\gamma)$ is a constant and raising to power $1-\gamma$ is monotone (for $\gamma \neq 1$), maximizing expected utility is equivalent to maximizing $\Mbar(\bc; \bpi, \rho)$.
+
+\begin{proposition}[Expected Utility as a Generalized Mean]
+\label{prop:eu-as-mean}
+Expected power utility $\E[u(c)] = \sum_s \pi_s \, c_s^{1-\gamma}/(1-\gamma)$ is a monotone transformation of the classical generalized mean:
+\begin{equation}
+\Mbar(\bc; \bpi, \rho) = \left( \sum_{s=1}^{n} \pi_s \, c_s^{1-\gamma} \right)^{1/(1-\gamma)},
+\end{equation}
+where the weights are probabilities $\pi_s$ and the power parameter is $\rho = 1 - \gamma$.
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{The Certainty Equivalent}
+\label{subsec:certainty-equivalent}
+% --------------------------------------------------------------
+
+The generalized mean has a natural interpretation under risk: it is the \emph{certainty equivalent} of the lottery.
+
+\begin{definition}[Certainty Equivalent]
+\label{def:certainty-equivalent}
+The certainty equivalent $\CE$ of a lottery $(c_1, \ldots, c_n; \pi_1, \ldots, \pi_n)$ is the sure consumption level that yields the same utility:
+\begin{equation}
+u(\CE) = \E[u(c)] = \sum_{s=1}^{n} \pi_s \, u(c_s).
+\label{eq:ce-definition}
+\end{equation}
+\end{definition}
+
+\paragraph{Computing the Certainty Equivalent.}
+With power utility, inverting gives:
+\begin{equation}
+\CE = u^{-1}\left( \E[u(c)] \right) = \left( (1-\gamma) \cdot \frac{1}{1-\gamma} \sum_{s=1}^{n} \pi_s \, c_s^{1-\gamma} \right)^{1/(1-\gamma)} = \left( \sum_{s=1}^{n} \pi_s \, c_s^{1-\gamma} \right)^{1/(1-\gamma)}.
+\label{eq:ce-computation}
+\end{equation}
+
+This is precisely the classical generalized mean:
+\begin{equation}
+\CE = \Mbar(\bc; \bpi, \rho) \quad \text{where } \rho = 1 - \gamma.
+\label{eq:ce-is-mean}
+\end{equation}
+
+\begin{calloutimportant}[The Certainty Equivalent is the Mean]
+Under power utility, the certainty equivalent of a lottery equals the classical generalized mean of consumption across states, with probability weights. This is the natural units-preserving measure of the lottery's value.
+\end{calloutimportant}
+
+\paragraph{Risk Aversion and the Mean.}
+The parameter $\gamma$ governs risk aversion:
+\begin{itemize}[leftmargin=2em]
+    \item $\gamma = 0$ ($\rho = 1$): Risk neutrality. $\CE = \sum_s \pi_s c_s = \E[c]$, the arithmetic mean.
+    \item $\gamma = 1$ ($\rho \to 0$): Log utility. $\CE = \prod_s c_s^{\pi_s}$, the geometric mean.
+    \item $\gamma > 1$ ($\rho < 0$): High risk aversion. $\CE < \E[c]$, with $\CE \to \min_s c_s$ as $\gamma \to \infty$.
+\end{itemize}
+
+The ordering of generalized means (\cref{prop:ordering-classical}) implies:
+\begin{equation}
+\gamma' > \gamma \quad \Longrightarrow \quad \CE_{\gamma'} < \CE_{\gamma}.
+\label{eq:ce-ordering}
+\end{equation}
+More risk-averse agents have lower certainty equivalents---they value risky lotteries less.
+
+% --------------------------------------------------------------
+\subsection{A Flat Structure}
+\label{subsec:flat-structure}
+% --------------------------------------------------------------
+
+We emphasize that expected utility is a \emph{flat} generalized mean---no nesting is involved.
+
+\paragraph{Comparison with Intertemporal Choice.}
+In \cref{sec:discounted-utility}, discounted utility was a generalized mean over time:
+\begin{equation}
+\Mbar(\bc; \bar{\bom}, \rho) = \left( \sum_{t=0}^{T} \bar{\omega}_t \, c_t^{\rho} \right)^{1/\rho}, \quad \bar{\omega}_t = \kappa \beta^t, \quad \rho = 1 - 1/\theta.
+\label{eq:intertemporal-mean-recall}
+\end{equation}
+Here, expected utility is a generalized mean over states:
+\begin{equation}
+\Mbar(\bc; \bpi, \rho) = \left( \sum_{s=1}^{n} \pi_s \, c_s^{\rho} \right)^{1/\rho}, \quad \rho = 1 - \gamma.
+\label{eq:risk-mean-recall}
+\end{equation}
+
+Both are classical generalized means. The only differences are:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Weights:} Discount factors $\bar{\omega}_t = \kappa\beta^t$ vs.\ probabilities $\pi_s$.
+    \item \textbf{Power parameter:} $\rho = 1 - 1/\theta$ (intertemporal) vs.\ $\rho = 1 - \gamma$ (risk).
+\end{itemize}
+
+\paragraph{No Nesting Yet.}
+When both time and risk are present, we might aggregate over states at each date, then aggregate over time. Or vice versa. With standard expected discounted utility:
+\begin{equation}
+V = \sum_{t=0}^{T} \beta^t \, \E_t[u(c_t)] = \sum_{t=0}^{T} \beta^t \sum_{s} \pi_s \, u(c_{t,s}),
+\label{eq:expected-discounted}
+\end{equation}
+where $c_{t,s}$ is consumption at date $t$ in state $s$.
+
+If the same power $\rho = 1 - \gamma = 1 - 1/\theta$ applies to both time and risk, this remains a flat structure---a single generalized mean over the $(t,s)$ pairs. The order of summation does not matter.
+
+\begin{calloutnote}[When Nesting Becomes Necessary]
+Nesting becomes necessary when we want \emph{different} elasticities for time and risk---that is, when $\theta \neq 1/\gamma$. This is exactly what Epstein--Zin preferences accomplish: they nest a certainty equivalent (aggregation over risk) inside an intertemporal aggregator (aggregation over time), with different power parameters at each level. We develop this in \cref{sec:epstein-zin}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Recursive Structure Under Risk}
+\label{subsec:recursive-risk}
+% --------------------------------------------------------------
+
+The certainty equivalent inherits the recursive structure of generalized means. This is useful when lotteries have a sequential structure---for instance, compound lotteries or multi-stage resolution of uncertainty.
+
+\paragraph{Compound Lotteries.}
+Suppose the agent faces a two-stage lottery. In stage 1, one of two "sub-lotteries" is selected with probabilities $(\pi, 1-\pi)$. In stage 2, the selected sub-lottery pays out.
+
+Let $\CE_A$ and $\CE_B$ denote the certainty equivalents of the two sub-lotteries. The overall certainty equivalent is:
+\begin{equation}
+\CE = \Mbar(\CE_A, \CE_B; \pi, \rho) = \left( \pi \, \CE_A^{\rho} + (1-\pi) \, \CE_B^{\rho} \right)^{1/\rho}.
+\label{eq:compound-lottery}
+\end{equation}
+
+This is the recursive decomposition: the certainty equivalents of the inner lotteries serve as sufficient statistics for computing the overall certainty equivalent.
+
+\paragraph{Reduction of Compound Lotteries.}
+A key property of expected utility is that compound lotteries reduce to simple lotteries. If sub-lottery $A$ pays $(c_1, c_2)$ with probabilities $(q, 1-q)$, then:
+\begin{equation}
+\CE_A = \left( q \, c_1^{\rho} + (1-q) \, c_2^{\rho} \right)^{1/\rho}.
+\label{eq:sub-lottery-a}
+\end{equation}
+The overall lottery is equivalent to a simple lottery over $(c_1, c_2, \ldots)$ with appropriately combined probabilities. The timing of uncertainty resolution does not matter.
+
+\begin{calloutnote}[Timing Neutrality]
+With standard expected utility, the agent is indifferent to the timing of uncertainty resolution. Early or late resolution yields the same certainty equivalent. This is another consequence of the flat structure---the same $\rho$ applies at every stage, so the order of aggregation is irrelevant.
+
+When $\rho$ differs across stages (as in Epstein--Zin), timing matters. Agents may prefer early or late resolution depending on the parameters.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:risk-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item Expected power utility is a \textbf{monotone transformation} of a classical generalized mean with probability weights $\pi_s$ and power $\rho = 1 - \gamma$.
+    
+    \item The \textbf{certainty equivalent} equals the generalized mean: $\CE = \Mbar(\bc; \bpi, \rho)$.
+    
+    \item This is a \textbf{flat structure}---no nesting. When combined with intertemporal choice using the same $\rho$, it remains flat.
+    
+    \item \textbf{Nesting} becomes necessary when different elasticities govern time ($\theta$) and risk ($\gamma$), i.e., when $\theta \neq 1/\gamma$.
+\end{enumerate}
+\end{calloutimportant}
+
+\begin{callouttip}[Exercise]
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Consider a lottery paying $c_1 = 100$ with probability $\pi = 0.5$ and $c_2 = 50$ with probability $1-\pi = 0.5$. Compute the certainty equivalent for $\gamma = 0$, $\gamma = 1$, and $\gamma = 2$.
+    \item Show that for any lottery, $\CE_{\gamma=0} \geq \CE_{\gamma=1} \geq \CE_{\gamma=2}$.
+    \item Consider a compound lottery: with probability $1/2$, receive the lottery from (a); with probability $1/2$, receive $c = 75$ for sure. Compute the overall certainty equivalent for $\gamma = 2$ and verify it equals the CE of the reduced simple lottery.
+\end{enumerate}
+\end{callouttip}

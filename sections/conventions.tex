@@ -1,0 +1,105 @@
+\chapter*{Notation and Conventions for CES Aggregators}
+
+\begin{calloutnote}[Purpose]
+This chapter establishes notation for constant elasticity of substitution (CES) aggregators. The generalized mean is the master object; utility, production, risk, and intertemporal choice are special cases.
+\end{calloutnote}
+
+%----------------------------------------------------------------------
+\section*{Summary of Notation}
+%----------------------------------------------------------------------
+
+\subsection*{Aggregators}
+
+Calligraphic letters denote aggregator functions:
+
+\begin{center}
+\begin{tabular}{@{}cll@{}}
+\toprule
+Symbol & Name & Domain \\
+\midrule
+$\M$ & Generalized mean (canonical) & Generic aggregation \\
+$\Mbar$ & Generalized mean (classical) & Generic aggregation \\
+$\Ssum$ & Inner sum & Pre-power aggregation \\
+$\U$ & Utility & Consumption goods \\
+$\F$ & Production & Factor inputs \\
+$\Hfun$ & Output function & Allocation/distribution \\
+$\CE$ & Certainty equivalent & Risky outcomes \\
+$\V$ & Value function & Intertemporal utility \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Parameters: Powers and Elasticities}
+
+Each application uses a distinct elasticity. The power-elasticity relationship is:
+\[
+\text{power} = 1 - \frac{1}{\text{elasticity}}, \qquad \text{elasticity} = \frac{1}{1 - \text{power}}.
+\]
+
+\begin{center}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+Context & Elasticity & Symbol & Power \\
+\midrule
+Generic mean & — & $\rho$ & $\rho$ \\[4pt]
+Utility (goods) & Elasticity of substitution & $\varepsilon$ & $1 - \dfrac{1}{\varepsilon}$ \\[10pt]
+Production & Elasticity across inputs & $\sigma$ & $1 - \dfrac{1}{\sigma}$ \\[10pt]
+Intertemporal & IES & $\theta$ & $1 - \dfrac{1}{\theta}$ \\[10pt]
+Certainty equivalent & Risk aversion & $\gamma$ & $1 - \gamma$ \\[4pt]
+Output/allocation & — & $\psi$ & $\psi$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Weights, Shares, and Probabilities}
+
+\begin{center}
+\begin{tabular}{@{}cll@{}}
+\toprule
+Symbol & Name & Properties \\
+\midrule
+$\omega_i$ & Primitive weight & $\omega_i > 0$, $\sum_i \omega_i = 1$ \\
+$\tilde{\omega}_i$ & Transformed weight & After price/coordinate adjustment \\
+$\wexp_i$ & Expenditure share & $\wexp_i = p_i c_i / W$ \\
+$\pi_i$ & Probability & $\pi_i \geq 0$, $\sum_i \pi_i = 1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Vectors and Optima}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Convention & Example \\
+\midrule
+Vectors in boldface & $\bx = (x_1, \ldots, x_n)$, $\bc$, $\bom$ \\
+Sets in braces & $\{x_1, x_2\}$ \\
+Optima with superscript $*$ & $c\opt$, $\U\opt$, $\Pstar$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{calloutcaution}[Notation Collision Avoided]
+The asterisk $*$ is reserved for optimal values only. The classical form uses a bar: $\Mbar$, not $\M^*$.
+\end{calloutcaution}
+
+\subsection*{Quick Reference}
+
+\begin{calloutnote}[At a Glance]
+\small
+\begin{tabular}{@{}p{0.22\textwidth}p{0.72\textwidth}@{}}
+\toprule
+\textbf{Category} & \textbf{Convention} \\
+\midrule
+Aggregators & Calligraphic: $\M$, $\U$, $\F$, $\Hfun$, $\CE$, $\V$ \\
+Classical form & Bar: $\Mbar$ \\
+Weights & $\omega_i$ (primitive), $\tilde{\omega}_i$ (transformed), $\wexp_i$ (expenditure) \\
+Probabilities & $\pi_i$ \\
+Elasticities & $\varepsilon$ (goods), $\sigma$ (inputs), $\theta$ (time), $\gamma$ (risk) \\
+Optima & Superscript $*$: $c\opt$, $\U\opt$, $\Pstar$ \\
+Vectors & Bold: $\bx$, $\bc$, $\bom$ \\
+Sets & Braces: $\{x_1, x_2\}$ \\
+\bottomrule
+\end{tabular}
+\end{calloutnote}

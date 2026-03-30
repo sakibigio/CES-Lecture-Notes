@@ -1,0 +1,438 @@
+% ==============================================================
+% Chapter: Discrete Choice and Dynamic CES Aggregation
+% ==============================================================
+
+%\chapter{Discrete Choice and Dynamic Aggregation}
+\label{ch:discrete-choice}
+
+This chapter reveals a remarkable connection: the CES/generalized mean structure that emerges from deterministic optimization with curved preferences also arises from stochastic optimization with idiosyncratic shocks. The Gibbs variational principle from Chapter~\ref{ch:ces-aggregators} provides the bridge---it shows that entropy-regularized optimization produces CES aggregators. Here we show that dynamic discrete choice problems with extreme value shocks produce the \emph{same} structure recursively over time.
+
+The results have immediate applications to spatial economics, labor mobility, trade, and any setting where agents make discrete location or occupation choices subject to idiosyncratic taste shocks.
+
+% ==============================================================
+\section{The Static Foundation: Gibbs Revisited}
+\label{sec:gibbs-revisited}
+% ==============================================================
+
+We begin by recasting the Gibbs variational principle in a form that parallels the discrete choice problem.
+
+\paragraph{The Entropy-Regularized Problem.}
+
+Recall from Section~\ref{sec:gibbs} that the classical generalized mean solves:
+\begin{equation}
+\label{eq:gibbs-static}
+\log \Mbar(\bx; \bom, \rho) = \max_{\bs \in \Delta^{n-1}} \left\{ \sum_{i=1}^n s_i \log x_i - \frac{1}{\rho} \KL{\bs}{\bom} \right\},
+\end{equation}
+where $\Delta^{n-1}$ is the probability simplex. The optimizer is:
+\begin{equation}
+\label{eq:gibbs-shares}
+s_i^* = \frac{\omega_i \, x_i^\rho}{\sum_{j=1}^n \omega_j \, x_j^\rho}.
+\end{equation}
+
+\paragraph{Rewriting in Exponential Form.}
+
+Define $V_i = \log x_i$ as the ``value'' of option $i$. The Gibbs problem becomes:
+\begin{equation}
+\label{eq:gibbs-value}
+\Phi = \max_{\bs} \left\{ \sum_{i=1}^n s_i V_i - \frac{1}{\rho} \KL{\bs}{\bom} \right\}.
+\end{equation}
+
+The solution and optimal value are:
+\begin{align}
+s_i^* &= \frac{\omega_i \exp(\rho V_i)}{\sum_j \omega_j \exp(\rho V_j)}, \label{eq:softmax} \\
+\Phi &= \frac{1}{\rho} \log \left( \sum_{i=1}^n \omega_i \exp(\rho V_i) \right). \label{eq:logsumexp}
+\end{align}
+
+\begin{calloutimportant}[The Log-Sum-Exp is a Generalized Mean]
+Equation \eqref{eq:logsumexp} is the \emph{log-sum-exp} function, ubiquitous in machine learning as the ``softmax'' aggregator. It is precisely the log of a classical generalized mean:
+\begin{equation}
+\Phi = \log \Mbar(e^{V_1}, \ldots, e^{V_n}; \bom, \rho) = \frac{1}{\rho} \log \left( \sum_i \omega_i e^{\rho V_i} \right).
+\end{equation}
+The parameter $1/\rho$ plays the role of ``temperature'' in statistical mechanics. As $\rho \to \infty$, the log-sum-exp converges to $\max_i V_i$; as $\rho \to 0$, it converges to the weighted arithmetic mean $\sum_i \omega_i V_i$.
+\end{calloutimportant}
+
+% ==============================================================
+\section{Discrete Choice with Gumbel Shocks}
+\label{sec:gumbel}
+% ==============================================================
+
+We now show that the \emph{same} structure emerges from a completely different foundation: stochastic optimization with extreme value shocks.
+
+\subsection{Setup}
+
+\paragraph{The Decision Problem.}
+
+An agent in state $n$ chooses among $K$ options (locations, occupations, products). The flow payoff from choosing option $k$ is:
+\begin{equation}
+\label{eq:payoff-gumbel}
+u^{k,n} = \underbrace{\beta V^k - \tau^{k,n}}_{\text{deterministic}} + \underbrace{\nu \epsilon^k}_{\text{idiosyncratic}},
+\end{equation}
+where:
+\begin{itemize}[nosep]
+    \item $V^k = \mathbb{E}[v_{t+1}^k]$ is the expected continuation value of being in state $k$
+    \item $\tau^{k,n} \geq 0$ is the switching cost from $n$ to $k$ (with $\tau^{n,n} = 0$)
+    \item $\epsilon^k$ is an i.i.d.\ taste shock drawn from a Gumbel distribution
+    \item $\nu > 0$ scales the variance of taste shocks
+\end{itemize}
+
+The agent solves:
+\begin{equation}
+\label{eq:bellman-gumbel}
+v_t^n = u_t^n + \mathbb{E}\left[ \max_k \left\{ \beta V^k - \tau^{k,n} + \nu \epsilon^k \right\} \right].
+\end{equation}
+
+\paragraph{The Gumbel Distribution.}
+
+The Gumbel (Extreme Value Type I) distribution has CDF:
+\begin{equation}
+F(\epsilon) = \exp\left[ -\exp\left( -(\epsilon + \bar{\gamma}) \right) \right],
+\end{equation}
+where $\bar{\gamma} \approx 0.5772$ is the Euler-Mascheroni constant. This location parameter ensures $\mathbb{E}[\epsilon] = 0$. The density is:
+\begin{equation}
+f(\epsilon) = \exp\left( -(\epsilon + \bar{\gamma}) \right) \cdot \exp\left[ -\exp\left( -(\epsilon + \bar{\gamma}) \right) \right].
+\end{equation}
+
+\begin{calloutnote}[Why Gumbel?]
+The Gumbel distribution is the limiting distribution of the maximum of i.i.d.\ draws from many common distributions (normal, exponential, etc.). This ``max-stability'' property makes it natural for discrete choice: if each option's value is the maximum over many unobserved attributes, the resulting idiosyncratic component is approximately Gumbel.
+\end{calloutnote}
+
+\subsection{The Main Result}
+
+\begin{theorem}[Gumbel Aggregation]
+\label{thm:gumbel}
+When taste shocks are i.i.d.\ Gumbel with scale $\nu$, the expected value of the optimal choice is:
+\begin{equation}
+\label{eq:gumbel-value}
+\boxed{\Phi^n = \mathbb{E}\left[ \max_k \left\{ \beta V^k - \tau^{k,n} + \nu \epsilon^k \right\} \right] = \nu \log \left( \sum_k \exp\left[ \frac{\beta V^k - \tau^{k,n}}{\nu} \right] \right).}
+\end{equation}
+The probability of choosing option $m$ from state $n$ is:
+\begin{equation}
+\label{eq:gumbel-prob}
+\boxed{P^{m,n} = \frac{\exp\left[ (\beta V^m - \tau^{m,n})/\nu \right]}{\sum_k \exp\left[ (\beta V^k - \tau^{k,n})/\nu \right]}.}
+\end{equation}
+\end{theorem}
+
+\paragraph{Connection to CES.}
+
+Comparing \eqref{eq:gumbel-value} with \eqref{eq:logsumexp}, we see that:
+\begin{equation}
+\Phi^n = \nu \cdot \log \Mbar\left( e^{(\beta V^1 - \tau^{1,n})/\nu}, \ldots, e^{(\beta V^K - \tau^{K,n})/\nu}; \mathbf{1}/K, 1 \right),
+\end{equation}
+where $\mathbf{1}/K$ denotes equal weights. The Gumbel discrete choice problem produces a \emph{log-sum-exp aggregator}---a classical generalized mean with $\rho = 1$ applied to exponentiated values.
+
+More elegantly, define $\tilde{V}^k = \exp[(\beta V^k - \tau^{k,n})/\nu]$. Then:
+\begin{equation}
+\exp(\Phi^n / \nu) = \sum_k \tilde{V}^k = \Mbar(\tilde{\bV}; \mathbf{1}/K, 1)^1 \cdot K,
+\end{equation}
+which is $K$ times the arithmetic mean of the transformed values.
+
+\begin{calloutimportant}[The Unifying Insight]
+The Gibbs variational principle and the Gumbel discrete choice theorem are two sides of the same coin:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{Gibbs (Static)} & \textbf{Gumbel (Stochastic)} \\
+\midrule
+Objective & $\sum_i s_i V_i - \frac{1}{\rho} \KL{\bs}{\bom}$ & $\max_k \{ V^k + \nu \epsilon^k \}$ \\
+Regularization & KL divergence penalty & Gumbel taste shocks \\
+``Temperature'' & $1/\rho$ & $\nu$ \\
+Optimal shares & $s_i^* \propto \omega_i e^{\rho V_i}$ & $P^k \propto e^{V^k/\nu}$ \\
+Value & $\frac{1}{\rho} \log \sum_i \omega_i e^{\rho V_i}$ & $\nu \log \sum_k e^{V^k/\nu}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The KL divergence in the Gibbs problem plays the same role as the Gumbel shocks: both ``smooth'' the max operator into a soft-max, with the smoothing parameter determining the elasticity of substitution.
+\end{calloutimportant}
+
+\subsection{Derivation}
+
+We now derive Theorem~\ref{thm:gumbel}. The key is to compute the expectation of the maximum over Gumbel-distributed random variables.
+
+\paragraph{Setup.}
+
+Define $\zeta^{m,k} = \frac{(\beta V^m - \tau^{m,n}) - (\beta V^k - \tau^{k,n})}{\nu}$ as the normalized value advantage of $m$ over $k$. Option $m$ is chosen if and only if:
+\begin{equation}
+\epsilon^m + \zeta^{m,k} > \epsilon^k \quad \text{for all } k \neq m.
+\end{equation}
+
+\paragraph{Choice Probability.}
+
+Given a draw $\epsilon^m$, the probability that $m$ beats all other options is:
+\begin{equation}
+\prod_{k \neq m} F(\epsilon^m + \zeta^{m,k}) = \prod_{k \neq m} \exp\left[ -\exp\left( -(\epsilon^m + \zeta^{m,k} + \bar{\gamma}) \right) \right].
+\end{equation}
+
+Integrating over $\epsilon^m$:
+\begin{equation}
+P^{m,n} = \int_{-\infty}^{\infty} \left[ \prod_{k \neq m} F(\epsilon^m + \zeta^{m,k}) \right] f(\epsilon^m) \, d\epsilon^m.
+\end{equation}
+
+\paragraph{Key Manipulation.}
+
+The product of Gumbel CDFs simplifies elegantly. Using $F(\epsilon) = \exp[-e^{-(\epsilon + \bar{\gamma})}]$:
+\begin{align}
+\prod_{k \neq m} F(\epsilon^m + \zeta^{m,k}) &= \exp\left[ -\sum_{k \neq m} e^{-(\epsilon^m + \zeta^{m,k} + \bar{\gamma})} \right] \notag \\
+&= \exp\left[ -e^{-(\epsilon^m + \bar{\gamma})} \sum_{k \neq m} e^{-\zeta^{m,k}} \right].
+\end{align}
+
+Define $\lambda^m = \log \sum_k e^{-\zeta^{m,k}}$ (noting $\zeta^{m,m} = 0$). Then:
+\begin{equation}
+\prod_k F(\epsilon^m + \zeta^{m,k}) = \exp\left[ -e^{-(\epsilon^m + \bar{\gamma})} \cdot e^{\lambda^m} \right] = F(\epsilon^m - \lambda^m).
+\end{equation}
+
+This is another Gumbel CDF, shifted by $\lambda^m$! The probability integral becomes:
+\begin{equation}
+P^{m,n} = \int_{-\infty}^{\infty} F(\epsilon^m - \lambda^m) f(\epsilon^m) \, d\epsilon^m.
+\end{equation}
+
+After the change of variables $y = \epsilon^m - \lambda^m$ and using properties of the Gumbel:
+\begin{equation}
+P^{m,n} = e^{-\lambda^m} = \frac{1}{\sum_k e^{-\zeta^{m,k}}} = \frac{e^{(\beta V^m - \tau^{m,n})/\nu}}{\sum_k e^{(\beta V^k - \tau^{k,n})/\nu}}.
+\end{equation}
+
+This establishes \eqref{eq:gumbel-prob}. The value function \eqref{eq:gumbel-value} follows from similar calculations applied to the expected maximum. \qed
+
+\subsection{The Recursive Value Function}
+
+Substituting \eqref{eq:gumbel-value} into the Bellman equation \eqref{eq:bellman-gumbel}:
+\begin{equation}
+\label{eq:bellman-ces}
+\boxed{v_t^n = u_t^n + \nu \log \left( \sum_k \exp\left[ \frac{\beta \mathbb{E}[v_{t+1}^k] - \tau^{k,n}}{\nu} \right] \right).}
+\end{equation}
+
+This is a \emph{recursive CES aggregation}: the value function aggregates future values using a log-sum-exp (generalized mean) structure.
+
+\begin{calloutnote}[Connection to Epstein-Zin]
+Compare \eqref{eq:bellman-ces} with Epstein-Zin preferences:
+\begin{equation}
+V_t = \left[ (1-\beta) c_t^\rho + \beta \left( \mathbb{E}_t[V_{t+1}^\alpha] \right)^{\rho/\alpha} \right]^{1/\rho}.
+\end{equation}
+Both involve CES aggregation across states/options. The Gumbel model is the discrete-choice analog: instead of aggregating consumption across time with CES, we aggregate option values across choices with log-sum-exp. The parameter $\nu$ plays the role of the elasticity of substitution across options.
+\end{calloutnote}
+
+% ==============================================================
+\section{Discrete Choice with Fréchet Shocks}
+\label{sec:frechet}
+% ==============================================================
+
+The Fréchet distribution provides an alternative foundation that produces a \emph{power-form} CES aggregator rather than the log-sum-exp form.
+
+\subsection{Setup}
+
+\paragraph{The Fréchet Distribution.}
+
+The Fréchet (Extreme Value Type II) distribution has CDF:
+\begin{equation}
+F(\epsilon; T) = \exp\left( -T \epsilon^{-\theta} \right), \quad \epsilon > 0,
+\end{equation}
+where $T > 0$ is a scale parameter and $\theta > 1$ is the shape parameter. The mean is $T^{1/\theta} \Gamma(1 - 1/\theta)$ when $\theta > 1$.
+
+\paragraph{Multiplicative Shocks.}
+
+Because Fréchet is supported on $(0, \infty)$, we model \emph{multiplicative} rather than additive shocks:
+\begin{equation}
+\label{eq:payoff-frechet}
+v_t^n = u_t^n + \beta \max_k \left[ V^k \cdot \epsilon^k \right],
+\end{equation}
+where $\epsilon^k \sim \text{Fréchet}(T(k,n), \theta)$ with option- and origin-specific scale $T(k,n)$.
+
+\subsection{The Main Result}
+
+\begin{theorem}[Fréchet Aggregation]
+\label{thm:frechet}
+When taste shocks are i.i.d.\ Fréchet with shape $\theta$ and scales $T(k,n)$, the expected value is:
+\begin{equation}
+\label{eq:frechet-value}
+\boxed{\Phi^n = \Gamma\left(1 - \frac{1}{\theta}\right) \left( \sum_k T(k,n) \left( V^k \right)^\theta \right)^{1/\theta}.}
+\end{equation}
+The probability of choosing option $m$ is:
+\begin{equation}
+\label{eq:frechet-prob}
+\boxed{P^{m,n} = \frac{T(m,n) (V^m)^\theta}{\sum_k T(k,n) (V^k)^\theta}.}
+\end{equation}
+\end{theorem}
+
+\paragraph{Connection to CES.}
+
+This is a \emph{classical generalized mean} with power $\rho = \theta$:
+\begin{equation}
+\Phi^n = \Gamma\left(1 - \frac{1}{\theta}\right) \cdot \Mbar(\bV; \bT^{1/\theta}, \theta),
+\end{equation}
+where $\bT^{1/\theta} = (T(1,n)^{1/\theta}, \ldots, T(K,n)^{1/\theta})$ are the effective weights.
+
+\begin{calloutimportant}[Gumbel versus Fréchet]
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{Gumbel} & \textbf{Fréchet} \\
+\midrule
+Support & $(-\infty, \infty)$ & $(0, \infty)$ \\
+Shock type & Additive & Multiplicative \\
+Aggregator & Log-sum-exp & Power mean \\
+CES form & $\rho \to 1$ (log) & $\rho = \theta$ \\
+Choice probability & Logit & Gravity-like \\
+Applications & Location choice & Trade flows \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{calloutimportant}
+
+\subsection{Adding Switching Costs}
+
+With switching costs $\tau^{k,n}$, the Fréchet model becomes:
+\begin{equation}
+\Phi^n = \Gamma\left(1 - \frac{1}{\theta}\right) \left( \sum_k T(k,n) \left( V^k - \tau^{k,n} \right)^\theta \right)^{1/\theta},
+\end{equation}
+and
+\begin{equation}
+P^{m,n} = \frac{T(m,n) (V^m - \tau^{m,n})^\theta}{\sum_k T(k,n) (V^k - \tau^{k,n})^\theta}.
+\end{equation}
+
+This is the foundation of the Eaton-Kortum trade model and the Caliendo-Dvorkin-Parro labor mobility model.
+
+% ==============================================================
+\section{Comparative Statics and Welfare}
+\label{sec:discrete-welfare}
+% ==============================================================
+
+The CES structure of discrete choice models enables clean comparative statics.
+
+\paragraph{Effect of Shock Dispersion.}
+
+In the Gumbel model, increasing $\nu$ (more dispersed shocks) raises the value function:
+\begin{equation}
+\frac{\partial \Phi^n}{\partial \nu} = \log \left( \sum_k e^{(\beta V^k - \tau^{k,n})/\nu} \right) - \frac{1}{\nu} \sum_k P^{k,n} (\beta V^k - \tau^{k,n}).
+\end{equation}
+
+This is always positive: more idiosyncratic variation is welfare-improving because it increases the chance of finding a good match.
+
+\paragraph{The Value of Flexibility.}
+
+Using the envelope theorem on the Gibbs representation:
+\begin{equation}
+\frac{\partial \Phi^n}{\partial (1/\nu)} = -\KL{P^{\cdot,n}}{\mathbf{1}/K},
+\end{equation}
+where $P^{\cdot,n} = (P^{1,n}, \ldots, P^{K,n})$ is the choice probability vector. The KL divergence from uniform measures how much choices concentrate on particular options---the ``value of flexibility.''
+
+% ==============================================================
+\section{Applications}
+\label{sec:discrete-applications}
+% ==============================================================
+
+\subsection{Labor Mobility}
+
+Following Caliendo, Dvorkin, and Parro (2019), consider workers choosing locations. The value of being in location $n$ is:
+\begin{equation}
+v^n = w^n + \nu \log \left( \sum_k \exp\left[ \frac{\beta v^k - \tau^{k,n}}{\nu} \right] \right),
+\end{equation}
+where $w^n$ is the wage and $\tau^{k,n}$ is the migration cost. The flow of workers from $n$ to $m$ is:
+\begin{equation}
+\mu^{m,n} = L^n \cdot P^{m,n} = L^n \cdot \frac{\exp[(\beta v^m - \tau^{m,n})/\nu]}{\sum_k \exp[(\beta v^k - \tau^{k,n})/\nu]}.
+\end{equation}
+
+\subsection{International Trade}
+
+The Eaton-Kortum model uses Fréchet productivity draws. Country $n$ sources good $j$ from the lowest-cost supplier:
+\begin{equation}
+p_n(j) = \min_i \left\{ \frac{c_i \cdot d_{ni}}{z_i(j)} \right\},
+\end{equation}
+where $z_i(j) \sim \text{Fréchet}(T_i, \theta)$. The share of $n$'s expenditure on goods from $i$ is:
+\begin{equation}
+\pi_{ni} = \frac{T_i (c_i d_{ni})^{-\theta}}{\sum_k T_k (c_k d_{nk})^{-\theta}},
+\end{equation}
+which has the CES expenditure share structure with $\rho = -\theta$.
+
+\subsection{Default Decisions}
+
+Consider a firm deciding whether to default ($d=0$) or continue ($d=1$):
+\begin{equation}
+\Phi(z, W) = W \cdot \nu \log \left( \exp\left[ \frac{v_0 - \tau^0}{\nu} \right] + \exp\left[ \frac{v(z') - \tau^1}{\nu} \right] \right).
+\end{equation}
+
+The default probability is:
+\begin{equation}
+P^{\text{default}} = \frac{\exp[(v_0 - \tau^0)/\nu]}{\exp[(v_0 - \tau^0)/\nu] + \exp[(v(z') - \tau^1)/\nu]}.
+\end{equation}
+
+This is a logistic function---the Gumbel difference yields logit choice probabilities.
+
+% ==============================================================
+\section{Summary: Two Foundations, One Structure}
+\label{sec:discrete-summary}
+% ==============================================================
+
+\begin{calloutimportant}[The Deep Unity]
+The CES/generalized mean structure emerges from three distinct foundations:
+
+\textbf{1. Deterministic optimization with curvature:} An agent maximizes a CES objective subject to constraints. The curvature parameter $\rho$ governs substitutability.
+
+\textbf{2. Stochastic optimization with extreme value shocks:} An agent maximizes expected value with idiosyncratic Gumbel or Fréchet shocks. The shock dispersion parameter ($\nu$ or $1/\theta$) governs substitutability.
+
+\textbf{3. Rational inattention with Shannon costs:} Matejka and McKay show that when agents face Shannon entropy costs for acquiring information, their optimal choice probabilities take exactly the logit form. The cost of attention plays the role of $1/\rho$---higher attention costs force choices closer to the prior, just as lower $\rho$ keeps the Gibbs distribution close to the reference weights.
+
+The \textbf{Gibbs variational principle} provides the bridge: it shows that entropy-regularized optimization (which smooths the max into soft-max) produces CES aggregators. The KL divergence penalty in Gibbs plays the same role as the variance of taste shocks in discrete choice \emph{and} as the Shannon cost of information in rational inattention.
+
+This unity has profound implications:
+\begin{itemize}[nosep]
+    \item Models that look very different (consumer choice, trade, migration, information acquisition) share the same mathematical core
+    \item Comparative statics and welfare results transfer across applications
+    \item Calibration and estimation can exploit the common structure
+\end{itemize}
+\end{calloutimportant}
+
+\begin{table}[H]
+\centering
+\caption{Summary: Generalized Means in Discrete Choice}
+\label{tab:discrete-summary}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Gumbel (Additive)} & \textbf{Fréchet (Multiplicative)} \\
+\midrule
+Value function & $\nu \log \sum_k e^{V^k/\nu}$ & $\Gamma(1-1/\theta) \left( \sum_k T_k V_k^\theta \right)^{1/\theta}$ \\[6pt]
+Choice probability & $\dfrac{e^{V^m/\nu}}{\sum_k e^{V^k/\nu}}$ & $\dfrac{T_m V_m^\theta}{\sum_k T_k V_k^\theta}$ \\[10pt]
+CES power & $\rho \to 1$ (log form) & $\rho = \theta$ \\[4pt]
+Elasticity & $1/\nu$ & $\theta$ \\[4pt]
+Limit $\nu \to 0$ or $\theta \to \infty$ & $\max_k V^k$ & $\max_k V^k$ \\[4pt]
+Applications & Labor mobility, location & Trade, firm dynamics \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Subtle Connections}
+
+Next, we elaborate a number off connections that could be made more thorought. 
+\begin{itemize}
+\item The role of IES/risk aversion: earlier we said that "if decision involves markets, switching probabilities may vary with wealth, but direction is not clear, depends on IES." With $\gamma\not=1$, the Fréchet aggregation interacts with risk aversion in subtle ways. The log utility case ($\gamma=1$) is special precisely because it makes things separable.
+
+\item Dynamic information acquisition: Matejka-McKay is static, but there's a dynamic version where agents learn over time. The recursive CES structure might connect to sequential rational inattention problems.
+
+\item Welfare and the value of variety/flexibility: The log-sum-exp naturally measures consumer surplus in discrete choice. This connects to your KL divergence results on the "value of flexibility." There might be a clean welfare theorem hiding here.
+
+\item Nested logit (two-stage discrete choice) should map exactly to nested CES. The "inclusive value" in nested logit is just the inner CES aggregator.
+\end{itemize}
+
+
+% ==============================================================
+\section{Exercises}
+\label{sec:discrete-exercises}
+% ==============================================================
+
+\begin{callouttip}[Exercise: Gumbel Derivation]
+Complete the derivation of Theorem~\ref{thm:gumbel}:
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $\sum_m \sum_k e^{-\zeta^{m,k}} = 1$.
+    \item Use this to verify that the choice probabilities sum to one.
+    \item Compute the expected value $\Phi^n$ by integrating $(\beta V^m - \tau^{m,n} + \nu \epsilon^m)$ against the probability that $m$ wins.
+\end{enumerate}
+\end{callouttip}
+
+\begin{callouttip}[Exercise: Fréchet with Log Utility]
+Consider a consumer with log utility over consumption in different locations. Show that when productivity shocks are Fréchet, the indirect utility has CES structure but the choice probabilities are independent of wealth. Compare with CRRA utility where $\gamma \neq 1$.
+\end{callouttip}
+
+\begin{callouttip}[Exercise: Nested Discrete Choice]
+Extend the Gumbel model to a two-stage choice: first choose a ``nest'' (occupation category), then choose within the nest. Show that the value function has a nested CES structure analogous to the nested CES utility functions in Chapter~\ref{ch:recursive-structure}.
+\end{callouttip}
+

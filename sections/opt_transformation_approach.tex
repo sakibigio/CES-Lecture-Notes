@@ -1,0 +1,343 @@
+% ==============================================================
+\section{The Transformation Approach}
+\label{sec:transformation-approach}
+% ==============================================================
+
+The Lagrangian method solves the optimization problem directly. This section develops an alternative approach that exploits the transformation machinery from Chapter~\ref{ch:transformations}. By changing variables and applying our fundamental transformations, we reduce \emph{any} CES optimization problem to a trivial benchmark. The price index emerges as a by-product of the transformation---not as an object constructed after solving first-order conditions.
+
+This approach has two advantages. First, it reveals the structural role of the price index: it is the normalizing constant that converts a problem with heterogeneous prices into an equivalent problem with homogeneous ``prices.'' Second, it extends naturally to settings with nonlinear constraints, where the Lagrangian approach becomes algebraically cumbersome.
+
+% --------------------------------------------------------------
+\subsection{The Benchmark Problem}
+\label{subsec:benchmark}
+% --------------------------------------------------------------
+
+We begin with the simplest case: equal prices and unit wealth.
+
+\paragraph{Setup.}
+Consider the canonical maximization problem with $p_i = 1$ for all $i$ and $W = 1$:
+\begin{equation}
+\label{eq:benchmark-problem}
+\max_{\bx} \; \M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho} \quad \text{subject to} \quad \sum_{i=1}^{n} x_i = 1.
+\end{equation}
+The constraint is linear with uniform coefficients---a ``fair'' allocation problem where all goods have the same cost.
+
+\paragraph{Solution.}
+The first-order conditions require equal marginal contributions per unit of each good. Taking the ratio of FOCs for goods $i$ and $j$:
+\[
+\frac{\omega_i^{1-\rho} x_i^{\rho-1}}{\omega_j^{1-\rho} x_j^{\rho-1}} = 1 \quad \Longrightarrow \quad \frac{x_i}{x_j} = \frac{\omega_i}{\omega_j}.
+\]
+Combined with the constraint $\sum_i x_i = 1$:
+
+\begin{proposition}[Benchmark Solution]
+\label{prop:benchmark}
+With equal prices and unit wealth, the optimal allocation in the canonical problem equals the weights:
+\begin{equation}
+\label{eq:benchmark-solution}
+x_i^* = \omega_i, \qquad i = 1, \ldots, n.
+\end{equation}
+The optimized value is
+\begin{equation}
+\label{eq:benchmark-value}
+\M^* = \M(\bom; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} \omega_i^\rho \right)^{1/\rho} = \left( \sum_{i=1}^{n} \omega_i \right)^{1/\rho} = 1.
+\end{equation}
+\end{proposition}
+
+\begin{calloutnote}[The Power of Canonical Form]
+The result $x_i^* = \omega_i$ is \emph{independent of $\rho$}. In the canonical representation, the optimal allocation at the benchmark depends only on the weights, not on the curvature of preferences. This is why working in canonical form simplifies analysis: the undistorted allocation provides a universal reference point.
+
+The value $\M^* = 1$ provides a natural normalization. Any deviation of $\M^*$ from unity reflects the distortion introduced by price heterogeneity.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Reducing General Problems to the Benchmark}
+\label{subsec:reduction}
+% --------------------------------------------------------------
+
+Now consider the general problem with heterogeneous prices $p_i > 0$ and wealth $W > 0$:
+\begin{equation}
+\label{eq:general-problem}
+\max_{\bx} \; \M(\bx; \bom, \rho) \quad \text{subject to} \quad \sum_{i=1}^{n} p_i x_i = W.
+\end{equation}
+
+We transform this into the benchmark problem through a change of variables.
+
+\paragraph{Change of Variables.}
+Define budget shares:
+\begin{equation}
+\label{eq:budget-share-def}
+w_i \equiv \frac{p_i x_i}{W}, \qquad i = 1, \ldots, n.
+\end{equation}
+By construction, $w_i \geq 0$ and $\sum_i w_i = 1$. Inverting, $x_i = w_i W / p_i$.
+
+\paragraph{Transformed Constraint.}
+The budget constraint becomes:
+\[
+\sum_{i=1}^{n} p_i \cdot \frac{w_i W}{p_i} = W \sum_{i=1}^{n} w_i = W.
+\]
+Dividing by $W$:
+\begin{equation}
+\label{eq:transformed-constraint}
+\sum_{i=1}^{n} w_i = 1.
+\end{equation}
+The constraint is now linear with uniform coefficients---exactly the benchmark structure.
+
+\paragraph{Transformed Objective.}
+Substituting $x_i = w_i W / p_i$ into the objective:
+\begin{align}
+\M(\bx; \bom, \rho) &= \left( \sum_{i=1}^{n} \omega_i^{1-\rho} \left( \frac{w_i W}{p_i} \right)^\rho \right)^{1/\rho} \notag \\
+&= W \left( \sum_{i=1}^{n} \omega_i^{1-\rho} p_i^{-\rho} w_i^\rho \right)^{1/\rho}.
+\label{eq:transformed-objective}
+\end{align}
+The factor $W$ pulls out by homogeneity. The remaining expression is a generalized mean in the budget shares $w_i$, but with coefficients
+\begin{equation}
+\label{eq:chi-def}
+\chi_i \equiv \omega_i^{1-\rho} p_i^{-\rho}.
+\end{equation}
+
+\paragraph{Identifying the Structure.}
+The transformed objective has the form
+\begin{equation}
+\label{eq:general-form}
+W \left( \sum_{i=1}^{n} \chi_i w_i^\rho \right)^{1/\rho} = W \cdot \tilde{M}(\bw; \bchi, \rho),
+\end{equation}
+where $\tilde{M}$ denotes an aggregator in \emph{general form}---the coefficients $\chi_i$ are positive but do not sum to one. This is neither the canonical nor the classical form; prices have distorted the weight structure.
+
+% --------------------------------------------------------------
+\subsection{Applying the Transformations}
+\label{subsec:applying-transforms}
+% --------------------------------------------------------------
+
+We now apply the transformation machinery from \cref{sec:transformations} to convert the general form back to canonical form.
+
+\paragraph{Step 1: Compute the Normalizing Quantities.}
+From \cref{prop:normalization}, any general-form aggregator $\tilde{M}(\bw; \bchi, \rho) = (\sum_i \chi_i w_i^\rho)^{1/\rho}$ can be written as $\kappa \cdot \Mbar(\bw; \hat{\bom}, \rho)$, where the classical weights are $\hat{\omega}_i = \chi_i / \sum_j \chi_j$.
+
+However, we want canonical form. Proceeding directly: for a canonical mean $\M(\bw; \tilde{\bom}, \rho)$, the inner sum has the structure $\sum_i \tilde{\omega}_i^{1-\rho} w_i^\rho$. Matching coefficients requires:
+\[
+\tilde{\omega}_i^{1-\rho} = \frac{\chi_i}{K}
+\]
+for some constant $K$ to be determined. Solving for $\tilde{\omega}_i$:
+\[
+\tilde{\omega}_i = \left( \frac{\chi_i}{K} \right)^{\frac{1}{1-\rho}}.
+\]
+
+\paragraph{Step 2: Impose Normalization.}
+The canonical weights must sum to one: $\sum_i \tilde{\omega}_i = 1$. This determines $K$:
+\[
+\sum_{i=1}^{n} \left( \frac{\chi_i}{K} \right)^{\frac{1}{1-\rho}} = 1 \quad \Longrightarrow \quad K^{-\frac{1}{1-\rho}} \sum_{i=1}^{n} \chi_i^{\frac{1}{1-\rho}} = 1.
+\]
+Solving:
+\begin{equation}
+\label{eq:K-solution}
+K = \left( \sum_{j=1}^{n} \chi_j^{\frac{1}{1-\rho}} \right)^{1-\rho}.
+\end{equation}
+
+\paragraph{Step 3: Compute the Transformed Weights.}
+Substituting $\chi_i = \omega_i^{1-\rho} p_i^{-\rho}$:
+\[
+\chi_i^{\frac{1}{1-\rho}} = \left( \omega_i^{1-\rho} p_i^{-\rho} \right)^{\frac{1}{1-\rho}} = \omega_i \cdot p_i^{\frac{-\rho}{1-\rho}} = \omega_i \cdot p_i^{\frac{\rho}{\rho-1}}.
+\]
+Define the \emph{price sum}:
+\begin{equation}
+\label{eq:price-sum}
+\Ssum_p \equiv \sum_{j=1}^{n} \omega_j \, p_j^{\frac{\rho}{\rho-1}}.
+\end{equation}
+
+The transformed canonical weights are:
+\begin{equation}
+\label{eq:transformed-weights}
+\boxed{\tilde{\omega}_i = \frac{\omega_i \, p_i^{\frac{\rho}{\rho-1}}}{\Ssum_p}.}
+\end{equation}
+
+By construction, $\tilde{\omega}_i > 0$ and $\sum_i \tilde{\omega}_i = 1$.
+
+\paragraph{Step 4: Compute the Scaling Factor.}
+Following the notation from \cref{sec:transformations}, the general-form aggregator relates to the canonical form by:
+\[
+\tilde{M}(\bw; \bchi, \rho) = \kappa(\bchi, \rho) \cdot \M(\bw; \tilde{\bom}, \rho),
+\]
+where the scaling factor is:
+\begin{equation}
+\label{eq:kappa-transform}
+\kappa = \left( \sum_{j=1}^{n} \chi_j^{\frac{1}{1-\rho}} \right)^{\frac{1-\rho}{\rho}} = \Ssum_p^{\frac{1-\rho}{\rho}}.
+\end{equation}
+
+\begin{calloutnote}[The Price Index Emerges]
+Define the \emph{ideal price index}:
+\begin{equation}
+\label{eq:price-index-transform}
+\Pstar \equiv \Ssum_p^{\frac{\rho-1}{\rho}} = \left( \sum_{j=1}^{n} \omega_j \, p_j^{\frac{\rho}{\rho-1}} \right)^{\frac{\rho-1}{\rho}}.
+\end{equation}
+Then $\kappa = 1/\Pstar$. The price index is not constructed \emph{ad hoc}---it emerges as the normalizing constant in the transformation from general to canonical form.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Solution}
+\label{subsec:transform-solution}
+% --------------------------------------------------------------
+
+Combining the results, the original problem becomes:
+
+\begin{proposition}[Transformed Problem]
+\label{prop:transformed-problem}
+The general problem \cref{eq:general-problem} is equivalent to:
+\begin{equation}
+\label{eq:equivalent-problem}
+\max_{\bw} \; \frac{W}{\Pstar} \cdot \M(\bw; \tilde{\bom}, \rho) \quad \text{subject to} \quad \sum_{i=1}^{n} w_i = 1,
+\end{equation}
+where $\tilde{\omega}_i = \omega_i p_i^{\rho/(\rho-1)} / \Ssum_p$ and $\Pstar = \Ssum_p^{(\rho-1)/\rho}$.
+\end{proposition}
+
+Since $W/\Pstar > 0$ is a constant (independent of $\bw$), maximizing \cref{eq:equivalent-problem} is equivalent to maximizing $\M(\bw; \tilde{\bom}, \rho)$ subject to $\sum_i w_i = 1$. This is exactly the benchmark problem with transformed weights $\tilde{\bom}$.
+
+\paragraph{Applying the Benchmark.}
+From \cref{prop:benchmark}, the solution is immediate:
+\begin{equation}
+\label{eq:optimal-shares-transform}
+w_i^* = \tilde{\omega}_i = \frac{\omega_i \, p_i^{\frac{\rho}{\rho-1}}}{\Ssum_p}.
+\end{equation}
+
+The optimized canonical mean (in budget-share space) equals unity:
+\[
+\M(\bw^*; \tilde{\bom}, \rho) = 1.
+\]
+
+Therefore, the value of the original problem is:
+\begin{equation}
+\label{eq:optimal-value-transform}
+\boxed{\M^* = \frac{W}{\Pstar}.}
+\end{equation}
+
+\paragraph{Recovering Optimal Quantities.}
+From $w_i = p_i x_i / W$:
+\begin{equation}
+\label{eq:optimal-quantities-transform}
+x_i^* = \frac{w_i^* W}{p_i} = \frac{\omega_i \, p_i^{\frac{\rho}{\rho-1}}}{\Ssum_p} \cdot \frac{W}{p_i} = \frac{\omega_i \, p_i^{\frac{1}{\rho-1}}}{\Ssum_p} \cdot W.
+\end{equation}
+
+Using $\Ssum_p = (\Pstar)^{\rho/(\rho-1)}$ and defining the elasticity of substitution $\varepsilon = 1/(1-\rho)$:
+\begin{equation}
+\label{eq:optimal-x-final}
+\boxed{x_i^* = \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \frac{W}{\Pstar}.}
+\end{equation}
+
+\begin{calloutimportant}[Verification]
+This matches exactly the solution obtained via the Lagrangian approach in \cref{sec:lagrangian-approach}. The two methods---direct optimization and transformation---yield identical results. The transformation approach reveals \emph{why} the price index takes its particular form: it is the factor that converts a problem with heterogeneous prices into an equivalent problem with homogeneous prices.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Classical Form}
+\label{subsec:classical-transform}
+% --------------------------------------------------------------
+
+The same procedure applies when the objective is given in classical form. We show that starting from either representation leads to the same optimal allocation.
+
+\paragraph{Setup.}
+Suppose the problem is stated with classical weights. Recall from \cref{sec:transformations} that given canonical weights $\bom$, the corresponding classical weights are:
+\begin{equation}
+\label{eq:classical-weights-recall}
+\tilde{\omega}_i = T_\rho(\bom)_i = \frac{\omega_i^{1-\rho}}{\sum_j \omega_j^{1-\rho}}.
+\end{equation}
+The classical problem is:
+\begin{equation}
+\label{eq:classical-general}
+\max_{\bx} \; \Mbar(\bx; \tilde{\bom}, \rho) = \left( \sum_{i=1}^{n} \tilde{\omega}_i x_i^\rho \right)^{1/\rho} \quad \text{subject to} \quad \sum_{i=1}^{n} p_i x_i = W.
+\end{equation}
+
+\paragraph{Change of Variables.}
+Substituting $x_i = w_i W / p_i$:
+\[
+\Mbar = W \left( \sum_{i=1}^{n} \tilde{\omega}_i p_i^{-\rho} w_i^\rho \right)^{1/\rho}.
+\]
+The coefficients are $\chi_i = \tilde{\omega}_i p_i^{-\rho}$.
+
+\paragraph{Transformation to Canonical Form.}
+Following the same steps as before, we compute:
+\[
+\chi_i^{\frac{1}{1-\rho}} = \tilde{\omega}_i^{\frac{1}{1-\rho}} p_i^{\frac{\rho}{\rho-1}}.
+\]
+Using \cref{eq:classical-weights-recall}:
+\[
+\tilde{\omega}_i^{\frac{1}{1-\rho}} = \left( \frac{\omega_i^{1-\rho}}{\sum_k \omega_k^{1-\rho}} \right)^{\frac{1}{1-\rho}} = \frac{\omega_i}{\left( \sum_k \omega_k^{1-\rho} \right)^{\frac{1}{1-\rho}}}.
+\]
+Define $\Omega(\bom, \rho) = (\sum_k \omega_k^{1-\rho})^{1/\rho}$ as in \cref{sec:transformations}. Then:
+\[
+\tilde{\omega}_i^{\frac{1}{1-\rho}} = \frac{\omega_i}{\Omega^{\rho/(1-\rho)}} = \omega_i \cdot \Omega^{\rho/(\rho-1)}.
+\]
+
+The price sum for the classical problem becomes:
+\begin{equation}
+\label{eq:price-sum-classical}
+\bar{\Ssum}_p = \sum_{j=1}^{n} \tilde{\omega}_j^{\frac{1}{1-\rho}} p_j^{\frac{\rho}{\rho-1}} = \Omega^{\frac{\rho}{\rho-1}} \sum_{j=1}^{n} \omega_j \, p_j^{\frac{\rho}{\rho-1}} = \Omega^{\frac{\rho}{\rho-1}} \cdot \Ssum_p.
+\end{equation}
+
+\paragraph{Same Optimizer, Different Value.}
+The transformed weights in the classical problem are:
+\[
+\hat{\omega}_i = \frac{\chi_i^{\frac{1}{1-\rho}}}{\bar{\Ssum}_p} = \frac{\omega_i \cdot \Omega^{\rho/(\rho-1)} \cdot p_i^{\rho/(\rho-1)}}{\Omega^{\rho/(\rho-1)} \cdot \Ssum_p} = \frac{\omega_i \, p_i^{\rho/(\rho-1)}}{\Ssum_p} = \tilde{\omega}_i.
+\]
+The $\Omega$ factors cancel! The transformed weights are \emph{identical} to those from the canonical problem.
+
+Therefore, the optimal budget shares are the same:
+\begin{equation}
+w_i^* = \tilde{\omega}_i = \frac{\omega_i \, p_i^{\rho/(\rho-1)}}{\Ssum_p},
+\end{equation}
+and consequently the optimal quantities $x_i^* = w_i^* W / p_i$ are also identical.
+
+The scaling factors differ. For the classical problem:
+\[
+\bar{\kappa} = (\bar{\Ssum}_p)^{\frac{1-\rho}{\rho}} = \left( \Omega^{\frac{\rho}{\rho-1}} \cdot \Ssum_p \right)^{\frac{1-\rho}{\rho}} = \Omega^{-1} \cdot \Ssum_p^{\frac{1-\rho}{\rho}} = \frac{1}{\Omega \cdot \Pstar}.
+\]
+
+The optimized values are:
+\begin{align}
+\M^* &= W \cdot \kappa \cdot 1 = \frac{W}{\Pstar}, \\[4pt]
+\Mbar^* &= W \cdot \bar{\kappa} \cdot 1 = \frac{W}{\Omega \cdot \Pstar} = \frac{\M^*}{\Omega}.
+\end{align}
+
+\begin{calloutnote}[Equivalence of Representations]
+This confirms the relationship from \cref{prop:canonical-classical}: $\M = \Omega \cdot \Mbar$, so $\Mbar^* = \M^*/\Omega$. The two representations describe the same preferences and yield the same optimal allocation. Only the cardinal value differs by the factor $\Omega(\bom, \rho)$, which depends on weights and curvature but not on prices or quantities.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary: The Transformation Recipe}
+\label{subsec:transform-summary}
+% --------------------------------------------------------------
+
+The transformation approach reduces any CES optimization problem to the trivial benchmark in four steps:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Change variables} from quantities $x_i$ to budget shares $w_i = p_i x_i / W$.
+\item \textbf{Factor out wealth} $W$ using homogeneity.
+\item \textbf{Identify the general-form coefficients} $\chi_i$ and \textbf{transform to canonical form}, producing new weights $\tilde{\omega}_i$ and scaling factor $1/\Pstar$.
+\item \textbf{Apply the benchmark solution}: $w_i^* = \tilde{\omega}_i$, then recover $x_i^* = w_i^* W / p_i$.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Summary of the Transformation Approach}
+\label{tab:transform-summary}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Object} & \textbf{Original Space} & \textbf{Transformed Space} \\
+\midrule
+Choice variable & $x_i$ & $w_i = p_i x_i / W$ \\[4pt]
+Constraint & $\sum_i p_i x_i = W$ & $\sum_i w_i = 1$ \\[4pt]
+Weights (canonical) & $\omega_i$ & $\tilde{\omega}_i = \dfrac{\omega_i \, p_i^{\rho/(\rho-1)}}{\Ssum_p}$ \\[12pt]
+Scaling factor & --- & $\kappa = 1/\Pstar = \Ssum_p^{(1-\rho)/\rho}$ \\[4pt]
+Optimal allocation & $x_i^* = \omega_i (p_i/\Pstar)^{-\varepsilon} W/\Pstar$ & $w_i^* = \tilde{\omega}_i$ \\[4pt]
+Optimal value & $\M^* = W/\Pstar$ & $\M(\bw^*; \tilde{\bom}, \rho) = 1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{calloutimportant}[Why This Matters]
+The transformation approach reveals the deep structure of CES optimization:
+\begin{enumerate}[nosep]
+\item The price index $\Pstar$ is not an arbitrary construction---it is the \emph{unique} normalizing constant that converts heterogeneous prices to homogeneous prices.
+\item Budget shares $w_i^*$ equal the \emph{transformed weights} $\tilde{\omega}_i$. This explains why expenditure shares take the form they do.
+\item The optimized value $\M^* = W/\Pstar$ is ``real wealth''---nominal wealth deflated by the price index.
+\item The transformation extends to nonlinear constraints (\cref{sec:ces-constraints}), where the Lagrangian approach becomes algebraically complex but the transformation approach remains tractable.
+\end{enumerate}
+\end{calloutimportant}

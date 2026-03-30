@@ -1,0 +1,255 @@
+% ==============================================================
+\section{Recursive Decomposition}
+\label{sec:recursive-decomposition}
+% ==============================================================
+
+The generalized mean admits a recursive structure: any $n$-element mean can be written as a two-element mean, where one argument is itself a mean of the remaining elements. This decomposition is the foundation for dynamic programming with CES preferences and explains why such preferences are tractable in intertemporal settings.
+
+% --------------------------------------------------------------
+\subsection{The Challenge of Infinite Sums}
+\label{subsec:challenge-infinite}
+% --------------------------------------------------------------
+
+Consider a discounted sum of a sequence $\{x_t\}_{t=0}^{\infty}$:
+\begin{equation}
+V = \sum_{t=0}^{\infty} \beta^t x_t.
+\label{eq:discounted-sum}
+\end{equation}
+To compute $V$, we apparently need knowledge of the entire sequence. This is problematic: how can we characterize the value without specifying every future term?
+
+\paragraph{When Recursion Works.}
+Suppose we try to write $V$ recursively by separating the first term:
+\begin{equation}
+V = x_0 + \beta \sum_{t=1}^{\infty} \beta^{t-1} x_t = x_0 + \beta V',
+\label{eq:recursive-attempt}
+\end{equation}
+where $V' = \sum_{t=1}^{\infty} \beta^{t-1} x_t$. But $V'$ depends on the \emph{shifted} sequence $\{x_1, x_2, \ldots\}$, which is generally different from $\{x_0, x_1, \ldots\}$. The recursion does not close---we cannot express $V'$ in terms of $V$ without additional structure.
+
+\paragraph{The Role of Self-Similarity.}
+The recursion closes when the sequence has structure that makes the future ``look like'' the present. We develop three examples in detail.
+
+\medskip
+\noindent\textit{Example 1: Constant sequence.} Suppose $x_t = x$ for all $t$. Then the continuation value is:
+\begin{equation}
+V' = \sum_{t=1}^{\infty} \beta^{t-1} x_t = \sum_{t=1}^{\infty} \beta^{t-1} x = x \sum_{s=0}^{\infty} \beta^s = V.
+\end{equation}
+The last equality uses the change of index $s = t - 1$. Since $V' = V$, the recursion \cref{eq:recursive-attempt} becomes:
+\begin{equation}
+V = x + \beta V \quad \Longrightarrow \quad V(1 - \beta) = x \quad \Longrightarrow \quad V = \frac{x}{1 - \beta}.
+\end{equation}
+The sufficient statistic is the constant $x$.
+
+\medskip
+\noindent\textit{Example 2: Geometric sequence.} Suppose $x_t = \rho^t x_0$ for some $\rho \in (0, 1/\beta)$. Then:
+\begin{align}
+V' &= \sum_{t=1}^{\infty} \beta^{t-1} x_t = \sum_{t=1}^{\infty} \beta^{t-1} \rho^t x_0 = \rho x_0 \sum_{t=1}^{\infty} (\beta \rho)^{t-1} \notag \\[4pt]
+&= \rho x_0 \sum_{s=0}^{\infty} (\beta \rho)^s = \rho x_0 \cdot \frac{1}{1 - \beta\rho}.
+\end{align}
+Meanwhile, $V = x_0 \sum_{t=0}^{\infty} (\beta\rho)^t = x_0 / (1 - \beta\rho)$. Comparing: $V' = \rho V$. The recursion becomes:
+\begin{equation}
+V = x_0 + \beta V' = x_0 + \beta \rho V \quad \Longrightarrow \quad V = \frac{x_0}{1 - \beta\rho}.
+\end{equation}
+The sufficient statistic is the initial value $x_0$.
+
+\medskip
+\noindent\textit{Example 3: Linear trend.} Suppose $x_t = x_0 + gt$ for some growth increment $g > 0$. Then:
+\begin{equation}
+V = \sum_{t=0}^{\infty} \beta^t (x_0 + gt) = x_0 \sum_{t=0}^{\infty} \beta^t + g \sum_{t=0}^{\infty} t \beta^t = \frac{x_0}{1-\beta} + g \cdot B,
+\end{equation}
+where $B = \sum_{t=0}^{\infty} t \beta^t$. To evaluate $B$, write:
+\begin{equation}
+B = \sum_{t=1}^{\infty} t \beta^t = \beta + 2\beta^2 + 3\beta^3 + \cdots
+\end{equation}
+Multiply by $\beta$:
+\begin{equation}
+\beta B = \beta^2 + 2\beta^3 + 3\beta^4 + \cdots
+\end{equation}
+Subtract to obtain:
+\begin{equation}
+B - \beta B = \beta + \beta^2 + \beta^3 + \cdots = \frac{\beta}{1-\beta}.
+\end{equation}
+Thus $B(1-\beta) = \beta/(1-\beta)$, giving $B = \beta/(1-\beta)^2$. The discounted sum is:
+\begin{equation}
+V = \frac{x_0}{1-\beta} + \frac{g\beta}{(1-\beta)^2} = \frac{x_0(1-\beta) + g\beta}{(1-\beta)^2} = \frac{x_0 + \beta(g - x_0 + x_0)}{(1-\beta)^2}.
+\end{equation}
+Simplifying: $V = (x_0 - g\beta + g\beta)/(1-\beta) + g\beta/(1-\beta)^2$. More cleanly:
+\begin{equation}
+V = \frac{x_0}{1-\beta} + \frac{g\beta}{(1-\beta)^2}.
+\end{equation}
+The sufficient statistics are $(x_0, g)$---two numbers, because the linear trend has two degrees of freedom.
+
+\begin{calloutnote}[The Core Insight]
+A recursion is useful when it reduces the information required to compute a value. Instead of needing the entire sequence $\{x_t\}_{t=0}^{\infty}$, we need only a sufficient statistic---a single number (or small set of numbers) that summarizes everything relevant about the future.
+\end{calloutnote}
+
+\begin{callouttip}[Exercise: The Fibonacci Sequence]
+The Fibonacci sequence is defined by $F_0 = 0$, $F_1 = 1$, and $F_n = F_{n-1} + F_{n-2}$ for $n \geq 2$. Consider the discounted sum $S = \sum_{n=0}^{\infty} \beta^n F_n$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Use the recurrence relation to show that $S - \beta S - \beta^2 S = \beta$.
+    \item Conclude that $S = \beta / (1 - \beta - \beta^2)$.
+    \item For what values of $\beta$ does this sum converge? \emph{Hint:} The roots of $1 - \beta - \beta^2 = 0$ are related to the golden ratio $\phi = (1 + \sqrt{5})/2$.
+\end{enumerate}
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Decomposing Generalized Means}
+\label{subsec:decomposing-means}
+% --------------------------------------------------------------
+
+We now show that generalized means \emph{always} admit a recursive decomposition. Unlike the discounted sum, no special structure on the sequence is required---the recursion is intrinsic to the CES functional form.
+
+\paragraph{The Two-Element Case.}
+Start with the canonical mean of $n$ elements:
+\begin{equation}
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho}.
+\label{eq:n-element-mean}
+\end{equation}
+Separate the first element from the rest:
+\begin{equation}
+\M(\bx; \bom, \rho) = \left( \omega_1^{1-\rho} x_1^\rho + \sum_{i=2}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho}.
+\label{eq:separate-first}
+\end{equation}
+
+\paragraph{Factoring the Remaining Terms.}
+Define the partial weight sum $\Omega_{2:n} = \sum_{i=2}^{n} \omega_i = 1 - \omega_1$. Factor this from the second group:
+\begin{equation}
+\sum_{i=2}^{n} \omega_i^{1-\rho} x_i^\rho = \Omega_{2:n}^{1-\rho} \sum_{i=2}^{n} \left(\frac{\omega_i}{\Omega_{2:n}}\right)^{1-\rho} x_i^\rho.
+\label{eq:factor-remaining}
+\end{equation}
+
+Define the \emph{renormalized weights} for the remaining elements:
+\begin{equation}
+\hat{\omega}_i = \frac{\omega_i}{\Omega_{2:n}} = \frac{\omega_i}{1 - \omega_1}, \quad i = 2, \ldots, n.
+\label{eq:renormalized-weights}
+\end{equation}
+These satisfy $\sum_{i=2}^{n} \hat{\omega}_i = 1$, so they form a valid weight vector for a generalized mean.
+
+\paragraph{The Inner Mean.}
+The sum over elements $2$ through $n$ is itself (raised to the power $\rho$) a generalized mean:
+\begin{equation}
+\sum_{i=2}^{n} \hat{\omega}_i^{1-\rho} x_i^\rho = \left( \M(\bx_{2:n}; \hat{\bom}, \rho) \right)^\rho,
+\label{eq:inner-mean}
+\end{equation}
+where $\bx_{2:n} = (x_2, \ldots, x_n)$ and $\hat{\bom} = (\hat{\omega}_2, \ldots, \hat{\omega}_n)$.
+
+\paragraph{The Recursive Formula.}
+Substituting back:
+\begin{align}
+\M(\bx; \bom, \rho) &= \left( \omega_1^{1-\rho} x_1^\rho + (1-\omega_1)^{1-\rho} \left( \M(\bx_{2:n}; \hat{\bom}, \rho) \right)^\rho \right)^{1/\rho} \notag \\[6pt]
+&= \M\Big( x_1, \, \M(\bx_{2:n}; \hat{\bom}, \rho); \; \omega_1, \, \rho \Big).
+\label{eq:recursive-mean}
+\end{align}
+
+\begin{proposition}[Recursive Decomposition]
+\label{prop:recursive-decomposition}
+Any $n$-element canonical generalized mean can be written as a two-element mean:
+\begin{equation}
+\M(\bx; \bom, \rho) = \M\Big( x_1, \, \M(\bx_{2:n}; \hat{\bom}, \rho); \; \omega_1, \, \rho \Big),
+\end{equation}
+where the inner mean uses renormalized weights $\hat{\omega}_i = \omega_i / (1 - \omega_1)$ for $i = 2, \ldots, n$.
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{The Sufficient Statistic Property}
+\label{subsec:sufficient-statistic}
+% --------------------------------------------------------------
+
+The recursive decomposition reveals a remarkable property: to compute the full mean, we do not need to know every element of $\bx_{2:n}$ individually. We need only their aggregate---the inner mean $\M(\bx_{2:n}; \hat{\bom}, \rho)$.
+
+\paragraph{Information Reduction.}
+Let $\bar{x}_{2:n} \equiv \M(\bx_{2:n}; \hat{\bom}, \rho)$ denote the inner mean. Then:
+\begin{equation}
+\M(\bx; \bom, \rho) = \M(x_1, \bar{x}_{2:n}; \omega_1, \rho).
+\label{eq:information-reduction}
+\end{equation}
+The $(n-1)$-dimensional vector $\bx_{2:n}$ has been compressed to a single number $\bar{x}_{2:n}$. This number is a \emph{sufficient statistic}: it contains all the information about $\bx_{2:n}$ that is relevant for computing the full mean.
+
+\begin{calloutnote}[Contrast with the Discounted Sum]
+In the discounted sum $V = \sum_t \beta^t x_t$, the recursion $V = x_0 + \beta V'$ requires $V'$ to be computable from the same information as $V$. This works only when the sequence has special structure (constant, geometric, etc.).
+
+For generalized means, no such restriction applies. The inner mean $\M(\bx_{2:n}; \hat{\bom}, \rho)$ is \emph{always} a sufficient statistic for the remaining elements, regardless of their values. The CES structure guarantees this.
+\end{calloutnote}
+
+\paragraph{Iterated Decomposition.}
+We can apply the decomposition repeatedly. Starting from $\M(\bx; \bom, \rho)$:
+\begin{align}
+\M(\bx; \bom, \rho) &= \M\Big( x_1, \, \M(\bx_{2:n}; \hat{\bom}^{(1)}, \rho); \; \omega_1, \rho \Big) \notag \\[4pt]
+&= \M\Big( x_1, \, \M\big( x_2, \, \M(\bx_{3:n}; \hat{\bom}^{(2)}, \rho); \; \hat{\omega}_2^{(1)}, \rho \big); \; \omega_1, \rho \Big) \notag \\[4pt]
+&= \cdots
+\label{eq:iterated-decomposition}
+\end{align}
+where $\hat{\bom}^{(k)}$ denotes the $k$-th renormalized weight vector.
+
+After $n-2$ iterations, we reach:
+\begin{equation}
+\M(\bx; \bom, \rho) = \M\Big( x_1, \, \M\big( x_2, \, \M( \cdots \M(x_{n-1}, x_n; \hat{\omega}_{n-1}^{(n-2)}, \rho) \cdots ); \hat{\omega}_2^{(1)}, \rho \big); \omega_1, \rho \Big).
+\label{eq:full-iteration}
+\end{equation}
+This expresses the $n$-element mean as a nested sequence of two-element means.
+
+% --------------------------------------------------------------
+\subsection{Backward Induction}
+\label{subsec:backward-induction}
+% --------------------------------------------------------------
+
+The iterated decomposition suggests a computational strategy: \emph{backward induction}. We start from the ``end'' (elements $n-1$ and $n$) and work backward to the ``beginning'' (element $1$).
+
+\paragraph{The Algorithm.}
+\begin{enumerate}[label=\textbf{Step \arabic*:}, leftmargin=3em]
+    \item Compute $\bar{x}^{(n-1)} = \M(x_{n-1}, x_n; \hat{\omega}_{n-1}^{(n-2)}, \rho)$.
+    \item Compute $\bar{x}^{(n-2)} = \M(x_{n-2}, \bar{x}^{(n-1)}; \hat{\omega}_{n-2}^{(n-3)}, \rho)$.
+    \item Continue until $\bar{x}^{(1)} = \M(x_1, \bar{x}^{(2)}; \omega_1, \rho)$.
+\end{enumerate}
+The final value $\bar{x}^{(1)}$ equals $\M(\bx; \bom, \rho)$.
+
+\paragraph{State Variables.}
+At each step $k$, the value $\bar{x}^{(k)}$ serves as a \emph{state variable}: it summarizes all elements from $k$ to $n$. To proceed to step $k-1$, we need only $x_{k-1}$ and $\bar{x}^{(k)}$---not the full vector $(x_k, \ldots, x_n)$.
+
+This is the sense in which the inner mean is a sufficient statistic. The state variable $\bar{x}^{(k)}$ compresses the ``future'' (elements $k$ through $n$) into a single number, enabling sequential computation.
+
+\begin{calloutimportant}[Why CES is Tractable]
+The recursive decomposition explains why CES preferences are ubiquitous in dynamic economic models. In intertemporal problems, the ``inner mean'' becomes the continuation value---a sufficient statistic for all future utility. The problem can be solved period by period, with the continuation value serving as the state variable. No other functional form with non-trivial substitution patterns has this property.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Classical Form}
+\label{subsec:classical-recursion}
+% --------------------------------------------------------------
+
+The same decomposition applies to the classical mean, with a simpler weight transformation.
+
+\paragraph{Classical Decomposition.}
+For the classical mean $\Mbar(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i x_i^\rho \right)^{1/\rho}$:
+\begin{equation}
+\Mbar(\bx; \bom, \rho) = \left( \omega_1 x_1^\rho + (1-\omega_1) \cdot \frac{\sum_{i=2}^{n} \omega_i x_i^\rho}{1-\omega_1} \right)^{1/\rho}.
+\label{eq:classical-separate}
+\end{equation}
+
+Define renormalized weights $\hat{\omega}_i = \omega_i / (1-\omega_1)$ for $i = 2, \ldots, n$. Then:
+\begin{equation}
+\Mbar(\bx; \bom, \rho) = \Mbar\Big( x_1, \, \Mbar(\bx_{2:n}; \hat{\bom}, \rho); \; \omega_1, \, \rho \Big).
+\label{eq:classical-recursive}
+\end{equation}
+
+\begin{calloutnote}[Canonical vs.\ Classical]
+The recursive structure is identical in both forms. The difference lies in how weights enter the mean: the canonical form uses $\omega_i^{1-\rho}$, the classical uses $\omega_i$. In both cases, the renormalized weights are $\hat{\omega}_i = \omega_i / (1-\omega_1)$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:recursion-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item Any generalized mean admits a \textbf{recursive decomposition}: an $n$-element mean equals a two-element mean where one argument is the mean of the remaining $n-1$ elements.
+    
+    \item The inner mean is a \textbf{sufficient statistic}: it compresses the information in $\bx_{2:n}$ to a single number, without loss for computing the full mean.
+    
+    \item \textbf{Backward induction} computes the mean by starting from the last elements and working forward, using the inner mean as a state variable at each step.
+    
+    \item The recursive structure uses the \textbf{same parameter $\rho$} at every level---this is the ``flat'' or ``non-nested'' case.
+\end{enumerate}
+\end{calloutimportant}
+
+The recursive decomposition is exact and requires no approximation. It is the mathematical foundation for applying dynamic programming to CES preferences, as we develop in the following sections.

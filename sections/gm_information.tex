@@ -1,0 +1,446 @@
+\epigraph{You should call it entropy, for two reasons. In the first place your uncertainty function has been used in statistical mechanics under that name, so it already has a name. In the second place, and more important, nobody knows what entropy really is, so in a debate you will always have the advantage.}{\textit{John von Neumann}, to Claude Shannon (1948)}
+
+
+We have treated the CES aggregator as a convenient functional form with useful properties. This section reveals a deeper structure: the generalized mean is the solution to a natural optimization problem in which the parameter $\rho$ governs the cost of reallocating attention.
+
+This perspective allows us to reinterpret our objectives. The CES form is not an assumption about preferences or technology---it can be reinterpreted as optimal behavior when attention is costly to redirect. An agent who maximizes expected payoffs but faces costs for deviating from a default allocation will behave \emph{as if} maximizing a CES objective. The elasticity of substitution measures the inverse of these costs.
+
+To develop this interpretation, we first introduce the Kullback-Leibler divergence---the natural measure of ``distance'' between probability distributions. We then establish the Gibbs variational principle and illustrate it through the two-good case.
+
+% --------------------------------------------------------------
+\section{Measuring Information}
+% --------------------------------------------------------------
+Entropy and the Kullback-Leibler divergence are central to information theory, the area of science that studies how to quantify information and how to encode it. We introduce these concepts as they render an interpreation for a cost of making decisions that translates our generalized means into a context where information plays a role.
+
+% --------------------------------------------------------------
+\paragraph{The Two-Outcome Case.}
+% --------------------------------------------------------------
+
+We begin with a concrete setting. Consider a random process with two outcomes---call them ``heads'' and ``tails.'' A reference distribution assigns probability $\omega$ to heads and $1-\omega$ to tails. An alternative distribution assigns $s$ and $1-s$.
+
+How different are these distributions? To answer this, consider repeated independent draws. After $N$ draws, we observe $n_1$ heads and $n_2 = N - n_1$ tails. The likelihood of this sequence under each distribution is:
+\begin{equation}
+L(s) = s^{n_1} (1-s)^{n_2}, \qquad L(\omega) = \omega^{n_1} (1-\omega)^{n_2}.
+\end{equation}
+
+The log-likelihood ratio measures the evidence in favor of $s$ over $\omega$:
+\begin{equation}
+\log \frac{L(s)}{L(\omega)} = n_1 \log \frac{s}{\omega} + n_2 \log \frac{1-s}{1-\omega}.
+\end{equation}
+
+Now suppose $s$ is the true distribution. How much evidence accumulates on average? Since draws are i.i.d.\ from $s$, the expected counts are $\E_s[n_1] = Ns$ and $\E_s[n_2] = N(1-s)$. Therefore:
+\begin{equation}
+\E_s\left[\log \frac{L(s)}{L(\omega)}\right] = Ns \log \frac{s}{\omega} + N(1-s) \log \frac{1-s}{1-\omega}.
+\end{equation}
+
+Define the \emph{Kullback-Leibler divergence} from $\omega$ to $s$ as the expected log-likelihood ratio per draw:
+\begin{equation}
+\label{eq:kl-two-good}
+\KL{s}{\omega} = s \log \frac{s}{\omega} + (1-s) \log \frac{1-s}{1-\omega}.
+\end{equation}
+
+This quantity measures how fast evidence accumulates in favor of the true distribution $s$ against the reference $\omega$. Three cases emerge:
+\begin{itemize}[nosep]
+    \item If $s = \omega$: each term vanishes, so $\KL{s}{\omega} = 0$. You cannot distinguish identical distributions.
+    \item If $s \neq \omega$: the divergence is strictly positive. Evidence accumulates at rate $\KL{s}{\omega}$ per observation.
+    \item The larger the divergence, the faster you can tell the distributions apart.
+\end{itemize}
+
+% --------------------------------------------------------------
+\paragraph{General Definition.}
+% --------------------------------------------------------------
+
+The extension to $n$ outcomes is immediate. Let $\bs = (s_1, \ldots, s_n)$ and $\bom = (\omega_1, \ldots, \omega_n)$ be probability distributions. After $N$ draws from $\bs$, outcome $i$ appears approximately $N s_i$ times. The expected log-likelihood ratio per draw generalizes to:
+
+\begin{definition}[Kullback-Leibler Divergence]
+\label{def:kl-divergence}
+Let $\bs = (s_1, \ldots, s_n)$ and $\bom = (\omega_1, \ldots, \omega_n)$ be probability distributions with $s_i, \omega_i > 0$ and $\sum_i s_i = \sum_i \omega_i = 1$. The \emph{Kullback-Leibler divergence} (or \emph{relative entropy}) from $\bom$ to $\bs$ is
+\begin{equation}
+\label{eq:kl-definition}
+\KL{\bs}{\bom} = \sum_{i=1}^n s_i \log\left( \frac{s_i}{\omega_i} \right).
+\end{equation}
+\end{definition}
+
+The KL divergence quantifies how much $\bs$ differs from $\bom$, measured in units of information. Equivalently, it is the rate at which data reveals that the true distribution is $\bs$, not $\bom$.
+
+% --------------------------------------------------------------
+\paragraph{Properties.}
+It is useful to bear some properties in mind. 
+% --------------------------------------------------------------
+
+\begin{proposition}[Properties of KL Divergence]
+\label{prop:kl-properties}
+The Kullback-Leibler divergence satisfies:
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Non-negativity}: $\KL{\bs}{\bom} \geq 0$ for all distributions $\bs, \bom$.
+    \item \textbf{Identity}: $\KL{\bs}{\bom} = 0$ if and only if $\bs = \bom$.
+    \item \textbf{Asymmetry}: In general, $\KL{\bs}{\bom} \neq \KL{\bom}{\bs}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Non-negativity follows from Jensen's inequality. The function $f(x) = -\log(x)$ is strictly convex. Therefore,
+\begin{align*}
+-\KL{\bs}{\bom} &= \sum_i s_i \log\left( \frac{\omega_i}{s_i} \right) = \E_{\bs}\left[ \log\left( \frac{\omega}{s} \right) \right] \\
+&\leq \log\left( \E_{\bs}\left[ \frac{\omega}{s} \right] \right) = \log\left( \sum_i s_i \cdot \frac{\omega_i}{s_i} \right) = \log(1) = 0.
+\end{align*}
+Equality holds if and only if $\omega_i/s_i$ is constant, which (given both sum to 1) requires $\bs = \bom$.
+\end{proof}
+
+The asymmetry reflects a genuine conceptual distinction. The quantity $\KL{\bs}{\bom}$ asks: ``When $\bs$ is true, how fast do I learn it's not $\bom$?'' The reverse $\KL{\bom}{\bs}$ asks the opposite question---and the answers generally differ. For this reason, KL divergence is not a true metric; it violates symmetry and the triangle inequality.
+
+% --------------------------------------------------------------
+\paragraph{Historical Context.}
+% --------------------------------------------------------------
+
+The Kullback-Leibler divergence was introduced by Solomon Kullback and Richard Leibler in their 1951 paper ``On Information and Sufficiency.'' It built upon Claude Shannon's foundational work on information theory (1948), which established entropy as the fundamental measure of uncertainty.
+
+\begin{definition}[Shannon Entropy]
+\label{def:entropy}
+The \emph{entropy} of a probability distribution $\bs = (s_1, \ldots, s_n)$ is
+\begin{equation}
+H(\bs) = -\sum_{i=1}^n s_i \log(s_i).
+\end{equation}
+\end{definition}
+
+Entropy measures the expected ``surprise'' or uncertainty in a distribution. The KL divergence can be decomposed as:
+\begin{equation}
+\label{eq:kl-entropy-decomposition}
+\KL{\bs}{\bom} = H(\bs, \bom) - H(\bs),
+\end{equation}
+where $H(\bs, \bom) = -\sum_i s_i \log(\omega_i)$ is the \emph{cross-entropy}. This decomposition shows that KL divergence measures the \emph{excess} uncertainty when using $\bom$ instead of the true distribution $\bs$.
+
+\begin{calloutnote}[Information-Theoretic Interpretation]
+In coding theory, entropy $H(\bs)$ represents the minimum average number of bits needed to encode messages from distribution $\bs$. The KL divergence $\KL{\bs}{\bom}$ represents the additional bits required if we design our code for distribution $\bom$ but the true distribution is $\bs$. This interpretation underlies its role as a measure of inefficiency or ``distance'' between distributions.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Gibbs's Variational Principle}
+% --------------------------------------------------------------
+
+We now establish the central result: any generalized mean can be expressed as the value of an entropy-regularized optimization problem.
+
+% --------------------------------------------------------------
+\paragraph{Classical Form.}
+Next, we relate our classical means to the information measures discussed above. 
+% --------------------------------------------------------------
+
+\begin{proposition}[Gibbs Representation: Classical Form]
+\label{prop:gibbs-classical}
+The classical generalized mean satisfies
+\begin{equation}
+\label{eq:gibbs-classical}
+\log \Mbar(\bx; \bom, \rho) = \max_{\bs} \left\{ \sum_{i=1}^n s_i \log x_i - \frac{1}{\rho} \KL{\bs}{\bom} \right\}
+\end{equation}
+for $\rho > 0$, where the maximum is over probability distributions $\bs$ on $\{1, \ldots, n\}$.
+\end{proposition}
+
+The objective balances two terms. The first, $\sum_i s_i \log x_i$, is expected log-payoff under the chosen distribution $\bs$. The second, $\frac{1}{\rho}\KL{\bs}{\bom}$, penalizes deviation from the reference weights $\bom$. The parameter $\rho$ governs the tradeoff: high $\rho$ means low penalty, allowing $\bs$ to chase high payoffs; low $\rho$ means high penalty, keeping $\bs$ close to $\bom$.
+
+% --------------------------------------------------------------
+\paragraph{Canonical Form.}
+% --------------------------------------------------------------
+
+The canonical mean admits an equally elegant representation. Recall from \cref{sec:transformations} that the canonical and classical means are related by $\M(\bx; \bom, \rho) = \Mbar(\mathbf{z}; \bom, \rho)$ where $z_i = x_i/\omega_i$.
+
+\begin{proposition}[Gibbs Representation: Canonical Form]
+\label{prop:gibbs-canonical}
+The canonical generalized mean satisfies
+\begin{equation}
+\label{eq:gibbs-canonical}
+\log \M(\bx; \bom, \rho) = \max_{\bs} \left\{ \sum_{i=1}^n s_i \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \KL{\bs}{\bom} \right\}
+\end{equation}
+for $\rho > 0$, with max replaced by min for $\rho < 0$.
+\end{proposition}
+
+The term $\log(x_i/\omega_i)$ measures how far good $i$ deviates from its ``balanced'' level---the allocation where relative quantities match relative weights. At the balanced point $x_i = \omega_i$ for all $i$, every payoff is zero, and indeed $\M(\bom; \bom, \rho) = 1$.
+
+% --------------------------------------------------------------
+\paragraph{Deriving the Optimal Shares.}
+% --------------------------------------------------------------
+Once we find the optimal shares, we proof that our generalized means are the solutions to this problems. 
+
+The first-order conditions reveal the structure of optimal attention. The Lagrangian for the canonical problem is:
+\begin{equation}
+\mathcal{L} = \sum_i s_i \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \sum_i s_i \log \frac{s_i}{\omega_i} - \lambda\left(\sum_i s_i - 1\right).
+\end{equation}
+Differentiating with respect to $s_i$:
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial s_i} = \log \frac{x_i}{\omega_i} - \frac{1}{\rho}\left(\log \frac{s_i}{\omega_i} + 1\right) - \lambda = 0.
+\end{equation}
+Rearranging and exponentiating:
+\begin{equation}
+s_i = \omega_i \left(\frac{x_i}{\omega_i}\right)^\rho e^{-\rho\lambda - 1} = \omega_i^{1-\rho} x_i^\rho \cdot e^{-\rho\lambda - 1}.
+\end{equation}
+
+The constraint $\sum_i s_i = 1$ pins down the constant:
+\begin{proposition}[Optimal Shares]
+\label{prop:optimal-shares}
+The optimizer of the Gibbs variational problem is
+\begin{equation}
+\label{eq:optimal-shares}
+s_i^* = \frac{\omega_i^{1-\rho} x_i^\rho}{\sum_{j=1}^n \omega_j^{1-\rho} x_j^\rho} = \frac{\omega_i^{1-\rho} x_i^\rho}{\Ssum(\bx; \bom, \rho)},
+\end{equation}
+where $\Ssum(\bx; \bom, \rho) = \M(\bx; \bom, \rho)^\rho$ is the inner sum.
+\end{proposition}
+
+These optimal shares have a familiar structure: they are precisely the expenditure shares that emerge from CES utility maximization. The Gibbs representation thus provides a reinterpretation---CES demands arise from entropy-regularized optimization.
+
+\begin{calloutnote}[The Gibbs Distribution]
+The optimal shares $s_i^* \propto \omega_i (x_i/\omega_i)^\rho$ have the form of a \emph{Gibbs distribution} from statistical mechanics, with ``energy'' $-\log(x_i/\omega_i)$ and ``inverse temperature'' $\rho$. The same structure appears in discrete choice as the multinomial logit model and in machine learning as the softmax function.
+\end{calloutnote}
+
+\paragraph{Verification.}
+% --------------------------------------------------------------
+
+We now verify that substituting the optimal shares back into the objective yields the log of the generalized mean. From \cref{eq:optimal-shares}, we have:
+\begin{equation}
+s_i^* = \frac{\omega_i^{1-\rho} x_i^\rho}{\Ssum}, \qquad \text{where } \Ssum = \sum_j \omega_j^{1-\rho} x_j^\rho = \M^\rho.
+\end{equation}
+
+Taking logs:
+\begin{equation}
+\log s_i^* = (1-\rho)\log \omega_i + \rho \log x_i - \log \Ssum.
+\end{equation}
+
+Therefore:
+\begin{equation}
+\log \frac{s_i^*}{\omega_i} = -\rho \log \omega_i + \rho \log x_i - \log \Ssum = \rho \log \frac{x_i}{\omega_i} - \rho \log \M.
+\end{equation}
+The KL divergence at the optimum is:
+\begin{align}
+\KL{\bs^*}{\bom} &= \sum_i s_i^* \log \frac{s_i^*}{\omega_i} = \sum_i s_i^* \left( \rho \log \frac{x_i}{\omega_i} - \rho \log \M \right) \nonumber \\
+&= \rho \sum_i s_i^* \log \frac{x_i}{\omega_i} - \rho \log \M.
+\end{align}
+Substituting into the objective:
+\begin{align}
+V^* &= \sum_i s_i^* \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \KL{\bs^*}{\bom} \nonumber \\
+&= \sum_i s_i^* \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \left( \rho \sum_i s_i^* \log \frac{x_i}{\omega_i} - \rho \log \M \right) \nonumber \\
+&= \sum_i s_i^* \log \frac{x_i}{\omega_i} - \sum_i s_i^* \log \frac{x_i}{\omega_i} + \log \M \nonumber \\
+&= \log \M.
+\end{align}
+
+This confirms \cref{prop:gibbs-canonical}: the maximum value of the entropy-regularized problem equals the log of the canonical generalized mean.
+
+\begin{calloutnote}[The Gibbs Distribution]
+The optimal shares $s_i^* \propto \omega_i (x_i/\omega_i)^\rho$ have the form of a \emph{Gibbs distribution} from statistical mechanics, with ``energy'' $-\log(x_i/\omega_i)$ and ``inverse temperature'' $\rho$. The same structure appears in discrete choice as the multinomial logit model and in machine learning as the softmax function.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{The Role of Sign: Substitutes versus Complements.}
+% --------------------------------------------------------------
+
+The sign of $\rho$ fundamentally changes the nature of the problem. When $\rho > 0$, dividing the exponent preserves the max. When $\rho < 0$, division by a negative flips the inequality.
+
+\begin{proposition}[Max versus Min Structure]
+\label{prop:max-min}
+The Gibbs representation takes the form
+\begin{equation}
+\label{eq:gibbs-max-min}
+\log \M(\bx; \bom, \rho) = 
+\begin{cases}
+\displaystyle\max_{\bs} \left\{ \sum_i s_i \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \KL{\bs}{\bom} \right\} & \text{if } \rho > 0, \\[1.5em]
+\displaystyle\min_{\bs} \left\{ \sum_i s_i \log \frac{x_i}{\omega_i} - \frac{1}{\rho} \KL{\bs}{\bom} \right\} & \text{if } \rho < 0.
+\end{cases}
+\end{equation}
+\end{proposition}
+
+For $\rho < 0$, note that $-1/\rho = 1/|\rho| > 0$, so the problem becomes:
+\begin{equation}
+\log \M = \min_{\bs} \left\{ \sum_i s_i \log \frac{x_i}{\omega_i} + \frac{1}{|\rho|} \KL{\bs}{\bom} \right\}.
+\end{equation}
+The agent \emph{minimizes} expected log-payoff \emph{plus} a penalty for deviation---a worst-case or adversarial formulation.
+
+\begin{table}[H]
+\centering
+\caption{Limiting Behavior of the Gibbs Representation}
+\label{tab:gibbs-limits}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Limit} & \textbf{Problem} & \textbf{KL Cost} & \textbf{Optimizer $\bs^*$} & \textbf{Mean $\M$} \\
+\midrule
+$\rho \to +\infty$ & max & $\to 0$ & concentrates on $\arg\max_i(x_i/\omega_i)$ & $\to \max_i(x_i/\omega_i)$ \\
+$\rho \to 0^+$ & max & $\to \infty$ & $\to \bom$ & $\to$ geometric mean \\
+$\rho \to 0^-$ & min & $\to \infty$ & $\to \bom$ & $\to$ geometric mean \\
+$\rho \to -\infty$ & min & $\to 0$ & concentrates on $\arg\min_i(x_i/\omega_i)$ & $\to \min_i(x_i/\omega_i)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The table reveals the economic content. For substitutes ($\rho > 0$), the agent maximizes and chases opportunities---attention flows toward goods with high $x_i/\omega_i$. For complements ($\rho < 0$), the agent faces an adversarial problem and is constrained by bottlenecks---the worst input determines the outcome.
+
+The Cobb-Douglas case ($\rho \to 0$) is the knife-edge where information costs dominate completely. The agent cannot deviate from balanced attention regardless of payoffs, yielding the geometric mean.
+
+\begin{calloutimportant}[Flexibility versus Vulnerability]
+The word ``flexibility'' means different things in these two regimes:
+\begin{itemize}[nosep]
+    \item \textbf{Substitutes} ($\rho > 0$): Flexibility is the ability to pursue good opportunities. High $\rho$ means low information costs, so attention reallocates freely toward high-payoff goods.
+    \item \textbf{Complements} ($\rho < 0$): Flexibility becomes vulnerability to bottlenecks. The minimization structure means the agent is held hostage by the worst input.
+\end{itemize}
+A Leontief technology ($\rho \to -\infty$) is ``inflexible'' not because it cannot substitute, but because output is determined entirely by the scarcest input.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\section{Interpretation}
+% --------------------------------------------------------------
+
+The general Gibbs principle becomes particularly transparent with two goods. This case builds geometric intuition and reveals an alternative formulation that illuminates the role of $\rho$.
+
+% --------------------------------------------------------------
+\paragraph{The Attention Problem.}
+% --------------------------------------------------------------
+
+Consider goods with values $(x_1, x_2)$ already in hand. You allocate attention $s$ to good 1 and $1-s$ to good 2. The experienced utility from this attention allocation is:
+\begin{equation}
+s \log x_1 + (1-s) \log x_2.
+\end{equation}
+
+Without constraints, you would set $s = 1$ if $x_1 > x_2$---focus entirely on the better good. But attention has inertia. Your default or ``natural'' allocation is $\omega$, perhaps from habit, salience, or cognitive constraints. Deviating from $\omega$ requires effort.
+
+The Gibbs problem specializes to:
+\begin{equation}
+\label{eq:attention-two-good}
+\max_s \left\{ s \log x_1 + (1-s) \log x_2 - \frac{1}{\rho} \KL{s}{\omega} \right\},
+\end{equation}
+where
+\begin{equation}
+\KL{s}{\omega} = s \log \frac{s}{\omega} + (1-s) \log \frac{1-s}{1-\omega}.
+\end{equation}
+
+% --------------------------------------------------------------
+\paragraph{The Likelihood Ratio Formulation.}
+% --------------------------------------------------------------
+
+The attention problem admits a vivid reformulation. Exponentiating the objective (a monotone transformation that preserves the optimizer):
+\begin{equation}
+\max_s \left\{ x_1^s \cdot x_2^{1-s} \cdot \exp\left(-\frac{1}{\rho}\KL{s}{\omega}\right) \right\}.
+\end{equation}
+
+Direct calculation shows:
+\begin{equation}
+\label{eq:kl-likelihood}
+\exp\left(-\KL{s}{\omega}\right) = \frac{\omega^s(1-\omega)^{1-s}}{s^s(1-s)^{1-s}}.
+\end{equation}
+
+The right-hand side is a likelihood ratio: how probable is pattern $s$ under the reference $\omega$ relative to under itself? Substituting:
+\begin{equation}
+\label{eq:attention-likelihood}
+\max_s \left\{ x_1^s \cdot x_2^{1-s} \cdot \left[\frac{\omega^s(1-\omega)^{1-s}}{s^s(1-s)^{1-s}}\right]^{1/\rho} \right\}.
+\end{equation}
+
+This formulation separates two forces:
+\begin{itemize}[nosep]
+    \item The term $x_1^s x_2^{1-s}$ is Cobb-Douglas in your chosen shares---the ``ideal'' experienced value if attention were costless.
+    \item The bracketed term penalizes deviation from the default. When $s = \omega$, the ratio equals one (no penalty). When $s \neq \omega$, the ratio is less than one---your intended pattern is ``unnatural'' relative to $\omega$.
+\end{itemize}
+
+% --------------------------------------------------------------
+\paragraph{Limiting Cases.}
+% --------------------------------------------------------------
+
+The likelihood ratio formulation makes the limiting behavior transparent:
+\begin{itemize}[nosep]
+    \item $\rho \to \infty$: The power $1/\rho \to 0$, so the penalty term approaches one. You simply maximize $x_1^s x_2^{1-s}$, setting $s \to 1$ if $x_1 > x_2$. Pure optimization, no friction.
+    \item $\rho \to 0^+$: The power $1/\rho \to \infty$. Any $s \neq \omega$ makes the likelihood ratio less than one, and raising to infinite power sends it to zero. Only $s = \omega$ survives---you're stuck at the default. This is Cobb-Douglas.
+    \item Intermediate $\rho$: You trade off pursuing the better good against the implausibility penalty.
+    \item $\rho < 0$: The problem flips to minimization. Now you're penalized for \emph{avoiding} the worse good, creating complementarity.
+\end{itemize}
+
+\begin{calloutnote}[Reinterpretation, Not Foundation]
+The Gibbs representation shows that CES preferences \emph{can be represented as} optimal attention allocation with information costs. This is a reinterpretation, not a derivation---preferences remain primitives. The insight is that an agent maximizing CES utility behaves \emph{as if} they were balancing payoffs against cognitive costs, with $\rho$ governing the tradeoff.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\section{The Envelope Characterization}
+% --------------------------------------------------------------
+
+The Gibbs representation enables clean derivations via the envelope theorem. Instead of direct differentiation of the CES formula, we differentiate the value function of the variational problem.
+
+% --------------------------------------------------------------
+\paragraph{Response to the Elasticity Parameter.}
+% --------------------------------------------------------------
+
+In the canonical Gibbs representation \cref{eq:gibbs-canonical}, the parameter $\rho$ appears only in the penalty term $-\frac{1}{\rho}\KL{\bs}{\bom}$. By the envelope theorem, we can differentiate with respect to $\rho$ treating $\bs^*$ as fixed:
+\begin{equation}
+\frac{\partial \log \M}{\partial \rho} = \frac{\partial}{\partial \rho}\left[ -\frac{1}{\rho} \KL{\bs^*}{\bom} \right] = \frac{1}{\rho^2} \KL{\bs^*}{\bom}.
+\end{equation}
+
+Multiplying both sides by $\M$:
+
+\begin{proposition}[Elasticity with Respect to $\rho$]
+\label{prop:envelope-rho}
+The response of the canonical mean to changes in the elasticity parameter is
+\begin{equation}
+\label{eq:dM-drho}
+\frac{\partial \M}{\partial \rho} = \frac{\M \cdot \KL{\bs^*}{\bom}}{\rho^2},
+\end{equation}
+where $\bs^*$ is the optimal distribution given in \cref{eq:optimal-shares}.
+\end{proposition}
+
+This result, which required algebraic derivation in earlier sections, now emerges in one line. The KL divergence measures how much the optimal allocation deviates from default weights. When inputs are heterogeneous, $\bs^*$ differs from $\bom$, and relaxing information costs (increasing $|\rho|$) raises the achievable mean.
+
+\begin{calloutnote}[Value of Flexibility]
+\Cref{prop:envelope-rho} has a direct economic interpretation: $\partial \M / \partial \rho$ measures the \emph{marginal value of flexibility}. It equals the current output level times the KL divergence between optimal and default allocations, scaled by $1/\rho^2$. The more the optimal allocation differs from the default, the more valuable is the ability to substitute.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{Response to Inputs.}
+% --------------------------------------------------------------
+
+The envelope theorem also yields the elasticity of the mean with respect to individual inputs. Since $\log x_i$ appears linearly in the objective:
+\begin{equation}
+\frac{\partial \log \M}{\partial \log x_i} = s_i^*.
+\end{equation}
+
+\begin{proposition}[Input Elasticities]
+\label{prop:envelope-inputs}
+The elasticity of the canonical mean with respect to input $x_i$ equals the optimal share:
+\begin{equation}
+\label{eq:input-elasticity}
+\frac{\partial \log \M}{\partial \log x_i} = s_i^* = \frac{\omega_i^{1-\rho} x_i^\rho}{\sum_j \omega_j^{1-\rho} x_j^\rho}.
+\end{equation}
+\end{proposition}
+
+In economic applications, these elasticities equal expenditure shares. The envelope approach makes this transparent: the optimal share $s_i^*$ measures both the marginal contribution of input $i$ to the objective and the share of resources allocated to it.
+
+% --------------------------------------------------------------
+\paragraph{Verification at the Balanced Point.}
+% --------------------------------------------------------------
+
+As a consistency check, consider the balanced allocation $x_i = \omega_i$ for all $i$. At this point:
+\begin{itemize}[nosep]
+    \item The payoffs are $\log(x_i/\omega_i) = 0$ for all $i$.
+    \item The objective at any $\bs$ equals $-\frac{1}{\rho}\KL{\bs}{\bom}$.
+    \item This is maximized (for $\rho > 0$) at $\bs = \bom$, where $\KL{\bom}{\bom} = 0$.
+    \item The value is zero, confirming $\M(\bom; \bom, \rho) = 1$.
+\end{itemize}
+
+The balanced point is where default attention is optimal---there are no gains from reallocation.
+
+\begin{callouttip}[Exercise]
+Verify that when all $x_i$ are equal (say $x_i = c$ for all $i$), the optimal shares equal the default weights: $s_i^* = \omega_i$. What is the KL divergence in this case? What does this imply about the derivative $\partial \M / \partial \rho$?
+\end{callouttip}
+
+% ==============================================================
+The transformations developed in the previous section map one probability distribution (the original weights) to another (the transformed weights). A natural question arises: how different are these distributions? This question leads us to a fundamental concept from information theory that will illuminate the economic content of generalized means.
+
+% --------------------------------------------------------------
+\paragraph{Connection to Transformations}
+% --------------------------------------------------------------
+
+The weight transformations from \cref{sec:transformations} naturally give rise to KL divergence. Recall the transformed weights from \cref{eq:weight-transform}:
+\begin{equation}
+\tilde{\omega}_i = \left( \frac{\omega_i}{\Omega(\omega, \rho)} \right)^{1-\rho}.
+\end{equation}
+The transformation from $\omega$ to $\tilde{\omega}$ depends on $\rho$: different elasticities produce different transformed weights. The KL divergence $\KL{\tilde{\omega}}{\omega}$ measures how much the transformation distorts the original distribution of weights.
+
+More generally, in an optimization context, we will encounter \emph{tilted weights} of the form:
+\begin{equation}
+\label{eq:tilted-weights-preview}
+\tilde{\omega}_i = \frac{\omega_i^{1-\rho} x_i^\rho}{s(\rho)},
+\end{equation}
+where $s(\rho) = \sum_j \omega_j^{1-\rho} x_j^\rho$ is the inner sum. These tilted weights---which will turn out to equal expenditure shares in economic applications---satisfy $\sum_i \tilde{\omega}_i = 1$ and reduce to the original weights $\omega_i$ when $\rho = 1$ or when all $x_i$ are equal.
+
+The KL divergence $\KL{\tilde{\omega}}{\omega}$ captures the informational ``cost'' of the allocation $(x_1, x_2)$ relative to the natural weights. As we show in the next section, this quantity governs how the generalized mean responds to changes in the elasticity parameter.
+
+

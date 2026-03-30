@@ -1,0 +1,407 @@
+% ==============================================================
+\section{Incomplete Depreciation}
+\label{sec:ac-depreciation}
+% ==============================================================
+
+We now relax the assumption of full depreciation. When capital persists across periods ($\delta < 1$), the distinction between gross and net investment becomes important, and the dynamics of Tobin's $Q$ acquire a richer structure. The CES transformation technology continues to govern adjustment costs, but now applies to gross investment rather than the change in the capital stock.
+
+% --------------------------------------------------------------
+\subsection{Setup with Persistent Capital}
+\label{subsec:ac-dep-setup}
+% --------------------------------------------------------------
+
+\paragraph{Capital Accumulation.}
+Capital depreciates at rate $\delta \in (0, 1]$ and is augmented by gross investment $I$:
+\begin{equation}
+k' = (1 - \delta) k + I.
+\label{eq:ac-dep-accum}
+\end{equation}
+
+Net investment is the change in the capital stock:
+\begin{equation}
+k' - k = I - \delta k.
+\label{eq:ac-dep-net}
+\end{equation}
+
+When $\delta = 1$, we recover the full depreciation case: $k' = I$.
+
+\paragraph{Technology.}
+Production is linear in capital:
+\begin{equation}
+Y = A k.
+\label{eq:ac-dep-production}
+\end{equation}
+
+The CES transformation governs the split of output into consumption and gross investment:
+\begin{equation}
+\Hfun(C, I) = \left( \omega_C^{1-\psi} C^{\psi} + \omega_I^{1-\psi} I^{\psi} \right)^{1/\psi} = Y.
+\label{eq:ac-dep-transformation}
+\end{equation}
+
+\paragraph{Timing.}
+At the beginning of period $t$, the household owns capital $k_t$. Production occurs, yielding output $Y_t = A k_t$. The household then chooses consumption $C_t$ and gross investment $I_t$ subject to the transformation constraint. Capital for next period is $k_{t+1} = (1-\delta) k_t + I_t$.
+
+% --------------------------------------------------------------
+\subsection{The Two-Period Problem}
+\label{subsec:ac-dep-two-period}
+% --------------------------------------------------------------
+
+\paragraph{Setup.}
+Consider $t \in \{0, 1\}$. The household enters period 0 with capital $k_0$, chooses $(C_0, I_0)$, and then consumes all output in period 1:
+\begin{equation}
+\max_{C_0, I_0} \left\{ u(C_0) + \beta \, u(C_1) \right\}
+\label{eq:ac-dep-objective}
+\end{equation}
+subject to:
+\begin{align}
+\Hfun(C_0, I_0) &= A k_0, \label{eq:ac-dep-const0} \\
+k_1 &= (1-\delta) k_0 + I_0, \label{eq:ac-dep-accum0} \\
+C_1 &= A k_1 = A \left[ (1-\delta) k_0 + I_0 \right]. \label{eq:ac-dep-const1}
+\end{align}
+
+\paragraph{The Key Difference.}
+With incomplete depreciation, future consumption depends on \emph{both} current investment $I_0$ and the undepreciated capital $(1-\delta) k_0$:
+\begin{equation}
+C_1 = A (1-\delta) k_0 + A I_0.
+\label{eq:ac-dep-C1}
+\end{equation}
+
+The term $A(1-\delta) k_0$ is ``locked in''---it does not depend on the household's choice. Only the term $A I_0$ is affected by the investment decision.
+
+\paragraph{First-Order Condition.}
+The Lagrangian is:
+\begin{equation}
+\mathcal{L} = u(C_0) + \beta \, u(A[(1-\delta)k_0 + I_0]) + \lambda \left[ A k_0 - \Hfun(C_0, I_0) \right].
+\label{eq:ac-dep-lagrangian}
+\end{equation}
+
+First-order conditions:
+\begin{align}
+C_0: & \quad u'(C_0) = \lambda \frac{\partial \Hfun}{\partial C_0}, \label{eq:ac-dep-foc-C} \\
+I_0: & \quad \beta A \, u'(C_1) = \lambda \frac{\partial \Hfun}{\partial I_0}. \label{eq:ac-dep-foc-I}
+\end{align}
+
+Taking the ratio and using the definition of Tobin's $Q$:
+\begin{equation}
+\frac{u'(C_0)}{\beta A \, u'(C_1)} = \frac{\partial \Hfun / \partial C_0}{\partial \Hfun / \partial I_0} = \frac{1}{Q}.
+\label{eq:ac-dep-ratio}
+\end{equation}
+
+The Euler equation is:
+\begin{equation}
+\boxed{u'(C_0) = \beta \frac{A}{Q} u'(C_1).}
+\label{eq:ac-dep-euler}
+\end{equation}
+
+This has the same form as the full depreciation case! The Euler equation relates marginal utilities through the return $A/Q$, regardless of $\delta$.
+
+\begin{calloutnote}[Why Doesn't $\delta$ Appear in the Euler Equation?]
+The depreciation rate $\delta$ does not appear in the Euler equation because it affects only the \emph{level} of future consumption, not the \emph{marginal} trade-off. The household's decision at the margin is: ``Should I invest one more unit today?'' The return on that marginal unit is $A/Q$, independent of how much capital survives from the past.
+
+However, $\delta$ does affect the \emph{solution} through the budget constraint: higher $\delta$ means less future consumption for given $I_0$, which changes the equilibrium allocation and hence $Q$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Finite-Horizon Problem}
+\label{subsec:ac-dep-T-period}
+% --------------------------------------------------------------
+
+\paragraph{The Bellman Equation.}
+For $t \in \{0, 1, \ldots, T\}$, define $V_t(k)$ as the value of entering period $t$ with capital $k$:
+\begin{equation}
+V_t(k) = \max_{I} \left\{ u(C) + \beta V_{t+1}((1-\delta)k + I) \right\} \quad \text{s.t.} \quad \Hfun(C, I) = A k,
+\label{eq:ac-dep-bellman}
+\end{equation}
+with terminal condition $V_T(k) = u(Ak)$.
+
+\paragraph{First-Order Condition.}
+\begin{equation}
+-u'(C) \frac{1}{Q} + \beta V_{t+1}'(k') = 0,
+\label{eq:ac-dep-foc-bellman}
+\end{equation}
+where $k' = (1-\delta)k + I$.
+
+\paragraph{Envelope Condition.}
+Differentiating the value function:
+\begin{equation}
+V_t'(k) = u'(C) \frac{A}{Q} + \beta (1-\delta) V_{t+1}'(k').
+\label{eq:ac-dep-envelope}
+\end{equation}
+
+The envelope condition now has two terms:
+\begin{itemize}[nosep]
+\item $u'(C) \cdot A/Q$: The marginal value of capital through current production (as before).
+\item $\beta (1-\delta) V_{t+1}'(k')$: The marginal value of capital that survives to next period.
+\end{itemize}
+
+\paragraph{The Euler Equation.}
+Combining the FOC and envelope condition (shifted forward):
+\begin{equation}
+\frac{u'(C_t)}{Q_t} = \beta V_{t+1}'(k_{t+1}) = \beta \left[ u'(C_{t+1}) \frac{A}{Q_{t+1}} + \beta (1-\delta) V_{t+2}'(k_{t+2}) \right].
+\label{eq:ac-dep-euler-step}
+\end{equation}
+
+Iterating forward and using the FOC repeatedly:
+\begin{equation}
+\frac{u'(C_t)}{Q_t} = \beta u'(C_{t+1}) \frac{A}{Q_{t+1}} + \beta^2 (1-\delta) u'(C_{t+2}) \frac{A}{Q_{t+2}} + \cdots
+\label{eq:ac-dep-euler-iterated}
+\end{equation}
+
+This can be written more compactly. Define the \emph{user cost of capital}:
+\begin{equation}
+\boxed{u'(C_t) = \beta \left[ \frac{A}{Q_{t+1}} + (1-\delta) \frac{Q_t}{Q_{t+1}} \right] Q_t \, u'(C_{t+1}).}
+\label{eq:ac-dep-euler-full}
+\end{equation}
+
+\paragraph{Interpretation: The Return on Capital.}
+Define the gross return on capital:
+\begin{equation}
+R_{t+1} \equiv \frac{A + (1-\delta) Q_{t+1}}{Q_t}.
+\label{eq:ac-dep-return}
+\end{equation}
+
+The Euler equation becomes:
+\begin{equation}
+u'(C_t) = \beta R_{t+1} \, u'(C_{t+1}).
+\label{eq:ac-dep-euler-standard}
+\end{equation}
+
+\begin{calloutimportant}[The Return with Incomplete Depreciation]
+The return $R_{t+1} = (A + (1-\delta) Q_{t+1}) / Q_t$ has two components:
+\begin{enumerate}[nosep]
+\item \textbf{Dividend yield}: $A / Q_t$ is the marginal product per unit of capital value.
+\item \textbf{Capital gain}: $(1-\delta) Q_{t+1} / Q_t$ is the value of undepreciated capital, adjusted for changes in $Q$.
+\end{enumerate}
+
+Compare with full depreciation where $R_{t+1} = A Q_t / Q_{t+1}$. With $\delta < 1$, the ``resale value'' of capital $(1-\delta) Q_{t+1}$ enters the return.
+
+In steady state where $Q_t = Q_{t+1} = Q$:
+\[
+R = \frac{A + (1-\delta) Q}{Q} = \frac{A}{Q} + (1-\delta).
+\]
+The return equals the dividend yield plus the survival rate.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Steady State}
+\label{subsec:ac-dep-steady-state}
+% --------------------------------------------------------------
+
+Consider constant productivity $A$ and an infinite horizon (or large $T$). In steady state, all variables are constant: $C_t = C$, $I_t = I$, $k_t = k$, $Q_t = Q$.
+
+\paragraph{Steady-State Capital Accumulation.}
+From $k' = (1-\delta)k + I$:
+\begin{equation}
+k = (1-\delta)k + I \quad \Longrightarrow \quad I = \delta k.
+\label{eq:ac-dep-ss-accum}
+\end{equation}
+
+In steady state, gross investment exactly replaces depreciated capital. Net investment is zero.
+
+\paragraph{Steady-State Euler Equation.}
+From \cref{eq:ac-dep-euler-standard} with $R_{t+1} = R$:
+\begin{equation}
+1 = \beta R = \beta \frac{A + (1-\delta) Q}{Q}.
+\label{eq:ac-dep-ss-euler}
+\end{equation}
+
+Solving for $Q$:
+\begin{equation}
+Q = \frac{\beta A}{1 - \beta(1-\delta)}.
+\label{eq:ac-dep-Q-ss}
+\end{equation}
+
+\paragraph{Special Cases.}
+
+\medskip
+\noindent
+\textit{Full depreciation ($\delta = 1$):}
+\begin{equation}
+Q^{ss} = \frac{\beta A}{1 - 0} = \beta A.
+\label{eq:ac-dep-Q-ss-full}
+\end{equation}
+This matches our earlier result.
+
+\medskip
+\noindent
+\textit{No depreciation ($\delta = 0$):}
+\begin{equation}
+Q^{ss} = \frac{\beta A}{1 - \beta} = \frac{A}{1/\beta - 1} = \frac{A}{r},
+\label{eq:ac-dep-Q-ss-none}
+\end{equation}
+where $r = 1/\beta - 1$ is the discount rate. This is the standard asset pricing formula: the price equals the perpetuity value of dividends.
+
+\medskip
+\noindent
+\textit{General $\delta \in (0,1)$:}
+\begin{equation}
+Q^{ss} = \frac{A}{1/\beta - (1-\delta)} = \frac{A}{r + \delta}.
+\label{eq:ac-dep-Q-ss-general}
+\end{equation}
+
+The denominator $r + \delta$ is the \emph{user cost of capital}: the sum of the interest cost and the depreciation cost.
+
+\begin{calloutnote}[The User Cost of Capital]
+The steady-state condition $Q = A / (r + \delta)$ can be rewritten as:
+\[
+(r + \delta) Q = A.
+\]
+The left-hand side is the \emph{user cost}---the cost of using one unit of capital for one period:
+\begin{itemize}[nosep]
+\item $r Q$: Interest cost (opportunity cost of funds tied up in capital).
+\item $\delta Q$: Depreciation cost (value of capital lost to wear).
+\end{itemize}
+In equilibrium, the user cost equals the marginal product $A$. This is the classic Jorgensonian result, extended to include adjustment costs through $Q$.
+\end{calloutnote}
+
+\paragraph{Steady-State Investment Rate.}
+From $I = \delta k$ and $Y = Ak$:
+\begin{equation}
+\frac{I}{Y} = \frac{\delta k}{A k} = \frac{\delta}{A}.
+\label{eq:ac-dep-inv-rate}
+\end{equation}
+
+The investment-output ratio is $\delta / A$. Higher depreciation requires more investment to maintain the capital stock.
+
+\paragraph{Steady-State Consumption.}
+From the CES constraint:
+\begin{equation}
+\Hfun(C, I) = Y \quad \Longrightarrow \quad \Hfun(C, \delta k) = A k.
+\label{eq:ac-dep-ss-ces}
+\end{equation}
+
+Given $Q$, we can solve for the consumption-investment ratio and hence for $C$ and $k$.
+
+% --------------------------------------------------------------
+\subsection{Transitional Dynamics}
+\label{subsec:ac-dep-dynamics}
+% --------------------------------------------------------------
+
+Away from steady state, the system exhibits transitional dynamics governed by two state-like variables: the capital stock $k_t$ and (implicitly) the shadow value $V_t'(k_t)$.
+
+\paragraph{The Dynamic System.}
+The economy is characterized by:
+\begin{align}
+k_{t+1} &= (1-\delta) k_t + I_t, \label{eq:ac-dep-dyn-k} \\
+\frac{u'(C_t)}{Q_t} &= \beta \left[ \frac{A}{Q_{t+1}} u'(C_{t+1}) + (1-\delta) \frac{u'(C_{t+1})}{Q_{t+1}} \right], \label{eq:ac-dep-dyn-euler} \\
+\Hfun(C_t, I_t) &= A k_t. \label{eq:ac-dep-dyn-ces}
+\end{align}
+
+Given $k_t$, the CES constraint \cref{eq:ac-dep-dyn-ces} defines a relationship between $C_t$ and $I_t$. The Euler equation \cref{eq:ac-dep-dyn-euler} pins down the intertemporal allocation. Capital accumulation \cref{eq:ac-dep-dyn-k} determines $k_{t+1}$.
+
+\paragraph{Phase Diagram Intuition.}
+In the $(k, C)$ plane:
+\begin{itemize}[nosep]
+\item The $\dot{k} = 0$ locus (where $k_{t+1} = k_t$) requires $I = \delta k$.
+\item The $\dot{C} = 0$ locus (where $C_{t+1} = C_t$) requires $\beta R = 1$, which pins down $Q$ and hence the $C/I$ ratio.
+\end{itemize}
+
+The steady state is at the intersection. The saddle-path dynamics are qualitatively similar to the standard Ramsey model, but the adjustment cost (finite $\eta$) affects the speed of convergence.
+
+\paragraph{Effect of Adjustment Costs on Dynamics.}
+Lower transformation elasticity $\eta$ (higher adjustment costs):
+\begin{itemize}[nosep]
+\item Slows convergence to steady state.
+\item Increases the volatility of $Q$ along the transition path.
+\item Reduces the response of investment to productivity shocks.
+\end{itemize}
+
+In the limit $\eta \to \infty$ (no adjustment costs), the economy jumps immediately to steady state. In the limit $\eta \to 0$ (Leontief), the consumption-investment ratio is fixed and adjustment is impossible.
+
+% --------------------------------------------------------------
+\subsection{Gross vs. Net Investment}
+\label{subsec:ac-dep-gross-net}
+% --------------------------------------------------------------
+
+With incomplete depreciation, the distinction between gross and net investment matters for measurement and interpretation.
+
+\paragraph{Definitions.}
+\begin{align}
+\text{Gross investment:} & \quad I_t, \\
+\text{Net investment:} & \quad I_t^{\text{net}} = I_t - \delta k_t = k_{t+1} - k_t, \\
+\text{Depreciation:} & \quad D_t = \delta k_t.
+\end{align}
+
+\paragraph{The CES Constraint in Terms of Net Investment.}
+Substituting $I = I^{\text{net}} + \delta k$ into the transformation:
+\begin{equation}
+\Hfun(C, I^{\text{net}} + \delta k) = A k.
+\label{eq:ac-dep-ces-net}
+\end{equation}
+
+This shows that adjustment costs apply to \emph{gross} investment, not net investment. Even maintaining the capital stock ($I^{\text{net}} = 0$) requires resources $I = \delta k$, and these resources are subject to the transformation friction.
+
+\paragraph{Interpretation.}
+The CES transformation can be viewed as capturing:
+\begin{itemize}[nosep]
+\item \textbf{Installation costs}: Costs of putting new capital in place.
+\item \textbf{Maintenance costs}: Costs of replacing depreciated capital.
+\item \textbf{Sectoral reallocation}: Costs of shifting resources between consumption and investment goods sectors.
+\end{itemize}
+
+All three apply to gross investment flows, not just to changes in the capital stock.
+
+\begin{calloutnote}[Why Gross Investment?]
+The assumption that adjustment costs apply to gross investment (rather than net) is standard in the literature. The economic rationale is that the frictions---installation, learning, organizational change---occur whenever new capital goods are produced and installed, regardless of whether they replace depreciated capital or expand the stock.
+
+An alternative specification would have adjustment costs on net investment: $\Hfun(C, k' - (1-\delta)k) = Y$. This would imply that replacement investment is frictionless, which may be appropriate in some contexts (e.g., identical replacement of worn-out machines) but not others (e.g., technological upgrading).
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Comparison: Full vs. Incomplete Depreciation}
+\label{subsec:ac-dep-comparison}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Adjustment Costs with Full vs. Incomplete Depreciation}
+\label{tab:ac-dep-comparison}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Object} & \textbf{Full ($\delta = 1$)} & \textbf{Incomplete ($\delta < 1$)} \\
+\midrule
+Capital accumulation & $k' = I$ & $k' = (1-\delta)k + I$ \\[4pt]
+Return on capital & $R = \dfrac{A \, Q_t}{Q_{t+1}}$ & $R = \dfrac{A + (1-\delta) Q_{t+1}}{Q_t}$ \\[10pt]
+Steady-state $Q$ & $\beta A$ & $\dfrac{\beta A}{1 - \beta(1-\delta)} = \dfrac{A}{r + \delta}$ \\[10pt]
+Steady-state $I/Y$ & Determined by $C/I$ ratio & $\delta / A$ \\[4pt]
+Net investment (SS) & $I$ & $0$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-dep-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Incomplete Depreciation with CES Adjustment Costs}
+\label{tab:ac-dep-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Capital accumulation & $k' = (1-\delta) k + I$ \\[6pt]
+Return on capital & $R_{t+1} = \dfrac{A + (1-\delta) Q_{t+1}}{Q_t}$ \\[10pt]
+Euler equation & $u'(C_t) = \beta R_{t+1} \, u'(C_{t+1})$ \\[6pt]
+Steady-state $Q$ & $Q^{ss} = \dfrac{A}{r + \delta}$ where $r = 1/\beta - 1$ \\[10pt]
+User cost of capital & $(r + \delta) Q = A$ \\[6pt]
+Steady-state investment & $I^{ss} = \delta k^{ss}$ (replacement only) \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+Incomplete depreciation introduces:
+\begin{itemize}[nosep]
+\item \textbf{Capital gains in returns}: The return includes the resale value $(1-\delta) Q_{t+1}$ of undepreciated capital.
+\item \textbf{User cost of capital}: Steady-state $Q = A/(r + \delta)$ reflects both interest and depreciation costs.
+\item \textbf{Gross vs. net investment}: Adjustment costs apply to gross investment; even replacement investment is costly.
+\item \textbf{Richer dynamics}: The state variable $k_t$ evolves gradually, creating transitional dynamics even with constant productivity.
+\item \textbf{Steady-state investment}: In steady state, gross investment equals depreciation ($I = \delta k$) and net investment is zero.
+\end{itemize}
+The CES transformation continues to govern the consumption-investment trade-off, with Tobin's $Q$ summarizing the shadow cost of capital accumulation.
+\end{callouttip}

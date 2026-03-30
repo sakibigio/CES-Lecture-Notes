@@ -1,0 +1,415 @@
+% ==============================================================
+\section{The Shock Isomorphism: Prices, Preferences, and Interest Rates}
+\label{sec:ac-isomorphism}
+% ==============================================================
+
+We now develop a deeper isomorphism that unifies several types of shocks within the CES framework. When output is transformed into multiple consumption goods, shocks to goods prices, preference weights, and interest rates all enter the problem in mathematically equivalent ways. This equivalence has profound implications for identification and for understanding how different shocks propagate through the economy.
+
+% --------------------------------------------------------------
+\subsection{Setup: Multiple Consumption Goods}
+\label{subsec:ac-iso-setup}
+% --------------------------------------------------------------
+
+\paragraph{Technology.}
+A single capital stock $k$ produces output:
+\begin{equation}
+Y = A k.
+\label{eq:ac-iso-production}
+\end{equation}
+
+Output is transformed into $n$ consumption goods $(c_1, \ldots, c_n)$ through a CES technology:
+\begin{equation}
+\Hfun(\bc) = \left( \sum_{i=1}^{n} \omega_i^{1-\psi} c_i^{\psi} \right)^{1/\psi} = Y,
+\label{eq:ac-iso-transformation}
+\end{equation}
+where $\psi$ governs the transformation elasticity $\eta = 1/(1-\psi)$ and $\sum_i \omega_i = 1$.
+
+\paragraph{Preferences.}
+The household has CES preferences over consumption goods:
+\begin{equation}
+\mathcal{U}(\bc) = \left( \sum_{i=1}^{n} \alpha_i^{1-\rho} c_i^{\rho} \right)^{1/\rho},
+\label{eq:ac-iso-utility}
+\end{equation}
+where $\rho$ governs the elasticity of substitution $\varepsilon = 1/(1-\rho)$ and $\sum_i \alpha_i = 1$.
+
+\paragraph{Market Structure.}
+Goods trade at prices $\bp = (p_1, \ldots, p_n)$. The household's expenditure on goods equals the value of transformed output:
+\begin{equation}
+\sum_{i=1}^{n} p_i c_i = P \cdot Y,
+\label{eq:ac-iso-budget}
+\end{equation}
+where $P$ is the price index for the consumption bundle.
+
+% --------------------------------------------------------------
+\subsection{The Static Problem}
+\label{subsec:ac-iso-static}
+% --------------------------------------------------------------
+
+\paragraph{The Household's Problem.}
+Given output $Y$ and prices $\bp$, the household maximizes utility subject to the transformation constraint:
+\begin{equation}
+\max_{\bc} \; \mathcal{U}(\bc) \quad \text{subject to} \quad \Hfun(\bc) = Y.
+\label{eq:ac-iso-problem}
+\end{equation}
+
+This is a CES-on-CES problem: maximize a CES objective subject to a CES constraint.
+
+\paragraph{First-Order Conditions.}
+The Lagrangian is $\mathcal{L} = \mathcal{U}(\bc) - \lambda[\Hfun(\bc) - Y]$. The FOC for good $i$ is:
+\begin{equation}
+\frac{\partial \mathcal{U}}{\partial c_i} = \lambda \frac{\partial \Hfun}{\partial c_i}.
+\label{eq:ac-iso-foc}
+\end{equation}
+
+Computing the derivatives:
+\begin{align}
+\frac{\partial \mathcal{U}}{\partial c_i} &= \alpha_i^{1-\rho} c_i^{\rho-1} \mathcal{U}^{1-\rho}, \\
+\frac{\partial \Hfun}{\partial c_i} &= \omega_i^{1-\psi} c_i^{\psi-1} \Hfun^{1-\psi}.
+\end{align}
+
+Taking ratios for goods $i$ and $j$:
+\begin{equation}
+\frac{\alpha_i^{1-\rho}}{\alpha_j^{1-\rho}} \left( \frac{c_i}{c_j} \right)^{\rho-1} = \frac{\omega_i^{1-\psi}}{\omega_j^{1-\psi}} \left( \frac{c_i}{c_j} \right)^{\psi-1}.
+\label{eq:ac-iso-ratio}
+\end{equation}
+
+Solving for the consumption ratio:
+\begin{equation}
+\frac{c_i}{c_j} = \left( \frac{\alpha_i / \omega_i}{\alpha_j / \omega_j} \right)^{\frac{1-\rho}{(\rho-1)-(\psi-1)}} = \left( \frac{\alpha_i / \omega_i}{\alpha_j / \omega_j} \right)^{\frac{1}{\rho - \psi} \cdot (1-\rho)}.
+\label{eq:ac-iso-cratio}
+\end{equation}
+
+\paragraph{The Key Object: Preference-Technology Ratio.}
+Define the \emph{effective weight} for good $i$:
+\begin{equation}
+\tilde{\alpha}_i \equiv \frac{\alpha_i}{\omega_i}.
+\label{eq:ac-iso-effective}
+\end{equation}
+
+This ratio captures how much the household ``likes'' good $i$ (preference weight $\alpha_i$) relative to how ``easy'' it is to produce (transformation weight $\omega_i$).
+
+The consumption ratio depends only on these effective weights:
+\begin{equation}
+\frac{c_i}{c_j} = \left( \frac{\tilde{\alpha}_i}{\tilde{\alpha}_j} \right)^{\nu}, \qquad \nu \equiv \frac{1-\rho}{\rho - \psi}.
+\label{eq:ac-iso-cratio-simple}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{Introducing Prices}
+\label{subsec:ac-iso-prices}
+% --------------------------------------------------------------
+
+Now suppose the transformation technology produces goods that sell at different prices. A competitive transformation firm solves:
+\begin{equation}
+\max_{\bc} \; \sum_{i=1}^{n} p_i c_i \quad \text{subject to} \quad \Hfun(\bc) = Y.
+\label{eq:ac-iso-firm}
+\end{equation}
+
+\paragraph{Firm's FOC.}
+\begin{equation}
+p_i = \mu \frac{\partial \Hfun}{\partial c_i} = \mu \omega_i^{1-\psi} c_i^{\psi-1} \Hfun^{1-\psi},
+\label{eq:ac-iso-firm-foc}
+\end{equation}
+where $\mu$ is the shadow value of output.
+
+\paragraph{Relative Prices.}
+\begin{equation}
+\frac{p_i}{p_j} = \frac{\omega_i^{1-\psi}}{\omega_j^{1-\psi}} \left( \frac{c_i}{c_j} \right)^{\psi-1}.
+\label{eq:ac-iso-rel-price}
+\end{equation}
+
+\paragraph{Household's Problem with Prices.}
+The household takes prices as given and maximizes:
+\begin{equation}
+\max_{\bc} \; \mathcal{U}(\bc) \quad \text{subject to} \quad \sum_{i=1}^{n} p_i c_i = W,
+\label{eq:ac-iso-hh-prices}
+\end{equation}
+where $W$ is expenditure (equal to the value of output at equilibrium).
+
+The FOC gives:
+\begin{equation}
+\frac{c_i}{c_j} = \left( \frac{\alpha_i}{\alpha_j} \right)^{\frac{1}{1-\rho}} \left( \frac{p_i}{p_j} \right)^{-\frac{1}{1-\rho}} = \left( \frac{\alpha_i}{\alpha_j} \right)^{\varepsilon} \left( \frac{p_i}{p_j} \right)^{-\varepsilon},
+\label{eq:ac-iso-demand}
+\end{equation}
+where $\varepsilon = 1/(1-\rho)$ is the elasticity of substitution.
+
+\paragraph{Equivalence.}
+Comparing \cref{eq:ac-iso-demand} with \cref{eq:ac-iso-rel-price}, we see that in equilibrium:
+\begin{equation}
+\frac{c_i}{c_j} = \left( \frac{\alpha_i}{\alpha_j} \right)^{\varepsilon} \left( \frac{\omega_i}{\omega_j} \right)^{-\varepsilon \cdot \frac{1-\psi}{\psi-1}} \left( \frac{c_i}{c_j} \right)^{-\varepsilon \cdot \frac{\psi-1}{1}}.
+\label{eq:ac-iso-equilibrium}
+\end{equation}
+
+This confirms that prices, preferences, and technology interact through their respective weights.
+
+% --------------------------------------------------------------
+\subsection{The Isomorphism: Three Types of Shocks}
+\label{subsec:ac-iso-three-shocks}
+% --------------------------------------------------------------
+
+Now introduce uncertainty. State $s \in \{1, \ldots, S\}$ occurs with probability $\pi_s$. We consider three types of shocks:
+
+\paragraph{Type 1: Price Shocks.}
+Good $i$ has price $p_{is}$ in state $s$. The household's indirect utility in state $s$ is:
+\begin{equation}
+V_s(\bp_s, W) = \max_{\bc} \; \mathcal{U}(\bc) \quad \text{s.t.} \quad \sum_i p_{is} c_i = W.
+\label{eq:ac-iso-indirect}
+\end{equation}
+
+With CES preferences, the indirect utility is:
+\begin{equation}
+V_s = \frac{W}{P_s}, \qquad P_s = \left( \sum_i \alpha_i p_{is}^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}},
+\label{eq:ac-iso-indirect-ces}
+\end{equation}
+where $P_s$ is the CES price index.
+
+\paragraph{Type 2: Preference Shocks.}
+Preferences have state-dependent weights $\alpha_{is}$:
+\begin{equation}
+\mathcal{U}_s(\bc) = \left( \sum_i \alpha_{is}^{1-\rho} c_i^{\rho} \right)^{1/\rho}.
+\label{eq:ac-iso-pref-shock}
+\end{equation}
+
+The indirect utility becomes:
+\begin{equation}
+V_s = \frac{W}{P_s(\boldsymbol{\alpha}_s)}, \qquad P_s = \left( \sum_i \alpha_{is} p_i^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}.
+\label{eq:ac-iso-indirect-pref}
+\end{equation}
+
+\paragraph{Type 3: Transformation (Technology) Shocks.}
+The transformation weights are state-dependent $\omega_{is}$:
+\begin{equation}
+\Hfun_s(\bc) = \left( \sum_i \omega_{is}^{1-\psi} c_i^{\psi} \right)^{1/\psi} = Y.
+\label{eq:ac-iso-tech-shock}
+\end{equation}
+
+This changes the equilibrium prices, which in turn affects indirect utility.
+
+\paragraph{The Equivalence Result.}
+
+\begin{proposition}[Shock Isomorphism]
+\label{prop:ac-iso-equivalence}
+In the CES framework, the following shocks have equivalent effects on equilibrium allocations and welfare:
+\begin{enumerate}[label=(\roman*), nosep]
+\item A price shock $p_{is} \to p_{is} \cdot (1 + \epsilon)$.
+\item A preference shock $\alpha_{is} \to \alpha_{is} \cdot (1 + \epsilon)^{-(1-\varepsilon)}$.
+\item A transformation shock $\omega_{is} \to \omega_{is} \cdot (1 + \epsilon)^{-(1-\eta)/(1-\varepsilon)}$.
+\end{enumerate}
+All three shift the effective weight on good $i$ in the same direction.
+\end{proposition}
+
+\begin{proof}
+The equilibrium price of good $i$ depends on both transformation weights and equilibrium quantities. From the firm's FOC \cref{eq:ac-iso-firm-foc}:
+\[
+p_i \propto \omega_i^{1-\psi} c_i^{\psi-1}.
+\]
+A shock to $\omega_i$ shifts $p_i$, which enters the household's problem equivalently to a direct price shock. The preference shock $\alpha_i$ enters the price index $P$ in the same functional form as $p_i^{1-\varepsilon}$, establishing the equivalence.
+\end{proof}
+
+\begin{calloutimportant}[The Trinity of Shocks]
+In a CES economy, three types of shocks are isomorphic:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Shock Type} & \textbf{Direct Effect} & \textbf{Equivalent To} \\
+\midrule
+Price shock ($p_{is}$) & Cost of good $i$ in state $s$ & --- \\
+Preference shock ($\alpha_{is}$) & Taste for good $i$ in state $s$ & Price shock \\
+Technology shock ($\omega_{is}$) & Ease of producing good $i$ & Price shock \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A shock that makes good $i$ cheaper ($\downarrow p_{is}$) is equivalent to:
+\begin{itemize}[nosep]
+\item A shock that makes good $i$ more desirable ($\uparrow \alpha_{is}$).
+\item A shock that makes good $i$ easier to produce ($\uparrow \omega_{is}$).
+\end{itemize}
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Adding the Intertemporal Dimension}
+\label{subsec:ac-iso-intertemporal}
+% --------------------------------------------------------------
+
+Now extend to two periods with an interest rate.
+
+\paragraph{Setup.}
+In period 0, the household has output $Y_0$ and chooses:
+\begin{itemize}[nosep]
+\item Consumption goods $\bc_0 = (c_{10}, \ldots, c_{n0})$ subject to $\Hfun(\bc_0, I_0) = Y_0$.
+\item Investment $I_0$, which yields output $Y_1 = A I_0$ in period 1.
+\end{itemize}
+
+In period 1, state $s$ is revealed, with:
+\begin{itemize}[nosep]
+\item Goods prices $\bp_s = (p_{1s}, \ldots, p_{ns})$.
+\item The household consumes $\bc_{1s}$ subject to $\sum_i p_{is} c_{i,1s} = Y_1$.
+\end{itemize}
+
+\paragraph{The Interest Rate as a Price.}
+Define the gross interest rate $R$ as the relative price of period-0 consumption in terms of period-1 consumption. With CES transformation:
+\begin{equation}
+R = \frac{Q_C}{Q_I} \cdot A,
+\label{eq:ac-iso-interest}
+\end{equation}
+where $Q_C$ and $Q_I$ are the shadow prices of consumption and investment goods from the transformation technology.
+
+\paragraph{Interest Rate Shocks.}
+A shock to the interest rate $R_s$ in state $s$ is equivalent to:
+\begin{itemize}[nosep]
+\item A shock to the relative price of future vs. current consumption.
+\item A shock to the discount factor $\beta_s$ (preference for future).
+\item A shock to the transformation weight on investment $\omega_{I,s}$.
+\end{itemize}
+
+\begin{proposition}[Interest Rate Isomorphism]
+\label{prop:ac-iso-interest}
+In a two-period CES economy:
+\begin{enumerate}[label=(\roman*), nosep]
+\item An interest rate shock $R_s \to R_s(1+\epsilon)$ is equivalent to a discount factor shock $\beta_s \to \beta_s (1+\epsilon)^{\theta}$.
+\item An interest rate shock is equivalent to a transformation shock on investment: $\omega_{I,s} \to \omega_{I,s} (1+\epsilon)^{\eta/\theta}$.
+\item With Epstein-Zin preferences, the equivalence holds with IES $\theta$ replacing the substitution elasticity.
+\end{enumerate}
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{The Unified Framework}
+\label{subsec:ac-iso-unified}
+% --------------------------------------------------------------
+
+We can now state the complete isomorphism across all shock types.
+
+\paragraph{The Master Equation.}
+Let $V(\bp, \boldsymbol{\alpha}, \boldsymbol{\omega}, R, \beta; W)$ denote the value function given prices $\bp$, preferences $\boldsymbol{\alpha}$, technology $\boldsymbol{\omega}$, interest rate $R$, discount factor $\beta$, and wealth $W$.
+
+In the CES framework:
+\begin{equation}
+V = \mathcal{V}\left( \frac{W}{\mathcal{P}(\bp, \boldsymbol{\alpha}, \boldsymbol{\omega}, R, \beta)} \right),
+\label{eq:ac-iso-value}
+\end{equation}
+where $\mathcal{V}$ is a monotone transformation and $\mathcal{P}$ is a \emph{generalized price index} that aggregates all the parameters.
+
+\paragraph{The Generalized Price Index.}
+With nested CES structures:
+\begin{equation}
+\mathcal{P} = \left( \sum_i \alpha_i \left( \frac{p_i}{\omega_i^{\eta-1}} \right)^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}} \cdot \left( 1 + \beta^{\theta} R^{\theta-1} \right)^{\frac{1}{1-\theta}}.
+\label{eq:ac-iso-P}
+\end{equation}
+
+The first term aggregates over goods; the second aggregates over time. Shocks to any component---$p_i$, $\alpha_i$, $\omega_i$, $R$, or $\beta$---affect welfare only through their effect on $\mathcal{P}$.
+
+\begin{calloutnote}[Sufficient Statistic]
+The generalized price index $\mathcal{P}$ is a \emph{sufficient statistic} for welfare. Given $\mathcal{P}$ and wealth $W$, no other information about prices, preferences, or technology is needed to compute welfare.
+
+This is the power of the CES framework: despite its richness (multiple goods, time, uncertainty), the model is highly tractable because all relevant information is summarized in a single index.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Adding Uncertainty: The Complete Picture}
+\label{subsec:ac-iso-uncertainty}
+% --------------------------------------------------------------
+
+With state-dependent shocks and a certainty equivalent, the household maximizes:
+\begin{equation}
+\max \; \mathcal{U}(\bc_0) + \beta \, \CE\left( \{ V_s \}_{s=1}^{S} \right),
+\label{eq:ac-iso-obj-full}
+\end{equation}
+where $V_s = V(\bp_s, \boldsymbol{\alpha}_s, \boldsymbol{\omega}_s, R_s, \beta_s; W_s)$ is the indirect utility in state $s$.
+
+\paragraph{The Nested CES Structure.}
+The objective has three levels of CES aggregation:
+\begin{enumerate}[nosep]
+\item \textbf{Goods}: $\mathcal{U}(\bc) = (\sum_i \alpha_i^{1-\rho} c_i^{\rho})^{1/\rho}$ with elasticity $\varepsilon = 1/(1-\rho)$.
+\item \textbf{Time}: Aggregation via $\beta$ with IES $\theta$.
+\item \textbf{States}: $\CE(\{V_s\}) = (\sum_s \pi_s V_s^{1-\gamma})^{1/(1-\gamma)}$ with risk aversion $\gamma$.
+\end{enumerate}
+
+\paragraph{The Grand Isomorphism.}
+
+\begin{proposition}[Grand Isomorphism]
+\label{prop:ac-iso-grand}
+In a multi-good, multi-period, stochastic CES economy, the following shocks are all isomorphic (in the sense of having equivalent effects on allocations up to a rescaling):
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Shock} & \textbf{Equivalent Interpretation} \\
+\midrule
+$p_{is} \uparrow$ & Good $i$ more expensive in state $s$ \\
+$\alpha_{is} \downarrow$ & Good $i$ less desirable in state $s$ \\
+$\omega_{is} \downarrow$ & Good $i$ harder to produce in state $s$ \\
+$R_s \uparrow$ & Future consumption cheaper in state $s$ \\
+$\beta_s \uparrow$ & Future consumption more desirable in state $s$ \\
+$\pi_s \uparrow$ & State $s$ more likely \\
+$a_{is} \uparrow$ & Capital type $i$ more productive in state $s$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+All enter the problem through their effect on the generalized price index $\mathcal{P}_s$ and/or the certainty equivalent weights.
+\end{proposition}
+
+\begin{calloutimportant}[Identification Challenge]
+The grand isomorphism implies a fundamental \emph{identification challenge}: observing equilibrium allocations and prices, one cannot distinguish between:
+\begin{itemize}[nosep]
+\item A price shock and a preference shock.
+\item An interest rate shock and a discount factor shock.
+\item A productivity shock and a transformation shock.
+\end{itemize}
+
+Additional structure---such as observing quantities and prices jointly, or imposing restrictions on which shocks are present---is needed for identification.
+
+This is not a weakness of the CES framework but rather a deep insight: many apparently different economic forces have equivalent effects when preferences and technology share the CES structure.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Implications}
+\label{subsec:ac-iso-implications}
+% --------------------------------------------------------------
+
+\paragraph{For Empirical Work.}
+The isomorphism implies that estimates of ``demand shocks'' and ``supply shocks'' may be confounded. A measured increase in the demand for good $i$ could reflect:
+\begin{itemize}[nosep]
+\item A true preference shift ($\alpha_i \uparrow$).
+\item A supply disruption in other goods ($\omega_j \downarrow$ for $j \neq i$).
+\item A price decrease due to improved technology ($\omega_i \uparrow \Rightarrow p_i \downarrow$).
+\end{itemize}
+
+\paragraph{For Policy.}
+The equivalence of interest rate and preference shocks suggests that monetary policy (operating through $R$) and fiscal policy (potentially operating through $\beta$ via taxes on future consumption) have similar effects in the CES framework, at least along certain dimensions.
+
+\paragraph{For Modeling.}
+The isomorphism provides modeling flexibility: a shock that is naturally interpreted as a price shock can equivalently be modeled as a preference or technology shock, whichever is more convenient. The CES structure ensures the equivalence.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-iso-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Shock Isomorphism}
+\label{tab:ac-iso-summary}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Domain} & \textbf{``Price'' Object} & \textbf{``Preference'' Object} \\
+\midrule
+Goods & $p_i$ & $\alpha_i$ \\
+Technology & --- & $\omega_i$ \\
+Time & $R = 1 + r$ & $\beta$ \\
+Risk & $q_s$ (state price) & $\pi_s$ (probability) \\
+Productivity & --- & $a_i$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+The shock isomorphism reveals:
+\begin{itemize}[nosep]
+\item \textbf{Price-preference duality}: In CES, prices and preference weights are interchangeable up to a transformation.
+\item \textbf{Interest-discount duality}: Interest rate shocks and discount factor shocks are equivalent.
+\item \textbf{Technology-preference duality}: Transformation shocks are equivalent to combinations of price and preference shocks.
+\item \textbf{Sufficient statistic}: The generalized price index $\mathcal{P}$ summarizes all relevant information for welfare.
+\item \textbf{Identification}: The isomorphism poses challenges for distinguishing demand vs. supply shocks without additional structure.
+\end{itemize}
+\end{callouttip}

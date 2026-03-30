@@ -1,0 +1,373 @@
+% ==============================================================
+\section{The Real Business Cycle Model}
+\label{sec:rbc}
+% ==============================================================
+
+The Real Business Cycle (RBC) model is the canonical framework for studying macroeconomic fluctuations. It extends the neoclassical growth model by introducing stochastic productivity shocks, generating business cycle dynamics from the optimal responses of households and firms. This section develops the RBC model through the lens of CES aggregation, showing how the elasticity of substitution between labor and capital shapes the transmission of shocks and the behavior of factor shares over the cycle.
+
+% --------------------------------------------------------------
+\subsection{The Stochastic Growth Model}
+\label{subsec:stochastic-growth}
+% --------------------------------------------------------------
+
+The RBC model adds uncertainty to the dynamic framework of \cref{sec:lc-dynamics}. Productivity is no longer deterministic but follows a stochastic process, and agents form expectations over future states.
+
+\paragraph{Preferences.}
+The representative household maximizes expected lifetime utility:
+\begin{equation}
+\V_0 = \E_0 \left[ \sum_{t=0}^{\infty} \beta^t u(c_t, \ell_t) \right],
+\label{eq:rbc-utility}
+\end{equation}
+where $\E_0$ denotes the expectation conditional on information at date $0$. We now allow for endogenous labor supply, with period utility:
+\begin{equation}
+u(c, \ell) = \frac{c^{1-1/\theta}}{1 - 1/\theta} - \chi \frac{\ell^{1+1/\nu}}{1 + 1/\nu},
+\label{eq:period-utility}
+\end{equation}
+where $\theta > 0$ is the IES, $\nu > 0$ is the Frisch elasticity of labor supply, and $\chi > 0$ scales the disutility of labor.
+
+\paragraph{Technology.}
+Output is produced using the CES production function:
+\begin{equation}
+y_t = A_t \left( \omega_K^{1-\rho} k_t^\rho + \omega_L^{1-\rho} \ell_t^\rho \right)^{1/\rho},
+\label{eq:rbc-production}
+\end{equation}
+where $A_t$ is stochastic total factor productivity (TFP). For now, we consider Hicks-neutral shocks; we discuss factor-biased shocks below.
+
+\paragraph{The Productivity Process.}
+TFP follows an AR(1) process in logs:
+\begin{equation}
+\log A_t = \bar{a} + \rho_A (\log A_{t-1} - \bar{a}) + \varepsilon_t, \qquad \varepsilon_t \sim N(0, \sigma_A^2),
+\label{eq:tfp-process}
+\end{equation}
+where $\bar{a}$ is the unconditional mean, $\rho_A \in (0,1)$ is the persistence, and $\sigma_A$ is the volatility of innovations.
+
+\paragraph{Capital Accumulation and Resource Constraint.}
+Capital evolves as before:
+\begin{equation}
+k_{t+1} = (1 - \delta) k_t + i_t, \qquad c_t + i_t = y_t.
+\label{eq:rbc-constraints}
+\end{equation}
+
+\paragraph{The Household's Problem.}
+The household chooses sequences $\{c_t, \ell_t, k_{t+1}\}$ to maximize \cref{eq:rbc-utility} subject to \cref{eq:rbc-constraints} and the production technology \cref{eq:rbc-production}, taking the stochastic process for $A_t$ as given.
+
+% --------------------------------------------------------------
+\subsection{Equilibrium Conditions}
+\label{subsec:rbc-equilibrium}
+% --------------------------------------------------------------
+
+The first-order conditions characterize the equilibrium. We derive them and highlight how the CES structure shapes each condition.
+
+\paragraph{The Stochastic Euler Equation.}
+The intertemporal optimality condition becomes:
+\begin{equation}
+u_c(c_t, \ell_t) = \beta \, \E_t \left[ u_c(c_{t+1}, \ell_{t+1}) \cdot R_{t+1} \right],
+\label{eq:stochastic-euler}
+\end{equation}
+where $R_{t+1} = \frac{\partial y_{t+1}}{\partial k_{t+1}} + 1 - \delta$ is the (stochastic) gross return on capital.
+
+With the utility specification \cref{eq:period-utility}, $u_c = c^{-1/\theta}$, so:
+\begin{equation}
+c_t^{-1/\theta} = \beta \, \E_t \left[ c_{t+1}^{-1/\theta} \cdot R_{t+1} \right].
+\label{eq:euler-crra}
+\end{equation}
+
+\paragraph{The Labor Supply Condition.}
+The intratemporal optimality condition equates the marginal rate of substitution between consumption and leisure to the wage:
+\begin{equation}
+\frac{u_\ell(c_t, \ell_t)}{u_c(c_t, \ell_t)} = w_t,
+\label{eq:labor-supply}
+\end{equation}
+where $w_t = \frac{\partial y_t}{\partial \ell_t}$ is the marginal product of labor.
+
+With our utility specification:
+\begin{equation}
+\chi \ell_t^{1/\nu} \cdot c_t^{1/\theta} = w_t.
+\label{eq:labor-supply-explicit}
+\end{equation}
+
+This can be rewritten as a labor supply curve:
+\begin{equation}
+\ell_t = \left( \frac{w_t}{\chi \, c_t^{1/\theta}} \right)^\nu.
+\label{eq:labor-supply-curve}
+\end{equation}
+
+Labor supply increases with the wage (elasticity $\nu$) and decreases with consumption (wealth effect).
+
+\paragraph{The Marginal Products in CES Form.}
+From the production function \cref{eq:rbc-production}:
+\begin{align}
+R_t &= A_t^\rho \, \omega_K^{1-\rho} \left( \frac{y_t}{k_t} \right)^{1/\sigma} + 1 - \delta, \label{eq:return-ces} \\[6pt]
+w_t &= A_t^\rho \, \omega_L^{1-\rho} \left( \frac{y_t}{\ell_t} \right)^{1/\sigma}. \label{eq:wage-ces}
+\end{align}
+
+The marginal products depend on output-to-factor ratios raised to the power $1/\sigma$. This is where the elasticity of substitution enters the equilibrium conditions.
+
+\begin{calloutnote}[The Role of $\sigma$ in RBC Dynamics]
+The elasticity $\sigma$ affects how marginal products respond to factor ratios:
+\begin{itemize}[nosep]
+\item With $\sigma < 1$ (complements): marginal products are highly sensitive to factor ratios. A productivity shock that raises output relative to capital causes a large increase in the return to capital.
+\item With $\sigma > 1$ (substitutes): marginal products are less sensitive. The same shock causes a smaller increase in returns.
+\end{itemize}
+This shapes the volatility of investment, the persistence of output, and the comovement of factor prices over the cycle.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Productivity Shocks and Business Cycle Dynamics}
+\label{subsec:rbc-dynamics}
+% --------------------------------------------------------------
+
+We now analyze how productivity shocks propagate through the economy. The key insight is that the CES structure governs the amplification and persistence of shocks.
+
+\paragraph{Impact of a Positive TFP Shock.}
+Consider an unexpected increase in $A_t$. The immediate effects are:
+
+\begin{enumerate}[nosep]
+\item \textbf{Output rises}: Higher TFP directly increases $y_t$ for given inputs.
+\item \textbf{Marginal products rise}: Both $R_t$ and $w_t$ increase, as factor productivities are enhanced.
+\item \textbf{Labor supply increases}: The higher wage induces more work (substitution effect dominates).
+\item \textbf{Consumption rises}: Higher income and wealth raise consumption.
+\item \textbf{Investment rises}: The higher return to capital makes saving attractive.
+\end{enumerate}
+
+\paragraph{The Amplification Mechanism.}
+The labor supply response amplifies the initial shock. Higher TFP raises wages, which increases labor supply, which further raises output. The strength of this amplification depends on:
+\begin{itemize}[nosep]
+\item The Frisch elasticity $\nu$: higher $\nu$ means more responsive labor supply
+\item The elasticity of substitution $\sigma$: affects how wages respond to labor input
+\end{itemize}
+
+With $\sigma < 1$ (complements), an increase in labor raises the marginal product of capital and lowers the marginal product of labor (diminishing returns are strong). This dampens the wage response and limits amplification.
+
+With $\sigma > 1$ (substitutes), diminishing returns are weaker. The wage stays elevated despite increased labor supply, sustaining the amplification.
+
+\paragraph{Persistence and Propagation.}
+The shock persists through two channels:
+
+\textit{Exogenous persistence}: The AR(1) process for $A_t$ means high productivity today predicts high productivity tomorrow ($\rho_A > 0$).
+
+\textit{Endogenous persistence}: Capital accumulation propagates the shock even after TFP returns to normal. High investment today raises the capital stock, which raises output tomorrow.
+
+The strength of endogenous persistence depends on $\sigma$:
+\begin{itemize}[nosep]
+\item With $\sigma < 1$: A higher capital stock rapidly drives down the return to capital (strong diminishing returns). Investment falls quickly, limiting persistence.
+\item With $\sigma > 1$: The return to capital falls slowly as capital accumulates. Investment stays elevated longer, increasing persistence.
+\end{itemize}
+
+\begin{calloutimportant}[Substitutes Generate More Persistence]
+When labor and capital are substitutes ($\sigma > 1$), the RBC model generates more endogenous persistence. The return to capital remains elevated after a positive TFP shock, sustaining investment and prolonging the expansion. This helps match the observed persistence of business cycles without requiring extremely persistent exogenous shocks.
+\end{calloutimportant}
+
+\paragraph{Impulse Response Functions.}
+The following table summarizes the qualitative impulse responses to a positive TFP shock:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Variable} & \textbf{Impact} & \textbf{Persistence} ($\sigma < 1$) & \textbf{Persistence} ($\sigma > 1$) \\
+\midrule
+Output $y$ & $\uparrow$ & Returns quickly & Returns slowly \\
+Consumption $c$ & $\uparrow$ & Gradual adjustment & Gradual adjustment \\
+Investment $i$ & $\uparrow\uparrow$ & Falls quickly & Falls slowly \\
+Labor $\ell$ & $\uparrow$ & Returns quickly & Returns slowly \\
+Return $R$ & $\uparrow$ & Falls quickly & Falls slowly \\
+Wage $w$ & $\uparrow$ & Returns quickly & Returns slowly \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% --------------------------------------------------------------
+\subsection{Factor Shares Over the Business Cycle}
+\label{subsec:rbc-shares}
+% --------------------------------------------------------------
+
+A key prediction of the CES framework concerns the cyclicality of factor shares. With Cobb-Douglas ($\sigma = 1$), factor shares are constant. With $\sigma \neq 1$, factor shares vary with the cycle.
+
+\paragraph{The Labor Share Formula.}
+From \cref{eq:cost-shares}, the labor share is:
+\begin{equation}
+s_L = \omega_L \left( \frac{w}{\Cstar} \right)^{1-\sigma} = \frac{w \cdot \ell}{y}.
+\label{eq:labor-share-rbc}
+\end{equation}
+
+Using the marginal product formula \cref{eq:wage-ces}:
+\begin{equation}
+s_L = \omega_L^{1-\rho} A^\rho \left( \frac{y}{\ell} \right)^{1/\sigma - 1} = \omega_L^{1-\rho} A^\rho \left( \frac{y}{\ell} \right)^{(1-\sigma)/\sigma}.
+\label{eq:labor-share-formula}
+\end{equation}
+
+\paragraph{Cyclicality of the Labor Share.}
+Consider a positive TFP shock that raises output per worker $y/\ell$. The effect on the labor share depends on $(1-\sigma)/\sigma$:
+\begin{itemize}[nosep]
+\item If $\sigma < 1$: $(1-\sigma)/\sigma > 0$, so $s_L$ rises when $y/\ell$ rises. The labor share is \emph{procyclical}.
+\item If $\sigma > 1$: $(1-\sigma)/\sigma < 0$, so $s_L$ falls when $y/\ell$ rises. The labor share is \emph{countercyclical}.
+\item If $\sigma = 1$: $s_L = \omega_L$ regardless of $y/\ell$. The labor share is \emph{acyclical}.
+\end{itemize}
+
+\begin{calloutnote}[Empirical Evidence on Labor Share Cyclicality]
+The cyclicality of the labor share is a subject of ongoing empirical debate. Early studies found a countercyclical labor share, suggesting $\sigma > 1$. More recent work, accounting for overhead labor and composition effects, finds evidence closer to acyclicality or mild procyclicality, suggesting $\sigma \leq 1$.
+
+The answer may depend on the type of shock: demand shocks and supply shocks can have different implications for factor shares even with the same $\sigma$.
+\end{calloutnote}
+
+\paragraph{The Capital Share and Investment.}
+The capital share $s_K = 1 - s_L$ inherits the opposite cyclicality. With $\sigma > 1$, the capital share is procyclical: booms are good times for capital owners.
+
+This has implications for investment dynamics. When $\sigma > 1$, a positive shock raises the capital share, increasing the return to investment. This amplifies the investment response and contributes to the persistence discussed above.
+
+% --------------------------------------------------------------
+\subsection{Labor-Capital Substitution: The Automation Channel}
+\label{subsec:rbc-automation}
+% --------------------------------------------------------------
+
+The standard RBC model features Hicks-neutral productivity shocks. We now consider the case where capital and labor are substitutes ($\sigma > 1$) and explore shocks that differentially affect factors---the ``automation'' channel.
+
+\paragraph{Capital-Biased Technical Change.}
+Suppose technological progress is embodied in capital: new capital goods are more productive than old ones. We model this as a fall in the effective price of capital (equivalently, an increase in capital-augmenting productivity $A_K$).
+
+In the augmented production function:
+\begin{equation}
+y_t = \left( \omega_K^{1-\rho} (A_{K,t} \, k_t)^\rho + \omega_L^{1-\rho} \ell_t^\rho \right)^{1/\rho},
+\label{eq:capital-biased}
+\end{equation}
+an increase in $A_{K,t}$ raises the effective capital stock.
+
+\paragraph{Effects with $\sigma > 1$.}
+When capital and labor are substitutes, capital-biased technical change has distinctive effects:
+
+\begin{enumerate}[nosep]
+\item \textbf{Output rises}: More effective capital increases production.
+\item \textbf{The capital share rises}: With $\sigma > 1$, the factor receiving the productivity boost gains share.
+\item \textbf{The labor share falls}: Workers receive a smaller fraction of a larger pie.
+\item \textbf{The wage effect is ambiguous}: The wage $w = \partial y / \partial \ell$ may rise (due to higher output) or fall (due to substitution toward capital).
+\end{enumerate}
+
+\paragraph{The Automation Interpretation.}
+If we interpret capital-biased technical change as ``automation''---machines becoming capable of performing tasks previously done by workers---then $\sigma > 1$ is the relevant case. Automation replaces labor, and the labor share declines.
+
+The RBC framework with $\sigma > 1$ thus provides a foundation for analyzing automation-driven business cycles. Shocks to automation technology generate:
+\begin{itemize}[nosep]
+\item Expansions in output (good for aggregate welfare)
+\item Declines in the labor share (potentially concerning for distribution)
+\item Procyclical capital shares (booms favor capital owners)
+\end{itemize}
+
+\begin{calloutimportant}[RBC with Automation]
+The standard RBC model with $\sigma = 1$ treats labor and capital symmetrically. Allowing $\sigma > 1$ introduces an asymmetry: capital can substitute for labor, and capital-biased shocks redistribute income toward capital owners.
+
+This extension connects the RBC tradition to concerns about automation, inequality, and the declining labor share observed in many countries since the 1980s.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Calibration and the CES Production Function}
+\label{subsec:rbc-calibration}
+% --------------------------------------------------------------
+
+Quantitative RBC analysis requires calibrating the model parameters. The CES specification introduces $\sigma$ as a key parameter, in addition to the standard parameters $(\beta, \delta, \theta, \nu)$.
+
+\paragraph{Standard Calibration Targets.}
+The following moments are typically used to calibrate RBC models:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Target} & \textbf{Typical Value} \\
+\midrule
+$\beta$ & Risk-free rate (4\% annual) & $0.99$ (quarterly) \\
+$\delta$ & Investment-capital ratio & $0.025$ (quarterly) \\
+$\theta$ & Consumption smoothing & $0.5$--$2$ \\
+$\nu$ & Labor supply elasticity & $0.5$--$2$ \\
+$\omega_K$ & Capital share & $0.33$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Calibrating $\sigma$.}
+The elasticity of substitution $\sigma$ is harder to pin down. Identification comes from:
+
+\textit{Long-run factor shares}: Trends in the labor share in response to changes in the capital-labor ratio or relative factor prices.
+
+\textit{Cross-sectional variation}: Differences in factor shares across industries, countries, or time periods with different factor price ratios.
+
+\textit{Business cycle moments}: The cyclicality of factor shares, the volatility of investment relative to output, and the persistence of output fluctuations.
+
+Estimates vary widely:
+\begin{itemize}[nosep]
+\item Macro estimates (aggregate production functions): $\sigma \in [0.4, 1.0]$
+\item Micro estimates (firm or industry level): $\sigma \in [0.5, 1.5]$
+\item Recent estimates emphasizing capital heterogeneity: $\sigma > 1$ for equipment, $\sigma < 1$ for structures
+\end{itemize}
+
+\paragraph{The Nested CES Approach.}
+Given the heterogeneity in estimates, the nested CES framework from \cref{sec:nested-capital} offers a resolution. Different capital types may have different substitution elasticities with labor:
+\begin{equation}
+y = A \cdot \M\left( \M(k_E, k_S; \bom^K, \sigma_K), \, \ell; \, \bom, \sigma \right).
+\label{eq:nested-rbc}
+\end{equation}
+
+This allows, for example, $\sigma_K > 1$ (equipment and structures are substitutes) while $\sigma < 1$ (the capital composite and labor are complements). Such a specification can match both the apparent substitutability within capital and the complementarity between capital and labor at the aggregate level.
+
+% --------------------------------------------------------------
+\subsection{The RBC Model as a CES Economy}
+\label{subsec:rbc-ces-summary}
+% --------------------------------------------------------------
+
+We conclude by summarizing the RBC model through the lens of CES aggregation.
+
+\paragraph{The Three Margins.}
+The RBC model involves optimization over three margins, each governed by a CES-type condition:
+
+\begin{enumerate}[nosep]
+\item \textbf{Intertemporal (Euler equation)}: Allocation of consumption across time, governed by the IES $\theta$.
+\item \textbf{Intratemporal (labor supply)}: Allocation of time between work and leisure, governed by the Frisch elasticity $\nu$.
+\item \textbf{Factors (production)}: Combination of capital and labor, governed by the elasticity of substitution $\sigma$.
+\end{enumerate}
+
+\paragraph{The Price Index Interpretation.}
+Each margin has an associated ``price index'':
+\begin{itemize}[nosep]
+\item Intertemporal: The effective discount rate $\beta R$ determines the relative price of future consumption.
+\item Intratemporal: The wage $w$ is the price of leisure in terms of consumption.
+\item Factors: The unit cost $\Cstar$ aggregates factor prices.
+\end{itemize}
+
+\paragraph{Induced Weights and Shares.}
+Optimal behavior generates shares as induced weights:
+\begin{itemize}[nosep]
+\item The saving rate is the ``share'' of income allocated to future consumption.
+\item The labor share of time use is determined by the wage relative to the marginal utility of leisure.
+\item Factor shares are the cost shares $s_K$ and $s_L$.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{The RBC Model: Key Equations and CES Structure}
+\label{tab:rbc-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Formula} \\
+\midrule
+Production & $y = A \left( \omega_K^{1-\rho} k^\rho + \omega_L^{1-\rho} \ell^\rho \right)^{1/\rho}$ \\[6pt]
+Euler equation & $c_t^{-1/\theta} = \beta \, \E_t \left[ c_{t+1}^{-1/\theta} R_{t+1} \right]$ \\[6pt]
+Labor supply & $\chi \ell^{1/\nu} c^{1/\theta} = w$ \\[6pt]
+Return to capital & $R = \omega_K^{1-\rho} A^\rho (y/k)^{1/\sigma} + 1 - \delta$ \\[6pt]
+Wage & $w = \omega_L^{1-\rho} A^\rho (y/\ell)^{1/\sigma}$ \\[6pt]
+Labor share & $s_L = \omega_L (w/\Cstar)^{1-\sigma}$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The RBC model is a dynamic CES economy. Productivity shocks propagate through the equilibrium conditions, with the elasticity of substitution $\sigma$ governing:
+\begin{itemize}[nosep]
+\item \textbf{Amplification}: How strongly labor responds to wage changes
+\item \textbf{Persistence}: How slowly returns fall as capital accumulates
+\item \textbf{Distribution}: How factor shares move over the cycle
+\end{itemize}
+The Cobb-Douglas case ($\sigma = 1$) is a knife-edge: factor shares are constant, and the model has specific persistence properties. Departing from $\sigma = 1$ enriches the model's predictions and connects to debates about automation, inequality, and the declining labor share.
+
+The nested CES extension allows for heterogeneous capital, providing a bridge to the richer models developed in the next section.
+\end{callouttip}

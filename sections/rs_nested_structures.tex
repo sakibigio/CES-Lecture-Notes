@@ -1,0 +1,222 @@
+% ==============================================================
+\section{Nested Structures}
+\label{sec:nested-structures}
+% ==============================================================
+
+In the preceding sections, we decomposed generalized means recursively using the \emph{same} power parameter $\rho$ at every level. This ``flat'' structure arises naturally in discounted utility and expected utility when a single elasticity governs all substitution.
+
+We now consider \emph{nested} structures: generalized means of generalized means, where different levels use different power parameters. This additional flexibility is essential for modeling situations where substitution patterns differ across groups---for instance, when goods within a category are closer substitutes than goods across categories, or when risk aversion differs from intertemporal substitution.
+
+% --------------------------------------------------------------
+\subsection{From Recursion to Nesting}
+\label{subsec:recursion-to-nesting}
+% --------------------------------------------------------------
+
+Recall the recursive decomposition from \cref{sec:recursive-decomposition}. For an $n$-element mean:
+\begin{equation}
+\M(\bx; \bom, \rho) = \M\Big( x_1, \, \M(\bx_{2:n}; \hat{\bom}, \rho); \; \omega_1, \, \rho \Big).
+\label{eq:recursion-recall}
+\end{equation}
+The key feature is that the \emph{same} $\rho$ appears in both the outer and inner means.
+
+\paragraph{Breaking the Symmetry.}
+Suppose instead we use a \emph{different} power parameter for the inner mean:
+\begin{equation}
+\M\Big( x_1, \, \M(\bx_{2:n}; \hat{\bom}, \gamma); \; \omega_1, \, \rho \Big),
+\label{eq:nested-different-rho}
+\end{equation}
+where $\gamma \neq \rho$. This is no longer equivalent to a flat mean over all elements---it is a genuinely nested structure.
+
+\paragraph{Two-Level Nesting.}
+More generally, consider $n$ elements partitioned into groups $\mathcal{G}_1, \ldots, \mathcal{G}_K$. Define the group-level aggregates:
+\begin{equation}
+\bar{x}_k = \M(\bx_k; \bom_k, \gamma_k), \quad k = 1, \ldots, K,
+\label{eq:group-aggregates}
+\end{equation}
+where $\bx_k$ contains the elements in group $k$, $\bom_k$ are the within-group weights, and $\gamma_k$ is the within-group power parameter.
+
+The overall mean aggregates across groups:
+\begin{equation}
+\M^{\text{nested}} = \M(\bar{x}_1, \ldots, \bar{x}_K; \bom^{\text{outer}}, \rho),
+\label{eq:overall-nested}
+\end{equation}
+where $\bom^{\text{outer}}$ are the across-group weights and $\rho$ is the across-group power parameter.
+
+\begin{definition}[Two-Level Nested Mean]
+\label{def:nested-mean}
+A two-level nested generalized mean with groups $\mathcal{G}_1, \ldots, \mathcal{G}_K$ is:
+\begin{equation}
+\M^{\text{nested}}(\bx) = \M\Big( \M(\bx_1; \bom_1, \gamma_1), \ldots, \M(\bx_K; \bom_K, \gamma_K); \; \bom^{\text{outer}}, \rho \Big).
+\end{equation}
+The inner means use within-group parameters $\gamma_k$; the outer mean uses across-group parameter $\rho$.
+\end{definition}
+
+% --------------------------------------------------------------
+\subsection{When Nesting Matters}
+\label{subsec:when-nesting-matters}
+% --------------------------------------------------------------
+
+Nesting is substantive only when the power parameters differ across levels. If all $\gamma_k = \rho$, the nested structure collapses to a flat mean.
+
+\paragraph{The Flat Case.}
+Suppose $\gamma_k = \rho$ for all $k$. Then the inner means satisfy:
+\begin{equation}
+\M(\bx_k; \bom_k, \rho)^\rho = \sum_{i \in \mathcal{G}_k} \omega_{k,i}^{1-\rho} x_i^\rho.
+\label{eq:inner-flat}
+\end{equation}
+Substituting into the outer mean and using the appropriate weight renormalization, we recover a single flat mean over all elements. The grouping is immaterial.
+
+\paragraph{The Nested Case.}
+When $\gamma_k \neq \rho$, the inner and outer aggregations are not interchangeable. The group structure matters: elements within a group interact through $\gamma_k$, while groups interact through $\rho$.
+
+\begin{calloutimportant}[The Key Distinction]
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Flat structure} ($\gamma_k = \rho$): Grouping is arbitrary; any partition gives the same result.
+    \item \textbf{Nested structure} ($\gamma_k \neq \rho$): Grouping is substantive; different partitions yield different values.
+\end{itemize}
+Nesting introduces a hierarchy where substitution within groups differs from substitution across groups.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Example: Two Groups of Two}
+\label{subsec:example-two-groups}
+% --------------------------------------------------------------
+
+Consider four elements $x_1, x_2, x_3, x_4$ partitioned into two groups: $\mathcal{G}_1 = \{1, 2\}$ and $\mathcal{G}_2 = \{3, 4\}$. Assume equal weights throughout for simplicity.
+
+\paragraph{Flat Mean.}
+With a single parameter $\rho$:
+\begin{equation}
+\M^{\text{flat}} = \left( \frac{1}{4} \sum_{i=1}^{4} x_i^\rho \right)^{1/\rho}.
+\label{eq:flat-four}
+\end{equation}
+
+\paragraph{Nested Mean.}
+With within-group parameter $\gamma$ and across-group parameter $\rho$:
+\begin{align}
+\bar{x}_1 &= \left( \frac{1}{2} x_1^\gamma + \frac{1}{2} x_2^\gamma \right)^{1/\gamma}, \label{eq:nested-group1} \\[4pt]
+\bar{x}_2 &= \left( \frac{1}{2} x_3^\gamma + \frac{1}{2} x_4^\gamma \right)^{1/\gamma}, \label{eq:nested-group2} \\[4pt]
+\M^{\text{nested}} &= \left( \frac{1}{2} \bar{x}_1^\rho + \frac{1}{2} \bar{x}_2^\rho \right)^{1/\rho}. \label{eq:nested-outer}
+\end{align}
+
+\paragraph{Comparing the Two.}
+Set $x_1 = x_2 = 1$ and $x_3 = x_4 = 2$. Then:
+\begin{align}
+\bar{x}_1 &= 1, \quad \bar{x}_2 = 2, \\[4pt]
+\M^{\text{nested}} &= \left( \frac{1}{2} \cdot 1^\rho + \frac{1}{2} \cdot 2^\rho \right)^{1/\rho} = \Mbar(1, 2; 1/2, \rho).
+\end{align}
+The nested mean depends only on $\rho$, not $\gamma$, because elements within each group are equal.
+
+Now set $x_1 = 0.5$, $x_2 = 1.5$, $x_3 = 1.5$, $x_4 = 2.5$. The within-group variation activates the $\gamma$ parameter:
+\begin{align}
+\bar{x}_1 &= \left( \frac{1}{2} (0.5)^\gamma + \frac{1}{2} (1.5)^\gamma \right)^{1/\gamma}, \\[4pt]
+\bar{x}_2 &= \left( \frac{1}{2} (1.5)^\gamma + \frac{1}{2} (2.5)^\gamma \right)^{1/\gamma}.
+\end{align}
+Now both $\gamma$ and $\rho$ affect the final value.
+
+\begin{callouttip}[Exercise]
+For the values $x_1 = 0.5$, $x_2 = 1.5$, $x_3 = 1.5$, $x_4 = 2.5$:
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Compute $\M^{\text{flat}}$ for $\rho = 0$ (geometric mean).
+    \item Compute $\M^{\text{nested}}$ for $\gamma = 1$ (arithmetic within groups) and $\rho = 0$ (geometric across groups).
+    \item Verify that the answers differ.
+\end{enumerate}
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Economic Interpretations}
+\label{subsec:economic-interpretations}
+% --------------------------------------------------------------
+
+Nested CES structures appear throughout economics. The grouping reflects economic relationships; the differing elasticities reflect differing substitution patterns.
+
+\paragraph{Consumer Theory.}
+Goods are grouped into categories: food, housing, transportation, etc. The within-category elasticity $\sigma_k$ governs substitution among goods in category $k$ (e.g., among different foods). The across-category elasticity $\sigma$ governs substitution among categories.
+
+Typically $\sigma_k > \sigma$: it is easier to substitute chicken for beef (within food) than to substitute food for housing (across categories).
+
+\paragraph{Production Theory.}
+Inputs are grouped by type: capital, labor, energy, materials. Within labor, we might distinguish skilled and unskilled workers. The within-group elasticity governs substitution among worker types; the across-group elasticity governs substitution between labor and capital.
+
+\paragraph{International Trade.}
+Consumers choose among varieties of goods from different countries. Within a country, varieties may be close substitutes (high $\sigma_k$). Across countries, substitution may be harder (lower $\sigma$). This structure underlies the Armington model and its descendants.
+
+\begin{calloutnote}[The Armington Aggregator]
+In trade models, a common specification is:
+\begin{equation}
+C = \left( \sum_k \omega_k \left( \sum_{i \in k} \omega_{ki} \, c_{ki}^{(\sigma_k - 1)/\sigma_k} \right)^{\sigma_k/(\sigma_k-1) \cdot (\sigma-1)/\sigma} \right)^{\sigma/(\sigma-1)},
+\end{equation}
+where $k$ indexes countries and $i$ indexes varieties within country $k$. This is a nested CES with within-country elasticity $\sigma_k$ and across-country elasticity $\sigma$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Properties of Nested Means}
+\label{subsec:properties-nested}
+% --------------------------------------------------------------
+
+Nested means inherit many properties from the underlying generalized means, but some new features emerge.
+
+\paragraph{Monotonicity and Intermediate Value.}
+Nested means remain monotone in each argument and lie between the minimum and maximum elements. These properties follow from the same properties of the component means.
+
+\paragraph{Homogeneity.}
+If all component means are homogeneous of degree one (which the canonical and classical forms are), then the nested mean is also homogeneous of degree one:
+\begin{equation}
+\M^{\text{nested}}(\lambda \bx) = \lambda \M^{\text{nested}}(\bx) \quad \text{for all } \lambda > 0.
+\label{eq:nested-homogeneity}
+\end{equation}
+
+\paragraph{Order Dependence.}
+Unlike the flat case, the order of aggregation matters when $\gamma \neq \rho$. Aggregating first within groups then across groups gives a different result than aggregating in a different grouping.
+
+\begin{proposition}[Non-Commutativity of Nesting]
+\label{prop:non-commutativity}
+Let $\gamma \neq \rho$. Consider two partitions of elements into groups. The nested means under the two partitions are generally different:
+\begin{equation}
+\M^{\text{nested}}_{\text{partition } A} \neq \M^{\text{nested}}_{\text{partition } B}.
+\end{equation}
+The grouping structure is a substantive modeling choice.
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{Sufficient Statistics in Nested Structures}
+\label{subsec:sufficient-nested}
+% --------------------------------------------------------------
+
+The sufficient statistic property extends to nested structures, but at each level.
+
+\paragraph{Within-Group Aggregation.}
+The group mean $\bar{x}_k = \M(\bx_k; \bom_k, \gamma_k)$ is a sufficient statistic for all elements in group $k$. To compute the overall nested mean, we need only $\bar{x}_1, \ldots, \bar{x}_K$---not the individual elements.
+
+\paragraph{Across-Group Aggregation.}
+Given the group means, the outer aggregation proceeds as a standard generalized mean. The continuation value in a dynamic nested problem is itself a nested mean.
+
+\begin{calloutnote}[Multi-Stage Budgeting]
+In consumer theory, nested CES leads to multi-stage budgeting:
+\begin{enumerate}[leftmargin=1.5em]
+    \item The consumer allocates total expenditure across categories using the across-category price index and elasticity.
+    \item Within each category, the consumer allocates the category budget across goods using the within-category price index and elasticity.
+\end{enumerate}
+Each stage is a standard CES problem. The category price index---a generalized mean of within-category prices---is the sufficient statistic that links the stages.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:nested-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item A \textbf{nested structure} uses different power parameters at different levels of aggregation.
+    
+    \item When all parameters are equal ($\gamma_k = \rho$), the nested structure \textbf{collapses to a flat mean}---grouping is irrelevant.
+    
+    \item When parameters differ, \textbf{grouping is substantive}: different partitions yield different values.
+    
+    \item Nested CES is ubiquitous in economics: consumer theory (goods within categories), production (factors within types), trade (varieties within countries).
+    
+    \item The \textbf{sufficient statistic property} holds at each level: group means summarize within-group information for the outer aggregation.
+\end{enumerate}
+\end{calloutimportant}
+
+The nested structure provides the mathematical foundation for Epstein--Zin preferences, which nest risk (aggregation over states) inside time (aggregation over periods) with different elasticities at each level.

@@ -1,0 +1,349 @@
+
+Different representations of generalized means arise naturally in applications. This section develops the machinery for converting between them. These transformations clarify the relationship between canonical and classical forms, and will prove essential for understanding many results on the recursive structure in dynamic problems and equivalence between different types of models.
+
+% --------------------------------------------------------------
+\subsection{Geometry of the Weight Transformation.}
+% --------------------------------------------------------------
+
+We begin with the two-value case to build a geometric intuition. Consider canonical weights $(\omega, 1-\omega)$ on the unit simplex---the diagonal of the unit box connecting $(0,1)$ to $(1,0)$. The transformation to classical weights operates in two steps.
+
+The first step maps $(\omega, 1-\omega)$ to new coordinates $(\omega^{1-\rho}, (1-\omega)^{1-\rho})$. For each value of $\rho$, these transformed points trace a curve parameterized by $\omega \in (0,1)$ that connects the corners $(0,1)$ and $(1,0)$. The geometry of these curves depends critically on $\rho$:
+\begin{itemize}[leftmargin=1.5em]
+    \item When $\rho = 0$, the map is the identity: $(\omega^1, (1-\omega)^1) = (\omega, 1-\omega)$. We move in a straigh line. 
+    \item When $\rho < 0$, the exponent $1-\rho > 1$ compresses the weights. The curves lie \emph{inside} the triangle with vertices $(0,0)$, $(1,0)$, and $(0,1)$---strictly below the simplex.
+    \item When $0 < \rho < 1$, the exponent $1-\rho \in (0,1)$ expands the weights. The curves bow \emph{outside} the unit triangle.
+    \item As $\rho \to 1$, the exponent $1-\rho \to 0$, so $(\omega^{1-\rho}, (1-\omega)^{1-\rho}) \to (1,1)$ for all interior $\omega$. The curves collapse toward the point $(1,1)$.
+    \item As $\rho > 1$ values are taken outside the unit box. 
+\end{itemize}
+
+% FIGURE PLACEHOLDER: Unit box with diagonal (simplex) and curves for rho = -1, 0, 0.5, 0.9
+\begin{center}
+\textit{[Figure: Curves $(\omega^{1-\rho}, (1-\omega)^{1-\rho})$ in the unit box for various $\rho$]}
+\end{center}
+
+Generically, the transformed coordinates $(\omega^{1-\rho}, (1-\omega)^{1-\rho})$ do not sum to one---the point has left the simplex. The second step projects back onto the simplex by scaling each coordinate by the inverse of its sum, thus normalizing the units:
+\[
+\tilde{\omega} = \frac{\omega^{1-\rho}}{\omega^{1-\rho} + (1-\omega)^{1-\rho}}, \qquad 1 - \tilde{\omega} = \frac{(1-\omega)^{1-\rho}}{\omega^{1-\rho} + (1-\omega)^{1-\rho}}.
+\]
+This yields classical weights $(\tilde{\omega}, 1-\tilde{\omega})$ that sum to one. The full transformation thus consists of two operations: a coordinate change that leaves the simplex, followed by a projection back onto it. 
+
+We will use these operations repeatedly. 
+
+\subsection{Fundamental Transformations}
+% --------------------------------------------------------------
+\paragraph{The Weight Transformation.}
+% --------------------------------------------------------------
+
+We now generalize this construction for $n$ goods. We define the weight transformation $T_\rho$ and its inverse in the same way.
+
+\begin{definition}[Weight Transformation]
+\label{def:weight-transform}
+For canonical weights $\bom = (\omega_1, \ldots, \omega_n)$ with $\sum_{i=1}^n \omega_i = 1$ and $\omega_i > 0$, the \emph{weight transformation} $T_\rho: \Delta^{n-1} \to \Delta^{n-1}$ is defined by
+\begin{equation}
+\label{eq:T-rho-forward}
+T_\rho(\bom) = \tilde{\bom}, \quad \text{where} \quad \tilde{\omega}_i = \frac{\omega_i^{1-\rho}}{\sum_{j=1}^{n} \omega_j^{1-\rho}} \quad \text{for } i = 1, \ldots, n.
+\end{equation}
+\end{definition}
+Notice that we follows the same step. We transformed the original weights to some new weights to some power, falling outside the simples. Then, we scaled them by their sum to take them back to the simplex. The transformed weights $\tilde{\bom}$ are the classical weights. By construction, $\tilde{\omega}_i > 0$ and $\sum_{i=1}^n \tilde{\omega}_i = 1$.
+
+Using this transformation, we obtain a relationship between the cannonical and the classical means.
+\begin{proposition}[Canonical--Classical Relationship]
+\label{prop:canonical-classical}
+The canonical mean relates to the classical mean by
+\begin{equation}
+\label{eq:canonical-classical}
+\M(\bx; \bom, \rho) = \Omega(\bom, \rho) \cdot \Mbar(\bx; T_\rho(\bom), \rho),
+\end{equation}
+where the normalizing constant is
+\begin{equation}
+\label{eq:Omega-def}
+\Omega(\bom, \rho) = \left( \sum_{j=1}^{n} \omega_j^{1-\rho} \right)^{1/\rho} = \M(\mathbf{1}; \bom, \rho).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Starting from the canonical form, factor out the sum of transformed weight terms:
+\begin{align*}
+\M(\bx; \bom, \rho) &= \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho} \\
+&= \left( \sum_{j=1}^{n} \omega_j^{1-\rho} \right)^{1/\rho} \left( \sum_{i=1}^{n} \frac{\omega_i^{1-\rho}}{\sum_{j=1}^{n} \omega_j^{1-\rho}} x_i^\rho \right)^{1/\rho} \\
+&= \Omega(\bom, \rho) \left( \sum_{i=1}^{n} \tilde{\omega}_i x_i^\rho \right)^{1/\rho} \\
+&= \Omega(\bom, \rho) \cdot \Mbar(\bx; \tilde{\bom}, \rho). \qedhere
+\end{align*}
+The second line divided and multiply by the sum term and the rest of the steps are definitions.
+\end{proof}
+
+\begin{calloutnote}[Consistency with Idempotency]
+The normalizing constant $\Omega(\bom, \rho) = \M(\mathbf{1};\bom,\rho)$ is precisely the idempotency factor: the canonical mean of equal arguments equals $\Omega$ times that common value. Setting $x_i = c$ for all $i$ in \cref{eq:canonical-classical} confirms $\M(c\mathbf{1}; \bom, \rho) = \Omega \cdot c$. Recall that $c$ is the value of the classical mean when $x_i = c$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{Inverting the Transformation.}
+% --------------------------------------------------------------
+
+The weight transformation is a bijection on the interior of the simplex. A bijection means that you can take any point on the simplex, and find another point associated with it given $T_\rho$, but no other point can take you there. And viceversa covering the whole simplex. 
+Given classical weights $\tilde{\bom}$, we recover canonical weights $\bom$ via the inverse map $T_\rho^{-1}$.
+
+To derive the inverse, consider the ratio of any two transformed weights:
+\[
+\frac{\tilde{\omega}_i}{\tilde{\omega}_k} = \frac{\omega_i^{1-\rho}}{\omega_k^{1-\rho}} = \left( \frac{\omega_i}{\omega_k} \right)^{1-\rho}.
+\]
+Raising both sides to the power $\frac{1}{1-\rho}$:
+\[
+\frac{\omega_i}{\omega_k} = \left( \frac{\tilde{\omega}_i}{\tilde{\omega}_k} \right)^{\frac{1}{1-\rho}}.
+\]
+Equivalently, working with a single weight, we can manipulate the expression $\frac{\tilde{\omega}}{1-\tilde{\omega}} = \frac{\omega^{1-\rho}}{(1-\omega)^{1-\rho}}$ to obtain $\frac{\omega}{1-\omega} = \left(\frac{\tilde{\omega}}{1-\tilde{\omega}}\right)^{\frac{1}{1-\rho}}$. Imposing the constraint $\sum_{i=1}^n \omega_i = 1$ yields the inverse formula.
+
+\begin{proposition}[Inverse Weight Transformation]
+\label{prop:inverse-weight}
+The inverse transformation $T_\rho^{-1}: \Delta^{n-1} \to \Delta^{n-1}$ is given by
+\begin{equation}
+\label{eq:T-rho-inverse}
+T_\rho^{-1}(\tilde{\bom}) = \bom, \quad \text{where} \quad \omega_i = \frac{\tilde{\omega}_i^{\frac{1}{1-\rho}}}{\sum_{j=1}^{n} \tilde{\omega}_j^{\frac{1}{1-\rho}}} \quad \text{for } i = 1, \ldots, n.
+\end{equation}
+\end{proposition}
+
+Moreover, we verify that $T_\rho^{-1}(T_\rho(\bom)) = \bom$. Substituting $\tilde{\omega}_i = \omega_i^{1-\rho} / \sum_k \omega_k^{1-\rho}$ into \cref{eq:T-rho-inverse}:
+\[
+\frac{\tilde{\omega}_i^{\frac{1}{1-\rho}}}{\sum_j \tilde{\omega}_j^{\frac{1}{1-\rho}}} = \frac{\omega_i / (\sum_k \omega_k^{1-\rho})^{\frac{1}{1-\rho}}}{\sum_j \omega_j / (\sum_k \omega_k^{1-\rho})^{\frac{1}{1-\rho}}} = \frac{\omega_i}{\sum_j \omega_j} = \omega_i,
+\]
+since $\sum_j \omega_j = 1$. The transformation and its inverse are consistent.
+
+% --------------------------------------------------------------
+\paragraph{The Mean Transformation.}
+% --------------------------------------------------------------
+
+The factorization $\M = \Omega \cdot \Mbar$ also inverts cleanly. Starting from the classical form with weights $\tilde{\bom}$, we can express it in terms of the canonical form with weights $\bom = T_\rho^{-1}(\tilde{\bom})$.
+
+Applying \cref{prop:canonical-classical} in reverse:
+\[
+\Mbar(\bx; \tilde{\bom}, \rho) = \frac{1}{\Omega(\bom, \rho)} \M(\bx; \bom, \rho).
+\]
+Define $\tilde{\Omega}(\tilde{\bom}, \rho) = \left( \sum_j \tilde{\omega}_j^{\frac{1}{1-\rho}} \right)^{\frac{1-\rho}{\rho}}$ as the scaling factor when going from classical to canonical. A direct calculation shows:
+\[
+\tilde{\Omega}(\tilde{\bom}, \rho) = \Omega(\bom, \rho)^{-1},
+\]
+confirming that the scaling factors are reciprocals. The classical mean is a \emph{deflated} version of the canonical mean, and the canonical mean is an \emph{inflated} version of the classical mean, with inflation/deflation factor $\Omega$.
+
+\begin{calloutimportant}[Equivalence for Optimization]
+Since $\M(\bx; \bom, \rho) = \Omega \cdot \Mbar(\bx; \tilde{\bom}, \rho)$ with $\Omega > 0$ independent of $\bx$, maximizing the canonical form with weights $\bom$ yields the same optimal allocation $\bx^*$ as maximizing the classical form with transformed weights $\tilde{\bom}$. The multiplicative constant does not affect the optimized values. This is why economists use these two interchangeably. 
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{Weight Normalization.}
+% --------------------------------------------------------------
+
+In applications, we sometimes encounter aggregators with weights that do not sum to one:
+\begin{equation}
+\tilde{M}(\bx; \boldsymbol{\chi}, \rho) = \left( \sum_{i=1}^{n} \chi_i x_i^\rho \right)^{1/\rho},
+\end{equation}
+where $\boldsymbol{\chi} = (\chi_1, \ldots, \chi_n)$ with $\chi_i > 0$ and $\sum_{i=1}^{n} \chi_i \neq 1$. This is neither the classical nor canonical form---we call it the \emph{general} or \emph{unnormalized} form.
+
+\begin{proposition}[Normalization]
+\label{prop:normalization}
+Any aggregator of the form $\tilde{M}(\bx; \boldsymbol{\chi}, \rho) = \left(\sum_{i=1}^{n} \chi_i x_i^\rho\right)^{1/\rho}$ can be written as
+\begin{equation}
+\tilde{M}(\bx; \boldsymbol{\chi}, \rho) = \kappa(\boldsymbol{\chi}, \rho) \cdot \Mbar(\bx; \tilde{\bom}, \rho),
+\end{equation}
+where
+\begin{equation}
+\kappa(\boldsymbol{\chi}, \rho) = \left( \sum_{i=1}^{n} \chi_i \right)^{1/\rho}, \qquad \tilde{\omega}_i = \frac{\chi_i}{\sum_{j=1}^{n} \chi_j} \quad \text{for } i = 1, \ldots, n.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Factor out the sum of weights:
+\begin{align*}
+\tilde{M}(\bx; \boldsymbol{\chi}, \rho) 
+&= \left( \sum_{i=1}^{n} \chi_i x_i^\rho \right)^{1/\rho} 
+= \left( \sum_{i=1}^{n} \chi_i \right)^{1/\rho} \left( \sum_{i=1}^{n} \frac{\chi_i}{\sum_{j=1}^{n} \chi_j} x_i^\rho \right)^{1/\rho} \\
+&= \kappa(\boldsymbol{\chi}, \rho) \cdot \Mbar(\bx; \tilde{\bom}, \rho). \qedhere
+\end{align*}
+\end{proof}
+
+The transformation is invertible: given the scaling factor $\kappa$ and normalized weights $\tilde{\bom}$, we recover $\chi_i = \kappa^\rho \tilde{\omega}_i$ for $i = 1, \ldots, n$.
+
+% --------------------------------------------------------------
+\paragraph{Summary of Transformations.}
+% --------------------------------------------------------------
+
+The following tables summarize the transformations between the three representations.
+
+\begin{table}[H]
+\centering
+\caption{Weight Transformations}
+\label{tab:weight-transforms}
+\begin{tabular}{@{}ccc@{\hspace{2em}}ccc@{}}
+\toprule
+\textbf{Canonical} & & \textbf{Classical} & \textbf{Classical} & & \textbf{General} \\
+\midrule
+$\bom$ & $\xrightarrow{T_\rho}$ & $\displaystyle\tilde{\omega}_i = \frac{\omega_i^{1-\rho}}{\sum_j \omega_j^{1-\rho}}$ 
+& $\tilde{\bom}$ & $\xrightarrow{\times\, \kappa^\rho}$ & $\chi_i = \kappa^\rho \tilde{\omega}_i$ \\[1.5em]
+$\displaystyle\omega_i = \frac{\tilde{\omega}_i^{\frac{1}{1-\rho}}}{\sum_j \tilde{\omega}_j^{\frac{1}{1-\rho}}}$ & $\xleftarrow{T_\rho^{-1}}$ & $\tilde{\bom}$
+& $\displaystyle\tilde{\omega}_i = \frac{\chi_i}{\sum_j \chi_j}$ & $\xleftarrow{\text{normalize}}$ & $\boldsymbol{\chi}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Mean Transformations}
+\label{tab:mean-transforms}
+\begin{tabular}{@{}ccc@{\hspace{2em}}ccc@{}}
+\toprule
+\textbf{Canonical} & & \textbf{Classical} & \textbf{Classical} & & \textbf{General} \\
+\midrule
+$\M$ & $\xrightarrow{\div\, \Omega}$ & $\bar{\M} = \M / \Omega$ 
+& $\bar{\M}$ & $\xrightarrow{\times\, \kappa}$ & $\tilde{M} = \kappa \cdot \bar{\M}$ \\[0.8em]
+$\M = \Omega \cdot \bar{\M}$ & $\xleftarrow{\times\, \Omega}$ & $\bar{\M}$
+& $\bar{\M} = \tilde{M} / \kappa$ & $\xleftarrow{\div\, \kappa}$ & $\tilde{M}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{Composing Transformations}
+% --------------------------------------------------------------
+
+The power transformation $\tilde{x}_i = x_i^r$ also preserves the CES structure, but requires composing several transformations. Starting from the canonical mean and substituting $x_i = \tilde{x}_i^{1/r}$:
+\begin{equation}
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho} = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} \tilde{x}_i^{\rho/r} \right)^{1/\rho}.
+\end{equation}
+
+Define $\tilde{\rho} = \rho/r$. Then $x_i^\rho = \tilde{x}_i^{\tilde{\rho}}$ and we can write:
+\begin{equation}
+\M(\bx; \bom, \rho) = \left[ \left( \sum_{i=1}^{n} \omega_i^{1-\rho} \tilde{x}_i^{\tilde{\rho}} \right)^{1/\tilde{\rho}} \right]^{1/r}.
+\end{equation}
+
+The inner expression has weights $\chi_i = \omega_i^{1-\rho}$ that do not sum to one---it is in general form. We proceed in two steps:
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Normalize}: Apply \cref{prop:normalization} to write the inner expression as $\kappa \cdot \Mbar(\tilde{\bx}; \hat{\bom}, \tilde{\rho})$ with $\hat{\omega}_i = \omega_i^{1-\rho}/\sum_j \omega_j^{1-\rho}$.
+    \item \textbf{Convert to canonical}: Apply $T_{\tilde{\rho}}^{-1}$ to obtain canonical weights $\tilde{\bom}$ in the new coordinates.
+\end{enumerate}
+
+This composition principle ensures that any CES aggregator can be systematically converted to canonical form in any coordinate system, though the weights transform in a manner that depends on both the original weights and the elasticity parameters.
+
+\begin{calloutimportant}[Linearization of Constraints]
+The power transformation is particularly valuable for optimization. Problems with nonlinear constraints can often be transformed into equivalent problems with linear constraints in the new coordinates. The elasticity parameter adjusts from $\rho$ to $\rho/r$, preserving the CES structure.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{Application: Change of Units.}
+% --------------------------------------------------------------
+
+As an application of the transformation machinery, consider a change of units where $\tilde{x}_i = \mu_i x_i$ for scaling factors $\mu_i > 0$ (e.g., converting from bushels to kilograms).
+
+Starting from the classical form:
+\begin{align*}
+\Mbar(\bx; \bom, \rho) &= \left( \sum_{i=1}^{n} \omega_i x_i^\rho \right)^{1/\rho} = \left( \sum_{i=1}^{n} \omega_i \mu_i^{-\rho} (\mu_i x_i)^\rho \right)^{1/\rho} \\
+&= \left( \sum_{i=1}^{n} \chi_i \tilde{x}_i^\rho \right)^{1/\rho},
+\end{align*}
+where $\chi_i = \omega_i \mu_i^{-\rho}$. This is now in general form---the weights $\chi_i$ do not sum to one.
+
+Applying the normalization (\cref{prop:normalization}):
+\begin{equation}
+\Mbar(\bx; \bom, \rho) = \kappa \cdot \Mbar(\tilde{\bx}; \hat{\bom}, \rho),
+\end{equation}
+where
+\[
+\kappa = \left( \sum_{i=1}^n \omega_i \mu_i^{-\rho} \right)^{1/\rho}, \qquad \hat{\omega}_i = \frac{\omega_i \mu_i^{-\rho}}{\sum_{j=1}^n \omega_j \mu_j^{-\rho}}.
+\]
+
+If canonical form is desired in the new coordinates, apply $T_\rho^{-1}$ to $\hat{\bom}$ to obtain canonical weights. This demonstrates how the fundamental transformations compose to handle practical coordinate changes.
+
+\begin{callouttip}[Exercise]
+Verify that when all scaling factors are equal ($\mu_i = \mu$ for all $i$), the transformed weights equal the original weights: $\hat{\omega}_i = \omega_i$. What is the scaling factor $\kappa$ in this case?
+\end{callouttip}
+
+% --------------------------------------------------------------
+\paragraph{Application: Change of Coordinates.}
+% --------------------------------------------------------------
+
+As an application of the composition machinery, consider the power transformation $\tilde{x}_i = x_i^r$ for some $r \neq 0$. Starting from the canonical mean:
+\[
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho}.
+\]
+Substituting $x_i = \tilde{x}_i^{1/r}$ and defining $\tilde{\rho} = \rho/r$, we obtain:
+\[
+\M(\bx; \bom, \rho) = \left[ \left( \sum_{i=1}^{n} \omega_i^{1-\rho} \tilde{x}_i^{\tilde{\rho}} \right)^{1/\tilde{\rho}} \right]^{1/r}.
+\]
+
+The inner expression is \emph{almost} a generalized mean in the new coordinates $\tilde{\bx}$ with elasticity $\tilde{\rho}$, but there is a mismatch: the weights appear as $\omega_i^{1-\rho}$, whereas a canonical mean with parameter $\tilde{\rho}$ requires weights raised to the power $1-\tilde{\rho}$. Since $1-\rho \neq 1-\tilde{\rho}$ in general, the inner expression is not in canonical form.
+
+We proceed by projecting to classical form and then inverting to canonical form:
+
+\textit{Step 1: Project to classical weights.} The weights $\omega_i^{1-\rho}$ do not sum to one. Normalize them to obtain classical weights in the new coordinates:
+\[
+\tilde{\omega}_i = \frac{\omega_i^{1-\rho}}{\sum_{j=1}^{n} \omega_j^{1-\rho}}.
+\]
+The inner expression becomes:
+\[
+\left( \sum_{i=1}^{n} \omega_i^{1-\rho} \tilde{x}_i^{\tilde{\rho}} \right)^{1/\tilde{\rho}} = \kappa \cdot \Mbar(\tilde{\bx}; \tilde{\bom}, \tilde{\rho}),
+\]
+where $\kappa = \left( \sum_{j=1}^{n} \omega_j^{1-\rho} \right)^{1/\tilde{\rho}}$. The classical weights $\tilde{\bom}$ sum to one by construction.
+
+\textit{Step 2: Invert to canonical weights.} Apply the inverse transformation $T_{\tilde{\rho}}^{-1}$ from \cref{prop:inverse-weight} to obtain canonical weights in the new coordinates:
+\[
+\hat{\omega}_i = \frac{\tilde{\omega}_i^{\frac{1}{1-\tilde{\rho}}}}{\sum_{j=1}^{n} \tilde{\omega}_j^{\frac{1}{1-\tilde{\rho}}}}.
+\]
+Substituting $\tilde{\omega}_i$ and using $1-\tilde{\rho} = (r-\rho)/r$:
+\[
+\tilde{\omega}_i^{\frac{1}{1-\tilde{\rho}}} = \left( \frac{\omega_i^{1-\rho}}{\sum_k \omega_k^{1-\rho}} \right)^{\frac{r}{r-\rho}}.
+\]
+Therefore, the canonical weights in the new coordinates are:
+\begin{equation}
+\label{eq:coord-change-weights}
+\hat{\omega}_i = \frac{\omega_i^{\frac{r(1-\rho)}{r-\rho}}}{\sum_{j=1}^{n} \omega_j^{\frac{r(1-\rho)}{r-\rho}}}.
+\end{equation}
+
+\textit{Step 3: Express the scaling constant.} Converting the classical mean to canonical form:
+\[
+\Mbar(\tilde{\bx}; \tilde{\bom}, \tilde{\rho}) = \frac{1}{\Omega(\hat{\bom}, \tilde{\rho})} \M(\tilde{\bx}; \hat{\bom}, \tilde{\rho}),
+\]
+where $\Omega(\hat{\bom}, \tilde{\rho}) = \left( \sum_j \hat{\omega}_j^{1-\tilde{\rho}} \right)^{1/\tilde{\rho}}$.
+
+Combining all steps, the original mean can be written as:
+\begin{equation}
+\label{eq:coord-change-mean}
+\M(\bx; \bom, \rho) = \Gamma(\bom, \rho, r) \cdot \M(\tilde{\bx}; \hat{\bom}, \tilde{\rho})^{1/r},
+\end{equation}
+where the scaling constant is
+\begin{equation}
+\label{eq:Gamma-def}
+\Gamma(\bom, \rho, r) = \left( \sum_{j=1}^{n} \omega_j^{\frac{r(1-\rho)}{r-\rho}} \right)^{\frac{r-\rho}{r\rho}} = \Omega(\bom, \rho^*)^{(r-1)/r} = \M(\mathbf{1}; \bom, \rho^*)^{(r-1)/r},
+\end{equation}
+with transformed elasticity
+\begin{equation}
+\label{eq:rho-star}
+\rho^* = \frac{\rho(r-1)}{r-\rho}.
+\end{equation}
+The final expression reveals that $\Gamma$ is itself a power of a canonical mean---the normalizing constant $\Omega$ evaluated at the transformed elasticity $\rho^*$.
+
+\begin{calloutnote}[Classical Means]
+The two-step procedure (normalize, then invert) is necessary only for canonical means. For classical means, the weights appear linearly in the aggregator, so the coordinate change $\tilde{x}_i = x_i^r$ does not create a mismatch---normalization alone suffices to express the result in classical form with the new elasticity $\tilde{\rho}$.
+\end{calloutnote}
+
+\begin{table}[H]
+\centering
+\caption{Summary: Change of Coordinates $\tilde{x}_i = x_i^r$}
+\label{tab:coord-change-summary}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Object} & \textbf{Original} & \textbf{Transformed} \\
+\midrule
+Coordinates & $x_i$ & $\tilde{x}_i = x_i^r$ \\[0.5em]
+Elasticity & $\rho$ & $\tilde{\rho} = \rho/r$ \\[0.5em]
+Canonical weights & $\omega_i$ & $\displaystyle\hat{\omega}_i = \frac{\omega_i^{\frac{r(1-\rho)}{r-\rho}}}{\sum_j \omega_j^{\frac{r(1-\rho)}{r-\rho}}}$ \\[1.5em]
+Mean & $\M(\bx; \bom, \rho)$ & $\M(\tilde{\bx}; \hat{\bom}, \tilde{\rho})$ \\[0.5em]
+Relationship & \multicolumn{2}{c}{$\M(\bx; \bom, \rho) = \Gamma \cdot \M(\tilde{\bx}; \hat{\bom}, \tilde{\rho})^{1/r}$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Exercise]
+Verify that when $r = 1$ (the identity transformation), the weights are unchanged: $\hat{\omega}_i = \omega_i$, and the scaling constant $\Gamma = 1$. What happens to the weights when $r = 1 - \rho$? Compute the new elasticity $\tilde{\rho}$ in this case.
+\end{callouttip}
+
+\begin{remark}
+The change of coordinates transformation will prove essential when we encounter optimization problems with CES constraints. A constraint of the form $\sum_i c_i x_i^r = R$ becomes linear in the transformed coordinates $\tilde{x}_i = x_i^r$, reducing the problem to standard CES maximization subject to a linear budget. The machinery developed here---particularly the weight transformation \cref{eq:coord-change-weights} and the scaling constant \cref{eq:Gamma-def}---provides the complete translation between the original and transformed problems.
+\end{remark}
+

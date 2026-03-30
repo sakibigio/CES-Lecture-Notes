@@ -1,0 +1,480 @@
+% ==============================================================
+\section{The Infinite-Horizon Problem}
+\label{sec:infinite-horizon}
+% ==============================================================
+
+We now take the horizon to infinity, $T \to \infty$. This limiting case is the workhorse of modern macroeconomics: it captures the long-run behavior of patient agents and delivers stationary solutions when fundamentals are constant. We develop the infinite-horizon problem in two complementary ways: first, by taking limits of the finite-horizon formulas (the \emph{sequential approach}), and second, by exploiting the recursive structure directly (the \emph{dynamic programming approach}). Both yield the same solution, but each offers distinct insights.
+
+% --------------------------------------------------------------
+\subsection{The Sequential Approach: Taking Limits}
+\label{subsec:sequential-infinity}
+% --------------------------------------------------------------
+
+The finite-horizon problem with $T+1$ periods has lifetime wealth, price index, and optimal consumption given by finite sums. As $T \to \infty$, these sums become infinite series. Convergence requires restrictions on parameters.
+
+\paragraph{Lifetime Wealth.}
+From \cref{eq:lifetime-budget-T}, lifetime wealth is:
+\begin{equation}
+W = b_0 + \sum_{t=0}^{T} Q_t \, y_t.
+\label{eq:wealth-T-recall}
+\end{equation}
+
+In the infinite-horizon limit with constant income $y_t = y$ and constant interest rate $R_t = R$, we have $Q_t = R^{-t}$, and:
+\begin{equation}
+W = b_0 + y \sum_{t=0}^{\infty} R^{-t} = b_0 + \frac{yR}{R - 1},
+\label{eq:wealth-infinity}
+\end{equation}
+provided $R > 1$ (positive net interest rate). Lifetime wealth is finite: the present value of the infinite income stream converges.
+
+\paragraph{The Price Index.}
+From \cref{eq:price-index-T}, the price index is:
+\begin{equation}
+\Pstar = \left( \sum_{t=0}^{T} \omega_t \, Q_t^{1-\theta} \right)^{1/(1-\theta)}.
+\label{eq:price-index-T-recall}
+\end{equation}
+
+With constant $R$ and canonical weights $\omega_t = \beta^{t\theta}(1 - \beta^\theta)$ (the limiting form as $T \to \infty$):
+\begin{equation}
+\sum_{t=0}^{\infty} \omega_t \, Q_t^{1-\theta} = (1 - \beta^\theta) \sum_{t=0}^{\infty} \beta^{t\theta} R^{-t(1-\theta)} = (1 - \beta^\theta) \sum_{t=0}^{\infty} \left( \beta^\theta R^{\theta - 1} \right)^t.
+\label{eq:price-index-sum}
+\end{equation}
+
+This geometric series converges if and only if $\beta^\theta R^{\theta - 1} < 1$, or equivalently:
+\begin{equation}
+\beta R^{1 - 1/\theta} < 1.
+\label{eq:convergence-condition}
+\end{equation}
+
+When the condition holds:
+\begin{equation}
+\Pstar = \left( \frac{1 - \beta^\theta}{1 - \beta^\theta R^{\theta - 1}} \right)^{1/(1-\theta)}.
+\label{eq:price-index-infinity}
+\end{equation}
+
+\begin{calloutimportant}[The Convergence Condition]
+The condition $\beta R^{1 - 1/\theta} < 1$ is equivalent to $(\beta R)^\theta < R$, which can be rewritten as:
+\begin{equation}
+\frac{c_{t+1}}{c_t} = (\beta R)^\theta < R.
+\label{eq:growth-vs-return}
+\end{equation}
+
+This states that \textbf{consumption growth must be slower than the interest rate}. If consumption grew faster than $R$, the present value of the consumption stream would diverge, violating the budget constraint.
+
+The condition has an intuitive interpretation:
+\begin{itemize}[nosep]
+\item If $\theta > 1$ (high IES): agents are willing to substitute intertemporally, so high $R$ generates fast consumption growth. The condition requires $R$ not be too high relative to $\beta$.
+\item If $\theta < 1$ (low IES): agents prefer smooth consumption, so even high $R$ generates modest consumption growth. The condition is easier to satisfy.
+\item If $\theta = 1$ (log utility): the condition reduces to $\beta < 1$, which is always satisfied.
+\end{itemize}
+\end{calloutimportant}
+
+\paragraph{Optimal Consumption.}
+The expenditure share on date-$t$ consumption is:
+\begin{equation}
+\wexp_t = \omega_t \left( \frac{Q_t}{\Pstar} \right)^{1-\theta} = \omega_t \, Q_t^{1-\theta} \cdot (\Pstar)^{\theta - 1}.
+\label{eq:share-infinity}
+\end{equation}
+
+Substituting and simplifying:
+\begin{equation}
+\wexp_t = (1 - \beta^\theta R^{\theta - 1}) \cdot (\beta^\theta R^{\theta - 1})^t.
+\label{eq:share-infinity-explicit}
+\end{equation}
+
+The expenditure shares decay geometrically at rate $\beta^\theta R^{\theta - 1} < 1$, ensuring they sum to one.
+
+Optimal consumption at date $t$ is:
+\begin{equation}
+c_t^* = \frac{\wexp_t \cdot W}{Q_t} = (1 - \beta^\theta R^{\theta - 1}) \cdot (\beta R)^{\theta t} \cdot W.
+\label{eq:consumption-infinity}
+\end{equation}
+
+\paragraph{Initial Consumption and the Consumption Function.}
+At $t = 0$:
+\begin{equation}
+\boxed{c_0^* = (1 - \beta^\theta R^{\theta - 1}) \cdot W.}
+\label{eq:c0-infinity}
+\end{equation}
+
+This is the \emph{consumption function}: initial consumption is a constant fraction of lifetime wealth. The marginal propensity to consume (MPC) out of wealth is:
+\begin{equation}
+\text{MPC} = 1 - \beta^\theta R^{\theta - 1}.
+\label{eq:mpc}
+\end{equation}
+
+The MPC depends on $\beta$, $R$, and $\theta$. When $\beta R = 1$ (the benchmark for consumption smoothing):
+\begin{equation}
+\text{MPC}\big|_{\beta R = 1} = 1 - \beta^{\theta} \cdot \beta^{1 - \theta} = 1 - \beta.
+\label{eq:mpc-benchmark}
+\end{equation}
+
+\begin{calloutnote}[The Permanent Income Hypothesis]
+The consumption function $c_0 = (1 - \beta^\theta R^{\theta - 1}) W$ embodies the permanent income hypothesis: consumption depends on lifetime wealth, not current income. A transitory income shock (changing $y_0$ but not future $y_t$) affects $W$ and hence $c_0$, but the effect is spread over the entire consumption path.
+
+The MPC out of \emph{transitory} income is smaller than the MPC out of \emph{permanent} income, since transitory income has a smaller effect on $W$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Immiseration and Explosive Wealth}
+\label{subsec:immiseration}
+% --------------------------------------------------------------
+
+What happens when the convergence condition fails? The answer reveals the tight connection between preferences, prices, and the feasibility of intertemporal plans.
+
+\paragraph{Case 1: $(\beta R)^\theta > R$ (Explosive Consumption Growth).}
+When $\beta R^{1 - 1/\theta} > 1$, the desired consumption growth rate exceeds the interest rate. The agent wants to defer consumption so aggressively that the present value of the consumption plan diverges. No interior solution exists.
+
+In this case, the agent would like to save unboundedly, accumulating wealth without limit. If borrowing constraints prevent negative consumption, the agent consumes zero today and pushes all consumption to the infinite future---an economically meaningless solution.
+
+\paragraph{Case 2: $(\beta R)^\theta < R$ with $\beta R > 1$ (Growing but Feasible).}
+When $\beta R > 1$ but the convergence condition holds, consumption grows over time: $c_{t+1}/c_t = (\beta R)^\theta > 1$. The agent becomes wealthier in terms of consumption, but the growth rate is slow enough that lifetime wealth remains finite.
+
+This is consistent with economic growth: agents in a growing economy may have rising consumption paths.
+
+\paragraph{Case 3: $\beta R < 1$ (Declining Consumption).}
+When $\beta R < 1$, consumption declines over time: $c_{t+1}/c_t = (\beta R)^\theta < 1$. The agent is impatient relative to the market return, front-loading consumption.
+
+In the extreme, if $\beta R \ll 1$, consumption falls rapidly toward zero---\emph{immiseration}. The agent exhausts resources quickly, leaving little for the future.
+
+\paragraph{Case 4: $\beta R = 1$ (Constant Consumption).}
+When $\beta R = 1$, the Euler equation implies $c_{t+1} = c_t$: perfect consumption smoothing. The agent spreads lifetime wealth evenly across time (in present-value terms).
+
+\begin{calloutimportant}[The Role of $\beta R$]
+The product $\beta R$ governs the \emph{tilt} of the consumption path:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Condition} & \textbf{Consumption Path} & \textbf{Interpretation} \\
+\midrule
+$\beta R > 1$ & Rising & Patient agent or high return \\
+$\beta R = 1$ & Flat & Balanced impatience and return \\
+$\beta R < 1$ & Falling & Impatient agent or low return \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The IES $\theta$ determines how \emph{responsive} the tilt is to $\beta R$: high $\theta$ means large deviations from flat consumption when $\beta R \neq 1$.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Dynamic Programming Approach}
+\label{subsec:dp-approach}
+% --------------------------------------------------------------
+
+The infinite horizon admits a recursive formulation. Rather than solving for the entire consumption sequence at once, we characterize the value of being in a given state (wealth level) and derive the optimal policy from the principle of optimality.
+
+\paragraph{The State Variable.}
+Let $a_t$ denote financial wealth at the beginning of period $t$ (after receiving interest on previous savings). The budget constraint is:
+\begin{equation}
+a_{t+1} = R(a_t + y_t - c_t) = R(a_t + y_t) - R c_t.
+\label{eq:budget-recursive}
+\end{equation}
+
+Cash-on-hand, $x_t \equiv a_t + y_t$, evolves as:
+\begin{equation}
+x_{t+1} = R(x_t - c_t) + y_{t+1}.
+\label{eq:coh-evolution}
+\end{equation}
+
+\paragraph{The Bellman Equation.}
+The value function $V(x)$ satisfies:
+\begin{equation}
+V(x) = \max_{c \in [0, x]} \left\{ u(c) + \beta V\bigl(R(x - c) + y'\bigr) \right\},
+\label{eq:bellman}
+\end{equation}
+where $y'$ denotes next-period income. With constant income $y' = y$:
+\begin{equation}
+V(x) = \max_{c \in [0, x]} \left\{ u(c) + \beta V\bigl(R(x - c) + y\bigr) \right\}.
+\label{eq:bellman-constant-y}
+\end{equation}
+
+\paragraph{Guess and Verify.}
+We conjecture that the value function takes the form:
+\begin{equation}
+V(x) = A + B \cdot \frac{x^{1 - 1/\theta}}{1 - 1/\theta},
+\label{eq:value-guess}
+\end{equation}
+for constants $A$ and $B$ to be determined. This guess is motivated by the homogeneity of CRRA utility.
+
+\paragraph{First-Order Condition.}
+The FOC for the maximization in \cref{eq:bellman-constant-y} is:
+\begin{equation}
+u'(c) = \beta R \, V'\bigl(R(x - c) + y\bigr).
+\label{eq:foc-bellman}
+\end{equation}
+
+With $u'(c) = c^{-1/\theta}$ and $V'(x) = B x^{-1/\theta}$:
+\begin{equation}
+c^{-1/\theta} = \beta R \cdot B \cdot \bigl(R(x - c) + y\bigr)^{-1/\theta}.
+\label{eq:foc-explicit}
+\end{equation}
+
+Defining $x' \equiv R(x - c) + y$ as next-period cash-on-hand:
+\begin{equation}
+\left( \frac{c}{x'} \right)^{-1/\theta} = \beta R \cdot B.
+\label{eq:foc-ratio}
+\end{equation}
+
+\paragraph{The Policy Function.}
+The Euler equation between adjacent periods is:
+\begin{equation}
+c_{t+1} = (\beta R)^\theta c_t.
+\label{eq:euler-dp}
+\end{equation}
+
+Combined with the budget constraint, this implies a linear policy function:
+\begin{equation}
+c = \kappa \cdot x,
+\label{eq:policy-linear}
+\end{equation}
+where $\kappa$ is a constant. To find $\kappa$, note that in a stationary environment, the consumption-to-cash-on-hand ratio must be consistent with the Euler equation and budget dynamics.
+
+\paragraph{Solving for $\kappa$.}
+From $x' = R(x - c) + y = R(1 - \kappa)x + y$ and $c' = \kappa x' = (\beta R)^\theta c = (\beta R)^\theta \kappa x$:
+\begin{equation}
+\kappa \bigl( R(1 - \kappa)x + y \bigr) = (\beta R)^\theta \kappa x.
+\label{eq:kappa-equation}
+\end{equation}
+
+For this to hold for all $x$, we need $y = 0$ (or we work with permanent income). With $y = 0$ (pure asset income):
+\begin{equation}
+R(1 - \kappa) = (\beta R)^\theta \quad \Longrightarrow \quad \kappa = 1 - \beta^\theta R^{\theta - 1}.
+\label{eq:kappa-solution}
+\end{equation}
+
+This matches the MPC from the sequential approach, \cref{eq:mpc}.
+
+\paragraph{The Value Function.}
+Substituting back, one can verify that the value function is:
+\begin{equation}
+V(x) = \frac{1}{1 - \beta^\theta R^{\theta - 1}} \cdot \frac{x^{1 - 1/\theta}}{1 - 1/\theta}.
+\label{eq:value-function}
+\end{equation}
+
+The coefficient $B = (1 - \beta^\theta R^{\theta - 1})^{-1}$ reflects the present value of utility from optimally consuming the endowment $x$.
+
+\begin{calloutnote}[Equivalence of Approaches]
+The sequential and dynamic programming approaches yield identical solutions:
+\begin{itemize}[nosep]
+\item Both give the consumption function $c = (1 - \beta^\theta R^{\theta - 1}) \cdot W$ (or $c = \kappa x$ with $\kappa = 1 - \beta^\theta R^{\theta - 1}$).
+\item Both require the convergence condition $\beta^\theta R^{\theta - 1} < 1$.
+\item Both yield the Euler equation $c_{t+1}/c_t = (\beta R)^\theta$.
+\end{itemize}
+
+The sequential approach emphasizes the structure of cross-date elasticities and connects to the Jacobian framework. The DP approach emphasizes the recursive structure and is more easily extended to stochastic settings.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Comparative Statics in the Infinite Horizon}
+\label{subsec:infinite-comparative-statics}
+% --------------------------------------------------------------
+
+How does initial consumption respond to a permanent change in the interest rate? The infinite-horizon setting allows us to derive clean expressions.
+
+\paragraph{Elasticity of the MPC.}
+From $\kappa = 1 - \beta^\theta R^{\theta - 1}$:
+\begin{equation}
+\frac{\partial \kappa}{\partial R} = -\beta^\theta (\theta - 1) R^{\theta - 2} = -(\theta - 1) \beta^\theta R^{\theta - 2}.
+\label{eq:kappa-R-derivative}
+\end{equation}
+
+In elasticity form:
+\begin{equation}
+\frac{\partial \log \kappa}{\partial \log R} = \frac{R}{\kappa} \cdot \frac{\partial \kappa}{\partial R} = -\frac{(\theta - 1) \beta^\theta R^{\theta - 1}}{1 - \beta^\theta R^{\theta - 1}} = -(\theta - 1) \cdot \frac{1 - \kappa}{\kappa}.
+\label{eq:kappa-elasticity}
+\end{equation}
+
+\paragraph{Elasticity of Lifetime Wealth.}
+With $W = b_0 + yR/(R-1)$ (assuming constant income $y$ and initial assets $b_0$):
+\begin{equation}
+\frac{\partial \log W}{\partial \log R} = \frac{yR/(R-1)^2 \cdot R/W \cdot 1}{1} = \frac{y R^2}{(R-1)^2 W} \cdot \frac{R-1}{R} = \frac{yR}{(R-1)W}.
+\label{eq:W-elasticity}
+\end{equation}
+
+Defining the human wealth share $\phi_H \equiv yR/((R-1)W)$:
+\begin{equation}
+\frac{\partial \log W}{\partial \log R} = -\phi_H \cdot \frac{1}{R - 1}.
+\label{eq:W-elasticity-clean}
+\end{equation}
+
+For large $R - 1$, this effect is small. For $R$ close to 1, the present value of labor income is highly sensitive to $R$.
+
+\paragraph{Total Elasticity of Initial Consumption.}
+From $c_0 = \kappa W$:
+\begin{equation}
+\frac{\partial \log c_0}{\partial \log R} = \frac{\partial \log \kappa}{\partial \log R} + \frac{\partial \log W}{\partial \log R}.
+\label{eq:c0-total-elasticity}
+\end{equation}
+
+The first term captures the substitution and price-index effects (how the MPC responds to $R$). The second captures the income effect (how lifetime wealth responds to $R$).
+
+\paragraph{Decomposition.}
+The MPC elasticity can be further decomposed. Recall that in the finite-horizon case, the substitution effect on $c_0$ from a change in $R_s$ was $\theta \sum_{\tau > s} \wexp_\tau$. In the infinite-horizon limit with a permanent $R$ change, this becomes:
+\begin{equation}
+\text{Substitution effect} = \theta \sum_{t=1}^{\infty} \wexp_t = \theta (1 - \wexp_0) = \theta \beta^\theta R^{\theta - 1}.
+\label{eq:substitution-infinity}
+\end{equation}
+
+The income effect depends on the difference between expenditure and income shares across all future dates.
+
+% --------------------------------------------------------------
+\subsection{Connection to the Sequence-Space Jacobian}
+\label{subsec:infinite-jacobian}
+% --------------------------------------------------------------
+
+In the infinite-horizon setting, the Jacobian matrix $\mathbf{J}^{c,R}$ becomes an infinite-dimensional object. However, for stationary economies, it has a tractable structure that can be summarized by a few sufficient statistics.
+
+\paragraph{The Impulse Response Function.}
+Consider a one-time, unanticipated shock to $R_0$ at date 0. The response of consumption at date $t$ is:
+\begin{equation}
+\frac{d \log c_t}{d \log R_0} = J^{c,R}_{t0}.
+\label{eq:irf-def}
+\end{equation}
+
+From the cross-elasticity formula (adapted to the infinite horizon), this can be computed as a function of $t$, $\theta$, $\beta$, and $R$.
+
+\paragraph{Anticipated Shocks and Forward Guidance.}
+For an anticipated shock to $R_s$ at date $s > 0$, consumption at dates $t < s$ responds in anticipation. The key insight from \cref{subsec:sequence-space} carries over: the response depends on the cumulative expenditure share on dates after $s$, which in the infinite horizon is:
+\begin{equation}
+\sum_{\tau > s} \wexp_\tau = (\beta^\theta R^{\theta - 1})^{s+1} \cdot \frac{1}{1 - \beta^\theta R^{\theta - 1}} = \frac{(1-\kappa)^{s+1}}{\kappa}.
+\label{eq:cumulative-share-infinity}
+\end{equation}
+
+As $s \to \infty$, this cumulative share vanishes (since $1 - \kappa < 1$), so shocks in the far future have negligible effects on current consumption.
+
+\paragraph{The Discounted Jacobian.}
+In sequence-space methods, a key object is the \emph{discounted Jacobian}:
+\begin{equation}
+\tilde{\mathbf{J}}^{c,R} = \sum_{s=0}^{\infty} R^{-s} \mathbf{J}^{c,R}_{\cdot, s},
+\label{eq:discounted-jacobian}
+\end{equation}
+which aggregates the effects of interest rate changes at all dates, discounted to the present. For stationary problems, this object is finite and characterizes the steady-state response to permanent shocks.
+
+\begin{calloutnote}[Sequence-Space Methods in the Infinite Horizon]
+The infinite-horizon Jacobian retains the structure identified in \cref{subsec:jacobian}:
+\begin{itemize}[nosep]
+\item A lower-triangular component from direct price effects
+\item Rank-one adjustments from price-index and income effects
+\end{itemize}
+
+For computational purposes, the infinite-horizon Jacobian is often truncated at a large but finite $T$, exploiting the fact that cross-elasticities decay geometrically in the distance $|t - s|$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Application: Capital Income Taxation in the Long Run}
+\label{subsec:infinite-tax}
+% --------------------------------------------------------------
+
+The infinite-horizon framework is well-suited for analyzing the long-run effects of capital income taxation. We extend the two-period tax analysis to a permanent tax regime.
+
+\paragraph{Setup.}
+Suppose the government imposes a permanent proportional tax $\tau$ on capital income, so the after-tax gross return is $\tilde{R} = R(1 - \tau)$. The agent faces the after-tax return in all periods.
+
+\paragraph{Effect on the MPC.}
+The after-tax MPC is:
+\begin{equation}
+\tilde{\kappa} = 1 - \beta^\theta \tilde{R}^{\theta - 1} = 1 - \beta^\theta R^{\theta - 1} (1 - \tau)^{\theta - 1}.
+\label{eq:mpc-tax}
+\end{equation}
+
+For $\theta > 1$: $(1 - \tau)^{\theta - 1} < 1$, so $\tilde{\kappa} > \kappa$. The tax raises the MPC---agents consume more of their wealth because saving is less attractive.
+
+For $\theta < 1$: $(1 - \tau)^{\theta - 1} > 1$, so $\tilde{\kappa} < \kappa$. The tax lowers the MPC---agents save more because they need to accumulate more to achieve a given consumption level.
+
+For $\theta = 1$: $(1 - \tau)^{\theta - 1} = 1$, so $\tilde{\kappa} = \kappa$. The tax has no effect on the MPC.
+
+\paragraph{Effect on Lifetime Wealth.}
+The present value of labor income at the after-tax rate is:
+\begin{equation}
+\frac{y \tilde{R}}{\tilde{R} - 1} = \frac{y R(1-\tau)}{R(1-\tau) - 1}.
+\label{eq:pv-labor-tax}
+\end{equation}
+
+For $\tau > 0$, this is lower than the pre-tax value $yR/(R-1)$ if $R(1-\tau) > 1$ (which is required for convergence). The tax reduces the present value of labor income, making the agent poorer.
+
+\paragraph{Tax with Revenue Rebate.}
+Consider a revenue-neutral policy: the government collects tax revenue and rebates it as a lump-sum transfer $T_t$ each period. In steady state with constant consumption $c$ and wealth $a$:
+\begin{equation}
+T = \tau R a.
+\label{eq:tax-revenue}
+\end{equation}
+
+The agent's budget becomes:
+\begin{equation}
+c + a' = R(1-\tau) a + y + T = R(1-\tau) a + y + \tau R a = Ra + y.
+\label{eq:budget-rebate}
+\end{equation}
+
+With the rebate, the agent's \emph{wealth} is unaffected by the tax, but the \emph{intertemporal price} (the after-tax return $\tilde{R}$) is affected. This isolates the substitution effect.
+
+\begin{calloutimportant}[Long-Run Tax Incidence]
+The long-run effects of capital income taxation depend critically on the IES:
+
+\medskip
+\textbf{High IES ($\theta > 1$):} Agents substitute strongly away from saving. The tax significantly raises the MPC, reduces capital accumulation, and has large efficiency costs. The substitution effect dominates.
+
+\medskip
+\textbf{Low IES ($\theta < 1$):} Agents are unwilling to substitute intertemporally. The tax has a smaller effect on saving behavior, and efficiency costs are modest. The income effect (needing to save more to achieve target consumption) can partially offset the substitution effect.
+
+\medskip
+\textbf{Log utility ($\theta = 1$):} The tax has no effect on the saving rate out of wealth. This is the Cobb-Douglas benchmark where income and substitution effects cancel. However, the tax still affects the \emph{level} of wealth through the present value of labor income.
+
+\medskip
+These results generalize the two-period analysis: the knife-edge at $\theta = 1$ persists in the infinite horizon, and the cross-elasticity structure that governs short-run dynamics also governs long-run steady states.
+\end{calloutimportant}
+
+\paragraph{Transition Dynamics.}
+When a tax is introduced unexpectedly at date 0, the economy transitions from the pre-tax steady state to the post-tax steady state. The sequence-space Jacobian characterizes this transition:
+\begin{equation}
+d \log \bc = \mathbf{J}^{c,R} \, d \log \tilde{\mathbf{R}},
+\label{eq:transition-tax}
+\end{equation}
+where $d \log \tilde{\mathbf{R}} = \log(1-\tau) \cdot \mathbf{e}$ is a vector of identical percentage changes in the interest rate at all dates.
+
+The consumption response at each date is the sum of the Jacobian row:
+\begin{equation}
+d \log c_t = \log(1-\tau) \sum_{s=0}^{\infty} J^{c,R}_{ts}.
+\label{eq:consumption-transition}
+\end{equation}
+
+For dates $t$ far in the future, $c_t$ converges to the new steady state. For $t = 0$, the response reflects both the immediate substitution effect and the capitalized income effect from the entire future tax burden.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:infinite-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Infinite-Horizon Consumption-Savings Problem}
+\label{tab:infinite-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Convergence condition & $\beta^\theta R^{\theta - 1} < 1$ \\[6pt]
+Lifetime wealth & $W = b_0 + \dfrac{yR}{R-1}$ \quad (constant $y$, $R$) \\[6pt]
+Marginal propensity to consume & $\kappa = 1 - \beta^\theta R^{\theta - 1}$ \\[6pt]
+Consumption function & $c_0 = \kappa \cdot W$ \\[6pt]
+Consumption growth & $c_{t+1}/c_t = (\beta R)^\theta$ \\[6pt]
+Euler equation & $u'(c_t) = \beta R \, u'(c_{t+1})$ \\[6pt]
+Value function & $V(x) = \dfrac{\kappa^{-1}}{1 - 1/\theta} \cdot x^{1-1/\theta}$ \\[6pt]
+Bellman equation & $V(x) = \max_c \left\{ u(c) + \beta V(R(x-c) + y) \right\}$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Two Perspectives, One Solution]
+The infinite-horizon problem admits two complementary formulations:
+
+\medskip
+\textbf{Sequential approach.} Views consumption as a sequence $\{c_t\}_{t=0}^\infty$ chosen to maximize lifetime utility subject to a lifetime budget constraint. Connects directly to the generalized means framework: consumption over time is a CES aggregate with infinitely many ``goods.'' The cross-date elasticities form the Jacobian matrix used in sequence-space methods.
+
+\medskip
+\textbf{Dynamic programming approach.} Views the problem recursively: at each date, choose consumption to maximize current utility plus the discounted value of continuing optimally. The value function and policy function encode the solution compactly.
+
+\medskip
+Both approaches require the same convergence condition, yield the same consumption function, and generate the same Euler equation. The choice between them depends on the question: sequence-space methods are natural for computing impulse responses and general equilibrium, while dynamic programming is natural for introducing uncertainty and constraints.
+\end{callouttip}

@@ -1,0 +1,431 @@
+% ==============================================================
+\section{The Problem and Its Solution}
+\label{sec:problem-solution}
+% ==============================================================
+
+We maximize a generalized mean subject to a linear constraint. This structure governs consumer choice, production, portfolio allocation, and more---only the interpretation of symbols changes. We solve the problem in both the canonical and classical representations simultaneously, revealing that the two approaches yield the same allocation and differ only by a multiplicative constant in the value.
+
+% --------------------------------------------------------------
+\subsection{Setup}
+\label{subsec:setup}
+% --------------------------------------------------------------
+
+Consider $n$ goods with quantities $\bx = (x_1, \ldots, x_n)$, prices $\mathbf{p} = (p_1, \ldots, p_n)$, and budget $B > 0$. The agent maximizes a generalized mean subject to a linear budget constraint. The problem admits two equivalent representations.
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical Form}
+\begin{equation}
+\max_{\bx} \; \M(\bx; \bom, \rho)
+\label{eq:canonical-obj}
+\end{equation}
+where
+\begin{equation}
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho}
+\label{eq:canonical-mean}
+\end{equation}
+with weights $\omega_i > 0$ satisfying $\sum_{i=1}^n \omega_i = 1$.
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical Form}
+\begin{equation}
+\max_{\bx} \; \Mbar(\bx; \tilde{\bom}, \rho)
+\label{eq:classical-obj}
+\end{equation}
+where
+\begin{equation}
+\Mbar(\bx; \tilde{\bom}, \rho) = \left( \sum_{i=1}^{n} \tilde{\omega}_i x_i^\rho \right)^{1/\rho}
+\label{eq:classical-mean}
+\end{equation}
+with weights $\tilde{\omega}_i > 0$ satisfying $\sum_{i=1}^n \tilde{\omega}_i = 1$.
+\end{minipage}
+
+\medskip
+\noindent
+Both are subject to the same linear constraint:
+\begin{equation}
+\sum_{i=1}^{n} p_i x_i = B.
+\label{eq:budget}
+\end{equation}
+
+We assume $\rho < 1$ with $\rho \neq 0$, ensuring the objective is concave. The parameter $\rho$ relates to the elasticity of substitution $\varepsilon$ via
+\begin{equation}
+\varepsilon = \frac{1}{1-\rho}, \qquad \rho = 1 - \frac{1}{\varepsilon}.
+\label{eq:rho-epsilon}
+\end{equation}
+
+\paragraph{The Inner Sum.}
+It is convenient to define the inner sum---the expression inside the aggregator before the outer power is applied.
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{equation}
+\Ssum(\bx; \bom, \rho) \equiv \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho
+\label{eq:inner-canonical}
+\end{equation}
+so that $\M = \Ssum^{1/\rho}$.
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{equation}
+\bar{\Ssum}(\bx; \tilde{\bom}, \rho) \equiv \sum_{i=1}^{n} \tilde{\omega}_i x_i^\rho
+\label{eq:inner-classical}
+\end{equation}
+so that $\Mbar = \bar{\Ssum}^{1/\rho}$.
+\end{minipage}
+
+\medskip
+\noindent
+This notation isolates the ``inside'' of the mean from the outer $1/\rho$ power, simplifying many derivations.
+
+% --------------------------------------------------------------
+\subsection{First-Order Conditions}
+\label{subsec:foc}
+% --------------------------------------------------------------
+
+The Lagrangian for each problem is $\mathcal{L} = \text{(objective)} - \lambda(\sum_i p_i x_i - B)$. We differentiate with respect to $x_i$ and set the result to zero.
+
+\paragraph{Partial Derivatives.}
+Using the chain rule on $\M = \Ssum^{1/\rho}$ and $\Mbar = \bar{\Ssum}^{1/\rho}$:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{align}
+\frac{\partial \M}{\partial x_i} &= \frac{1}{\rho} \Ssum^{\frac{1}{\rho}-1} \cdot \rho \, \omega_i^{1-\rho} x_i^{\rho-1} \notag \\[4pt]
+&= \Ssum^{\frac{1-\rho}{\rho}} \cdot \omega_i^{1-\rho} x_i^{\rho-1} \notag \\[4pt]
+&= \M^{1-\rho} \cdot \omega_i^{1-\rho} x_i^{\rho-1}
+\label{eq:partial-canonical}
+\end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{align}
+\frac{\partial \Mbar}{\partial x_i} &= \frac{1}{\rho} \bar{\Ssum}^{\frac{1}{\rho}-1} \cdot \rho \, \tilde{\omega}_i x_i^{\rho-1} \notag \\[4pt]
+&= \bar{\Ssum}^{\frac{1-\rho}{\rho}} \cdot \tilde{\omega}_i x_i^{\rho-1} \notag \\[4pt]
+&= \Mbar^{1-\rho} \cdot \tilde{\omega}_i x_i^{\rho-1}
+\label{eq:partial-classical}
+\end{align}
+\end{minipage}
+
+\paragraph{The First-Order Conditions.}
+Setting the partial derivative equal to the shadow price $\lambda p_i$:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{equation}
+\M^{1-\rho} \cdot \omega_i^{1-\rho} x_i^{\rho-1} = \lambda p_i
+\label{eq:foc-canonical}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{equation}
+\Mbar^{1-\rho} \cdot \tilde{\omega}_i x_i^{\rho-1} = \lambda p_i
+\label{eq:foc-classical}
+\end{equation}
+\end{minipage}
+
+\paragraph{The Ratio Condition.}
+Taking the ratio of the FOCs for goods $i$ and $j$ eliminates both the multiplier $\lambda$ and the mean term:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{equation}
+\frac{\omega_i^{1-\rho} x_i^{\rho-1}}{\omega_j^{1-\rho} x_j^{\rho-1}} = \frac{p_i}{p_j}
+\label{eq:ratio-canonical}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{equation}
+\frac{\tilde{\omega}_i x_i^{\rho-1}}{\tilde{\omega}_j x_j^{\rho-1}} = \frac{p_i}{p_j}
+\label{eq:ratio-classical}
+\end{equation}
+\end{minipage}
+
+\medskip
+\noindent
+This is the fundamental optimality condition: the marginal rate of substitution equals the price ratio. Both forms encode the same economic content---the agent equates the bang-per-buck across all goods.
+
+% --------------------------------------------------------------
+\subsection{Deriving the Budget Shares}
+\label{subsec:budget-shares}
+% --------------------------------------------------------------
+
+The budget share of good $i$ is $\wexp_i \equiv p_i x_i / B$. We derive it by manipulating the first-order conditions.
+
+\paragraph{Multiplying by $x_i$.}
+Multiply each FOC by the corresponding quantity:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{equation}
+\lambda p_i x_i = \M^{1-\rho} \cdot \omega_i^{1-\rho} x_i^{\rho}
+\label{eq:foc-times-x-canonical}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{equation}
+\lambda p_i x_i = \Mbar^{1-\rho} \cdot \tilde{\omega}_i x_i^{\rho}
+\label{eq:foc-times-x-classical}
+\end{equation}
+\end{minipage}
+
+\paragraph{Summing Over All Goods.}
+Summing the left-hand side gives $\lambda B$ (using the budget constraint). Summing the right-hand side reconstitutes the inner sum:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{align}
+\lambda B &= \M^{1-\rho} \cdot \sum_{i=1}^n \omega_i^{1-\rho} x_i^{\rho} \notag \\[4pt]
+&= \M^{1-\rho} \cdot \Ssum \notag \\[4pt]
+&= \M^{1-\rho} \cdot \M^{\rho} = \M
+\label{eq:sum-canonical}
+\end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{align}
+\lambda B &= \Mbar^{1-\rho} \cdot \sum_{i=1}^n \tilde{\omega}_i x_i^{\rho} \notag \\[4pt]
+&= \Mbar^{1-\rho} \cdot \bar{\Ssum} \notag \\[4pt]
+&= \Mbar^{1-\rho} \cdot \Mbar^{\rho} = \Mbar
+\label{eq:sum-classical}
+\end{align}
+\end{minipage}
+
+\medskip
+\noindent
+In both cases, we obtain the elegant result:
+\begin{equation}
+\lambda = \frac{\M}{B} \quad \text{(canonical)}, \qquad \lambda = \frac{\Mbar}{B} \quad \text{(classical)}.
+\label{eq:lambda-value}
+\end{equation}
+
+The shadow price of wealth equals the mean divided by the budget---the ``average'' value per unit of spending.
+
+\paragraph{The Budget Share Formula.}
+Dividing \cref{eq:foc-times-x-canonical,eq:foc-times-x-classical} by the corresponding sum:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{equation}
+\wexp_i = \frac{p_i x_i}{B} = \frac{\omega_i^{1-\rho} x_i^{\rho}}{\Ssum}
+\label{eq:share-canonical}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{equation}
+\wexp_i = \frac{p_i x_i}{B} = \frac{\tilde{\omega}_i x_i^{\rho}}{\bar{\Ssum}}
+\label{eq:share-classical}
+\end{equation}
+\end{minipage}
+
+\begin{proposition}[Budget Shares as Induced Weights]
+\label{prop:shares-induced}
+The optimal budget shares equal the normalized terms inside the generalized mean:
+\begin{equation}
+\wexp_i = \frac{\text{(term $i$ in inner sum)}}{\text{(inner sum)}}.
+\label{eq:shares-induced}
+\end{equation}
+These are the \emph{induced weights} of the aggregator evaluated at the optimum.
+\end{proposition}
+
+This result is fundamental: budget shares emerge directly from the structure of the generalized mean. We will see that this connects to the Kullback-Leibler divergence and has deep information-theoretic content.
+
+% --------------------------------------------------------------
+\subsection{The Ideal Price Index}
+\label{subsec:price-index}
+% --------------------------------------------------------------
+
+To solve for optimal quantities explicitly, we must express the budget shares in terms of prices and parameters alone. This leads to the ideal price index.
+
+\paragraph{Solving the Ratio Condition.}
+From \cref{eq:ratio-canonical}, we can express the quantity ratio:
+\begin{equation}
+\frac{x_i}{x_j} = \left(\frac{\omega_i}{\omega_j}\right)^{\frac{1-\rho}{\rho-1}} \left(\frac{p_i}{p_j}\right)^{\frac{1}{\rho-1}} = \frac{\omega_i}{\omega_j} \left(\frac{p_i}{p_j}\right)^{-\varepsilon}.
+\label{eq:quantity-ratio}
+\end{equation}
+
+Using the budget constraint to pin down the scale, after algebraic manipulation (detailed in the appendix), we obtain the budget share:
+\begin{equation}
+\wexp_i = \frac{\omega_i \, p_i^{1-\varepsilon}}{\sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon}}.
+\label{eq:share-prices}
+\end{equation}
+
+\begin{definition}[Ideal Price Index]
+\label{def:price-index}
+The \emph{ideal price index} is
+\begin{equation}
+\Pstar \equiv \left( \sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}} = \Mbar_{1-\varepsilon}(\mathbf{p}; \bom).
+\label{eq:price-index}
+\end{equation}
+\end{definition}
+
+\begin{calloutnote}[The Price Index is Always Classical]
+Regardless of whether we start from the canonical or classical representation, the ideal price index takes the \emph{classical} form: a generalized mean of prices with weights $\omega_i$ (not $\omega_i^{1-\rho}$). The power parameter is $1 - \varepsilon = \rho/(\rho-1)$.
+
+This asymmetry arises because the transformation from quantities to expenditure shares ``undoes'' part of the canonical weighting structure.
+\end{calloutnote}
+
+Using the price index, the budget shares take the compact form:
+\begin{equation}
+\wexp_i = \omega_i \left(\frac{p_i}{\Pstar}\right)^{1-\varepsilon}.
+\label{eq:share-compact}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Solution}
+\label{subsec:solution}
+% --------------------------------------------------------------
+
+We now assemble the complete solution.
+
+\paragraph{Optimal Quantities.}
+From $x_i = \wexp_i B / p_i$ and \cref{eq:share-compact}:
+\begin{equation}
+x_i\opt = \omega_i \left(\frac{p_i}{\Pstar}\right)^{-\varepsilon} \cdot \frac{B}{\Pstar}.
+\label{eq:optimal-x}
+\end{equation}
+
+\paragraph{The Value Function.}
+Substituting the optimal allocation back into the objective requires computing the inner sum at the optimum. Using $x_i\opt = \wexp_i B / p_i$:
+
+\medskip
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Canonical}
+\begin{align}
+\Ssum\opt &= \sum_{i=1}^{n} \omega_i^{1-\rho} (x_i\opt)^{\rho} \notag \\[4pt]
+&= \sum_{i=1}^{n} \omega_i^{1-\rho} \left(\frac{\wexp_i B}{p_i}\right)^{\rho}
+\label{eq:Sopt-canonical}
+\end{align}
+After substitution and simplification:
+\begin{equation}
+\M\opt = \frac{B}{\Pstar}
+\label{eq:value-canonical}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering\textbf{Classical}
+\begin{align}
+\bar{\Ssum}\opt &= \sum_{i=1}^{n} \tilde{\omega}_i (x_i\opt)^{\rho} \notag \\[4pt]
+&= \sum_{i=1}^{n} \tilde{\omega}_i \left(\frac{\wexp_i B}{p_i}\right)^{\rho}
+\label{eq:Sopt-classical}
+\end{align}
+After substitution and simplification:
+\begin{equation}
+\Mbar\opt = \kappa \cdot \frac{B}{\Pstar}
+\label{eq:value-classical}
+\end{equation}
+\end{minipage}
+
+\medskip
+\noindent
+where $\kappa = \Omega(\bom, \rho)^{(1-\rho)/\rho}$ is the scaling factor from the transformation between representations.
+
+\begin{proposition}[Value of the Program]
+\label{prop:value}
+The maximized value of the generalized mean is:
+\begin{equation}
+\M\opt = \frac{B}{\Pstar} \quad \text{(canonical)}, \qquad \Mbar\opt = \kappa \cdot \frac{B}{\Pstar} \quad \text{(classical)}.
+\label{eq:value-both}
+\end{equation}
+The ratio $B/\Pstar$ is the \emph{real budget}---the nominal budget deflated by the ideal price index.
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{Equivalence of Representations}
+\label{subsec:equivalence}
+% --------------------------------------------------------------
+
+We now make precise the relationship between the two representations.
+
+\begin{proposition}[Canonical--Classical Equivalence]
+\label{prop:equivalence}
+The canonical problem with weights $\bom$ and the classical problem with weights $\tilde{\bom}$ yield:
+\begin{enumerate}[label=(\roman*)]
+    \item The \textbf{same optimal allocation} $\bx\opt$
+    \item The \textbf{same budget shares} $\wexp_i$
+    \item The \textbf{same price index} $\Pstar$
+    \item Values differing by the constant $\kappa$: $\Mbar\opt = \kappa \cdot \M\opt$
+\end{enumerate}
+when the weights are related by the transformation
+\begin{equation}
+\tilde{\omega}_i = \frac{\omega_i^{1-\rho}}{\sum_{j=1}^{n} \omega_j^{1-\rho}}, \qquad \omega_i = \frac{\tilde{\omega}_i^{1/(1-\rho)}}{\sum_{j=1}^{n} \tilde{\omega}_j^{1/(1-\rho)}}.
+\label{eq:weight-transform}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Compare the ratio conditions \cref{eq:ratio-canonical,eq:ratio-classical}. Substituting $\tilde{\omega}_i = \omega_i^{1-\rho}/\Omega^\rho$ (where $\Omega = \sum_k \omega_k^{1-\rho}$) into \cref{eq:ratio-classical}:
+\[
+\frac{\tilde{\omega}_i x_i^{\rho-1}}{\tilde{\omega}_j x_j^{\rho-1}} = \frac{(\omega_i^{1-\rho}/\Omega^\rho) x_i^{\rho-1}}{(\omega_j^{1-\rho}/\Omega^\rho) x_j^{\rho-1}} = \frac{\omega_i^{1-\rho} x_i^{\rho-1}}{\omega_j^{1-\rho} x_j^{\rho-1}}.
+\]
+This equals the canonical ratio condition \cref{eq:ratio-canonical}. Since both problems have the same FOC ratio and the same budget constraint, they have the same solution.
+\end{proof}
+
+\begin{calloutimportant}[Why This Matters]
+Since the constant $\kappa$ does not depend on $\bx$, maximizing $\Mbar = \kappa \cdot \M$ yields the same optimizer as maximizing $\M$. We can therefore:
+\begin{itemize}[nosep]
+    \item Work in whichever representation is more convenient
+    \item Convert between representations using \cref{eq:weight-transform}
+    \item Report allocations and shares without specifying which form was used
+\end{itemize}
+The canonical form is often preferred because $\M\opt = B/\Pstar$ has the clean interpretation of ``real budget.''
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Summary: The Complete Demand System}
+\label{subsec:summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The CES Demand System}
+\label{tab:demand-system}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Ideal price index & $\displaystyle \Pstar = \left( \sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}$ \\[12pt]
+Budget share & $\displaystyle \wexp_i = \omega_i \left(\frac{p_i}{\Pstar}\right)^{1-\varepsilon}$ \\[12pt]
+Optimal quantity & $\displaystyle x_i\opt = \omega_i \left(\frac{p_i}{\Pstar}\right)^{-\varepsilon} \cdot \frac{B}{\Pstar}$ \\[12pt]
+Value (canonical) & $\displaystyle \M\opt = \frac{B}{\Pstar}$ \\[8pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Interpretation]
+The optimal allocation has a multiplicative structure:
+\[
+x_i\opt = \underbrace{\omega_i}_{\text{weight}} \times \underbrace{\left(\frac{p_i}{\Pstar}\right)^{-\varepsilon}}_{\text{relative price}} \times \underbrace{\frac{B}{\Pstar}}_{\text{real budget}}
+\]
+The weight $\omega_i$ captures the primitive importance of good $i$. The relative price term induces substitution toward cheaper goods, with elasticity $\varepsilon$. The real budget scales all quantities proportionally.
+\end{callouttip}
