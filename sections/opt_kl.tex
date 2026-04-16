@@ -1,0 +1,254 @@
+% ==============================================================
+% Section 6: The KL Divergence Connection
+% ==============================================================
+
+\section{The KL Divergence Connection}
+\label{sec:kl-connection}
+
+The budget shares $w_i^*$ that emerge from optimization are not arbitrary---they are the \emph{induced weights} of the price index $\Pstar$. This observation connects our results to information theory. The Kullback-Leibler divergence between budget shares and primitive weights measures price distortion and governs the welfare value of substitutability.
+
+% --------------------------------------------------------------
+\subsection{Budget Shares as Induced Weights}
+\label{subsec:induced-weights}
+% --------------------------------------------------------------
+
+Recall from the chapter on generalized means that every classical mean induces a set of weights. For a classical mean $\Mbar_{\tilde{\rho}}(\mathbf{p}; \bom)$ with power $\tilde{\rho}$, the induced weights are:
+\begin{equation}
+\tilde{w}_i = \frac{\omega_i \, p_i^{\tilde{\rho}}}{\sum_{j=1}^{n} \omega_j \, p_j^{\tilde{\rho}}}.
+\end{equation}
+
+The price index $\Pstar$ is a classical mean with power $\tilde{\rho} = 1 - \varepsilon = \rho/(\rho-1)$. Its induced weights are:
+\begin{equation}
+\tilde{w}_i = \frac{\omega_i \, p_i^{1-\varepsilon}}{\sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon}}.
+\end{equation}
+
+Comparing with the budget share formula from Section~\ref{sec:solution}:
+
+\begin{proposition}[Budget Shares Are Induced Weights]
+\label{prop:shares-induced}
+The optimal budget shares equal the induced weights in the price index:
+\begin{equation}
+w_i^* = \tilde{w}_i = \frac{\omega_i \, p_i^{1-\varepsilon}}{\sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon}}.
+\end{equation}
+\end{proposition}
+
+This is not a coincidence. The mathematics of generalized means and the economics of constrained optimization are two perspectives on the same structure.
+
+% --------------------------------------------------------------
+\subsection{The Zero-Distortion Benchmark}
+\label{subsec:zero-distortion}
+% --------------------------------------------------------------
+
+When do budget shares equal the primitive weights? The answer characterizes a natural benchmark.
+
+\begin{proposition}[Zero-Distortion Characterization]
+\label{prop:zero-distortion}
+The following conditions are equivalent:
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item Budget shares equal weights: $w_i^* = \omega_i$ for all $i$
+    \item Prices are equal: $p_1 = p_2 = \cdots = p_n$
+    \item Optimal quantities equal weights: $x_i^* = \omega_i \cdot (W/p)$ where $p$ is the common price
+    \item The price index equals the common price: $\Pstar = p$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+From the budget share formula, $w_i^* = \omega_i$ requires:
+\[
+\frac{\omega_i \, p_i^{1-\varepsilon}}{\sum_j \omega_j \, p_j^{1-\varepsilon}} = \omega_i \quad \Longleftrightarrow \quad p_i^{1-\varepsilon} = \sum_j \omega_j \, p_j^{1-\varepsilon} \quad \text{for all } i.
+\]
+This holds for all $i$ only if $p_i^{1-\varepsilon}$ is constant across $i$, i.e., $p_i = p$ for all $i$. The remaining equivalences follow immediately.
+\end{proof}
+
+\paragraph{Interpretation.}
+Equal prices represent the ``undistorted'' benchmark. The consumer allocates according to primitive preferences $\omega_i$, with no substitution induced by price heterogeneity. Any deviation of $w_i^*$ from $\omega_i$ reflects the distorting effect of unequal prices.
+
+% --------------------------------------------------------------
+\subsection{Measuring Distortion: The KL Divergence}
+\label{subsec:kl-divergence}
+% --------------------------------------------------------------
+
+The natural measure of how far budget shares deviate from primitive weights is the Kullback-Leibler divergence.
+
+\begin{definition}[KL Divergence of Budget Shares]
+\label{def:kl-shares}
+The \emph{KL divergence} from primitive weights to budget shares is:
+\begin{equation}
+\KL{w^*}{\omega} = \sum_{i=1}^{n} w_i^* \ln \frac{w_i^*}{\omega_i}.
+\end{equation}
+\end{definition}
+
+From the properties established in the generalized means chapter:
+
+\begin{proposition}[Properties of Budget Share Divergence]
+\label{prop:kl-properties}
+The KL divergence $\KL{w^*}{\omega}$ satisfies:
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item \textbf{Non-negativity}: $\KL{w^*}{\omega} \geq 0$
+    \item \textbf{Zero at benchmark}: $\KL{w^*}{\omega} = 0$ if and only if $w_i^* = \omega_i$ for all $i$
+    \item \textbf{Price dispersion}: $\KL{w^*}{\omega} > 0$ whenever prices are heterogeneous
+\end{enumerate}
+\end{proposition}
+
+\paragraph{Economic interpretation.}
+The KL divergence measures the ``informational distance'' between what the consumer \emph{would} choose (weights $\omega_i$) and what they \emph{actually} choose (shares $w_i^*$) given prices. It quantifies the behavioral distortion induced by price heterogeneity.
+
+% --------------------------------------------------------------
+\subsection{Welfare Sensitivity to Substitutability}
+\label{subsec:welfare-sensitivity}
+% --------------------------------------------------------------
+
+The central result connects the KL divergence to how welfare responds to changes in substitutability. Recall from the generalized means chapter that for a classical mean $\Mbar_{\tilde{\rho}}$:
+\begin{equation}
+\frac{d \ln \Mbar_{\tilde{\rho}}}{d\tilde{\rho}} = \frac{1}{\tilde{\rho}^2} \KL{\tilde{w}}{\omega},
+\end{equation}
+where $\tilde{w}$ are the induced weights.
+
+Applying this to the price index $\Pstar = \Mbar_{1-\varepsilon}(\mathbf{p}; \bom)$:
+
+\begin{proposition}[Price Index Sensitivity]
+\label{prop:price-sensitivity}
+The sensitivity of the log price index to the power parameter is:
+\begin{equation}
+\frac{d \ln \Pstar}{d(1-\varepsilon)} = \frac{\KL{w^*}{\omega}}{(1-\varepsilon)^2}.
+\end{equation}
+\end{proposition}
+
+Since indirect utility is $V = W/\Pstar$, we have $\ln V = \ln W - \ln \Pstar$. Differentiating:
+
+\begin{proposition}[Welfare Sensitivity]
+\label{prop:welfare-sensitivity}
+The sensitivity of log welfare to the substitution parameter satisfies:
+\begin{equation}
+\frac{d \ln V}{d\varepsilon} = \frac{\KL{w^*}{\omega}}{(1-\varepsilon)^2} > 0 \quad \text{when } \KL{w^*}{\omega} > 0.
+\end{equation}
+Higher substitutability (higher $\varepsilon$) increases welfare whenever prices are heterogeneous.
+\end{proposition}
+
+\begin{proof}
+We have $\ln V = \ln W - \ln \Pstar$. Since $W$ is independent of $\varepsilon$:
+\[
+\frac{d \ln V}{d\varepsilon} = -\frac{d \ln \Pstar}{d\varepsilon} = -\frac{d \ln \Pstar}{d(1-\varepsilon)} \cdot \frac{d(1-\varepsilon)}{d\varepsilon} = -\frac{\KL{w^*}{\omega}}{(1-\varepsilon)^2} \cdot (-1) = \frac{\KL{w^*}{\omega}}{(1-\varepsilon)^2}.
+\]
+\end{proof}
+
+\begin{calloutimportant}[The Value of Flexibility]
+This result has a striking interpretation. The \textbf{marginal value of substitutability} is proportional to the KL divergence:
+\begin{itemize}[nosep, leftmargin=1.5em]
+    \item When prices are equal, $\KL{w^*}{\omega} = 0$, and substitutability has no value---there is nothing to substitute toward.
+    \item When prices differ, $\KL{w^*}{\omega} > 0$, and higher $\varepsilon$ allows the consumer to shift toward cheaper goods, raising welfare.
+    \item The \emph{larger} the price dispersion (measured by KL divergence), the \emph{more valuable} is the ability to substitute.
+\end{itemize}
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Chain of Implications}
+\label{subsec:chain}
+% --------------------------------------------------------------
+
+We can now trace the complete logic from price heterogeneity to welfare:
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Price heterogeneity} ($p_i \neq p_j$) induces budget share distortion ($w_i^* \neq \omega_i$).
+    
+    \item \textbf{Budget share distortion} is measured by $\KL{w^*}{\omega} > 0$.
+    
+    \item \textbf{KL divergence} governs the sensitivity of $\ln \Pstar$ to the power parameter.
+    
+    \item \textbf{Price index sensitivity} translates to welfare sensitivity via $V = W/\Pstar$.
+    
+    \item \textbf{Higher substitutability} (higher $\varepsilon$) lowers $\Pstar$ and raises welfare.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Price Dispersion and Welfare}
+\label{tab:kl-welfare}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Condition} & \textbf{KL Divergence} & \textbf{Welfare Implication} \\
+\midrule
+Equal prices & $\KL{w^*}{\omega} = 0$ & $\Pstar$ invariant to $\varepsilon$; no gain from substitution \\[2pt]
+Unequal prices & $\KL{w^*}{\omega} > 0$ & Higher $\varepsilon$ lowers $\Pstar$, raises $V$ \\[2pt]
+Large dispersion & Large $\KL{w^*}{\omega}$ & Large welfare gains from substitutability \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{Why KL Divergence?}
+\label{subsec:why-kl}
+% --------------------------------------------------------------
+
+One might ask why the KL divergence---rather than variance or some other measure---is the ``right'' metric for price dispersion.
+
+\paragraph{Structural emergence.}
+The KL divergence is not an ad hoc choice. It emerges naturally from the mathematics of generalized means. The sensitivity formula $d \ln \Mbar / d\tilde{\rho} = \KL{\tilde{w}}{\omega}/\tilde{\rho}^2$ is a theorem, not an assumption.
+
+\paragraph{Economic meaning.}
+The induced weights $w_i^*$ have direct economic interpretation as budget shares. The KL divergence $\KL{w^*}{\omega}$ measures the distance between \emph{behavior} (what the consumer does) and \emph{preferences} (what the consumer would do absent price distortion).
+
+\paragraph{Correct limiting behavior.}
+The KL divergence equals zero precisely when there is no distortion (equal prices), and is strictly positive otherwise. This matches economic intuition about when substitutability matters.
+
+\paragraph{Contrast with variance.}
+Price variance, by contrast:
+\begin{itemize}[nosep, leftmargin=1.5em]
+    \item Does not account for preference weights $\omega_i$
+    \item Depends on arbitrary price scaling
+    \item Does not emerge from the optimization structure
+    \item Does not directly govern welfare sensitivity
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{Application: Gains from Price Convergence}
+\label{subsec:price-convergence}
+% --------------------------------------------------------------
+
+Consider an economy where prices converge toward equality---for example, through trade liberalization or technological change that reduces price dispersion.
+
+\paragraph{Initial state.}
+With heterogeneous prices $\mathbf{p}^0$, the consumer faces KL divergence $\KL{w^0}{\omega} > 0$ and achieves welfare $V^0 = W/\Pstar(\mathbf{p}^0)$.
+
+\paragraph{Final state.}
+With equal prices $p^1 = \bar{p}$ (say, the geometric mean of initial prices), the consumer achieves $\KL{w^1}{\omega} = 0$ and welfare $V^1 = W/\bar{p}$.
+
+\paragraph{Welfare gain.}
+The welfare gain from price convergence is:
+\begin{equation}
+\ln V^1 - \ln V^0 = \ln \Pstar(\mathbf{p}^0) - \ln \bar{p}.
+\end{equation}
+
+For small price dispersion, a Taylor expansion gives:
+\begin{equation}
+\ln V^1 - \ln V^0 \approx \frac{\varepsilon - 1}{2} \cdot \text{Var}_\omega(\ln p),
+\end{equation}
+where $\text{Var}_\omega(\ln p) = \sum_i \omega_i (\ln p_i - \overline{\ln p})^2$ is the variance of log prices weighted by $\omega_i$.
+
+\begin{calloutnote}[Connection to Trade Theory]
+This approximation underlies calculations of ``gains from trade'' in international economics. Price convergence across countries---driven by trade---generates welfare gains proportional to the variance of log prices, with the elasticity of substitution $\varepsilon$ governing the magnitude. High substitutability amplifies the gains.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:kl-summary}
+% --------------------------------------------------------------
+
+The KL divergence provides a unified measure of price distortion and its welfare consequences:
+
+\begin{enumerate}[leftmargin=2em]
+    \item Budget shares $w_i^*$ are the induced weights in the price index $\Pstar$.
+    
+    \item The KL divergence $\KL{w^*}{\omega}$ measures how far behavior deviates from undistorted preferences.
+    
+    \item Zero divergence characterizes the equal-price benchmark where substitutability is irrelevant.
+    
+    \item Positive divergence implies that higher substitutability raises welfare: $dV/d\varepsilon > 0$.
+    
+    \item The magnitude of welfare sensitivity is proportional to the KL divergence itself.
+\end{enumerate}
+
+\begin{callouttip}[The Deeper Connection]
+The information-theoretic interpretation runs deeper than this chapter develops. In the chapter on generalized means, we showed that the CES aggregator can be derived from entropy-regularized optimization---the Gibbs variational principle. The parameter $\rho$ governs the cost of deviating from default weights. The KL divergence that appears here is the same object that appears there, reflecting a fundamental unity between economic optimization and information theory.
+\end{callouttip}

@@ -1,0 +1,584 @@
+% ==============================================================
+% Chapter: Comparative Statics of CES Demand
+% ==============================================================
+
+\chapter{Comparative Statics}
+\label{ch:comparative-statics}
+
+\epigraph{This may be regarded as the Fundamental Equation of Value Theory.}{\textit{John R.\ Hicks}, on the Slutsky equation, \textit{Value and Capital} (1939)}
+
+\epigraph{The complicated analyses which economists endeavour to carry through are not mere gymnastics. They are instruments for bettering human life.}{\textit{A.C.\ Pigou}}
+This chapter develops the comparative statics of CES demand systems. We derive how optimal allocations respond to changes in prices, weights, and the substitution parameter. The analysis reveals a fundamental distinction between \emph{myopic} and \emph{exact} elasticities, and culminates in an information-theoretic characterization of how the value of substitutability depends on price dispersion.
+
+% ==============================================================
+\section{Setup and Preliminaries}
+\label{sec:cs-setup}
+% ==============================================================
+
+% --------------------------------------------------------------
+\paragraph{The General Problem.}
+% --------------------------------------------------------------
+
+We work with the canonical optimization problem from the previous chapter: maximize a generalized mean subject to a linear constraint. The objective is
+\begin{equation}
+\label{eq:cs-objective}
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^{\rho} \right)^{1/\rho}, \quad \rho < 1, \; \rho \neq 0,
+\end{equation}
+where $\bx = (x_1, \ldots, x_n)$ are quantities, $\bom = (\omega_1, \ldots, \omega_n)$ are weights with $\sum_i \omega_i = 1$, and $\rho$ is the power parameter. The constraint is
+\begin{equation}
+\label{eq:cs-constraint}
+\sum_{i=1}^{n} p_i x_i = B,
+\end{equation}
+where $p_i > 0$ are prices and $B > 0$ is the budget.
+
+The results apply to any application of this structure: consumer choice ($\M = \U$, $x_i = c_i$, $B = W$), production ($\M = \F$, $x_i$ are inputs, $B$ is cost), portfolio allocation ($\M = \CE$, $\omega_i = \pi_i$ are probabilities), or intertemporal choice. We use the generic notation throughout, returning to context-specific interpretations as needed.
+
+% --------------------------------------------------------------
+\paragraph{The Demand System.}
+% --------------------------------------------------------------
+
+The solution to the canonical problem is:
+\begin{equation}
+\label{eq:cs-demand}
+x_i\opt = \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \frac{B}{\Pstar},
+\end{equation}
+where $\varepsilon = 1/(1-\rho)$ is the elasticity of substitution and $\Pstar$ is the ideal price index:
+\begin{equation}
+\label{eq:cs-price-index}
+\Pstar = \left( \sum_{j=1}^{n} \omega_j p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}.
+\end{equation}
+
+The optimized value of the mean is $\M\opt = B / \Pstar$---the budget deflated by the price index.
+
+The expenditure shares are:
+\begin{equation}
+\label{eq:cs-shares}
+w_i \equiv \frac{p_i x_i\opt}{B} = \frac{\omega_i p_i^{1-\varepsilon}}{\sum_j \omega_j p_j^{1-\varepsilon}} = \omega_i \left( \frac{p_i}{\Pstar} \right)^{1-\varepsilon}.
+\end{equation}
+
+These are the induced weights of the price index---a fact that will prove central to the information-theoretic results below.
+
+% --------------------------------------------------------------
+\paragraph{Notation and Conventions.}
+% --------------------------------------------------------------
+
+We follow the conventions established earlier. The power parameter $\rho \in (-\infty, 1)$ enters the CES aggregator directly; the elasticity of substitution $\varepsilon = 1/(1-\rho) \in (0, \infty)$ governs behavioral responses. The limiting cases are: perfect substitutes ($\rho \to 1$, $\varepsilon \to \infty$), Cobb-Douglas ($\rho = 0$, $\varepsilon = 1$), and Leontief ($\rho \to -\infty$, $\varepsilon \to 0$).
+
+% --------------------------------------------------------------
+\paragraph{Myopic versus Exact Responses.}
+% --------------------------------------------------------------
+
+A key theme of this chapter is the distinction between \emph{myopic} and \emph{exact} elasticities. When a parameter changes---say, a price $p_i$---demand responds through two channels:
+\begin{enumerate}[label=(\roman*), nosep]
+    \item The \textbf{direct effect}: how $x_i$ responds holding the price index $\Pstar$ fixed.
+    \item The \textbf{price index effect}: how the change in $\Pstar$ feeds back into all demands.
+\end{enumerate}
+
+\begin{definition}[Myopic Elasticity]
+\label{def:myopic}
+The \emph{myopic elasticity} of $x_i$ with respect to parameter $\theta$ is the partial derivative holding $\Pstar$ fixed:
+\begin{equation}
+\tilde{\eta}_{i,\theta} = \frac{\partial \ln x_i}{\partial \ln \theta} \bigg|_{\Pstar \text{ fixed}}.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Exact Elasticity]
+\label{def:exact}
+The \emph{exact elasticity} accounts for the full effect, including how $\theta$ changes $\Pstar$:
+\begin{equation}
+\eta_{i,\theta} = \frac{d \ln x_i}{d \ln \theta}.
+\end{equation}
+\end{definition}
+
+The exact elasticity equals the myopic elasticity plus the price index effect. The myopic elasticity is ``constant'' in the sense that it depends only on $\varepsilon$; the exact elasticity additionally depends on expenditure shares $w_i$.
+
+\begin{calloutimportant}[When Myopic Elasticities Apply]
+The myopic elasticity becomes the relevant elasticity in two important settings:
+\begin{enumerate}[nosep]
+    \item \textbf{Large economies}: As $n \to \infty$, any single price has negligible effect on $\Pstar$.
+    \item \textbf{Small agents}: When the agent is ``small'' relative to the market (e.g., price-taking firms, small open economies).
+\end{enumerate}
+In these cases, the price index is effectively exogenous and the myopic response governs behavior.
+\end{calloutimportant}
+
+% ==============================================================
+\section{Price Elasticities}
+\label{sec:price-elasticities}
+% ==============================================================
+
+We now derive how demand responds to price changes, separating own-price and cross-price effects.
+
+% --------------------------------------------------------------
+\subsection{Own-Price Response}
+\label{subsec:own-price}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{Myopic Elasticity.}
+% --------------------------------------------------------------
+
+From \eqref{eq:cs-demand}, treating $\Pstar$ as fixed:
+\begin{equation}
+\ln x_i = \ln \omega_i - \varepsilon \ln p_i + (\varepsilon - 1) \ln \Pstar + \ln W.
+\end{equation}
+Differentiating with respect to $\ln p_i$:
+\begin{equation}
+\label{eq:myopic-own}
+\tilde{\eta}_{ii} = -\varepsilon.
+\end{equation}
+
+The myopic own-price elasticity is constant and equal to the negative of the elasticity of substitution. This is the sense in which CES demands have ``constant elasticity.''
+
+% --------------------------------------------------------------
+\paragraph{Price Index Effect.}
+% --------------------------------------------------------------
+
+When $p_i$ changes, the price index responds. Differentiating \eqref{eq:cs-price-index}:
+\begin{equation}
+\label{eq:dP-dp}
+\frac{d \ln \Pstar}{d \ln p_i} = w_i.
+\end{equation}
+
+\begin{proof}
+From $\Pstar = \Ssum_p^{1/(1-\varepsilon)}$ where $\Ssum_p = \sum_j \omega_j p_j^{1-\varepsilon}$:
+\begin{align*}
+\frac{\partial \ln \Pstar}{\partial \ln p_i} &= \frac{1}{1-\varepsilon} \cdot \frac{\omega_i (1-\varepsilon) p_i^{1-\varepsilon}}{\Ssum_p} = \frac{\omega_i p_i^{1-\varepsilon}}{\Ssum_p} = w_i.
+\end{align*}
+\end{proof}
+
+The elasticity of the price index with respect to $p_i$ equals the expenditure share $w_i$. This is intuitive: a price that accounts for a larger share of spending has a larger effect on the overall price level.
+
+% --------------------------------------------------------------
+\paragraph{Exact Elasticity.}
+% --------------------------------------------------------------
+
+The demand equation \eqref{eq:cs-demand} in logs is:
+\begin{equation}
+\ln x_i = \ln \omega_i - \varepsilon \ln p_i + (\varepsilon - 1) \ln \Pstar + \ln W.
+\end{equation}
+
+Taking the total differential with respect to $\ln p_i$:
+\begin{align}
+\frac{d \ln x_i}{d \ln p_i} &= -\varepsilon + (\varepsilon - 1) \frac{d \ln \Pstar}{d \ln p_i} \notag \\
+&= -\varepsilon + (\varepsilon - 1) w_i.
+\end{align}
+
+The exact own-price elasticity is:
+\begin{equation}
+\label{eq:exact-own}
+\eta_{ii} = -\varepsilon + (\varepsilon - 1) w_i = -\varepsilon(1 - w_i) - w_i.
+\end{equation}
+
+\begin{proposition}[Decomposition of Own-Price Elasticity]
+\label{prop:own-price-decomp}
+The exact own-price elasticity decomposes as:
+\begin{equation}
+\eta_{ii} = \underbrace{-\varepsilon}_{\text{myopic}} + \underbrace{(\varepsilon - 1) w_i}_{\text{price index effect}}.
+\end{equation}
+\end{proposition}
+
+When $\varepsilon > 1$ (gross substitutes), the price index effect is positive, partially offsetting the myopic response. When $\varepsilon < 1$ (gross complements), the price index effect reinforces the myopic response.
+
+% --------------------------------------------------------------
+\subsection{Cross-Price Response}
+\label{subsec:cross-price}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{The Formula.}
+% --------------------------------------------------------------
+
+Good $j$'s price affects demand for good $i$ only through the price index. From \eqref{eq:cs-demand}:
+\begin{equation}
+\frac{d \ln x_i}{d \ln p_j} = (\varepsilon - 1) \frac{d \ln \Pstar}{d \ln p_j} = (\varepsilon - 1) w_j, \quad i \neq j.
+\end{equation}
+
+The exact cross-price elasticity is:
+\begin{equation}
+\label{eq:exact-cross}
+\eta_{ij} = (\varepsilon - 1) w_j, \quad i \neq j.
+\end{equation}
+
+The myopic cross-price elasticity is zero: holding $\Pstar$ fixed, $p_j$ does not affect $x_i$ directly.
+
+% --------------------------------------------------------------
+\paragraph{Gross Substitutes and Complements.}
+% --------------------------------------------------------------
+
+The sign of the cross-price elasticity determines whether goods are gross substitutes or complements:
+
+\begin{center}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+$\varepsilon > 1$ & $\eta_{ij} > 0$ & Gross substitutes \\
+$\varepsilon = 1$ & $\eta_{ij} = 0$ & Gross independence (Cobb-Douglas) \\
+$\varepsilon < 1$ & $\eta_{ij} < 0$ & Gross complements \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{calloutimportant}[Economic Significance of Gross Substitutes]
+The gross substitutes property ($\varepsilon > 1$) has profound implications:
+\begin{enumerate}[nosep]
+    \item \textbf{Uniqueness}: Sufficient for uniqueness of Walrasian equilibrium.
+    \item \textbf{Stability}: T\^atonnement dynamics converge globally.
+    \item \textbf{Comparative statics}: ``Normal'' responses to endowment changes.
+\end{enumerate}
+\end{calloutimportant}
+
+\begin{calloutnote}[Gross versus Net Substitutes]
+Goods are always \emph{net substitutes} in the CES framework: the Hicksian cross-price elasticity $\eta_{ij}^H = \varepsilon w_j > 0$ for all $\varepsilon > 0$. However, goods may be \emph{gross complements} when $\varepsilon < 1$. The wealth effect (captured in the $-1$ term in $\varepsilon - 1$) can reverse the sign.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Slutsky Decomposition}
+\label{subsec:slutsky}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{Substitution and Wealth Effects.}
+% --------------------------------------------------------------
+
+The exact own-price elasticity admits a Slutsky decomposition into substitution and wealth effects:
+\begin{equation}
+\label{eq:slutsky-own}
+\eta_{ii} = \underbrace{-\varepsilon(1 - w_i)}_{\text{substitution effect}} - \underbrace{w_i}_{\text{wealth effect}}.
+\end{equation}
+
+Both terms are negative (for normal goods), so demand is always downward-sloping in own price. The substitution effect captures the reallocation toward other goods at constant utility; the wealth effect captures the reduction in real purchasing power.
+
+For cross-price effects:
+\begin{equation}
+\label{eq:slutsky-cross}
+\eta_{ij} = \underbrace{\varepsilon w_j}_{\text{substitution effect}} - \underbrace{w_j}_{\text{wealth effect}} = (\varepsilon - 1) w_j.
+\end{equation}
+
+The substitution effect is always positive (goods are net substitutes), but the wealth effect is negative (an increase in $p_j$ reduces real wealth, reducing demand for all normal goods). When $\varepsilon < 1$, the wealth effect dominates.
+
+% --------------------------------------------------------------
+\paragraph{Hicksian Elasticities.}
+% --------------------------------------------------------------
+
+Compensated (Hicksian) demands hold the value of the mean constant. When $p_i$ rises, the budget is adjusted to maintain $\M = \bar{m}$. Since $\M\opt = B / \Pstar$, constant $\M$ requires $d\ln B = d\ln \Pstar = w_i \, d\ln p_i$.
+
+Substituting into the demand equation:
+\begin{align}
+\eta_{ii}^H &= -\varepsilon + (\varepsilon - 1) w_i + w_i = -\varepsilon + \varepsilon w_i = -\varepsilon(1 - w_i), \\
+\eta_{ij}^H &= (\varepsilon - 1) w_j + w_j = \varepsilon w_j.
+\end{align}
+
+\begin{proposition}[Hicksian Elasticities]
+\label{prop:hicksian}
+The compensated (Hicksian) price elasticities are:
+\begin{equation}
+\label{eq:hicksian}
+\eta_{ii}^H = -\varepsilon(1 - w_i), \qquad \eta_{ij}^H = \varepsilon w_j.
+\end{equation}
+\end{proposition}
+
+The Hicksian elasticities isolate the pure substitution effect. Note that $\eta_{ij}^H > 0$ for all $\varepsilon > 0$: goods are always net substitutes in the CES framework.
+
+\begin{calloutnote}[Symmetry of Hicksian Cross-Elasticities]
+The Slutsky symmetry condition requires $\frac{\eta_{ij}^H}{w_j} = \frac{\eta_{ji}^H}{w_i}$. For CES demands: $\frac{\varepsilon w_j}{w_j} = \varepsilon = \frac{\varepsilon w_i}{w_i}$. Symmetry holds, as it must.
+\end{calloutnote}
+
+% ==============================================================
+\section{Weight Elasticities}
+\label{sec:weight-elasticities}
+% ==============================================================
+
+How do demands respond when preference weights change? This question is relevant for understanding how taste shifts or demographic changes affect consumption patterns.
+
+% --------------------------------------------------------------
+\paragraph{Myopic Response.}
+% --------------------------------------------------------------
+
+From \eqref{eq:cs-demand}, holding $\Pstar$ fixed:
+\begin{equation}
+\ln x_i = \ln \omega_i - \varepsilon \ln p_i + (\varepsilon - 1) \ln \Pstar + \ln W.
+\end{equation}
+
+Differentiating with respect to $\ln \omega_i$:
+\begin{equation}
+\label{eq:myopic-weight}
+\tilde{\eta}_{i,\omega_i} = 1.
+\end{equation}
+
+The myopic weight elasticity is unity: a 1\% increase in $\omega_i$ increases $x_i$ by 1\%, holding the price index fixed.
+
+% --------------------------------------------------------------
+\paragraph{Price Index Channel.}
+% --------------------------------------------------------------
+
+The price index depends on weights through:
+\begin{equation}
+\Pstar = \left( \sum_j \omega_j p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}.
+\end{equation}
+
+Consider the two-good case for clarity. When $\omega_1$ increases (and $\omega_2 = 1 - \omega_1$ decreases), the price index changes by:
+\begin{equation}
+\frac{d \ln \Pstar}{d \omega_1} = \frac{1}{1-\varepsilon} \cdot \frac{p_1^{1-\varepsilon} - p_2^{1-\varepsilon}}{\Ssum_p} = \frac{1}{1-\varepsilon} \left( \frac{w_1}{\omega_1} - \frac{w_2}{\omega_2} \right).
+\end{equation}
+
+When $p_1 > p_2$, shifting weight toward good 1 raises the price index (for $\varepsilon < 1$); when $p_1 < p_2$, it lowers the price index.
+
+% --------------------------------------------------------------
+\paragraph{Exact Response.}
+% --------------------------------------------------------------
+
+In the two-good case, the exact weight elasticity for good 1 is:
+\begin{equation}
+\frac{d \ln x_1}{d \ln \omega_1} = 1 + (\varepsilon - 1) \frac{\omega_1}{w_1} \left( \frac{w_1}{\omega_1} - \frac{w_2}{\omega_2} \right) \cdot \frac{d \ln \omega_1}{\omega_1}.
+\end{equation}
+
+After simplification, using $w_1 + w_2 = 1$ and $\omega_1 + \omega_2 = 1$:
+\begin{equation}
+\label{eq:exact-weight}
+\eta_{1,\omega_1} = \frac{w_2}{1 - \omega_1} = \frac{w_2}{\omega_2}.
+\end{equation}
+
+\begin{proposition}[Weight Elasticity in Two-Good Case]
+\label{prop:weight-elasticity}
+In the two-good case, the exact elasticity of $x_1$ with respect to $\omega_1$ is:
+\begin{equation}
+\eta_{1,\omega_1} = \frac{w_2}{\omega_2}.
+\end{equation}
+When prices are equal, $w_i = \omega_i$, and $\eta_{1,\omega_1} = 1$.
+\end{proposition}
+
+The weight elasticity exceeds unity when $w_2 > \omega_2$ (good 2 has a larger expenditure share than its preference weight), and falls below unity when $w_2 < \omega_2$.
+
+% ==============================================================
+\section{The Value of Substitutability}
+\label{sec:value-substitutability}
+% ==============================================================
+
+How does welfare respond to changes in the elasticity of substitution? This section develops the comparative statics with respect to $\rho$ (or equivalently $\varepsilon$), revealing a deep connection to information theory.
+
+% --------------------------------------------------------------
+\subsection{Response to the Elasticity Parameter}
+\label{subsec:rho-response}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{Channels of Dependence.}
+% --------------------------------------------------------------
+
+The demand system depends on $\rho$ through multiple channels:
+\begin{enumerate}[label=(\roman*), nosep]
+    \item The exponent $-\varepsilon = 1/(\rho - 1)$ on the relative price in \eqref{eq:cs-demand}.
+    \item The price index $\Pstar$, which depends on $\rho$ through both the inner exponent $1 - \varepsilon = \rho/(\rho-1)$ and the outer exponent $1/(1-\varepsilon) = (\rho-1)/\rho$.
+\end{enumerate}
+
+We work with the log demand:
+\begin{equation}
+\ln x_i = \ln \omega_i + (\varepsilon - 1) \ln \Pstar - \varepsilon \ln p_i + \ln W.
+\end{equation}
+
+% --------------------------------------------------------------
+\paragraph{Myopic Response.}
+% --------------------------------------------------------------
+
+Holding $\Pstar$ fixed and differentiating with respect to $\rho$:
+\begin{equation}
+\frac{\partial \ln x_i}{\partial \rho} \bigg|_{\Pstar} = \frac{d\varepsilon}{d\rho} (\ln \Pstar - \ln p_i) = \varepsilon^2 \ln \left( \frac{\Pstar}{p_i} \right),
+\end{equation}
+where we used $\frac{d\varepsilon}{d\rho} = \frac{1}{(1-\rho)^2} = \varepsilon^2$.
+
+\begin{proposition}[Myopic $\rho$-Elasticity]
+\label{prop:myopic-rho}
+The myopic semi-elasticity of demand with respect to $\rho$ is:
+\begin{equation}
+\label{eq:myopic-rho}
+\frac{\partial \ln x_i}{\partial \rho} \bigg|_{\Pstar} = \varepsilon^2 \ln \left( \frac{\Pstar}{p_i} \right).
+\end{equation}
+\end{proposition}
+
+The sign depends on whether good $i$ is cheap or expensive relative to the price index:
+\begin{itemize}[nosep]
+    \item If $p_i < \Pstar$: increasing $\rho$ (toward substitutes) \emph{increases} $x_i$.
+    \item If $p_i > \Pstar$: increasing $\rho$ \emph{decreases} $x_i$.
+\end{itemize}
+
+As goods become more substitutable, demand shifts toward cheaper alternatives.
+
+% --------------------------------------------------------------
+\paragraph{Exact Response.}
+% --------------------------------------------------------------
+
+For the exact response, we must account for how $\rho$ affects $\Pstar$. Define the geometric mean of prices with expenditure weights:
+\begin{equation}
+\bar{p}_w = \prod_j p_j^{w_j}, \qquad \text{so } \ln \bar{p}_w = \sum_j w_j \ln p_j.
+\end{equation}
+
+\begin{proposition}[Price Index Response to $\rho$]
+\label{prop:dP-drho}
+The semi-elasticity of the price index with respect to $\rho$ is:
+\begin{equation}
+\label{eq:dP-drho}
+\frac{d \ln \Pstar}{d\rho} = \frac{\varepsilon^2}{\varepsilon - 1} \ln \left( \frac{\bar{p}_w}{\Pstar} \right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Let $\tilde{\rho} = \rho/(\rho-1) = 1 - \varepsilon$ be the power parameter of the price index, so $\Pstar = \Mbar_{\tilde{\rho}}(\bp; \bom)$. From the ordering of means (Chapter on Generalized Means):
+\begin{equation}
+\frac{d \ln \Mbar_{\tilde{\rho}}}{d\tilde{\rho}} = \frac{1}{\tilde{\rho}^2} D_{KL}(\tilde{\bw} \| \bom),
+\end{equation}
+where $\tilde{\bw}$ are the induced weights. For the price index, the induced weights are the expenditure shares: $\tilde{w}_i = w_i$.
+
+Using $\frac{d\tilde{\rho}}{d\rho} = -1/(\rho-1)^2 = -\varepsilon^2$ and the chain rule gives the result after relating the KL divergence to $\ln(\bar{p}_w / \Pstar)$.
+\end{proof}
+
+Combining the myopic response with the price index effect:
+\begin{align}
+\frac{d \ln x_i}{d\rho} &= \varepsilon^2 \ln \left( \frac{\Pstar}{p_i} \right) + (\varepsilon - 1) \frac{d \ln \Pstar}{d\rho} \notag \\
+&= \varepsilon^2 \ln \left( \frac{\Pstar}{p_i} \right) + \varepsilon^2 \ln \left( \frac{\bar{p}_w}{\Pstar} \right) \notag \\
+&= \varepsilon^2 \ln \left( \frac{\bar{p}_w}{p_i} \right).
+\end{align}
+
+\begin{proposition}[Exact $\rho$-Elasticity]
+\label{prop:exact-rho}
+The exact semi-elasticity of demand with respect to $\rho$ is:
+\begin{equation}
+\label{eq:exact-rho}
+\frac{d \ln x_i}{d\rho} = \varepsilon^2 \ln \left( \frac{\bar{p}_w}{p_i} \right).
+\end{equation}
+\end{proposition}
+
+\begin{calloutimportant}[A Remarkable Simplification]
+The exact formula is strikingly clean: demand for good $i$ increases with $\rho$ if and only if $p_i < \bar{p}_w$---i.e., if good $i$ is cheaper than the expenditure-weighted geometric mean of prices. The price index $\Pstar$ that appeared in the myopic formula cancels out.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The KL Divergence Connection}
+\label{subsec:kl-connection}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{Price Dispersion and Budget Shares.}
+% --------------------------------------------------------------
+
+When prices are equal, expenditure shares equal preference weights: $w_i = \omega_i$. Price heterogeneity distorts this relationship, and the Kullback-Leibler divergence measures the extent of this distortion:
+\begin{equation}
+D_{KL}(\bw \| \bom) = \sum_i w_i \ln \frac{w_i}{\omega_i} \geq 0,
+\end{equation}
+with equality if and only if $\bw = \bom$ (i.e., $\bp_1 = \cdots = p_n$).
+
+From the Gibbs representation (Chapter on Information), the KL divergence governs the sensitivity of generalized means to their power parameter. For the price index:
+\begin{equation}
+\frac{d \ln \Pstar}{d\tilde{\rho}} = \frac{1}{\tilde{\rho}^2} D_{KL}(\bw \| \bom),
+\end{equation}
+where $\tilde{\rho} = 1 - \varepsilon$ is the power parameter of the price index.
+
+% --------------------------------------------------------------
+\paragraph{The Envelope Characterization.}
+% --------------------------------------------------------------
+
+Welfare---measured by the optimized mean---is $\M\opt = B / \Pstar$. The sensitivity of log welfare to the substitution parameter is:
+\begin{equation}
+\frac{d \ln \M\opt}{d\rho} = -\frac{d \ln \Pstar}{d\rho}.
+\end{equation}
+
+Converting to the elasticity $\varepsilon$:
+\begin{equation}
+\frac{d \ln \M\opt}{d\varepsilon} = -\frac{d \ln \Pstar}{d\varepsilon} = \frac{1}{(1-\varepsilon)^2} D_{KL}(\bw \| \bom).
+\end{equation}
+
+\begin{proposition}[Welfare Sensitivity to Substitutability]
+\label{prop:welfare-sensitivity}
+The marginal value of increasing the elasticity of substitution is:
+\begin{equation}
+\label{eq:welfare-sensitivity}
+\frac{d \ln \M\opt}{d\varepsilon} = \frac{D_{KL}(\bw \| \bom)}{(1-\varepsilon)^2}.
+\end{equation}
+\end{proposition}
+
+This result has a beautiful interpretation: the welfare gain from greater substitutability is proportional to the KL divergence between expenditure shares and preference weights. When prices are equal, $D_{KL} = 0$, and there is no gain from being able to substitute---the agent is already at the preferred allocation. When prices differ, $D_{KL} > 0$, and greater substitutability allows the agent to tilt toward cheaper goods.
+
+% --------------------------------------------------------------
+\subsection{Interpretation: The Value of Flexibility}
+\label{subsec:flexibility}
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+\paragraph{Consumer Theory.}
+% --------------------------------------------------------------
+
+For a consumer facing price dispersion, the KL divergence $D_{KL}(\bw \| \bom)$ measures the ``distortion'' induced by prices---how far the budget allocation is pushed from the intrinsic preferences $\bom$.
+
+Higher substitutability ($\varepsilon$) allows the consumer to exploit price differences more aggressively, tilting consumption toward cheaper goods. The welfare gain from this flexibility is governed by the KL divergence:
+\begin{itemize}[nosep]
+    \item If prices are identical, $D_{KL} = 0$: no gain from flexibility.
+    \item If prices are dispersed, $D_{KL} > 0$: flexibility has positive value.
+    \item The more dispersed the prices (higher $D_{KL}$), the more valuable is substitutability.
+\end{itemize}
+
+\begin{calloutnote}[Connection to Gibbs Representation]
+Recall from the chapter on information that the generalized mean solves:
+\begin{equation}
+\ln \M(\bx; \bom, \rho) = \max_{\bs} \left\{ \sum_i s_i \ln \frac{x_i}{\omega_i} - \frac{1}{\rho} D_{KL}(\bs \| \bom) \right\}.
+\end{equation}
+The parameter $\rho$ governs the ``cost'' of deviating from default weights $\bom$. Higher $\rho$ (toward substitutes) means lower cost, allowing more aggressive reallocation. The welfare sensitivity formula \eqref{eq:welfare-sensitivity} quantifies the marginal value of reducing this cost.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{Production Theory.}
+% --------------------------------------------------------------
+
+In production, $\varepsilon$ governs input substitutability, and $D_{KL}(\bw \| \bom)$ measures how far the cost-minimizing input mix deviates from the ``natural'' technology weights.
+
+The welfare sensitivity formula becomes the \emph{value of technological flexibility}: how much would the firm pay to increase input substitutability? The answer depends on input price dispersion, measured by the KL divergence.
+
+Consider a firm facing volatile input prices. When prices are stable (low dispersion), there is little value in being able to substitute. When prices are volatile (high dispersion), flexibility becomes valuable. The KL divergence provides a precise measure.
+
+\begin{calloutimportant}[The Chain of Implications]
+\begin{enumerate}[nosep]
+    \item \textbf{Price heterogeneity} ($p_i \neq p_j$) creates budget share distortion ($w_i \neq \omega_i$).
+    \item \textbf{Budget share distortion} is measured by $D_{KL}(\bw \| \bom) > 0$.
+    \item \textbf{KL divergence} governs the sensitivity of welfare to substitutability.
+    \item \textbf{Higher substitutability} ($\varepsilon \uparrow$) lowers the price index $\Pstar$ and raises welfare.
+    \item The \textbf{marginal value} of substitutability equals $D_{KL} / (1-\varepsilon)^2$.
+\end{enumerate}
+\end{calloutimportant}
+
+% ==============================================================
+\section{Summary}
+\label{sec:cs-summary}
+% ==============================================================
+
+\Cref{tab:elasticity-summary} collects the elasticity formulas derived in this chapter.
+
+\begin{table}[H]
+\centering
+\caption{Summary of CES Demand Elasticities}
+\label{tab:elasticity-summary}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Elasticity} & \textbf{Myopic} & \textbf{Exact (Marshallian)} & \textbf{Hicksian} \\
+\midrule
+Own-price $\eta_{ii}$ & $-\varepsilon$ & $-\varepsilon(1-w_i) - w_i$ & $-\varepsilon(1-w_i)$ \\[4pt]
+Cross-price $\eta_{ij}$ & $0$ & $(\varepsilon - 1) w_j$ & $\varepsilon w_j$ \\[4pt]
+Own-weight $\eta_{i,\omega_i}$ & $1$ & $w_j / \omega_j$ (two-good) & --- \\[4pt]
+Power param.\ $\dfrac{d \ln x_i}{d\rho}$ & $\varepsilon^2 \ln\dfrac{\Pstar}{p_i}$ & $\varepsilon^2 \ln\dfrac{\bar{p}_w}{p_i}$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\paragraph{Key Takeaways.}
+% --------------------------------------------------------------
+
+\begin{enumerate}[label=(\roman*)]
+    \item The ``constant elasticity'' in CES is constant only myopically; exact elasticities depend on expenditure shares.
+    
+    \item As $n \to \infty$, exact elasticities converge to myopic elasticities---individual prices have negligible effect on $\Pstar$.
+    
+    \item Goods are always net substitutes ($\eta_{ij}^H > 0$) but may be gross complements ($\eta_{ij} < 0$) when $\varepsilon < 1$.
+    
+    \item The response to $\rho$ involves the geometric mean of prices $\bar{p}_w$; the price index $\Pstar$ cancels in the exact formula.
+    
+    \item The welfare value of substitutability is $D_{KL}(\bw \| \bom) / (1-\varepsilon)^2$---the KL divergence between expenditure shares and preference weights.
+    
+    \item Price dispersion creates both distortion and opportunity; the net welfare effect depends on the degree of substitutability.
+\end{enumerate}

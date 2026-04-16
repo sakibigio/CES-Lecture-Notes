@@ -1,0 +1,1257 @@
+% ==============================================================
+% Chapter: CES Aggregators as Generalized Means
+% ==============================================================
+
+\epigraph{Beauty is the first test: there is no permanent place in the world for ugly mathematics.}{\textit{G.H. Hardy}, A Mathematician's Apology}
+
+\epigraph{The elegance of a mathematical theorem is directly proportional to the number of independent ideas one can see in the theorem and inversely proportional to the effort it takes to see them.}{\textit{George Pólya}}
+
+This chapter introduces the mathematical foundation underlying constant elasticity of substitution (CES) functions. We show that these ubiquitous objects in economics are instances of a broader class of functions known as \emph{generalized means}. Understanding this connection clarifies several properties and provides a unified framework for analyzing utility functions, production functions, and certainty equivalents.
+
+% ==============================================================
+\section{Generalized Means}
+\label{sec:generalized-means}
+% ==============================================================
+
+Generalized means have been studied extensively in mathematics and continue to be an active area of research. We begin with the simplest case---means of two numbers---before extending to the general setting.
+
+% --------------------------------------------------------------
+\subsection{Means of Two Numbers}
+% --------------------------------------------------------------
+
+Consider weights $\omega$ and $(1-\omega)$ where $\omega \in [0,1]$, and two positive numbers $x_1, x_2 \in \R_+$.
+
+\begin{definition}[Classical Generalized Mean]
+\label{def:classical-mean}
+The \emph{classical generalized mean} of $x_1$ and $x_2$ with weight $\omega$ and parameter $\rho \neq 0$ is the function
+\begin{equation}
+\label{eq:classical-mean}
+\Mbar(x_1, x_2; \omega, \rho) \equiv \left( \omega x_1^\rho + (1-\omega) x_2^\rho \right)^{\frac{1}{\rho}}.
+\end{equation}
+We denote its value by $\bar{m}_\rho = \Mbar(x_1, x_2; \omega, \rho)$.
+\end{definition}
+
+Several familiar means arise as special cases:
+\begin{itemize}[leftmargin=0em]
+    \item \textbf{Arithmetic (equal weight) mean} ($\rho = 1$): 
+    \[
+    \bar{m}_1 = \frac{1}{2} x_1 + \frac{1}{2} x_2
+    \]
+    \item \textbf{Arithmetic mean} ($\rho = 1$): 
+    \[
+    \bar{m}_1 = \omega x_1 + (1-\omega) x_2
+    \]
+    
+    \item \textbf{Geometric mean} ($\rho \to 0$): 
+    \[
+    \bar{m}_0 = x_1^\omega x_2^{(1-\omega)}
+    \]
+    
+    \item \textbf{Harmonic mean} ($\rho = -1$): 
+    \[
+    \bar{m}_{-1} = \frac{1}{\omega x_1^{-1} + (1-\omega) x_2^{-1}}
+    \]
+    
+    \item \textbf{Euclidean mean} ($\rho = 2$): 
+    \[
+    \bar{m}_2 = \sqrt{\omega x_1^2 + (1-\omega) x_2^2}
+    \]
+\end{itemize}
+
+In general, each of these gives us different numbers unless special values of $x_1$ and $x_2$ are given.
+
+\begin{calloutnote}[Historical Context]
+The study of generalized means dates back to ancient mathematics, but the modern theory was developed through a series of fundamental inequalities: Minkowski, Hölder, and Cauchy--Schwarz. Kolmogorov later established a more general framework where the power $\rho$ is replaced by arbitrary monotone functions.
+
+In particular, a Kolmogorov mean replaces the power function $g=x^\rho$ for an arbitrary increasing function $f$:
+\begin{equation}
+\label{eq:classical-mean}
+\Mbar(x_1, x_2; \omega, f) \equiv f^{-1}\left( \omega f(x_1) + (1-\omega) f(x_2) \right).
+\end{equation}
+A further remarkable result is that with some restrictions about $f$, it can be showed that there is a power mean given the same result. 
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{The Canonical Form.}
+% --------------------------------------------------------------
+
+Throughout these notes, we predominantly work with a \emph{normalized} or \emph{canonical} form of the generalized mean.
+
+\begin{definition}[Canonical Generalized Mean]
+\label{def:canonical-mean}
+The \emph{canonical generalized mean} of $x_1$ and $x_2$ with weight $\omega$ and parameter $\rho \neq 0$ is
+\begin{equation}
+\label{eq:canonical-mean}
+\M(x_1, x_2; \omega, \rho) \equiv \left( \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right)^{\frac{1}{\rho}}.
+\end{equation}
+We denote its value by $m_\rho = \M(x_1, x_2; \omega, \rho)$.
+\end{definition}
+The key differences between the canonical and classical forms are:
+\begin{enumerate}[leftmargin=0em]
+    \item The weights inside the aggregator do not sum to one (except when $\rho = 0$ in which case, the function is not defined in the current form).
+    \item The limiting values as $\rho \to 0$ and $\rho \to \pm\infty$ differs.
+    \item Several economic formulas are cleaner in the canonical form.
+    \item Values are constant for any $\rho$ when $x_i=\omega_i$ in the canonical form whereas they are constant for $x_i=1$ in the classical form.
+\end{enumerate}
+
+\begin{calloutimportant}[Why the Canonical Form?]
+The normalization $\omega^{1-\rho}$ ensures that certain limits---particularly as 
+$\rho$ approaches special values---yield well-defined and economically interpretable 
+functions. This will become clear when we study limiting cases in subsequent sections.
+
+A second reason is that the canonical form has a natural \emph{balanced point}: when 
+$x_i = \omega_i$ for all $i$, the canonical mean equals unity for every $\rho$,
+\begin{equation*}
+    \M(\bom;\, \bom, \rho) = 1 \quad \text{for all } \rho \neq 0.
+\end{equation*}
+The classical mean shares an analogous property, but only at the unweighted vector 
+$\bx = \mathbf{1}$: $\Mbar(\mathbf{1};\, \bom, \rho) = 1$ for all $\rho$. The canonical 
+form thus anchors the mean at the \emph{economically natural} point $\bx = \bom$, rather 
+than at the arbitrary vector of ones. 
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{Relationship Between Forms.}
+\label{subsec:relationship-forms}
+% --------------------------------------------------------------
+
+The canonical and classical forms are related by a scaling factor. This relationship is fundamental and will be exploited throughout, via the concept of a transformation. For now, it is worth just observing this relationship. Namely, the canonical mean can be expressed as a scaled version of the classical mean:
+\begin{equation}
+\M(x_1, x_2; \omega, \rho) = \lambda(\tilde{\omega}, \rho) \cdot \Mbar(x_1, x_2; \tilde{\omega}, \rho),
+\end{equation}
+where $\lambda(\omega, \rho)$ is a scaling factor that depends on $\tilde{\omega}$ and $\omega$ are transformed weights satisfying a relationship with the weights $\tilde{\omega}$. In turn, we can express the classical mean also as a scaled version of the canonical mean. We defer the full treatment of transformations---including proofs, inversions, changes of units, and changes of coordinates---to \cref{sec:transformations}.
+
+\begin{remark}
+The reason why we care about this relationship is that it implies that optimization problems are equivalent under either representation: maximizing $\M$ or $\Mbar$ with respect to $(x_1, x_2)$ yields the same solution, differing only by a multiplicative constant in the objective value.
+\end{remark}
+
+
+
+% --------------------------------------------------------------
+\subsection{Basic Properties}
+% --------------------------------------------------------------
+
+We observe below that both forms of generalized means share several intuitive properties of what a mean should be. \textit{Monotonicity}:
+For any $\rho \neq 0$, the generalized mean $\M(x_1, x_2; \omega, \rho)$ is strictly increasing in both $x_1$ and $x_2$. \textit{Intermediate Value}: For any $x_1 < x_2$ and $\omega \in (0,1)$, the classical mean satisfies:
+\[
+x_1 < \Mbar(x_1, x_2; \omega, \rho) < x_2.
+\]
+That is, the mean lies strictly between the two values, just as it happens with arithmetic means. These properties extend naturally to the vector case.
+
+% --------------------------------------------------------------
+\paragraph{Inner Sums.}
+% --------------------------------------------------------------
+
+It is useful to introduce notation for the ``inner sum'' that appears inside the generalized mean.
+
+\begin{definition}[Inner Sum]
+\label{def:inner-sum}
+Define the inner sum as
+\begin{equation}
+\label{eq:inner-sum}
+\Ssum(x_1, x_2; \omega, \rho) \equiv \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho.
+\end{equation}
+\end{definition}
+With this notation, we have the relationship:
+\begin{equation}
+\label{eq:mean-from-sum}
+\M(x_1, x_2; \omega, \rho) = \Ssum(x_1, x_2; \omega, \rho)^{\frac{1}{\rho}}.
+\end{equation}
+Similarly, for the classical form:
+\begin{equation}
+\bar{\Ssum}(x_1, x_2; \omega, \rho) \equiv \omega x_1^\rho + (1-\omega) x_2^\rho = \Mbar(x_1, x_2; \omega, \rho)^\rho.
+\end{equation}
+These definitions are just convenient notations.
+% --------------------------------------------------------------
+\paragraph{Vector Generalization.}
+% --------------------------------------------------------------
+
+The extension to vectors is straightforward. Let $\bx = (x_1, \ldots, x_n)$ be a vector of positive real numbers and $\bom = (\omega_1, \ldots, \omega_n)$ be a vector of weights with $\sum_i \omega_i = 1$.
+
+\begin{definition}[Vector Generalized Mean]
+\label{def:vector-mean}
+The canonical generalized mean of $\bx$ with weights $\bom$ and parameter $\rho$ is
+\begin{equation*}
+\label{eq:vector-mean}
+\M(\bx; \bom, \rho) \equiv \left( \sum_{i=1}^n \omega_i^{1-\rho} x_i^\rho \right)^{\frac{1}{\rho}}.
+\end{equation*}
+The corresponding inner sum is
+\begin{equation*}
+\Ssum(\bx; \bom, \rho) \equiv \sum_{i=1}^n \omega_i^{1-\rho} x_i^\rho,
+\end{equation*}
+so that $\M(\bx; \bom, \rho) \equiv \Ssum(\bx; \bom, \rho)^{1/\rho}$.
+\end{definition} 
+The classical form generalizes analogously:
+\begin{equation*}
+\Mbar(\bx; \bom, \rho) \equiv \left( \sum_{i=1}^n \omega_i x_i^\rho \right)^{\frac{1}{\rho}}.
+\end{equation*}
+
+% --------------------------------------------------------------
+\paragraph{Functionals and Operators.}
+% --------------------------------------------------------------
+
+When $x_1$ and $x_2$ are themselves functions of some variable $t$, the generalized mean becomes a \emph{functional}---a function of functions. This perspective will prove essential when we turn to dynamic settings.
+
+\begin{calloutnote}[Operators]
+An \emph{operator} maps functions to functions. Common examples include algebraic operations and derivatives. The generalized mean, when applied to time-varying quantities, for example $x_i(t)$, is an operator in the space of functions of $t$. The mean $m$ will be indexed by $t$. We will exploit this structure extensively in the dynamic sections of these notes.
+\end{calloutnote}
+
+Throughout, we suppress arguments after the semicolon when the context is clear, writing simply $\M(\bx)$ or $\M(x_1, x_2)$.
+
+
+% ==============================================================
+\section{Uses in Economics}
+\label{sec:ces-economics}
+% ==============================================================
+
+Generalized means appear throughout economics under various guises. This section catalogs the major applications and establishes notation that we use consistently in subsequent chapters.
+
+% --------------------------------------------------------------
+\paragraph{Utility Functions.}
+% --------------------------------------------------------------
+
+The most common class of utility functions in economics are generalized means over consumption bundles.
+
+\begin{definition}[CES Utility]
+\label{def:ces-utility}
+Consider a consumption bundle $(c_1, c_2)$ with weight parameter $\omega \in (0,1)$ and substitution parameter $\rho < 1$, $\rho \neq 0$. The \emph{CES utility function} is
+\begin{equation*}
+\label{eq:ces-utility}
+\U(c_1, c_2; \omega, \rho) = \left( \omega^{1-\rho} c_1^\rho + (1-\omega)^{1-\rho} c_2^\rho \right)^{\frac{1}{\rho}}.
+\end{equation*}
+\end{definition}
+Observe that $\U(c_1, c_2; \omega, \rho) = \M(c_1, c_2; \omega, \rho)$---the utility function is a canonical mean.
+
+\begin{callouttip}[Exercise]
+Verify that $\U(c_1, c_2; \omega, \rho) = \M(c_1, c_2; \omega, \rho)$ by comparing \cref{eq:ces-utility} with \cref{eq:canonical-mean}.
+\end{callouttip}
+The \emph{un-normalized} (classical) form is also common in the economics literature:
+\begin{equation}
+\label{eq:ces-utility-classical}
+\bar{\U}(c_1, c_2; \omega, \rho) = \left( \omega c_1^\rho + (1-\omega) c_2^\rho \right)^{\frac{1}{\rho}}.
+\end{equation}
+We don't often encounter utility presented in this way: Instead, economists use a \textit{CES parametrization }, a change in the exponents to present it in terms of elasticities.  Economists typically express the substitution parameter in terms of the \emph{elasticity of substitution} $\varepsilon > 0$, defined by
+\begin{equation}
+\label{eq:rho-epsilon}
+\rho \equiv 1 - \frac{1}{\varepsilon}.
+\end{equation}
+With this convention, the utility function becomes
+\begin{equation}
+\label{eq:ces-epsilon-form}
+\U(c_1, c_2; \omega, \varepsilon) = \left( \omega^{\frac{1}{\varepsilon}} c_1^{1-\frac{1}{\varepsilon}} + (1-\omega)^{\frac{1}{\varepsilon}} c_2^{1-\frac{1}{\varepsilon}} \right)^{\frac{1}{1-\frac{1}{\varepsilon}}}.
+\end{equation}
+We refer to expressions in terms of $\varepsilon$ as the \emph{CES form} and those in terms of $\rho$ as the \emph{mean form}.
+
+\begin{calloutnote}
+\begin{remark}[Ordinal Utility]
+\label{rem:ordinal}
+Utility levels have no intrinsic meaning---only the ranking of alternatives matters. Consequently, any monotone transformation of $\U$,  represents the same preferences. 
+\end{remark}
+For example, scaling by a positive constant or applying a strictly increasing function preserves all choice behavior. This observation will simplify many derivations. This is the reason why economists interchangeably use the classical and canonical representations of utility. It is immaterial for the study of problems. 
+
+However, the choice of a representation does matter in terms of how we interpret parameters.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{Production Functions.}
+% --------------------------------------------------------------
+
+Generalized means also appear in production theory, where inputs are aggregated to produce output.
+
+\begin{definition}[CES Production Function]
+\label{def:ces-production}
+Let $x_1$ and $x_2$ denote inputs (e.g., labor, capital, or intermediate goods) with weight $\omega$ and parameter $\phi$. The CES production function is
+\begin{equation}
+\label{eq:ces-production}
+\F(x_1, x_2; \omega, \phi) = \left( \omega^{1-\phi} x_1^\phi + (1-\omega)^{1-\phi} x_2^\phi \right)^{\frac{1}{\phi}}.
+\end{equation}
+\end{definition}
+Here $\phi$ governs the elasticity of substitution across inputs, which relates to the technical rate of transformation. The elasticity of substitution across inputs is typically denoted $\sigma$ and satisfies
+\begin{equation}
+\label{eq:phi-sigma}
+\phi = 1 - \frac{1}{\sigma}.
+\end{equation}
+
+% --------------------------------------------------------------
+\paragraph{Production Possibility Frontier (PPF).}
+% --------------------------------------------------------------
+
+A less common but equally important application is the \emph{production possibility frontier} (PPF), which describes how a given quantity produced or available is distributed across uses.
+
+\begin{definition}[Production Possibility Frontier]
+\label{def:allocation}
+The PPF with weight $\omega$ and parameter $\phi$ is
+\begin{equation}
+\label{eq:allocation}
+\Hfun(\ell_1, \ell_2; \omega, \phi) = \left( \omega^{1-\phi} \ell_1^\phi + (1-\omega)^{1-\phi} \ell_2^\phi \right)^{\frac{1}{\phi}}.
+\end{equation}
+\end{definition}
+The interpretation differs from production: rather than combining inputs to create output, we distribute a total endowment across different uses. For example, if a unit of time is allocated between two activities, we might impose
+\begin{equation}
+\Hfun(\ell_1, \ell_2) = 1.
+\end{equation}
+This formulation can capture the idea that reallocating time involves costs or inefficiencies (when $\phi < 1$). We equivalently call this function the \emph{output function}.
+
+% --------------------------------------------------------------
+\paragraph{Certainty Equivalents.}
+% --------------------------------------------------------------
+
+Generalized means also provide a natural framework for comparing risky prospects.
+
+\begin{definition}[Certainty Equivalent]
+\label{def:certainty-equivalent}
+Consider two outcomes $c_1$ and $c_2$ occurring with probabilities $\pi$ and $(1-\pi)$, respectively. The \emph{certainty equivalent} with risk aversion parameter $\gamma > 0$ is
+\begin{equation}
+\label{eq:certainty-equivalent}
+\CE(c_1, c_2; \pi, \gamma) = \left( \pi c_1^{1-\gamma} + (1-\pi) c_2^{1-\gamma} \right)^{\frac{1}{1-\gamma}}.
+\end{equation}
+\end{definition}
+Observe that, again, this is the \emph{classical} form of the generalized mean with $\rho = 1 - \gamma$. The parameter $\gamma$ captures risk aversion: higher values imply greater aversion to uncertainty. The certainty equivalent answers the question: ``What certain amount would the agent accept in place of the lottery?'' The reason is that if we apply a constant to the certainty equivalent function, we obtain the same constant. 
+
+\begin{calloutimportant}[Probability vs.\ Weight]
+In the certainty equivalent, the probability $\pi$ plays the role of the classical weight $\tilde{\omega}$. Unlike preference weights in utility, probabilities are objectively determined by the environment. This distinction becomes important when we consider subjective risk attitudes and probability weighting.
+Another important observation is that we could have written the certainty equivalent using transformed probabilities, converting these to a canonical mean. 
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{Other Applications.}
+% --------------------------------------------------------------
+
+The CES/generalized mean structure appears in numerous other economic contexts:
+\begin{itemize}[leftmargin=0em]
+    \item \textbf{Matching functions}: used to model how parties search for each other in labor markets.
+    \item \textbf{Cost functions}: Dual representations of production technologies.
+    \item \textbf{Armington aggregators}: International trade models combining domestic and foreign goods.
+    \item \textbf{Price indices}: Ideal price indices often take CES forms.
+    \item \textbf{Monetary aggregators}: Monetary models often include the services of monetary assets in the utility. To model different assets' services, composites are used.
+    \item \textbf{Pareto functions}: Models with distribution across different people use this function to capture social welfare preferences.
+\end{itemize}
+We encounter several of these applications in later chapters.
+
+
+% ==============================================================
+\section{Properties}
+\label{sec:properties}
+% ==============================================================
+
+This section establishes the key mathematical properties of generalized means. These properties underpin most economic applications and provide the foundation for comparative statics and welfare analysis.
+
+% --------------------------------------------------------------
+\paragraph{Continuity and Differentiability.}
+% --------------------------------------------------------------
+
+The generalized mean is well-behaved analytically.
+
+\begin{proposition}[Smoothness]
+\label{prop:smoothness}
+The function $\M(x_1, x_2; \omega, \rho)$ is $\mathcal{C}^\infty$ (infinitely differentiable) in all its arguments on the domain $(x_1, x_2) \in \R_{++}^2$, $\omega \in (0,1)$, and $\rho \neq 0$.
+\end{proposition}
+
+\begin{remark}
+For our purposes, smoothness means the function has no jumps or kinks and possesses derivatives of all orders. This ensures that standard calculus techniques apply without qualification. A proof follows by induction.
+\end{remark}
+
+\paragraph{Positivity.} Because the arguments of the mean are positive, we have the following property:
+\begin{proposition}[Positivity]
+\label{prop:positivity}
+For $(x_1, x_2) \in \R_{++}^2$, both $\M(x_1, x_2)$ and $\Mbar(x_1, x_2)$ are strictly positive.
+\end{proposition}
+
+% --------------------------------------------------------------
+\paragraph{Monotonicity.}
+% --------------------------------------------------------------
+
+The generalized mean is strictly increasing in each argument. 
+\begin{proposition}[Monotonicity]
+\label{prop:monotonicity-detailed}
+The partial derivative of $\M$ with respect to $x_1$ is
+\begin{equation}
+\label{eq:partial-x1}
+\M_{x_1}(x_1, x_2) \equiv \frac{\partial \M(x_1, x_2)}{\partial x_1} 
+= \left( \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right)^{\frac{1}{\rho}-1} \omega^{1-\rho} x_1^{\rho-1} \geq 0.
+\end{equation}
+The inequality is strict for $x_1 > 0$. By symmetry, $\M_{x_2}(x_1, x_2) > 0$ for $x_2 > 0$.
+\end{proposition}
+Positivity guarantees the sign of the derivative. As we increase any argument, e.g., consumption goods or production factors, we get more utility or production. In terms of the PPF, it represents that more resources are required to increase the individual uses. The same result holds for the classical form $\Mbar$. 
+
+\begin{callouttip}[Exercise]
+Derive the partial derivative $\Mbar_{x_1}(x_1, x_2)$ for the classical generalized mean and verify that it is strictly positive for $x_1 > 0$.
+\end{callouttip}
+
+% --------------------------------------------------------------
+\paragraph{Idempotency.}
+% --------------------------------------------------------------
+
+A mean is \emph{idempotent} if the mean of identical values equals that common value.
+
+\begin{proposition}[Idempotency of Classical Mean]
+\label{prop:idempotency-classical}
+The classical generalized mean satisfies
+\begin{equation}
+\Mbar(x, x; \omega, \rho) = x.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Direct computation: $\Mbar(x,x) = \left( \omega x^\rho + (1-\omega) x^\rho \right)^{1/\rho} = \left( x^\rho \right)^{1/\rho} = x$.
+\end{proof}
+
+The canonical form does \emph{not} satisfy idempotency because the weights do not sum to one.
+
+\begin{callouttip}[Exercise]
+Show that for the canonical mean,
+\[
+\M(x, x; \omega, \rho) = \lambda(\omega, \rho) \cdot x,
+\]
+and find the scaling factor $\lambda(\omega, \rho)$ is:
+$\lambda(\omega, \rho)\equiv\frac{1}{\left( \omega^{1-\rho} + (1-\omega)^{1-\rho}  \right)^{\frac{1}{\rho}}}$.
+\end{callouttip}
+
+% --------------------------------------------------------------
+\paragraph{Intermediate Value.} The generalized means are bounded above and below. 
+
+\begin{proposition}[Intermediate Value Property]
+\label{prop:bounds}
+For the classical mean with $(x_1, x_2) \in \R_{++}^2$ and $\omega \in (0,1)$,
+\begin{equation}
+\min\{x_1, x_2\} < \Mbar(x_1, x_2) < \max\{x_1, x_2\}.
+\end{equation}
+For the canonical mean, the analogous statement is
+\begin{equation}
+\lambda \cdot \min\{x_1, x_2\} < \M(x_1, x_2) < \lambda \cdot \max\{x_1, x_2\},
+\end{equation}
+where $\lambda = \lambda(\omega, \rho)$ is the scaling factor from the idempotency exercise.
+\end{proposition}
+
+\begin{proof}
+The proof follows by exploiting the idempotency and monotonicity properties. Start from both values being equal and move the needed argument to its required value. 
+\end{proof}
+
+% --------------------------------------------------------------
+\paragraph{Homogeneity.}
+% --------------------------------------------------------------
+Homogeneity refers to the property that if we scale arguments by a common factor, we obtain that same factor raised to some power outisde of the generalized mean. 
+\begin{proposition}[Homogeneity of Degree One]
+\label{prop:homogeneity}
+For any $\lambda > 0$,
+\begin{equation}
+\label{eq:homogeneity}
+\M(\lambda x_1, \lambda x_2; \omega, \rho) = \lambda \, \M(x_1, x_2; \omega, \rho).
+\end{equation}
+The same property holds for the classical form $\Mbar$.
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+\M(\lambda x_1, \lambda x_2) 
+&= \left( \omega^{1-\rho} (\lambda x_1)^\rho + (1-\omega)^{1-\rho} (\lambda x_2)^\rho \right)^{1/\rho} \\
+&= \left( \lambda^\rho \left[ \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right] \right)^{1/\rho} \\
+&= \lambda \left( \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right)^{1/\rho} 
+= \lambda \, \M(x_1, x_2).
+\end{align*}
+\end{proof}
+
+\begin{calloutimportant}[Economic Significance]
+Homogeneity of degree one is essential for economic applications. It implies that:
+\begin{itemize}[leftmargin=1.5em]
+    \item Solutions can be computed once and scaled to different units or budget levels.
+    \item In production, constant returns to scale hold.
+    \item Price indices and real quantities separate cleanly.
+\end{itemize}
+\end{calloutimportant}
+
+\begin{callouttip}[Exercise]
+Prove that the classical generalized mean $\Mbar$ is also homogeneous of degree one, i.e., show that $\Mbar(\lambda x_1, \lambda x_2; \omega, \rho) = \lambda \, \Mbar(x_1, x_2; \omega, \rho)$ for any $\lambda > 0$.
+\end{callouttip}
+
+% --------------------------------------------------------------
+\paragraph{Convexity and Concavity.}
+% --------------------------------------------------------------
+
+The convexity of $\M$ depends critically on the parameter $\rho$. A smooth function is \textit{concave} (\textit{convex}) if its second derivative is negative (positive). To show concavity, we compute the second derivative:
+\begin{proposition}[Second Derivative]
+\label{prop:second-derivative}
+The second partial derivative of $\M$ with respect to $x_1$ is
+\begin{equation}
+\label{eq:second-derivative}
+\M_{x_1 x_1}(x_1, x_2) = \frac{\partial^2 \M}{\partial x_1^2} 
+= -(1-\rho) \, \M_{x_1}(x_1, x_2) \left[ \frac{(1-\omega)^{1-\rho} x_2^\rho}{\Ssum(x_1, x_2; \omega, \rho) \cdot x_1} \right].
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Starting from \cref{eq:partial-x1}, we apply the product rule:
+\begin{align*}
+\M_{x_1 x_1} &= \frac{\partial}{\partial x_1} \left[ \Ssum^{\frac{1}{\rho}-1} \cdot \omega^{1-\rho} x_1^{\rho-1} \right] \\
+&= \omega^{1-\rho} x_1^{\rho-1} \cdot \frac{\partial}{\partial x_1}\left[ \Ssum^{\frac{1}{\rho}-1} \right] 
+   + \Ssum^{\frac{1}{\rho}-1} \cdot \frac{\partial}{\partial x_1}\left[ \omega^{1-\rho} x_1^{\rho-1} \right].
+\end{align*}
+Computing each term:
+\begin{align*}
+\frac{\partial}{\partial x_1}\left[ \Ssum^{\frac{1}{\rho}-1} \right] 
+&= \left(\frac{1}{\rho}-1\right) \Ssum^{\frac{1}{\rho}-2} \cdot \omega^{1-\rho} \rho x_1^{\rho-1}, \\
+\frac{\partial}{\partial x_1}\left[ \omega^{1-\rho} x_1^{\rho-1} \right] 
+&= (\rho-1) \omega^{1-\rho} x_1^{\rho-2}.
+\end{align*}
+Substituting and factoring yields
+\begin{align*}
+\M_{x_1 x_1} &= (1-\rho) \, \M_{x_1} \left[ \frac{\omega^{1-\rho} x_1^{\rho-1}}{\Ssum} - \frac{1}{x_1} \right] \\
+&= (1-\rho) \, \M_{x_1} \left[ \frac{\omega^{1-\rho} x_1^\rho - \Ssum}{\Ssum \cdot x_1} \right] \\
+&= -(1-\rho) \, \M_{x_1} \left[ \frac{(1-\omega)^{1-\rho} x_2^\rho}{\Ssum \cdot x_1} \right].
+\end{align*}
+\end{proof}
+It is very simple to check the concavity of the generalized mean. 
+\begin{proposition}[Convexity Characterization]
+\label{prop:convexity}
+The function $\M(x_1, x_2; \omega, \rho)$ is:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Convex} in $x_1$ (and $x_2$) when $\rho > 1$,
+    \item \textbf{Concave} in $x_1$ (and $x_2$) when $\rho < 1$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+From \cref{eq:second-derivative}, note that $\M_{x_1} > 0$ and the bracketed term is positive. Thus:
+\begin{itemize}[leftmargin=1.5em]
+    \item If $\rho > 1$: $(1-\rho) < 0$, so $\M_{x_1 x_1} > 0$ (convex).
+    \item If $\rho < 1$: $(1-\rho) > 0$, so $\M_{x_1 x_1} < 0$ (concave).
+\end{itemize}
+\end{proof}
+
+\begin{calloutnote}[Economic Interpretation]
+The curvature of $\M$ has distinct economic meanings depending on context:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Utility}: Concavity ($\rho < 1$) implies diminishing marginal utility---additional consumption yields progressively smaller increases in welfare.
+    \item \textbf{Production Function}: Concavity implies diminishing marginal returns to inputs.
+    \item \textbf{PPF}: Convexity ($\rho > 1$) implies increasing costs to increase output along one of the possible production goods.
+\end{itemize}
+\end{calloutnote}
+
+% ==============================================================
+\section{Level Curves}
+\label{sec:level-curves}
+% ==============================================================
+
+Level curves---also called \emph{indifference curves} (utility), \emph{isoquants} (production), or \emph{production possibility frontiers} (allocation)---are fundamental objects in economic analysis. They simply trace the combinations of inputs that yield the same mean. 
+\begin{definition}[Level Curve]
+\label{def:level-curve}
+A level curve of $\M$ at level $m$ is the set of points $(x_1, x_2)$ satisfying
+\begin{equation}
+\M(x_1, x_2; \omega, \rho) = m.
+\end{equation}
+Equivalently, it is the function $x_2(x_1)$ implicitly defined by this equation.
+\end{definition}
+The slope of the level curves tells us how, at a particular combination of the inputs, we can trade off inputs to keep the mean the same. Solving for $x_2$, treating it as a function of $x_1$ we obtain:
+\begin{equation}
+\label{eq:level-curve-explicit}
+x_2(x_1;m) \equiv \left[ \frac{m^\rho - \omega^{1-\rho} x_1^\rho}{(1-\omega)^{1-\rho}} \right]^{1/\rho}.
+\end{equation}
+The function $x_2(x_1;m)$ tells us, for any value of $x_1$, we need to keep the value of the generalized mean constant at $m$. 
+
+We use the Implicit Function Theorem to obtain its slope. Differentiating $\M(x_1, x_2(x_1)) = m$ totally:
+\begin{equation}
+\omega^{1-\rho} x_1^{\rho-1} \, dx_1 + (1-\omega)^{1-\rho} x_2^{\rho-1} \, dx_2 = 0.
+\end{equation}
+Solving for the slope:
+\begin{equation}
+\label{eq:level-curve-slope}
+\frac{dx_2}{dx_1} = -\left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho}.
+\end{equation}
+\begin{callouttip}[Exercise]
+Show that the slope obtained above coincides with the slope of the function $x_2(x_1;m)$ at some $x_1$.
+\end{callouttip}
+The negative sign confirms that level curves are downward-sloping: to maintain a constant mean, an increase in $x_1$ requires a decrease in $x_2$. The magnitude of the slope depends on the weight ratio $\omega/(1-\omega)$ and the consumption ratio $x_2/x_1$, each raised to the power $(1-\rho)$. This captures the idea of a tradeoff. 
+
+\begin{calloutnote}[Special Point]
+At $(x_1, x_2) = (\omega, 1-\omega)$, the slope simplifies to $-1$ for any value of $\rho$. This provides a useful reference point for sketching level curves.
+\end{calloutnote}
+
+\paragraph{Elasticity Form.}
+The slope can be expressed as an elasticity:
+\begin{equation}
+\label{eq:level-curve-elasticity}
+\epsilon \equiv \frac{dx_2}{dx_1} \cdot \frac{x_1}{x_2} = -\left( \frac{\omega}{1-\omega} \cdot \frac{x_1}{x_2} \right)^{1-\rho}.
+\end{equation}
+
+\begin{remark}[ODE Interpretation]
+The level curve can be viewed as the solution to the ordinary differential equation
+\[
+\frac{dx_2}{dx_1} = -\left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho},
+\]
+with initial condition determined by the level $m$. The solution is precisely \cref{eq:level-curve-explicit}.
+\end{remark}
+
+% --------------------------------------------------------------
+\paragraph{Convexity of Level Curves}
+% --------------------------------------------------------------
+
+The convexity or concavity of level curves determines the shape of the level curves, i.e., indifference curves and isoquants depending on the context.
+\begin{proposition}[Second Derivative of Level Curves]
+\label{prop:level-curve-convexity}
+The second derivative of the level curve $x_2(x_1)$ is
+\begin{equation}
+\label{eq:level-curve-second}
+\frac{d^2 x_2}{dx_1^2} = (1-\rho) \left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho} \left[ \left( \frac{\omega}{1-\omega} \cdot \frac{x_1}{x_2} \right)^{1-\rho} + 1 \right] \frac{1}{x_1}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiating the slope \cref{eq:level-curve-slope}:
+\begin{align*}
+\frac{d^2 x_2}{dx_1^2} 
+&= \frac{d}{dx_1} \left[ -\left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho} \right] \\
+&= -(1-\rho) \left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho} \left( \frac{1}{x_2}\frac{dx_2}{dx_1} - \frac{1}{x_1} \right).
+\end{align*}
+Substituting $\frac{dx_2}{dx_1} \cdot \frac{x_1}{x_2} = \epsilon$ from \cref{eq:level-curve-elasticity}:
+\begin{align*}
+\frac{d^2 x_2}{dx_1^2} 
+&= -(1-\rho) \left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho} \left( \epsilon - 1 \right) \frac{1}{x_1} \\
+&= (1-\rho) \left( \frac{\omega}{1-\omega} \right)^{1-\rho} \left( \frac{x_2}{x_1} \right)^{1-\rho} \left( 1 - \epsilon \right) \frac{1}{x_1}.
+\end{align*}
+Since $\epsilon < 0$, we have $1 - \epsilon = 1 + |\epsilon| > 0$, yielding \cref{eq:level-curve-second}.
+\end{proof}
+
+\begin{proposition}[Shape of Level Curves]
+\label{prop:level-curve-shape}
+The level curves of $\M$ are:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Linear} when $\rho = 1$ (perfect substitutes),
+    \item \textbf{Strictly convex} when $\rho < 1$,
+    \item \textbf{Strictly concave} when $\rho > 1$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+The bracketed term in \cref{eq:level-curve-second} is always positive. Thus:
+\begin{itemize}[leftmargin=1.5em]
+    \item $\rho = 1$: $(1-\rho) = 0$, so $\frac{d^2 x_2}{dx_1^2} = 0$ (linear).
+    \item $\rho < 1$: $(1-\rho) > 0$, so $\frac{d^2 x_2}{dx_1^2} > 0$ (convex).
+    \item $\rho > 1$: $(1-\rho) < 0$, so $\frac{d^2 x_2}{dx_1^2} < 0$ (concave).
+\end{itemize}
+\end{proof}
+
+\begin{calloutimportant}[The Standard Case]
+In consumer theory and production, we typically assume $\rho < 1$, which yields the familiar convex-to-the-origin indifference curves and isoquants. This corresponds to goods being imperfect substitutes and diminishing marginal rates of substitution. However, when we think of the PPF, we think of convex curves indicating less output increase as we marginally decrease the output of the other good.
+\end{calloutimportant}
+
+\Cref{fig:isocurves-comparison} displays iso-mean contour plots for several values of $\rho$, illustrating how the curvature of level curves varies with the substitution parameter. As $\rho$ increases, the curves transition from L-shaped (complements) through the Cobb-Douglas case to linear (perfect substitutes) and beyond.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/lecture1/isocurves_comparison.pdf}
+\caption{Iso-mean curves for different values of $\rho$. Lower values of $\rho$ yield more curved (complement-like) level sets, while higher values yield flatter (substitute-like) ones.}
+\label{fig:isocurves-comparison}
+\end{figure}
+
+\Cref{fig:isomean-manual} plots the same iso-mean curves computed explicitly from \cref{eq:level-curve-explicit}, overlaying several values of $\rho$ on a single panel. This makes the transition from complements to substitutes particularly visible.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/lecture1/isomean_curves_manual.pdf}
+\caption{Iso-mean curves at a common mean level for $\rho = -1$ (harmonic), $\rho \to 0$ (geometric), $\rho = 0.5$, and $\rho = 1$ (arithmetic). All curves pass through the balanced point where $x_1/\omega = x_2/(1-\omega)$.}
+\label{fig:isomean-manual}
+\end{figure}
+
+% ==============================================================
+\section{Limiting Cases}
+\label{sec:limiting-cases}
+% ==============================================================
+
+The generalized mean encompasses several important special cases that arise as limits of the parameter $\rho$. These limiting forms---Cobb-Douglas, Leontief, and linear---are workhorses of economic modeling, and understanding them as limits of a unified framework provides valuable insight.
+
+% --------------------------------------------------------------
+\paragraph{The Cobb-Douglas Limit}
+% --------------------------------------------------------------
+
+The Cobb-Douglas specification arises when goods are neither strong substitutes nor strong complements.
+
+\begin{proposition}[Cobb-Douglas Limit]
+\label{prop:cobb-douglas}
+As $\rho \to 0$, the canonical generalized mean converges to
+\begin{equation}
+\label{eq:cobb-douglas}
+\lim_{\rho \to 0} \M(x_1, x_2; \omega, \rho) = \left( \frac{x_1}{\omega} \right)^\omega \left( \frac{x_2}{1-\omega} \right)^{1-\omega}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+We use the transformation $m = \exp(\log(m))$ to write
+\[
+\lim_{\rho \to 0} \M(x_1, x_2; \omega, \rho) = \lim_{\rho \to 0} \exp\left( \frac{1}{\rho} \log\left( \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right) \right).
+\]
+Since $\exp$ is continuous, we may pass the limit inside:
+\[
+= \exp\left( \lim_{\rho \to 0} \frac{1}{\rho} \log\left( \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho \right) \right).
+\]
+
+Both the numerator and denominator approach zero as $\rho \to 0$, so we apply L'Hôpital's rule. Let $\Ssum(\rho) = \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho$. Then
+\[
+\lim_{\rho \to 0} \frac{\log \Ssum(\rho)}{\rho} = \lim_{\rho \to 0} \frac{1}{\Ssum(\rho)} \cdot \frac{\partial \Ssum(\rho)}{\partial \rho}.
+\]
+Using the identity $\frac{\partial}{\partial \rho}(a^\rho) = a^\rho \log a$, we can rewrite $\Ssum(\rho)$ as
+\[
+\Ssum(\rho) = \omega \left( \frac{x_1}{\omega} \right)^\rho + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho.
+\]
+Differentiating:
+\[
+\frac{\partial \Ssum(\rho)}{\partial \rho} = \omega \left( \frac{x_1}{\omega} \right)^\rho \log\left( \frac{x_1}{\omega} \right) + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho \log\left( \frac{x_2}{1-\omega} \right).
+\]
+As $\rho \to 0$, we have $\Ssum(0) = \omega + (1-\omega) = 1$, and
+\[
+\lim_{\rho \to 0} \frac{\partial \Ssum(\rho)}{\partial \rho} = \omega \log\left( \frac{x_1}{\omega} \right) + (1-\omega) \log\left( \frac{x_2}{1-\omega} \right) = \log\left[ \left( \frac{x_1}{\omega} \right)^\omega \left( \frac{x_2}{1-\omega} \right)^{1-\omega} \right].
+\]
+Therefore, we arrive at,
+\[
+\lim_{\rho \to 0} \M(x_1, x_2; \omega, \rho) = \exp\left( \log\left[ \left( \frac{x_1}{\omega} \right)^\omega \left( \frac{x_2}{1-\omega} \right)^{1-\omega} \right] \right) = \left( \frac{x_1}{\omega} \right)^\omega \left( \frac{x_2}{1-\omega} \right)^{1-\omega}.
+\]
+\end{proof}
+\begin{proposition}[Classical Cobb-Douglas Limit]
+\label{prop:cobb-douglas-classical}
+For the classical form, the limit is the standard geometric mean:
+\begin{equation}
+\label{eq:cobb-douglas-classical}
+\lim_{\rho \to 0} \Mbar(x_1, x_2; \omega, \rho) = x_1^\omega \, x_2^{1-\omega}.
+\end{equation}
+\end{proposition}
+
+\begin{callouttip}[Exercise]
+Prove \cref{prop:cobb-douglas-classical} by following the same steps as in the proof of \cref{prop:cobb-douglas}.
+\end{callouttip}
+Importantly, notice that the limiting function satisfies monotonicity, idempotency, and concavity, as do all the cases with $\rho\not=0.$ 
+
+\begin{calloutimportant}[Economic Significance of Cobb-Douglas]
+The Cobb-Douglas case ($\rho = 0$, or equivalently $\varepsilon = 1$) plays a special role in economics: it is the unique specification for which substitution and income effects exactly cancel. This makes it a natural benchmark and explains its prevalence in applied work.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{The Leontief Limit}
+% --------------------------------------------------------------
+
+The Leontief specification represents perfect complements---goods that must be consumed in fixed proportions.
+
+\begin{proposition}[Leontief Limit]
+\label{prop:leontief}
+As $\rho \to -\infty$, the canonical generalized mean converges to
+\begin{equation}
+\label{eq:leontief}
+\lim_{\rho \to -\infty} \M(x_1, x_2; \omega, \rho) = \min\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Rewrite the canonical mean as
+\[
+\M(x_1, x_2; \omega, \rho) = \left( \omega \left( \frac{x_1}{\omega} \right)^\rho + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho \right)^{1/\rho}.
+\]
+Define $\underline{x} = \min\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}$ and factor out $\underline{x}$:
+\[
+= \underline{x} \left( \omega \left( \frac{x_1/\omega}{\underline{x}} \right)^\rho + (1-\omega) \left( \frac{x_2/(1-\omega)}{\underline{x}} \right)^\rho \right)^{1/\rho}.
+\]
+
+By construction, each ratio inside the parentheses satisfies $\frac{x_i/\omega_i}{\underline{x}} \geq 1$, with equality for the binding constraint. As $\rho \to -\infty$:
+\begin{itemize}[leftmargin=1.5em]
+    \item Terms with ratio $> 1$ vanish: $(a)^\rho \to 0$ for $a > 1$ when $\rho \to -\infty$.
+    \item Terms with ratio $= 1$ survive: $(1)^\rho = 1$ for all $\rho$.
+\end{itemize}
+Using the same $\exp(\log(\cdot))$ transformation and L'Hôpital's rule as in the Cobb-Douglas case, one can show that the bracketed term converges to $1$. Therefore,
+\[
+\lim_{\rho \to -\infty} \M(x_1, x_2; \omega, \rho) = \underline{x} \cdot 1 = \min\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}.
+\]
+\end{proof}
+\begin{callouttip}[Exercise]
+Following the same steps, show the following proposition:
+\begin{proposition}[Classical Leontief Limit]
+\label{prop:leontief-classical}
+For the classical form:
+\begin{equation}
+\label{eq:leontief-classical}
+\lim_{\rho \to -\infty} \Mbar(x_1, x_2; \omega, \rho) = \min\left\{ x_1, x_2 \right\}.
+\end{equation}
+\end{proposition}
+\end{callouttip}
+
+\begin{calloutnote}[Leontief Technology]
+In production theory, Leontief technology represents processes where inputs must be combined in fixed proportions---for example, one machine requires exactly one operator. Excess of any input is wasted. The level curves are L-shaped, with kinks along the ray $x_1/\omega = x_2/(1-\omega)$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{The Max Limit.}
+% --------------------------------------------------------------
+
+The opposite extreme represents perfect substitutes.
+
+\begin{proposition}[Maximum Limit]
+\label{prop:max-limit}
+As $\rho \to +\infty$, the canonical generalized mean converges to
+\begin{equation}
+\label{eq:max-limit}
+\lim_{\rho \to +\infty} \M(x_1, x_2; \omega, \rho) = \max\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The argument mirrors the Leontief case. Define $\bar{x} = \max\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}$ and factor:
+\[
+\M(x_1, x_2; \omega, \rho) = \bar{x} \left( \omega \left( \frac{x_1/\omega}{\bar{x}} \right)^\rho + (1-\omega) \left( \frac{x_2/(1-\omega)}{\bar{x}} \right)^\rho \right)^{1/\rho}.
+\]
+Now each ratio satisfies $\frac{x_i/\omega_i}{\bar{x}} \leq 1$. As $\rho \to +\infty$:
+\begin{itemize}[leftmargin=1.5em]
+    \item Terms with ratio $< 1$ vanish: $(a)^\rho \to 0$ for $a < 1$ when $\rho \to +\infty$.
+    \item Terms with ratio $= 1$ survive.
+\end{itemize}
+The bracketed term converges to $1$, yielding $\lim_{\rho \to +\infty} \M = \bar{x}$.
+\end{proof}
+
+\begin{remark}
+Recall from \cref{prop:level-curve-shape} that level curves are linear when $\rho = 1$ (perfect substitutes in the standard sense). The $\rho \to +\infty$ limit represents an extreme form where only the most abundant good (relative to its weight) matters. In the context of a PPF, it means that resources needed to produce outputs are equivalent to the highest output. Increasing any output below that amount does not require resources. Thus, outputs are equalized
+\end{remark}
+
+% --------------------------------------------------------------
+\paragraph{Summary of Limiting Cases.}
+% --------------------------------------------------------------
+
+\Cref{tab:limiting-cases} summarizes the limiting behavior of both the canonical and classical generalized means. As is clear, the limiting behavior differs.
+
+\begin{table}[htbp]
+\centering
+\caption{Limiting Cases of Generalized Means}
+\label{tab:limiting-cases}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Limit} & \textbf{Parameter} & \textbf{Canonical $\M$} & \textbf{Classical $\Mbar$} \\
+\midrule
+Leontief & $\rho \to -\infty$ & $\min\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}$ & $\min\{x_1, x_2\}$ \\[6pt]
+Cobb-Douglas & $\rho \to 0$ & $\left( \frac{x_1}{\omega} \right)^\omega \left( \frac{x_2}{1-\omega} \right)^{1-\omega}$ & $x_1^\omega x_2^{1-\omega}$ \\[6pt]
+Linear & $\rho = 1$ & $x_1 + x_2$ & $\omega x_1 + (1-\omega) x_2$ \\[6pt]
+Maximum & $\rho \to +\infty$ & $\max\left\{ \frac{x_1}{\omega}, \frac{x_2}{1-\omega} \right\}$ & $\max\{x_1, x_2\}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{General Formulations}
+
+We now present the generalizations to more than two values. 
+
+\paragraph{General Definitions}
+% --------------------------------------------------------------
+
+Let $\bx = (x_1, \ldots, x_n) \in \R_{++}^n$ be a vector of positive real numbers and $\bom = (\omega_1, \ldots, \omega_n)$ be a vector of weights with $\omega_i > 0$ and $\sum_{i=1}^n \omega_i = 1$.
+
+\begin{definition}[General Canonical Mean]
+\label{def:general-canonical}
+The canonical generalized mean is
+\begin{equation}
+\label{eq:general-canonical}
+\M(\bx; \bom, \rho) = \left( \sum_{i=1}^n \omega_i^{1-\rho} x_i^\rho \right)^{\frac{1}{\rho}} = \Ssum(\bx; \bom, \rho)^{\frac{1}{\rho}},
+\end{equation}
+where the inner sum is $\Ssum(\bx; \bom, \rho) = \sum_{i=1}^n \omega_i^{1-\rho} x_i^\rho$.
+\end{definition}
+
+\begin{definition}[General Classical Mean]
+\label{def:general-classical}
+The classical generalized mean is
+\begin{equation}
+\label{eq:general-classical}
+\Mbar(\bx; \bom, \rho) = \left( \sum_{i=1}^n \omega_i x_i^\rho \right)^{\frac{1}{\rho}} = \bar{\Ssum}(\bx; \bom, \rho)^{\frac{1}{\rho}},
+\end{equation}
+where the inner sum is $\bar{\Ssum}(\bx; \bom, \rho) = \sum_{i=1}^n \omega_i x_i^\rho$.
+\end{definition}
+
+% --------------------------------------------------------------
+\paragraph{General Properties}
+% --------------------------------------------------------------
+
+All properties established for the two-element case extend directly.
+
+\begin{proposition}[General Properties]
+\label{prop:general-properties}
+For $\bx \in \R_{++}^n$, $\bom$ with $\sum_i \omega_i = 1$, and $\rho \neq 0$:
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Smoothness}: $\M(\bx; \bom, \rho)$ is $\mathcal{C}^\infty$ in all arguments.
+    \item \textbf{Monotonicity}: $\frac{\partial \M}{\partial x_i} > 0$ for all $i$.
+    \item \textbf{Homogeneity}: $\M(\lambda \bx; \bom, \rho) = \lambda \M(\bx; \bom, \rho)$ for all $\lambda > 0$.
+    \item \textbf{Concavity/Convexity}: $\M$ is concave in $\bx$ when $\rho < 1$, convex when $\rho > 1$.
+    \item \textbf{Bounds} (classical): $\min_i x_i < \Mbar(\bx; \bom, \rho) < \max_i x_i$.
+\end{enumerate}
+\end{proposition}
+The formulas of the limiting cases behave in an analogous way. \Cref{tab:general-limits} in the chapter's summary presents the limiting behavior for $n$ elements.
+
+\begin{table}[h!]
+\centering
+\caption{Limiting Cases: General Formulations}
+\label{tab:general-limits}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Limit} & \textbf{Canonical $\M(\bx; \bom, \rho)$} & \textbf{Classical $\Mbar(\bx; \bom, \rho)$} \\
+\midrule
+Leontief ($\rho \to -\infty$) & $\displaystyle\min_i \left\{ \frac{x_i}{\omega_i} \right\}$ & $\displaystyle\min_i \{ x_i \}$ \\[12pt]
+Cobb-Douglas ($\rho \to 0$) & $\displaystyle\prod_{i=1}^n \left( \frac{x_i}{\omega_i} \right)^{\omega_i}$ & $\displaystyle\prod_{i=1}^n x_i^{\omega_i}$ \\[12pt]
+Linear ($\rho = 1$) & $\displaystyle\sum_{i=1}^n x_i$ & $\displaystyle\sum_{i=1}^n \omega_i x_i$ \\[12pt]
+Maximum ($\rho \to +\infty$) & $\displaystyle\max_i \left\{ \frac{x_i}{\omega_i} \right\}$ & $\displaystyle\max_i \{ x_i \}$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==============================================================
+\section{Transformations}
+\label{sec:transformations}
+% ==============================================================
+
+\input{sections/gm_transformations}
+
+% ==============================================================
+\section{Ordering of Means}
+\label{sec:ordering}
+% ==============================================================
+
+A fundamental result in the theory of generalized means is that higher values of $\rho$ yield higher means. This section establishes this ordering and reveals a deep connection to information theory through the Kullback-Leibler divergence.
+
+\begin{proposition}[Ordering of Canonical Means]
+\label{prop:ordering}
+For any $x_1, x_2 > 0$ with $x_1 \neq x_2$ and $\omega \in (0,1)$,
+\begin{equation}
+\rho < \rho' \implies m_\rho < m_{\rho'},
+\end{equation}
+where $m_\rho = \M(x_1, x_2; \omega, \rho)$.
+\end{proposition}
+
+To prove this, we show that $\frac{\partial m}{\partial \rho} > 0$. The proof will reveal a deep connection to the Kullback-Leibler divergence introduced in \cref{sec:kl-divergence}.
+
+% --------------------------------------------------------------
+\paragraph{Derivative of the Mean with Respect to $\rho$}
+% --------------------------------------------------------------
+
+Recall that the canonical mean can be written as
+\begin{equation}
+m = s(\rho)^{1/\rho},
+\end{equation}
+where the inner sum is
+\begin{equation}
+s(\rho) = \omega^{1-\rho} x_1^\rho + (1-\omega)^{1-\rho} x_2^\rho = \omega \left( \frac{x_1}{\omega} \right)^\rho + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho.
+\end{equation}
+
+Using the identity $\frac{\partial}{\partial \rho} a^\rho = a^\rho \log a$, we differentiate $m = s(\rho)^{1/\rho}$:
+\begin{align}
+\frac{\partial m}{\partial \rho} &= \frac{\partial}{\partial \rho} \left[ s(\rho)^{1/\rho} \right] \notag \\
+&= -\frac{1}{\rho^2} s(\rho)^{1/\rho} \log(s(\rho)) + \frac{1}{\rho} s(\rho)^{1/\rho - 1} \frac{\partial s(\rho)}{\partial \rho}.
+\end{align}
+The derivative of the inner sum is
+\begin{equation}
+\frac{\partial s(\rho)}{\partial \rho} = \omega \left( \frac{x_1}{\omega} \right)^\rho \log\left( \frac{x_1}{\omega} \right) + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho \log\left( \frac{x_2}{1-\omega} \right).
+\end{equation}
+Factoring and rearranging:
+\begin{align}
+\frac{\partial m}{\partial \rho} &= -\frac{1}{\rho^2} \frac{s(\rho)^{1/\rho}}{s(\rho)} \left[ s(\rho) \log(s(\rho)) - \rho \cdot \frac{\partial s(\rho)}{\partial \rho} \right] \notag \\
+&= -\frac{1}{\rho^2} \frac{m}{s(\rho)} \left[ z_0 - z_1 \right],
+\end{align}
+where we define
+\begin{align}
+z_0 &= s(\rho) \log(s(\rho)), \\
+z_1 &= \omega \left( \frac{x_1}{\omega} \right)^\rho \log\left[ \left( \frac{x_1}{\omega} \right)^\rho \right] + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho \log\left[ \left( \frac{x_2}{1-\omega} \right)^\rho \right].
+\end{align}
+
+% --------------------------------------------------------------
+\paragraph{Application of Jensen's Inequality}
+% --------------------------------------------------------------
+
+To sign $z_0 - z_1$, we apply Jensen's inequality.
+
+\begin{lemma}
+\label{lem:xlogx-convex}
+The function $f(x) = x \log x$ is strictly convex for $x > 0$.
+\end{lemma}
+
+\begin{proof}
+We have $f'(x) = \log x + 1$ and $f''(x) = 1/x > 0$ for $x > 0$.
+\end{proof}
+
+\begin{lemma}[Jensen's Inequality]
+\label{lem:jensen}
+If $f$ is strictly convex and $\sum_i \omega_i = 1$ with $\omega_i > 0$, then
+\begin{equation}
+f\left( \sum_i \omega_i x_i \right) < \sum_i \omega_i f(x_i),
+\end{equation}
+with equality if and only if all $x_i$ are equal.
+\end{lemma}
+
+Observe that $z_0$ and $z_1$ can be written in terms of $f(x) = x \log x$:
+\begin{align}
+z_0 &= f(s(\rho)) = f\left( \omega \left( \frac{x_1}{\omega} \right)^\rho + (1-\omega) \left( \frac{x_2}{1-\omega} \right)^\rho \right), \\
+z_1 &= \omega f\left[ \left( \frac{x_1}{\omega} \right)^\rho \right] + (1-\omega) f\left[ \left( \frac{x_2}{1-\omega} \right)^\rho \right].
+\end{align}
+By Jensen's inequality applied to $f(x) = x \log x$ with weights $\omega$ and $(1-\omega)$:
+\begin{equation}
+z_0 < z_1 \quad \text{whenever } \frac{x_1}{\omega} \neq \frac{x_2}{1-\omega}.
+\end{equation}
+Therefore, $z_0 - z_1 < 0$, which implies
+\begin{equation}
+\frac{\partial m}{\partial \rho} = -\frac{1}{\rho^2} \frac{m}{s(\rho)} (z_0 - z_1) > 0.
+\end{equation}
+This completes the proof of \cref{prop:ordering}. \qed
+
+\Cref{fig:mean-vs-rho} illustrates the ordering property: fixing a consumption bundle $\bx$ and weights $\bom$, the generalized mean increases monotonically with $\rho$, interpolating from $\min(x)$ to $\max(x)$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/lecture1/generalized_mean_vs_rho.pdf}
+\caption{The generalized mean as a function of $\rho$, for fixed $\bx$ and $\bom$. The mean interpolates monotonically between the minimum and maximum of the vector, passing through the geometric mean at $\rho = 0$.}
+\label{fig:mean-vs-rho}
+\end{figure}
+
+% --------------------------------------------------------------
+\paragraph{Connection to Kullback-Leibler Divergence}
+% --------------------------------------------------------------
+
+The ordering result has a remarkable connection to information theory to which we come back in the next chapter. Define the \emph{tilted weights}:
+\begin{equation}
+\label{eq:tilted-weights}
+\tilde{\omega}_i = \frac{\omega_i^{1-\rho} x_i^\rho}{s(\rho)}, \quad i = 1, 2.
+\end{equation}
+
+Note that $\tilde{\omega}_1 + \tilde{\omega}_2 = 1$, so the tilted weights form a probability distribution.
+
+\begin{proposition}[Elasticity and KL Divergence]
+\label{prop:elasticity-kl}
+The elasticity of the mean with respect to $\rho$ satisfies
+\begin{equation}
+\label{eq:elasticity-kl}
+\frac{\partial m}{\partial \rho} \cdot \frac{\rho}{m} = \frac{1}{\rho} \KL{\tilde{\omega}}{\omega} > 0,
+\end{equation}
+where $\KL{\tilde{\omega}}{\omega} = \sum_i \tilde{\omega}_i \log\left( \frac{\tilde{\omega}_i}{\omega_i} \right)$ is the Kullback-Leibler divergence (or relative entropy) from $\omega$ to $\tilde{\omega}$.
+\end{proposition}
+
+\begin{proof}
+We show that $(z_1 - z_0)/s(\rho) = \KL{\tilde{\omega}}{\omega}$. First, write $z_1/s(\rho)$ as a weighted sum using the tilted weights:
+\begin{align}
+\frac{z_1}{s(\rho)} &= \sum_i \tilde{\omega}_i \log\left( \frac{x_i}{\omega_i} \right)^\rho = \rho \sum_i \tilde{\omega}_i \left( \log x_i - \log \omega_i \right).
+\end{align}
+Similarly:
+\begin{equation}
+\frac{z_0}{s(\rho)} = \log(s(\rho)) = \left( \sum_i \tilde{\omega}_i \right) \log(s(\rho)) = \sum_i \tilde{\omega}_i \log(s(\rho)).
+\end{equation}
+Subtracting:
+\begin{equation}
+\frac{z_1 - z_0}{s(\rho)} = \sum_i \tilde{\omega}_i \left[ \rho (\log x_i - \log \omega_i) - \log(s(\rho)) \right].
+\end{equation}
+Now observe that the tilted weights satisfy:
+\begin{equation}
+\log \tilde{\omega}_i = \rho \log x_i + (1-\rho) \log \omega_i - \log(s(\rho)),
+\end{equation}
+which can be rearranged to:
+\begin{equation}
+\log \tilde{\omega}_i - \log \omega_i = \rho (\log x_i - \log \omega_i) - \log(s(\rho)).
+\end{equation}
+
+Substituting:
+\begin{equation}
+\frac{z_1 - z_0}{s(\rho)} = \sum_i \tilde{\omega}_i \left( \log \tilde{\omega}_i - \log \omega_i \right) = \sum_i \tilde{\omega}_i \log\left( \frac{\tilde{\omega}_i}{\omega_i} \right) = \KL{\tilde{\omega}}{\omega}.
+\end{equation}
+Since
+\begin{equation}
+\frac{\partial m}{\partial \rho} = \frac{1}{\rho^2} \frac{m}{s(\rho)} (z_1 - z_0),
+\end{equation}
+we obtain
+\begin{equation}
+\frac{\partial m}{\partial \rho} \cdot \frac{\rho}{m} = \frac{1}{\rho} \cdot \frac{z_1 - z_0}{s(\rho)} = \frac{1}{\rho} \KL{\tilde{\omega}}{\omega}.
+\end{equation}
+\end{proof}
+
+\begin{calloutimportant}[The Value of Flexibility]
+This result has a striking economic interpretation. As we shall see in later chapters, in optimization problems the tilted weights $\tilde{\omega}_i$ correspond to \emph{expenditure shares} $w_i$. The elasticity formula becomes:
+\begin{equation}
+\frac{\partial m}{\partial \rho} \cdot \frac{\rho}{m} = \frac{1}{\rho} \KL{w}{\omega}.
+\end{equation}
+The KL divergence measures how much the optimal allocation deviates from the ``natural'' weights $\omega$. This quantifies the \emph{value of flexibility}: the benefit from being able to substitute between goods depends on the relative entropy between expenditure shares and preference weights.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\paragraph{Ordering of Classical Means.}
+% --------------------------------------------------------------
+
+The same ordering holds for the classical generalized mean.
+
+\begin{proposition}[Ordering of Classical Means]
+\label{prop:ordering-classical}
+For any $x_1, x_2 > 0$ with $x_1 \neq x_2$ and $\omega \in (0,1)$,
+\begin{equation}
+\rho < \rho' \implies \bar{m}_\rho < \bar{m}_{\rho'},
+\end{equation}
+where $\bar{m}_\rho = \Mbar(x_1, x_2; \omega, \rho)$.
+\end{proposition}
+
+\begin{callouttip}[Exercise]
+Prove \cref{prop:ordering-classical} by following the same steps as for the canonical mean:
+\begin{enumerate}[leftmargin=1.5em, label=(\alph*)]
+    \item Write $\bar{m} = \bar{s}(\rho)^{1/\rho}$ where $\bar{s}(\rho) = \omega x_1^\rho + (1-\omega) x_2^\rho$.
+    \item Compute $\frac{\partial \bar{m}}{\partial \rho}$ and express it in terms of $\bar{z}_0 = \bar{s}(\rho) \log(\bar{s}(\rho))$ and $\bar{z}_1 = \omega x_1^\rho \log(x_1^\rho) + (1-\omega) x_2^\rho \log(x_2^\rho)$.
+    \item Apply Jensen's inequality to show $\bar{z}_0 < \bar{z}_1$.
+    \item Define the tilted weights for the classical case as
+    \begin{equation}
+    \bar{\omega}_i = \frac{\omega_i x_i^\rho}{\bar{s}(\rho)}
+    \end{equation}
+    and show that the elasticity satisfies
+    \begin{equation}
+    \frac{\partial \bar{m}}{\partial \rho} \cdot \frac{\rho}{\bar{m}} = \frac{1}{\rho} \KL{\bar{\omega}}{\omega}.
+    \end{equation}
+\end{enumerate}
+\end{callouttip}
+
+\begin{calloutnote}[Power Mean Inequality]
+The ordering of classical means is known in mathematics as the \emph{power mean inequality} or \emph{generalized mean inequality}. It generalizes the classical result that the harmonic mean is less than the geometric mean, which is less than the arithmetic mean:
+\begin{equation}
+\bar{m}_{-1} \leq \bar{m}_0 \leq \bar{m}_1.
+\end{equation}
+\end{calloutnote}
+
+
+% ==============================================================
+\section{General Formulations and Summary}
+\label{sec:general-summary}
+% ==============================================================
+
+Throughout this chapter, we have developed the theory of generalized means using the two-element case. This was a deliberate pedagogical choice: with two elements, the algebra is transparent, the geometric intuition (level curves, slopes) is immediate, and all the essential economic content is present. 
+
+In this concluding section, we present the general $n$-element formulations and summarize the main results. The reader should be reassured: \emph{every result in this chapter extends to $n$ elements with the same structure}---sums replace pairs, but the underlying mathematics is unchanged.
+
+% --------------------------------------------------------------
+
+
+% --------------------------------------------------------------
+\paragraph{General Transformations}
+% --------------------------------------------------------------
+
+The relationship between canonical and classical forms generalizes as follows.
+
+\begin{proposition}[General Canonical-Classical Relationship]
+\label{prop:general-transform}
+\begin{equation}
+\M(\bx; \bom, \rho) = \lambda(\bom, \rho) \cdot \Mbar(\bx; \tilde{\bom}, \rho),
+\end{equation}
+where
+\begin{equation}
+\lambda(\bom, \rho) = \Omega(\bom, \rho)^{\frac{1-\rho}{\rho}}, \quad \Omega(\bom, \rho) = \left( \sum_{i=1}^n \omega_i^{1-\rho} \right)^{\frac{1}{\rho}},
+\end{equation}
+and the transformed weights are
+\begin{equation}
+\tilde{\omega}_i = \left( \frac{\omega_i}{\Omega(\bom, \rho)} \right)^{1-\rho} = \frac{\omega_i^{1-\rho}}{\sum_{j=1}^n \omega_j^{1-\rho}}.
+\end{equation}
+\end{proposition}
+
+% --------------------------------------------------------------
+\paragraph{General Ordering and Information Theory}
+% --------------------------------------------------------------
+
+The ordering result and its information-theoretic interpretation extend to $n$ elements.
+
+\begin{proposition}[General Ordering]
+\label{prop:general-ordering}
+For $\bx \in \R_{++}^n$ with not all $x_i$ equal, and $\bom$ with $\omega_i \in (0,1)$:
+\begin{equation}
+\rho < \rho' \implies \M(\bx; \bom, \rho) < \M(\bx; \bom, \rho').
+\end{equation}
+\end{proposition}
+
+\begin{proposition}[General KL Divergence Formula]
+\label{prop:general-kl}
+Define the tilted weights
+\begin{equation}
+\tilde{\omega}_i = \frac{\omega_i^{1-\rho} x_i^\rho}{\Ssum(\bx; \bom, \rho)}.
+\end{equation}
+Then the elasticity of the mean with respect to $\rho$ satisfies
+\begin{equation}
+\frac{\partial \M}{\partial \rho} \cdot \frac{\rho}{\M} = \frac{1}{\rho} \KL{\tilde{\bom}}{\bom} = \frac{1}{\rho} \sum_{i=1}^n \tilde{\omega}_i \log\left( \frac{\tilde{\omega}_i}{\omega_i} \right) > 0.
+\end{equation}
+\end{proposition}
+
+\begin{calloutnote}[Interpretation]
+The tilted weights $\tilde{\omega}_i$ represent how the allocation $\bx$ distorts the natural weights $\bom$. In economic applications, these will correspond to expenditure shares. The KL divergence measures the informational distance between the allocation-induced distribution and the preference weights.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\paragraph{Level Sets}
+% --------------------------------------------------------------
+
+In the two-element case, level curves are one-dimensional objects in $\R^2$. With $n$ elements, level curves become $(n-1)$-dimensional \emph{level sets} or \emph{hypersurfaces} in $\R^n$:
+\begin{equation}
+\left\{ \bx \in \R_{++}^n : \M(\bx; \bom, \rho) = m \right\}.
+\end{equation}
+
+The key properties generalize:
+\begin{itemize}[leftmargin=-0em]
+    \item The gradient $\nabla_{\bx} \M$ is normal to the level set.
+    \item The marginal rate of substitution between elements $i$ and $j$ is
+    \begin{equation}
+    \text{MRS}_{ij} = -\frac{\partial x_j}{\partial x_i}\bigg|_{\M = m} = \left( \frac{\omega_i}{\omega_j} \right)^{1-\rho} \left( \frac{x_j}{x_i} \right)^{1-\rho}.
+    \end{equation}
+    \item Level sets are strictly convex (to the origin) when $\rho < 1$.
+\end{itemize}
+
+% --------------------------------------------------------------
+\paragraph{Summary Formulas.}
+% --------------------------------------------------------------
+
+\Cref{tab:ces-notation-final} summarizes the notation used throughout this chapter.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of Notation}
+\label{tab:ces-notation-final}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Name} & \textbf{Definition} \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Core Objects}} \\[2pt]
+$\M(\bx; \bom, \rho)$ & Canonical mean & $\left( \sum_i \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho}$ \\[4pt]
+$\Mbar(\bx; \bom, \rho)$ & Classical mean & $\left( \sum_i \omega_i x_i^\rho \right)^{1/\rho}$ \\[4pt]
+$\Ssum(\bx; \bom, \rho)$ & Inner sum (canonical) & $\sum_i \omega_i^{1-\rho} x_i^\rho$ \\[4pt]
+$\bar{\Ssum}(\bx; \bom, \rho)$ & Inner sum (classical) & $\sum_i \omega_i x_i^\rho$ \\[4pt]
+\midrule
+\multicolumn{3}{@{}l}{\textit{Transformations}} \\[2pt]
+$\Omega(\bom, \rho)$ & Normalization factor & $\M(\mathbf{1}; \bom, \rho) = \left( \sum_i \omega_i^{1-\rho} \right)^{1/\rho}$ \\[4pt]
+$\lambda(\bom, \rho)$ & Scaling factor & $\Omega(\bom, \rho)^{(1-\rho)/\rho}$ \\[4pt]
+$\tilde{\omega}_i$ & Transformed weight & $\omega_i^{1-\rho} / \sum_j \omega_j^{1-\rho}$ \\[4pt]
+\midrule
+\multicolumn{3}{@{}l}{\textit{Information Theory}} \\[2pt]
+$\KL{p}{q}$ & KL divergence & $\sum_i p_i \log(p_i / q_i)$ \\[4pt]
+$H(p)$ & Shannon entropy & $-\sum_i p_i \log(p_i)$ \\[4pt]
+\midrule
+\multicolumn{3}{@{}l}{\textit{Economic Applications}} \\[2pt]
+$\U(\cdot)$ & Utility function & $\M(\cdot)$ with consumption arguments \\[4pt]
+$\F(\cdot)$ & Production function & $\M(\cdot)$ with input arguments \\[4pt]
+$\Hfun(\cdot)$ & Production possibility frontier (PPF) & $\M(\cdot)$ with allocation arguments \\[4pt]
+$\CE(\cdot)$ & Certainty equivalent & $\Mbar(\cdot)$ with probability weights \\[4pt]
+\midrule
+\multicolumn{3}{@{}l}{\textit{Parameters}} \\[2pt]
+$\rho$ & Mean-form parameter & Related to elasticity by $\rho = 1 - 1/\varepsilon$ \\[4pt]
+$\varepsilon$ & Elasticity of substitution & $\varepsilon = 1/(1-\rho)$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\paragraph{Looking Ahead: Recursive Structures}
+% --------------------------------------------------------------
+
+With two elements, the generalized mean is the only aggregation structure available. With $n > 2$ elements, a new possibility emerges: \emph{nested} or \emph{recursive} aggregation.
+
+Consider $n = 4$ elements. We could aggregate them in a single step:
+\begin{equation}
+\M(x_1, x_2, x_3, x_4; \bom, \rho).
+\end{equation}
+Alternatively, we could first aggregate pairs, then aggregate the results:
+\begin{equation}
+\M\Big(x_1 , \M( x_2,x_3, x_4; \bom', \rho); \, \omega_1, \rho \Big),
+\end{equation}
+where again $\bom'$ is a suitable transformation of the parameters. 
+
+More generally \emph{not equivalent}---we could introduce other means. The nested structure allows for different elasticities at different levels: elements within a group may be closer substitutes than elements across groups.
+
+\begin{calloutimportant}[The Recursive Structure]
+Nested CES aggregators are ubiquitous in applied economics:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Consumer theory}: Goods grouped into categories (food, housing, transport), with different substitution elasticities within and across categories.
+    \item \textbf{Production}: Capital and labor aggregate into ``value added,'' which combines with materials.
+    \item \textbf{International trade}: Domestic and foreign varieties aggregate within sectors, sectors aggregate into final demand.
+\end{itemize}
+The analysis of recursive structures---their properties, estimation, and economic implications---is the subject of the next chapter.
+\end{calloutimportant}

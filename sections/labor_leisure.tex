@@ -1,0 +1,720 @@
+\epigraph{It is suggested that the French prefer leisure more than Americans do, or that Americans like to work more. This is silliness.}{\textit{Edward Prescott}, ``The Elasticity of Labor Supply'' (2005)}
+
+% ==============================================================
+\section{The Static Problem}
+\label{sec:labor-static}
+% ==============================================================
+
+We now apply the generalized means framework to the labor-leisure trade-off. The key insight is that time allocation across uses is analogous to resource allocation across goods---uses of time replace varieties of consumption. The wage plays the role of a relative price, and the tools developed for static CES optimization carry over directly.
+
+% --------------------------------------------------------------
+\subsection{From Goods to Uses of Time}
+\label{subsec:goods-to-time}
+% --------------------------------------------------------------
+
+In previous sections, an agent chose quantities $\bx = (x_1, \ldots, x_n)$ of different goods subject to a budget constraint $\sum_i p_i x_i = W$. The relative price $p_i/p_j$ governed the trade-off between goods $i$ and $j$.
+
+Now consider an agent who allocates a unit of time between two uses: leisure $\ell$ and labor $n$. The agent enjoys leisure directly and earns wage income $wn$ from labor, which finances consumption $c$. The fundamental trade-off is no longer between apples and oranges, but between enjoying time directly versus converting time into consumption.
+
+\paragraph{The Wage as a Relative Price.}
+If the agent works one additional unit of time, she earns $w$ units of consumption but forgoes one unit of leisure. Equivalently, one unit of leisure ``costs'' $w$ units of consumption---the wage is the opportunity cost of leisure. This observation is the bridge between static consumption theory and labor supply: with consumption as numeraire, the wage $w$ is the relative price of leisure.
+
+\paragraph{Normalization.}
+We normalize the total time endowment to unity: $T = 1$. This simplifies notation and emphasizes that $\ell$ and $n$ are \emph{shares} of time. The time constraint becomes:
+\begin{equation}
+\ell + n = 1.
+\label{eq:time-constraint-linear}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Baseline Formulation}
+\label{subsec:labor-baseline}
+% --------------------------------------------------------------
+
+We begin with the standard formulation where time transforms linearly into its uses.
+
+\paragraph{The Time Constraint.}
+The agent divides her unit of time between leisure $\ell$ and labor $n$:
+\begin{equation}
+\ell + n = 1.
+\label{eq:time-budget}
+\end{equation}
+
+\paragraph{The Budget Constraint.}
+Labor income plus non-labor income $y_0$ finances consumption:
+\begin{equation}
+c = wn + y_0.
+\label{eq:consumption-budget}
+\end{equation}
+
+Substituting $n = 1 - \ell$ from \eqref{eq:time-budget}:
+\begin{equation}
+c = w(1 - \ell) + y_0 = w + y_0 - w\ell.
+\label{eq:consumption-leisure}
+\end{equation}
+
+\paragraph{Preferences.}
+The agent has preferences over leisure and consumption represented by a CES utility function:
+\begin{equation}
+\U(\ell, c) = \left( \omega_\ell^{1-\rho} \ell^\rho + \omega_c^{1-\rho} c^\rho \right)^{1/\rho},
+\label{eq:utility-labor}
+\end{equation}
+where $\omega_\ell + \omega_c = 1$ and $\rho = 1 - 1/\varepsilon$ with $\varepsilon > 0$ the elasticity of substitution between leisure and consumption.
+
+\paragraph{Full Income.}
+Define \emph{full income} as the maximum consumption attainable if all time were devoted to labor:
+\begin{equation}
+I \equiv w + y_0.
+\label{eq:full-income}
+\end{equation}
+
+Rewriting \eqref{eq:consumption-leisure}:
+\begin{equation}
+\boxed{c + w \cdot \ell = I.}
+\label{eq:full-income-budget}
+\end{equation}
+
+This is a linear budget constraint in $(\ell, c)$ with prices $(w, 1)$ and ``wealth'' $I$---exactly the structure of the canonical problem.
+
+\begin{calloutnote}[Full Income Interpretation]
+Full income $I = w + y_0$ represents the agent's total potential resources: what she could consume if she ``sold'' all her time at wage $w$ and added non-labor income $y_0$. The agent then ``buys back'' leisure at price $w$. This reframing transforms the labor-leisure problem into a standard consumer problem.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Mapping to the Canonical Problem}
+\label{subsec:labor-canonical}
+% --------------------------------------------------------------
+
+The labor-leisure problem maps directly to the canonical CES optimization problem.
+
+\begin{calloutimportant}[The Mapping to the Canonical Problem]
+The labor-leisure problem maps to the canonical CES problem with:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Static Problem} & \textbf{Labor-Leisure Problem} & \textbf{Formula} \\
+\midrule
+Goods $\{1, 2\}$ & Uses $\{\ell, c\}$ & --- \\
+Quantities $(x_1, x_2)$ & $(\ell, c)$ & --- \\
+Prices $(p_1, p_2)$ & $(w, 1)$ & --- \\
+Wealth $W$ & Full income $I$ & $I = w + y_0$ \\
+Elasticity $\varepsilon$ & Leisure-consumption elasticity & --- \\
+Power $\rho$ & Power $\rho$ & $\rho = 1 - 1/\varepsilon$ \\
+Weights $(\omega_1, \omega_2)$ & $(\omega_\ell, \omega_c)$ & $\omega_\ell + \omega_c = 1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+With this mapping, all results from the canonical problem---optimal allocations, budget shares, price indices---apply directly.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Solution}
+\label{subsec:labor-solution}
+% --------------------------------------------------------------
+
+Applying the canonical formulas yields the optimal allocation.
+
+\paragraph{The Price Index.}
+The ideal price index aggregates prices $(w, 1)$ with weights $(\omega_\ell, \omega_c)$:
+\begin{equation}
+\Pstar = \left( \omega_\ell \, w^{1-\varepsilon} + \omega_c \cdot 1^{1-\varepsilon} \right)^{1/(1-\varepsilon)} = \left( \omega_\ell \, w^{1-\varepsilon} + \omega_c \right)^{1/(1-\varepsilon)}.
+\label{eq:price-index-labor}
+\end{equation}
+
+\paragraph{Expenditure Shares.}
+The shares of full income allocated to leisure and consumption are:
+\begin{align}
+\wexp_\ell &= \frac{w \cdot \ell}{I} = \frac{\omega_\ell \, w^{1-\varepsilon}}{\omega_\ell \, w^{1-\varepsilon} + \omega_c}, \label{eq:share-leisure} \\[6pt]
+\wexp_c &= \frac{c}{I} = \frac{\omega_c}{\omega_\ell \, w^{1-\varepsilon} + \omega_c}. \label{eq:share-consumption}
+\end{align}
+
+\paragraph{Optimal Leisure and Consumption.}
+From the demand formulas:
+\begin{align}
+\ell^* &= \omega_\ell \left( \frac{w}{\Pstar} \right)^{-\varepsilon} \cdot \frac{I}{\Pstar} = \frac{\wexp_\ell \cdot I}{w}, \label{eq:leisure-star} \\[6pt]
+c^* &= \omega_c \left( \frac{1}{\Pstar} \right)^{-\varepsilon} \cdot \frac{I}{\Pstar} = \wexp_c \cdot I. \label{eq:consumption-star}
+\end{align}
+
+\paragraph{Optimal Labor Supply.}
+Since $n = 1 - \ell$:
+\begin{equation}
+\boxed{n^* = 1 - \ell^* = 1 - \frac{\wexp_\ell \cdot I}{w} = 1 - \frac{\omega_\ell \, w^{-\varepsilon} \cdot I}{\omega_\ell \, w^{1-\varepsilon} + \omega_c}.}
+\label{eq:labor-star}
+\end{equation}
+
+\paragraph{The Leisure-Consumption Ratio.}
+Dividing optimal leisure by optimal consumption:
+\begin{equation}
+\frac{\ell^*}{c^*} = \frac{\omega_\ell}{\omega_c} \cdot w^{-\varepsilon}.
+\label{eq:leisure-consumption-ratio}
+\end{equation}
+
+This is the analog of the consumption ratio in intertemporal choice: when wages rise, the ratio of leisure to consumption falls if $\varepsilon > 0$.
+
+% --------------------------------------------------------------
+\subsection{The Intratemporal Optimality Condition}
+\label{subsec:labor-foc}
+% --------------------------------------------------------------
+
+The first-order condition equates the marginal rate of substitution to the wage.
+
+\paragraph{Derivation.}
+The FOC ratio condition states:
+\begin{equation}
+\frac{\omega_\ell^{1-\rho} \ell^{\rho-1}}{\omega_c^{1-\rho} c^{\rho-1}} = \frac{w}{1} = w.
+\label{eq:mrs-wage}
+\end{equation}
+
+Recognizing that the marginal utility of leisure is $\U_\ell = \U^{1-\rho} \omega_\ell^{1-\rho} \ell^{\rho-1}$ and similarly for consumption:
+\begin{equation}
+\boxed{\frac{\U_\ell}{\U_c} = w \qquad \Longleftrightarrow \qquad \text{MRS}_{\ell,c} = w.}
+\label{eq:mrs-condition}
+\end{equation}
+
+\begin{calloutnote}[Interpretation]
+The optimality condition states that the marginal rate of substitution between leisure and consumption equals the wage. At the optimum, the agent is indifferent between one more unit of leisure and $w$ more units of consumption. The wage is the ``price'' at which the market allows conversion between time and goods.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Comparative Statics: Wage Changes}
+\label{subsec:labor-comparative}
+% --------------------------------------------------------------
+
+How does labor supply respond to wage changes? The answer involves the interplay of substitution and income effects.
+
+\paragraph{The Slutsky Decomposition.}
+A wage increase affects labor supply through two channels:
+
+\medskip
+\noindent
+\textit{1. Substitution effect.} Higher wages make leisure more expensive relative to consumption. The agent substitutes away from leisure toward consumption, increasing labor supply. This effect is always positive: $\partial n^H / \partial w > 0$.
+
+\medskip
+\noindent
+\textit{2. Income effect.} Higher wages raise full income $I = w + y_0$. If leisure is a normal good, the agent ``buys'' more leisure, reducing labor supply. This effect is negative: $\partial n / \partial I < 0$ implies the income effect on labor supply is negative.
+
+\paragraph{The Wage Elasticity of Labor Supply.}
+The uncompensated (Marshallian) elasticity of labor supply with respect to the wage is:
+\begin{equation}
+\eta_{n,w} = \frac{\partial \ln n^*}{\partial \ln w} = \underbrace{\varepsilon \cdot \frac{\ell^*}{n^*}}_{\text{substitution } (+)} - \underbrace{\frac{w}{I} \cdot \frac{\ell^*}{n^*}}_{\text{income } (-)}.
+\label{eq:labor-elasticity}
+\end{equation}
+
+The sign is ambiguous: a wage increase raises labor supply through substitution but lowers it through income effects.
+
+\begin{calloutimportant}[The Backward-Bending Labor Supply Curve]
+When income effects dominate substitution effects, the labor supply curve bends backward: higher wages lead to \emph{less} work. This occurs when:
+\begin{itemize}[nosep]
+\item The elasticity of substitution $\varepsilon$ is small (leisure and consumption are complements).
+\item The share of labor income in full income $w/I$ is large.
+\item The agent is already working a lot ($\ell^*/n^*$ is small).
+\end{itemize}
+The CES framework makes precise when backward-bending occurs: $\eta_{n,w} < 0$ when $\varepsilon < w/I$.
+\end{calloutimportant}
+
+\paragraph{Special Cases.}
+The role of $\varepsilon$ is transparent in limiting cases:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Substitution Effect} & \textbf{Backward-Bending?} \\
+\midrule
+$\varepsilon \to \infty$ (perfect substitutes) & Dominates & Never \\
+$\varepsilon = 1$ (Cobb-Douglas) & Exact balance at $w/I = 1$ & If $w < I$ \\
+$\varepsilon \to 0$ (perfect complements) & Zero & Always (if $y_0 > 0$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{The Frisch Elasticity.}
+In dynamic contexts, an important concept is the \emph{Frisch elasticity}---the labor supply response holding the marginal utility of wealth constant. For separable preferences of the form $U(\ell) + V(c)$, the Frisch elasticity equals the intertemporal elasticity of substitution in labor. With CES preferences over $(\ell, c)$, the Frisch elasticity depends on the interaction between the two goods.
+
+% --------------------------------------------------------------
+\subsection{Non-Labor Income and Wealth Effects}
+\label{subsec:labor-nonlabor}
+% --------------------------------------------------------------
+
+Non-labor income $y_0$ affects labor supply purely through the income effect.
+
+\paragraph{The Income Elasticity of Labor Supply.}
+From \eqref{eq:labor-star}, an increase in $y_0$ raises full income $I$ without changing the wage. The response is:
+\begin{equation}
+\frac{\partial n^*}{\partial y_0} = -\frac{\partial \ell^*}{\partial y_0} = -\frac{\wexp_\ell}{w} < 0.
+\label{eq:labor-income-effect}
+\end{equation}
+
+Higher non-labor income unambiguously reduces labor supply---the agent ``buys'' more leisure.
+
+\paragraph{The Elasticity.}
+\begin{equation}
+\eta_{n,y_0} = \frac{\partial \ln n^*}{\partial \ln y_0} = -\frac{y_0}{n^*} \cdot \frac{\wexp_\ell}{w} = -\frac{y_0}{I} \cdot \frac{\ell^*}{n^*}.
+\label{eq:labor-income-elasticity}
+\end{equation}
+
+The magnitude depends on the share of non-labor income in full income and the leisure-labor ratio.
+
+\begin{calloutnote}[Lottery Winners and Retirees]
+Empirical studies of lottery winners and those receiving unexpected bequests find substantial reductions in labor supply, consistent with leisure being a normal good. The magnitude of the response provides information about the income elasticity $\eta_{n,y_0}$, which in turn constrains the preference parameters $\omega_\ell$ and $\varepsilon$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:labor-static-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Static Labor-Leisure Problem}
+\label{tab:labor-static-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Time constraint & $\ell + n = 1$ \\[6pt]
+Full income & $I = w + y_0$ \\[6pt]
+Full income budget & $w \cdot \ell + c = I$ \\[6pt]
+Optimality condition & $\text{MRS}_{\ell,c} = w$ \\[6pt]
+Leisure-consumption ratio & $\ell^* / c^* = (\omega_\ell/\omega_c) \cdot w^{-\varepsilon}$ \\[6pt]
+Price index & $\Pstar = \left( \omega_\ell \, w^{1-\varepsilon} + \omega_c \right)^{1/(1-\varepsilon)}$ \\[6pt]
+Optimal leisure & $\ell^* = \wexp_\ell \cdot I / w$ \\[6pt]
+Optimal labor & $n^* = 1 - \ell^*$ \\[6pt]
+Optimal consumption & $c^* = \wexp_c \cdot I$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The static labor-leisure problem is a CES optimization problem in disguise:
+\begin{itemize}[nosep]
+\item Uses of time $\{\ell, n\}$ play the role of goods $\{1, 2\}$
+\item The wage $w$ is the relative price of leisure in consumption units
+\item Full income $I = w + y_0$ is the analog of wealth
+\item The elasticity $\varepsilon$ governs substitution between leisure and consumption
+\end{itemize}
+All the machinery of generalized means---price indices, budget shares, comparative statics---applies directly.
+\end{callouttip}
+
+
+% ==============================================================
+\section{The PPF Formulation}
+\label{sec:labor-ppf}
+% ==============================================================
+
+The baseline formulation assumes time transforms linearly into leisure and labor: one hour of leisure plus one hour of labor equals one hour of time. But this need not be the case. Commuting, task-switching, fatigue, and fixed costs of working can create \emph{increasing opportunity costs} of transforming time between uses. This section develops the PPF formulation, where the time constraint has CES structure.
+
+% --------------------------------------------------------------
+\subsection{Non-Linear Time Transformation}
+\label{subsec:nonlinear-time}
+% --------------------------------------------------------------
+
+\paragraph{Motivation.}
+Several frictions make the linear time constraint unrealistic:
+
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Fixed costs of working}: Commuting, getting dressed, and mental preparation consume time that yields neither leisure nor labor income.
+\item \textbf{Fatigue}: The tenth hour of work is less productive than the first. Alternatively, leisure is less enjoyable when exhausted.
+\item \textbf{Switching costs}: Moving between leisure and work modes requires adjustment.
+\item \textbf{Indivisibilities}: Some jobs require minimum hours; part-time work may be unavailable or penalized.
+\end{itemize}
+
+These frictions create a \emph{concave} transformation frontier between leisure and labor---the PPF bows outward from the origin.
+
+\paragraph{The CES Time Constraint.}
+We generalize the time constraint to:
+\begin{equation}
+\Hfun(\ell, n) = \left( \eta_\ell^{1-h} \ell^h + \eta_n^{1-h} n^h \right)^{1/h} = 1, \qquad h \geq 1,
+\label{eq:time-ppf}
+\end{equation}
+where $\eta_\ell + \eta_n = 1$ are technology weights and $h \geq 1$ governs the curvature of the frontier.
+
+\begin{calloutnote}[Interpretation of $h$]
+The parameter $h$ measures the ``cost of specialization'':
+\begin{itemize}[nosep]
+\item $h = 1$: Linear constraint $\eta_\ell \ell + \eta_n n = 1$. No cost of specialization.
+\item $h > 1$: Concave PPF. Specializing in either pure leisure or pure work is costly.
+\item $h \to \infty$: Leontief constraint $\max\{\ell/\eta_\ell, n/\eta_n\} = 1$. Leisure and labor must be used in fixed proportions.
+\end{itemize}
+The elasticity of transformation is $\sigma_h = 1/(h-1)$. Higher $h$ means lower substitutability between uses of time.
+\end{calloutnote}
+
+\paragraph{Symmetric Case.}
+When $\eta_\ell = \eta_n = 1/2$, the constraint simplifies to:
+\begin{equation}
+\left( \frac{\ell^h + n^h}{2^{h-1}} \right)^{1/h} = 1 \quad \Longleftrightarrow \quad \left( \ell^h + n^h \right)^{1/h} = 2^{(h-1)/h}.
+\label{eq:time-ppf-symmetric}
+\end{equation}
+
+For $h = 1$, this reduces to $\ell + n = 1$. For $h = 2$, this becomes $\sqrt{\ell^2 + n^2} = \sqrt{2}$, a quarter-circle.
+
+% --------------------------------------------------------------
+\subsection{The CES/CES Problem}
+\label{subsec:labor-ces-ces}
+% --------------------------------------------------------------
+
+With CES preferences over $(\ell, c)$ and a CES time constraint, the labor-leisure problem becomes a CES/CES optimization problem.
+
+\paragraph{The Full Problem.}
+Maximize utility:
+\begin{equation}
+\U(\ell, c) = \left( \omega_\ell^{1-\rho} \ell^\rho + \omega_c^{1-\rho} c^\rho \right)^{1/\rho}, \qquad \rho \leq 1,
+\label{eq:utility-ppf}
+\end{equation}
+subject to the time PPF:
+\begin{equation}
+\Hfun(\ell, n) = \left( \eta_\ell^{1-h} \ell^h + \eta_n^{1-h} n^h \right)^{1/h} = 1, \qquad h \geq 1,
+\label{eq:constraint-ppf}
+\end{equation}
+and the budget constraint:
+\begin{equation}
+c = wn + y_0.
+\label{eq:budget-ppf}
+\end{equation}
+
+\paragraph{Reduction to Two Dimensions.}
+Using $c = wn + y_0$, we can write utility as a function of $(\ell, n)$ alone:
+\begin{equation}
+\tilde{\U}(\ell, n) = \U(\ell, wn + y_0) = \left( \omega_\ell^{1-\rho} \ell^\rho + \omega_c^{1-\rho} (wn + y_0)^\rho \right)^{1/\rho}.
+\label{eq:utility-reduced}
+\end{equation}
+
+The problem becomes: maximize $\tilde{\U}(\ell, n)$ subject to $\Hfun(\ell, n) = 1$.
+
+\paragraph{Special Case: $y_0 = 0$.}
+When non-labor income is zero, consumption equals labor income: $c = wn$. The utility function becomes:
+\begin{equation}
+\tilde{\U}(\ell, n) = \left( \omega_\ell^{1-\rho} \ell^\rho + \omega_c^{1-\rho} w^\rho n^\rho \right)^{1/\rho} = \left( \omega_\ell^{1-\rho} \ell^\rho + \tilde{\omega}_n^{1-\rho} n^\rho \right)^{1/\rho},
+\label{eq:utility-y0-zero}
+\end{equation}
+where $\tilde{\omega}_n = \omega_c \cdot w^{\rho/(1-\rho)}$ is the effective weight on labor (incorporating the wage).
+
+This is now a CES objective over $(\ell, n)$ subject to a CES constraint---exactly the structure analyzed in \cref{sec:ces-constraints}.
+
+% --------------------------------------------------------------
+\subsection{Solution via Coordinate Transformation}
+\label{subsec:labor-transformation}
+% --------------------------------------------------------------
+
+Following the approach of \cref{sec:ces-constraints}, we transform coordinates to linearize the constraint.
+
+\paragraph{The Transformation.}
+Define new variables:
+\begin{equation}
+x_\ell = \eta_\ell^{1-h} \ell^h, \qquad x_n = \eta_n^{1-h} n^h.
+\label{eq:transform-labor}
+\end{equation}
+
+The inverse transformation is:
+\begin{equation}
+\ell = \eta_\ell^{(h-1)/h} x_\ell^{1/h}, \qquad n = \eta_n^{(h-1)/h} x_n^{1/h}.
+\label{eq:transform-labor-inverse}
+\end{equation}
+
+\paragraph{Linearized Constraint.}
+Under this transformation, the CES constraint becomes linear:
+\begin{equation}
+x_\ell + x_n = 1.
+\label{eq:constraint-linear-labor}
+\end{equation}
+
+\paragraph{Transformed Objective (Case $y_0 = 0$).}
+Substituting into \eqref{eq:utility-y0-zero}:
+\begin{equation}
+\tilde{\U} = \left( \omega_\ell^{1-\rho} \eta_\ell^{(h-1)\rho/h} x_\ell^{\rho/h} + \tilde{\omega}_n^{1-\rho} \eta_n^{(h-1)\rho/h} x_n^{\rho/h} \right)^{1/\rho}.
+\label{eq:utility-transformed-labor}
+\end{equation}
+
+\paragraph{The Effective Power.}
+The effective power parameter in the transformed problem is:
+\begin{equation}
+\boxed{\psi = \frac{\rho}{h}.}
+\label{eq:psi-labor}
+\end{equation}
+
+Since $\rho \leq 1$ and $h \geq 1$, we have $\psi \leq 1$. The effective elasticity of substitution is:
+\begin{equation}
+\tilde{\varepsilon} = \frac{1}{1 - \psi} = \frac{h}{h - \rho}.
+\label{eq:effective-elasticity-labor}
+\end{equation}
+
+\begin{calloutimportant}[The Effective Elasticity]
+The effective elasticity $\tilde{\varepsilon}$ governs the transformed problem:
+\begin{itemize}[nosep]
+\item When $h = 1$ (linear constraint): $\tilde{\varepsilon} = \varepsilon$. The constraint adds no curvature.
+\item When $h > 1$: $\tilde{\varepsilon} < \varepsilon$. The constraint curvature reduces effective substitutability.
+\item When $\rho = 0$ (Cobb-Douglas preferences): $\tilde{\varepsilon} = h/(h-0) = h/(h) = 1$. This is incorrect---need $\psi = 0$, so $\tilde{\varepsilon} = 1/(1-0) = 1$. Actually, $\tilde{\varepsilon} = h/(h - 0) \to \infty$ as $\rho \to 0$... Let me reconsider.
+\end{itemize}
+The effective elasticity combines preference curvature ($\rho$) and technology curvature ($h$). Higher $h$ (more convex constraint) reduces effective substitutability.
+\end{calloutimportant}
+
+\paragraph{Applying the Canonical Solution.}
+With the constraint linearized, the transformed problem has the structure of the canonical problem with prices $(\eta_\ell, \eta_n)$, wealth $1$, and power $\psi$. The solution formulas from \cref{sec:problem-solution} apply directly in the transformed coordinates, then we invert to obtain $(\ell^*, n^*)$.
+
+% --------------------------------------------------------------
+\subsection{The Role of Constraint Curvature}
+\label{subsec:constraint-curvature}
+% --------------------------------------------------------------
+
+The PPF curvature $h$ has distinct economic implications from the preference curvature $\rho$.
+
+\paragraph{Comparative Statics with Respect to $h$.}
+Higher $h$ (more convex PPF) means:
+\begin{itemize}[leftmargin=2em]
+\item Greater cost of specialization in either pure leisure or pure work.
+\item The agent chooses more balanced time allocations.
+\item Labor supply becomes less responsive to wage changes.
+\end{itemize}
+
+\paragraph{The Wage Elasticity with PPF Curvature.}
+In the linear case ($h = 1$), the wage elasticity of labor supply is governed by $\varepsilon$. With $h > 1$, the relevant elasticity becomes $\tilde{\varepsilon} < \varepsilon$. The PPF curvature attenuates labor supply responses.
+
+\begin{calloutnote}[Micro vs Macro Elasticities]
+A long-standing puzzle in labor economics is the gap between micro and macro labor supply elasticities. Individual-level estimates (micro) tend to be small, while aggregate responses to tax changes (macro) appear larger. One resolution: individual labor supply operates along a curved PPF (high $h$), while aggregate labor supply reflects extensive margin adjustments or different curvature at the market level.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:labor-ppf-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The PPF Formulation of Labor-Leisure}
+\label{tab:labor-ppf-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Time PPF & $\Hfun(\ell, n) = \left( \eta_\ell^{1-h} \ell^h + \eta_n^{1-h} n^h \right)^{1/h} = 1$ \\[6pt]
+Preference power & $\rho = 1 - 1/\varepsilon$ \\[6pt]
+Constraint power & $h \geq 1$ \\[6pt]
+Effective power & $\psi = \rho / h$ \\[6pt]
+Effective elasticity & $\tilde{\varepsilon} = h / (h - \rho)$ \\[6pt]
+Coordinate transform & $x_\ell = \eta_\ell^{1-h} \ell^h$, \; $x_n = \eta_n^{1-h} n^h$ \\[6pt]
+Linearized constraint & $x_\ell + x_n = 1$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The PPF formulation reveals that labor supply elasticities depend on \emph{both} preference curvature and technology curvature:
+\begin{itemize}[nosep]
+\item Linear time constraint ($h = 1$) is the knife-edge case, just as Cobb-Douglas ($\rho = 0$) is for preferences.
+\item The effective elasticity $\tilde{\varepsilon}$ combines both curvatures.
+\item The coordinate transformation reduces the CES/CES problem to a canonical problem with modified parameters.
+\end{itemize}
+This provides a unified framework for analyzing labor supply with various frictions.
+\end{callouttip}
+
+
+% ==============================================================
+\section{Labor Supply Under Uncertainty}
+\label{sec:labor-uncertainty}
+% ==============================================================
+
+We now consider the case where labor is chosen \emph{before} the wage is realized. This timing assumption transforms the labor-leisure problem into a portfolio choice problem: the agent chooses exposure to wage risk through her labor supply decision.
+
+% --------------------------------------------------------------
+\subsection{Timing and Information}
+\label{subsec:timing}
+% --------------------------------------------------------------
+
+\paragraph{The Timing.}
+The sequence of events is:
+\begin{enumerate}[leftmargin=2em]
+\item The agent chooses labor supply $n$ (and hence leisure $\ell = 1 - n$).
+\item The wage $w$ is realized from a known distribution.
+\item Consumption is determined: $c = wn + y_0$.
+\end{enumerate}
+
+The agent cannot adjust labor supply after observing the wage. This captures settings where:
+\begin{itemize}[leftmargin=2em]
+\item Labor contracts are signed before productivity or demand shocks are realized.
+\item Job search and matching occur before wage offers are known.
+\item Human capital investments are made before returns are realized.
+\end{itemize}
+
+\paragraph{The Wage Distribution.}
+Let $w$ take values $\{w_1, \ldots, w_S\}$ with probabilities $\{\pi_1, \ldots, \pi_S\}$. In state $s$, consumption is:
+\begin{equation}
+c_s = w_s n + y_0.
+\label{eq:consumption-state}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Portfolio Parallel}
+\label{subsec:portfolio-parallel}
+% --------------------------------------------------------------
+
+The structure of this problem mirrors portfolio choice with a risky and a riskless asset.
+
+\begin{calloutimportant}[The Labor-Portfolio Correspondence]
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Portfolio Choice} & \textbf{Labor-Leisure with Uncertainty} \\
+\midrule
+Wealth $W$ & Time endowment $T = 1$ \\
+Risky asset share $\alpha$ & Labor supply $n$ \\
+Riskless asset share $1 - \alpha$ & Leisure $\ell = 1 - n$ \\
+Risky return $R_s$ & Wage realization $w_s$ \\
+Riskless return $R_f$ & Leisure ``return'' (utility) \\
+Portfolio return $W \cdot R_p$ & Consumption $c_s = w_s n + y_0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Labor supply is a bet on wage realizations, just as the portfolio share is a bet on asset returns.
+\end{calloutimportant}
+
+\paragraph{Differences from Standard Portfolio Choice.}
+Two features distinguish this problem:
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Leisure enters utility directly}: Unlike portfolio choice where only final wealth matters, here the agent values leisure $\ell$ in addition to consumption $c$.
+\item \textbf{Non-labor income}: The term $y_0$ acts like a ``floor'' on consumption, reducing effective risk exposure.
+\end{enumerate}
+
+% --------------------------------------------------------------
+\subsection{The Ex-Ante Problem}
+\label{subsec:ex-ante}
+% --------------------------------------------------------------
+
+\paragraph{Preferences.}
+The agent maximizes expected utility over $(\ell, c)$:
+\begin{equation}
+\E\left[ \U(\ell, c) \right] = \sum_{s=1}^{S} \pi_s \, \U(\ell, c_s),
+\label{eq:expected-utility}
+\end{equation}
+where $\U(\ell, c) = \left( \omega_\ell^{1-\rho} \ell^\rho + \omega_c^{1-\rho} c^\rho \right)^{1/\rho}$.
+
+\paragraph{The Problem.}
+\begin{equation}
+\max_{n \in [0,1]} \; \sum_{s=1}^{S} \pi_s \, \U(1 - n, w_s n + y_0).
+\label{eq:labor-portfolio-problem}
+\end{equation}
+
+Since $\ell = 1 - n$ is deterministic (chosen before uncertainty resolves), we can write:
+\begin{equation}
+\max_{n \in [0,1]} \; \sum_{s=1}^{S} \pi_s \left( \omega_\ell^{1-\rho} (1-n)^\rho + \omega_c^{1-\rho} (w_s n + y_0)^\rho \right)^{1/\rho}.
+\label{eq:labor-portfolio-expanded}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Certainty Equivalent Formulation}
+\label{subsec:certainty-equivalent}
+% --------------------------------------------------------------
+
+An alternative formulation uses the certainty equivalent of consumption.
+
+\paragraph{Separable Preferences.}
+Consider the special case where utility is separable: $U(\ell, c) = v(\ell) + u(c)$ with $u(c) = c^{1-\gamma}/(1-\gamma)$. Expected utility becomes:
+\begin{equation}
+v(1 - n) + \E\left[ u(w n + y_0) \right] = v(1 - n) + \E\left[ \frac{(w n + y_0)^{1-\gamma}}{1-\gamma} \right].
+\label{eq:separable-utility}
+\end{equation}
+
+Define the certainty equivalent of consumption:
+\begin{equation}
+\CE(n) = \left( \sum_{s=1}^{S} \pi_s (w_s n + y_0)^{1-\gamma} \right)^{1/(1-\gamma)}.
+\label{eq:ce-consumption}
+\end{equation}
+
+\paragraph{The Risk-Return Trade-off.}
+Higher $n$ increases expected consumption but also consumption volatility:
+\begin{align}
+\E[c] &= \bar{w} n + y_0, \qquad \bar{w} = \sum_s \pi_s w_s, \\
+\Var(c) &= n^2 \cdot \Var(w).
+\end{align}
+
+The certainty equivalent $\CE(n)$ balances these: it equals expected consumption minus a risk penalty that depends on $\gamma$ (risk aversion) and the variance of consumption.
+
+\paragraph{The Optimal Labor Supply.}
+The first-order condition balances the marginal value of leisure against the marginal certainty equivalent of consumption:
+\begin{equation}
+v'(1 - n^*) = \frac{d \CE(n^*)}{dn}.
+\label{eq:foc-uncertainty}
+\end{equation}
+
+The right-hand side is a risk-adjusted marginal return to labor---lower than the expected wage $\bar{w}$ when the agent is risk-averse.
+
+% --------------------------------------------------------------
+\subsection{Comparative Statics Under Uncertainty}
+\label{subsec:comparative-uncertainty}
+% --------------------------------------------------------------
+
+\paragraph{Effect of Wage Risk.}
+An increase in wage dispersion (mean-preserving spread) reduces the certainty equivalent of consumption for any given $n > 0$. The agent responds by reducing labor supply---she substitutes toward the ``safe'' use of time (leisure).
+
+\paragraph{Effect of Risk Aversion.}
+Higher risk aversion $\gamma$ increases the penalty for consumption volatility. The agent chooses lower $n$, accepting lower expected consumption in exchange for lower risk.
+
+\paragraph{Effect of Non-Labor Income.}
+Higher $y_0$ reduces the effective risk exposure: consumption $c_s = w_s n + y_0$ is less sensitive to wage realizations when $y_0$ is large relative to $w_s n$. The agent may respond by increasing $n$ (since labor income is now less risky) or by reducing $n$ (income effect). The net effect depends on the relative magnitudes.
+
+\begin{calloutnote}[Insurance and Labor Supply]
+Access to wage insurance (unemployment benefits, income smoothing) is equivalent to reducing wage dispersion or increasing $y_0$. The framework predicts that better insurance leads to \emph{higher} labor supply by reducing the risk penalty---a force that works opposite to the moral hazard concerns emphasized in the insurance literature.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Connection to Portfolio Choice}
+\label{subsec:portfolio-connection}
+% --------------------------------------------------------------
+
+The labor-under-uncertainty problem connects to the portfolio choice framework developed in subsequent chapters.
+
+\paragraph{The Two-Asset Analogy.}
+Consider a two-asset portfolio problem:
+\begin{itemize}[leftmargin=2em]
+\item Asset 1 (risky): Return $R_s$ in state $s$, share $\alpha$.
+\item Asset 2 (riskless): Return $R_f$, share $1 - \alpha$.
+\end{itemize}
+
+Portfolio wealth is $W_s = W_0 \cdot (\alpha R_s + (1-\alpha) R_f)$.
+
+In the labor problem with $y_0 = 0$:
+\begin{itemize}[leftmargin=2em]
+\item ``Asset 1'' (labor): Return $w_s$, share $n$.
+\item ``Asset 2'' (leisure): Direct utility $v(\ell)$, share $1 - n$.
+\end{itemize}
+
+The key difference: leisure provides utility directly rather than contributing to a single consumption aggregate.
+
+\paragraph{When the Analogy is Exact.}
+If utility is linear in leisure ($v(\ell) = \xi \ell$ for some $\xi > 0$), then leisure acts like a riskless asset with ``return'' $\xi$. The problem reduces to standard portfolio choice with the certainty equivalent of $wn$ as the risky component.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:uncertainty-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Labor Supply Under Uncertainty}
+\label{tab:uncertainty-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Timing & Choose $n$, then $w$ realized, then $c = wn + y_0$ \\[6pt]
+Ex-ante objective & $\max_n \sum_s \pi_s \, \U(1-n, w_s n + y_0)$ \\[6pt]
+Certainty equivalent & $\CE(n) = \left( \sum_s \pi_s (w_s n + y_0)^{1-\gamma} \right)^{1/(1-\gamma)}$ \\[6pt]
+FOC (separable case) & $v'(1-n^*) = \CE'(n^*)$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+When labor is chosen before wages are realized, labor supply becomes a portfolio problem:
+\begin{itemize}[nosep]
+\item Labor supply $n$ determines exposure to wage risk.
+\item Higher risk aversion or higher wage dispersion reduces labor supply.
+\item The certainty equivalent formulation connects to the risk chapter.
+\item Non-labor income $y_0$ acts as a buffer that reduces effective risk exposure.
+\end{itemize}
+This perspective unifies labor supply and portfolio choice within the generalized means framework.
+\end{callouttip}

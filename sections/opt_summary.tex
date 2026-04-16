@@ -1,0 +1,219 @@
+% ==============================================================
+% Section 7: Summary
+% ==============================================================
+
+\section{Summary}
+\label{sec:canonical-summary}
+
+This chapter developed the theory of optimization with generalized means. The results apply uniformly to consumer choice, production, portfolio allocation, and transformation problems. We collect the main findings here for reference.
+
+% --------------------------------------------------------------
+\subsection{The Core Problem}
+\label{subsec:summary-core}
+% --------------------------------------------------------------
+
+The canonical optimization problem maximizes a generalized mean subject to a linear constraint:
+\begin{equation}
+\max_{\bx} \; \M(\bx; \bom, \rho) = \left( \sum_{i=1}^{n} \omega_i^{1-\rho} x_i^\rho \right)^{1/\rho} \quad \text{subject to} \quad \sum_{i=1}^{n} p_i x_i = W.
+\end{equation}
+
+The transformation to budget-share coordinates $w_i = p_i x_i / W$ reduces this to the benchmark problem with unit budget and equal ``prices.'' The optimal budget shares equal the transformed weights:
+\begin{equation}
+w_i^* = \tilde{\omega}_i = \frac{\omega_i \, p_i^{1-\varepsilon}}{\sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon}}.
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{Key Objects}
+\label{subsec:summary-objects}
+% --------------------------------------------------------------
+
+Three objects characterize the solution:
+
+\paragraph{The Ideal Price Index.}
+\begin{equation}
+\Pstar = \left( \sum_{j=1}^{n} \omega_j \, p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}
+\end{equation}
+This is a classical generalized mean of prices with power $\tilde{\rho} = 1 - \varepsilon$. It converts nominal wealth $W$ into real purchasing power $W/\Pstar$.
+
+\paragraph{Optimal Quantities.}
+\begin{equation}
+x_i^* = \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \frac{W}{\Pstar}
+\end{equation}
+Demand for each good depends on its relative price $(p_i/\Pstar)$ raised to the negative elasticity of substitution.
+
+\paragraph{Indirect Utility (Value Function).}
+\begin{equation}
+V = \frac{W}{\Pstar}
+\end{equation}
+Welfare equals real wealth---nominal wealth deflated by the ideal price index.
+
+% --------------------------------------------------------------
+\subsection{The Dual Problem}
+\label{subsec:summary-dual}
+% --------------------------------------------------------------
+
+The dual problem minimizes cost subject to a utility target:
+\begin{equation}
+\min_{\bx} \; \sum_{i=1}^{n} p_i x_i \quad \text{subject to} \quad \M(\bx; \bom, \rho) \geq \bar{m}.
+\end{equation}
+
+The solution yields:
+
+\paragraph{Expenditure Function.}
+\begin{equation}
+E = \Pstar \cdot \bar{m}
+\end{equation}
+Minimum cost equals the price index times the utility target.
+
+\paragraph{Compensated Demands.}
+\begin{equation}
+x_i^c = \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \bar{m}
+\end{equation}
+
+\paragraph{Shephard's Lemma.}
+\begin{equation}
+x_i^c = \frac{\partial E}{\partial p_i}
+\end{equation}
+
+The price index $\Pstar$ mediates both problems: it deflates wealth in the primal and inflates utility in the dual.
+
+% --------------------------------------------------------------
+\subsection{Properties of the Price Index}
+\label{subsec:summary-properties}
+% --------------------------------------------------------------
+
+The ideal price index has several important properties:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Property} & \textbf{Statement} \\
+\midrule
+Homogeneity & $\Pstar(\lambda \mathbf{p}) = \lambda \Pstar(\mathbf{p})$ \\[2pt]
+Monotonicity & $\partial \Pstar / \partial p_i > 0$ for all $i$ \\[2pt]
+Price elasticity & $\partial \ln \Pstar / \partial \ln p_i = w_i^*$ \\[2pt]
+Concavity & $\Pstar$ is concave in $\mathbf{p}$ for $\varepsilon > 0$ \\[2pt]
+Ordering & Higher $\varepsilon$ implies lower $\Pstar$ (when prices differ) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Limiting Cases.}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& $\varepsilon \to \infty$ & $\varepsilon = 1$ & $\varepsilon \to 0$ \\
+& (Perfect substitutes) & (Cobb-Douglas) & (Leontief) \\
+\midrule
+$\Pstar$ & $\min_i \{p_i\}$ & $\prod_i p_i^{\omega_i}$ & $\sum_i \omega_i p_i$ \\[4pt]
+$w_i^*$ & $\begin{cases} 1 & p_i = \min \\ 0 & \text{else} \end{cases}$ & $\omega_i$ & $\dfrac{\omega_i p_i}{\sum_j \omega_j p_j}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% --------------------------------------------------------------
+\subsection{Economic Interpretations}
+\label{subsec:summary-interpretations}
+% --------------------------------------------------------------
+
+The same mathematical structure governs four canonical problems:
+
+\begin{table}[H]
+\centering
+\caption{Unified Framework Across Applications}
+\label{tab:summary-applications}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Symbol} & \textbf{Consumer} & \textbf{Production} & \textbf{Portfolio} & \textbf{PPF} \\
+\midrule
+$x_i$ & consumption & inputs & state consumption & outputs \\
+$p_i$ & goods prices & factor prices & state prices & output prices \\
+$W$ & wealth & cost budget & wealth & capacity \\
+$\omega_i$ & preferences & technology & probabilities & technology \\
+$\Pstar$ & CPI & unit cost & risk-adjusted price & output index \\
+$V = W/\Pstar$ & indirect utility & output & certainty equivalent & max revenue \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{The KL Divergence Connection}
+\label{subsec:summary-kl}
+% --------------------------------------------------------------
+
+The Kullback-Leibler divergence between budget shares and primitive weights measures price distortion:
+\begin{equation}
+D = \KL{w^*}{\omega} = \sum_{i=1}^{n} w_i^* \ln \frac{w_i^*}{\omega_i}.
+\end{equation}
+
+This divergence governs welfare sensitivity:
+
+\begin{enumerate}[leftmargin=2em]
+    \item $D = 0$ if and only if prices are equal (zero distortion).
+    \item $D > 0$ when prices differ---higher $\varepsilon$ raises welfare.
+    \item The marginal value of substitutability is $\displaystyle\frac{d \ln V}{d\varepsilon} = \frac{D}{(1-\varepsilon)^2}$.
+\end{enumerate}
+
+\begin{calloutimportant}[The Central Insight]
+The KL divergence plays a dual role:
+\begin{itemize}[nosep, leftmargin=1.5em]
+    \item \textbf{Distortion measure}: How far behavior deviates from undistorted preferences
+    \item \textbf{Flexibility value}: How much welfare increases with substitutability
+\end{itemize}
+Price heterogeneity creates both distortion and opportunity. The KL divergence quantifies both.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Formula Reference}
+\label{subsec:summary-formulas}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Complete Formula Reference}
+\label{tab:formula-reference}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}l@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Elasticity of substitution & $\varepsilon = \dfrac{1}{1-\rho}$ \\[8pt]
+Price index power & $\tilde{\rho} = 1 - \varepsilon = \dfrac{\rho}{\rho - 1}$ \\[8pt]
+Ideal price index & $\Pstar = \left( \sum_j \omega_j \, p_j^{1-\varepsilon} \right)^{\frac{1}{1-\varepsilon}}$ \\[8pt]
+Budget shares & $w_i^* = \dfrac{\omega_i \, p_i^{1-\varepsilon}}{\sum_j \omega_j \, p_j^{1-\varepsilon}}$ \\[8pt]
+Optimal quantities & $x_i^* = \omega_i \left( \dfrac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \dfrac{W}{\Pstar}$ \\[8pt]
+Indirect utility & $V = \dfrac{W}{\Pstar}$ \\[8pt]
+Expenditure function & $E = \Pstar \cdot \bar{m}$ \\[8pt]
+Compensated demand & $x_i^c = \omega_i \left( \dfrac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \bar{m}$ \\[8pt]
+KL divergence & $D = \sum_i w_i^* \ln \dfrac{w_i^*}{\omega_i}$ \\[8pt]
+Welfare sensitivity & $\dfrac{d \ln V}{d\varepsilon} = \dfrac{D}{(1-\varepsilon)^2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{Looking Ahead}
+\label{subsec:summary-ahead}
+% --------------------------------------------------------------
+
+The canonical problem provides the foundation for subsequent developments:
+
+\paragraph{Comparative Statics.}
+How do allocations respond to changes in prices, weights, and the substitution parameter? We distinguish ``myopic'' elasticities (holding $\Pstar$ fixed) from ``exact'' elasticities (accounting for general equilibrium effects).
+
+\paragraph{Nested Structures.}
+With more than two goods, CES aggregators can be nested---goods grouped into categories with different elasticities within and across groups. This leads to multi-stage budgeting and price indices at each level.
+
+\paragraph{Dynamic Problems.}
+Intertemporal choice involves CES aggregation across time periods, with the interest rate playing the role of relative prices. The results of this chapter extend naturally to recursive dynamic settings.
+
+\paragraph{General Equilibrium.}
+When prices are endogenous, the analysis requires market clearing conditions. The CES structure yields tractable equilibrium characterizations in both exchange and production economies.
+
+\begin{callouttip}[The Unifying Theme]
+Throughout these extensions, the same core objects reappear: the ideal price index, budget shares as induced weights, and the KL divergence measuring distortion. The mathematics developed in this chapter---one price index, one set of shares, one welfare formula---provides the template for increasingly complex applications.
+\end{callouttip}

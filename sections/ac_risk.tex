@@ -1,0 +1,447 @@
+\epigraph{The paper analyzes investment policy for a firm which cannot disinvest faster than its capital depreciates.}{\textit{Kenneth Arrow}, ``Optimal Capital Policy with Irreversible Investment'' (1968)}
+
+\epigraph{This paper determines the time series behavior of investment, output, and prices in a competitive industry with a stochastic demand.}{\textit{Robert Lucas and Edward Prescott}, ``Investment Under Uncertainty'' (1971)}
+
+
+
+% ==============================================================
+\section{Risk and Uncertainty}
+\label{sec:ac-risk}
+% ==============================================================
+
+We now introduce uncertainty into the adjustment cost framework. This section connects three strands: adjustment costs (the CES transformation), portfolio choice (allocation across risky capital types), and consumption-savings under uncertainty. The key insight is that the timing of information---whether shocks are realized before or after investment decisions---fundamentally changes the problem's structure and maps to different CES aggregations.
+
+% --------------------------------------------------------------
+\subsection{Sources of Uncertainty}
+\label{subsec:ac-risk-sources}
+% --------------------------------------------------------------
+
+Consider an economy with $N$ capital types and $S$ states of the world. State $s$ occurs with probability $\pi_s > 0$, where $\sum_{s=1}^{S} \pi_s = 1$.
+
+\paragraph{Capital-Specific Productivity Shocks.}
+The productivity of capital type $i$ in state $s$ is $a_{is}$. Output in state $s$ is:
+\begin{equation}
+Y_s = \F(\bk, \ba_s) = \left( \sum_{i=1}^{N} (\alpha_i a_{is})^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma},
+\label{eq:ac-risk-production}
+\end{equation}
+where $\ba_s = (a_{1s}, \ldots, a_{Ns})$ is the vector of productivity realizations in state $s$.
+
+\paragraph{Two Timing Conventions.}
+The crucial modeling choice is \emph{when} uncertainty resolves relative to \emph{when} decisions are made:
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Ex-post uncertainty}: Investment $\bI$ is chosen \emph{before} the state $s$ is revealed. The household faces a portfolio problem: allocate investment across capital types not knowing which will be productive.
+
+\item \textbf{Ex-ante uncertainty}: Investment $\bI_s$ is chosen \emph{after} the state $s$ is revealed (or equivalently, state-contingent investment is possible). The household can tailor investment to the realized state.
+\end{enumerate}
+
+These two cases lead to different aggregation structures and different roles for the CES machinery.
+
+% --------------------------------------------------------------
+\subsection{Ex-Post Uncertainty: The Portfolio Problem}
+\label{subsec:ac-risk-expost}
+% --------------------------------------------------------------
+
+Suppose investment is chosen before uncertainty resolves. This is the natural timing for many macroeconomic applications: firms commit to investment plans, and productivity is realized later.
+
+\paragraph{Setup.}
+The household chooses $(C_0, \bI)$ in period 0, then the state $s$ is revealed, and period-1 consumption is:
+\begin{equation}
+C_{1s} = \F(\bI, \ba_s) = \left( \sum_{i=1}^{N} (\alpha_i a_{is})^{1-\sigma} I_i^{\sigma} \right)^{1/\sigma}.
+\label{eq:ac-risk-C1s}
+\end{equation}
+
+The transformation constraint applies in period 0 (before uncertainty):
+\begin{equation}
+\Hfun(C_0, \bI) = Y_0.
+\label{eq:ac-risk-H0}
+\end{equation}
+
+\paragraph{Preferences.}
+With expected utility:
+\begin{equation}
+U = u(C_0) + \beta \sum_{s=1}^{S} \pi_s \, u(C_{1s}) = u(C_0) + \beta \, \mathbb{E}[u(C_1)].
+\label{eq:ac-risk-EU}
+\end{equation}
+
+With Epstein-Zin preferences (separating risk aversion $\gamma$ from IES $\theta$):
+\begin{equation}
+U = u(C_0) + \beta \, u\left( \CE(C_1) \right),
+\label{eq:ac-risk-EZ}
+\end{equation}
+where the certainty equivalent is:
+\begin{equation}
+\CE(C_1) = \left( \sum_{s=1}^{S} \pi_s \, C_{1s}^{1-\gamma} \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ac-risk-CE}
+\end{equation}
+
+\paragraph{The Nested Problem.}
+The problem has a nested structure:
+\begin{enumerate}[nosep]
+\item \textbf{Inner problem (portfolio)}: Given total investment $\bar{I}$, choose portfolio shares $\boldsymbol{\phi}$ to maximize the certainty equivalent of future consumption.
+\item \textbf{Outer problem (consumption-savings)}: Choose $C_0$ and $\bar{I}$ given the optimal certainty equivalent.
+\end{enumerate}
+
+\paragraph{The Portfolio Problem.}
+Let $\phi_i = I_i / \bar{I}$ with $\sum_i \phi_i = 1$. Future consumption in state $s$ is:
+\begin{equation}
+C_{1s} = \bar{I} \cdot \F(\boldsymbol{\phi}, \ba_s).
+\label{eq:ac-risk-C1s-phi}
+\end{equation}
+
+The certainty equivalent becomes:
+\begin{equation}
+\CE(C_1) = \bar{I} \cdot \left( \sum_{s=1}^{S} \pi_s \, \F(\boldsymbol{\phi}, \ba_s)^{1-\gamma} \right)^{\frac{1}{1-\gamma}} \equiv \bar{I} \cdot \mathcal{R}(\boldsymbol{\phi}),
+\label{eq:ac-risk-CE-phi}
+\end{equation}
+where $\mathcal{R}(\boldsymbol{\phi})$ is the \emph{risk-adjusted return} per unit of investment:
+\begin{equation}
+\mathcal{R}(\boldsymbol{\phi}) = \CE_s\left[ \F(\boldsymbol{\phi}, \ba_s) \right] = \left( \sum_{s=1}^{S} \pi_s \, \F(\boldsymbol{\phi}, \ba_s)^{1-\gamma} \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ac-risk-R-phi}
+\end{equation}
+
+The portfolio problem is:
+\begin{equation}
+\max_{\boldsymbol{\phi}} \; \mathcal{R}(\boldsymbol{\phi}) \quad \text{subject to} \quad \sum_{i=1}^{N} \phi_i = 1.
+\label{eq:ac-risk-portfolio}
+\end{equation}
+
+\begin{calloutimportant}[A CES of CES Problem]
+The objective $\mathcal{R}(\boldsymbol{\phi})$ is a \emph{certainty equivalent} (CES with power $1-\gamma$ over states) of a \emph{production function} (CES with power $\sigma$ over capital types):
+\[
+\mathcal{R}(\boldsymbol{\phi}) = \underbrace{\left( \sum_{s} \pi_s \, \left[ \underbrace{\left( \sum_{i} (\alpha_i a_{is})^{1-\sigma} \phi_i^{\sigma} \right)^{1/\sigma}}_{\F(\boldsymbol{\phi}, \ba_s)} \right]^{1-\gamma} \right)^{\frac{1}{1-\gamma}}}_{\text{Certainty equivalent over states}}.
+\]
+This is a nested CES structure: the inner CES aggregates capital types for each state, and the outer CES aggregates states.
+\end{calloutimportant}
+
+\paragraph{Special Case: Log Utility ($\gamma = 1$).}
+With log utility, the certainty equivalent is the geometric mean:
+\begin{equation}
+\mathcal{R}(\boldsymbol{\phi}) = \exp\left( \sum_{s=1}^{S} \pi_s \log \F(\boldsymbol{\phi}, \ba_s) \right) = \prod_{s=1}^{S} \F(\boldsymbol{\phi}, \ba_s)^{\pi_s}.
+\label{eq:ac-risk-R-log}
+\end{equation}
+
+This is the Kelly criterion applied to capital allocation: maximize the expected log return.
+
+\paragraph{Special Case: Deterministic ($S = 1$ or $a_{is} = a_i$ for all $s$).}
+With no uncertainty, $\mathcal{R}(\boldsymbol{\phi}) = \F(\boldsymbol{\phi}, \ba)$, and we recover the deterministic portfolio problem from Section~\ref{sec:ac-heterogeneity}.
+
+% --------------------------------------------------------------
+\subsection{The Isomorphism: TFP Shocks and Preference Shocks}
+\label{subsec:ac-risk-isomorphism}
+% --------------------------------------------------------------
+
+A striking feature of the CES framework is the isomorphism between productivity shocks and preference shocks.
+
+\paragraph{Productivity Shocks.}
+Consider the production function with stochastic productivity:
+\begin{equation}
+\F(\bk, \ba_s) = \left( \sum_{i=1}^{N} (\alpha_i a_{is})^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma}.
+\label{eq:ac-risk-F-tfp}
+\end{equation}
+
+The productivity shock $a_{is}$ multiplies the weight $\alpha_i$, effectively making the ``importance'' of capital type $i$ state-dependent.
+
+\paragraph{Preference Shocks.}
+Now consider a certainty equivalent with state-dependent weights:
+\begin{equation}
+\CE(\bc, \tilde{\boldsymbol{\pi}}_s) = \left( \sum_{i=1}^{N} \tilde{\pi}_{is} \, c_i^{1-\gamma} \right)^{\frac{1}{1-\gamma}},
+\label{eq:ac-risk-CE-pref}
+\end{equation}
+where $\tilde{\pi}_{is}$ is the ``preference weight'' on good $i$ in state $s$.
+
+\paragraph{The Isomorphism.}
+Compare the two structures:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Production with TFP Shocks} & \textbf{Certainty Equivalent with Pref. Shocks} \\
+\midrule
+Aggregator & $\F(\bk, \ba_s)$ & $\CE(\bc, \tilde{\boldsymbol{\pi}}_s)$ \\
+Power & $\sigma$ & $1 - \gamma$ \\
+Weights & $(\alpha_i a_{is})^{1-\sigma}$ & $\tilde{\pi}_{is}$ \\
+Inputs & $k_i$ & $c_i$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Setting $\tilde{\pi}_{is} = (\alpha_i a_{is})^{1-\sigma}$ and $1 - \gamma = \sigma$, the two are mathematically identical.
+
+\begin{calloutnote}[Interpretation]
+This isomorphism means:
+\begin{itemize}[nosep]
+\item A shock that raises the productivity of capital type $i$ is equivalent to a shock that raises the ``preference'' for consumption from capital type $i$.
+\item The curvature parameter $\sigma$ in production plays the same role as the risk parameter $1-\gamma$ in preferences.
+\item Diversification in the production function (spreading investment across capital types) is mathematically equivalent to diversification in a portfolio (spreading consumption across states).
+\end{itemize}
+
+This unification is a key insight of the CES framework: \emph{technological complementarity and risk aversion are two sides of the same coin}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Ex-Ante Uncertainty: State-Contingent Investment}
+\label{subsec:ac-risk-exante}
+% --------------------------------------------------------------
+
+Now suppose the state $s$ is revealed \emph{before} investment decisions, or equivalently, the household can choose state-contingent investment $\bI_s$.
+
+\paragraph{Complete Markets.}
+With complete Arrow-Debreu markets, the household can trade claims to consumption in each state. Let $q_s$ be the price of one unit of consumption in state $s$.
+
+The household's problem is:
+\begin{equation}
+\max_{\{C_0, C_{1s}\}} \; u(C_0) + \beta \, \CE(\{C_{1s}\}) \quad \text{s.t.} \quad C_0 + \sum_{s=1}^{S} q_s C_{1s} = W,
+\label{eq:ac-risk-complete}
+\end{equation}
+where $W$ is lifetime wealth.
+
+This is the canonical portfolio problem from earlier chapters: allocate wealth across states to maximize a certainty equivalent, subject to a budget constraint with state prices.
+
+\paragraph{State-Contingent Adjustment Costs.}
+Now introduce adjustment costs that apply \emph{after} the state is revealed. In each state $s$, output $Y_s$ is transformed into consumption $C_{1s}$ and investment $I_{1s}$:
+\begin{equation}
+\Hfun(C_{1s}, I_{1s}) = Y_s = \F(\bk, \ba_s).
+\label{eq:ac-risk-H-state}
+\end{equation}
+
+The household first observes $s$, then chooses $(C_{1s}, I_{1s})$ subject to the state-specific transformation.
+
+\paragraph{Tobin's $Q$ Becomes State-Dependent.}
+In state $s$:
+\begin{equation}
+Q_s = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C_{1s}}{I_{1s}} \right)^{1-\psi}.
+\label{eq:ac-risk-Qs}
+\end{equation}
+
+The shadow price of investment varies across states because the consumption-investment ratio varies.
+
+\paragraph{The Euler Equation.}
+With state-contingent choices, the Euler equation holds state-by-state:
+\begin{equation}
+u'(C_0) = \beta \sum_{s=1}^{S} \pi_s \frac{A_s}{Q_s} u'(C_{1s}) \cdot \frac{\partial \CE}{\partial C_{1s}} / u'(\CE),
+\label{eq:ac-risk-euler-states}
+\end{equation}
+where the expression depends on the specific preference structure (expected utility vs. Epstein-Zin).
+
+% --------------------------------------------------------------
+\subsection{Comparing Ex-Post and Ex-Ante Uncertainty}
+\label{subsec:ac-risk-comparison}
+% --------------------------------------------------------------
+
+The two timing conventions lead to fundamentally different problems:
+
+\begin{table}[H]
+\centering
+\caption{Ex-Post vs. Ex-Ante Uncertainty}
+\label{tab:ac-risk-comparison}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Feature} & \textbf{Ex-Post} & \textbf{Ex-Ante} \\
+\midrule
+Information at investment & None (invest, then learn) & Full (learn, then invest) \\
+Investment choice & $\bI$ (same in all states) & $\bI_s$ (state-contingent) \\
+Adjustment cost applies & Before uncertainty resolves & After uncertainty resolves \\
+Tobin's $Q$ & Single $Q$ & State-dependent $Q_s$ \\
+CES aggregation & Over states, then over types & Over types, then over states \\
+Portfolio problem & Choose $\boldsymbol{\phi}$ to maximize $\CE[\F(\boldsymbol{\phi}, \ba)]$ & Choose $C_{1s}$ to maximize $\CE(\{C_{1s}\})$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The Order of Aggregation.}
+The key difference is the \emph{order} in which CES aggregations occur:
+
+\medskip
+\noindent
+\textit{Ex-post}: First aggregate capital types (production $\F$), then aggregate states (certainty equivalent $\CE$):
+\[
+\mathcal{R} = \CE_s\left[ \F(\boldsymbol{\phi}, \ba_s) \right].
+\]
+
+\medskip
+\noindent
+\textit{Ex-ante}: First aggregate states (via state prices or certainty equivalent), then aggregate capital types (via transformation):
+\[
+\text{Welfare} = u(C_0) + \beta \, u\left( \CE_s[C_{1s}] \right), \quad \text{where each } C_{1s} \text{ satisfies } \Hfun(C_{1s}, I_{1s}) = Y_s.
+\]
+
+\begin{calloutimportant}[Aggregation Order Matters]
+In general, the order of CES aggregations matters---nested CES functions do not commute. This means:
+\begin{itemize}[nosep]
+\item The optimal investment portfolio differs between ex-post and ex-ante timing.
+\item The welfare implications of uncertainty differ.
+\item Empirically, identifying the ``true'' timing is crucial for policy analysis.
+\end{itemize}
+
+The exception is when all CES aggregators have the same power parameter ($\sigma = 1 - \gamma = \psi$). In this knife-edge case, the aggregations commute and timing is irrelevant.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Risk-Adjusted Returns and the Stochastic Discount Factor}
+\label{subsec:ac-risk-sdf}
+% --------------------------------------------------------------
+
+\paragraph{The Stochastic Discount Factor.}
+In the ex-post case, define the stochastic discount factor (SDF):
+\begin{equation}
+M_s = \beta \frac{u'(C_{1s})}{u'(C_0)}.
+\label{eq:ac-risk-sdf}
+\end{equation}
+
+With CRRA utility:
+\begin{equation}
+M_s = \beta \left( \frac{C_{1s}}{C_0} \right)^{-1/\theta}.
+\label{eq:ac-risk-sdf-crra}
+\end{equation}
+
+\paragraph{Asset Pricing with Adjustment Costs.}
+The Euler equation for investment in capital type $i$ is:
+\begin{equation}
+Q_i = \mathbb{E}\left[ M_s \cdot \frac{\partial \F}{\partial k_i}(\bI, \ba_s) \right],
+\label{eq:ac-risk-asset-price}
+\end{equation}
+where $Q_i$ is the shadow price (Tobin's $Q$) for capital type $i$.
+
+The price of capital equals the expected discounted marginal product, where the expectation is taken under the risk-neutral measure induced by $M_s$.
+
+\paragraph{Risk Premia.}
+Capital type $i$ commands a risk premium if its marginal product covaries negatively with consumption:
+\begin{equation}
+\text{Cov}\left( M_s, \frac{\partial \F}{\partial k_i} \right) < 0 \quad \Longrightarrow \quad Q_i < \mathbb{E}\left[ \frac{\partial \F}{\partial k_i} \right] / R^f,
+\label{eq:ac-risk-premium}
+\end{equation}
+where $R^f = 1 / \mathbb{E}[M_s]$ is the risk-free rate.
+
+\begin{calloutnote}[Adjustment Costs and Risk Premia]
+Adjustment costs affect risk premia through two channels:
+\begin{enumerate}[nosep]
+\item \textbf{Direct}: The transformation elasticity $\eta$ affects how consumption responds to productivity shocks, changing the covariance $\text{Cov}(M_s, \partial \F / \partial k_i)$.
+\item \textbf{Indirect}: Adjustment costs slow the reallocation of capital, making the economy less able to respond to shocks, which amplifies risk.
+\end{enumerate}
+
+Lower $\eta$ (higher adjustment costs) generally increases risk premia because the economy is ``stuck'' with suboptimal capital allocations when bad states occur.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Full Model: Adjustment Costs, Portfolio Choice, and Consumption-Savings}
+\label{subsec:ac-risk-full}
+% --------------------------------------------------------------
+
+We now assemble the complete model integrating all three elements.
+
+\paragraph{The Planner's Problem (Ex-Post Timing).}
+\begin{equation}
+\max_{C_0, \bI} \; u(C_0) + \beta \, u\left( \CE\left[ \F(\bI, \ba_s) \right] \right)
+\label{eq:ac-risk-full-obj}
+\end{equation}
+subject to:
+\begin{equation}
+\Hfun(C_0, \bI) = Y_0.
+\label{eq:ac-risk-full-const}
+\end{equation}
+
+\paragraph{Decomposition.}
+The problem decomposes into:
+
+\medskip
+\noindent
+\textbf{Step 1: Portfolio choice.} Given total investment $\bar{I}$, choose $\boldsymbol{\phi}$ to maximize:
+\begin{equation}
+\mathcal{R}^*(\bar{I}) = \max_{\boldsymbol{\phi}: \sum_i \phi_i = 1} \CE\left[ \F(\boldsymbol{\phi}, \ba_s) \right] \cdot \bar{I}.
+\label{eq:ac-risk-step1}
+\end{equation}
+
+Let $\boldsymbol{\phi}^*$ denote the optimal portfolio (which may depend on $\bar{I}$ if $\Hfun$ induces different effective costs across capital types).
+
+\medskip
+\noindent
+\textbf{Step 2: Consumption-savings.} Choose $(C_0, \bar{I})$ to maximize:
+\begin{equation}
+u(C_0) + \beta \, u\left( \mathcal{R}^* \cdot \bar{I} \right) \quad \text{s.t.} \quad \tilde{\Hfun}(C_0, \bar{I}) = Y_0,
+\label{eq:ac-risk-step2}
+\end{equation}
+where $\tilde{\Hfun}$ is the effective transformation given optimal portfolio allocation.
+
+\paragraph{Euler Equation.}
+The Euler equation for aggregate investment is:
+\begin{equation}
+\frac{u'(C_0)}{Q} = \beta \, \mathcal{R}^* \, u'(\mathcal{R}^* \bar{I}) \cdot \frac{\partial \CE}{\partial \text{argument}},
+\label{eq:ac-risk-euler-full}
+\end{equation}
+where the last term accounts for the curvature of the certainty equivalent.
+
+With CRRA utility and $\CE$ as a power mean:
+\begin{equation}
+u'(C_0) = \beta \frac{\mathcal{R}^*}{Q} \left( \frac{\CE}{\mathcal{R}^* \bar{I}} \right)^{-1/\theta} \CE^{-\gamma} \mathbb{E}\left[ C_{1s}^{-\gamma} \right]^{-1} u'(\CE).
+\label{eq:ac-risk-euler-crra}
+\end{equation}
+
+The expression simplifies considerably when $\theta = 1/\gamma$ (expected utility) or when $\theta = 1$ (unit IES).
+
+% --------------------------------------------------------------
+\subsection{Special Case: Symmetric Shocks and Separation}
+\label{subsec:ac-risk-symmetric}
+% --------------------------------------------------------------
+
+\paragraph{Symmetric Case.}
+Suppose shocks are symmetric across capital types: $a_{is} = a_s$ for all $i$. Then:
+\begin{equation}
+\F(\bI, \ba_s) = a_s \cdot \F(\bI, \mathbf{1}) = a_s \cdot \left( \sum_{i} \alpha_i^{1-\sigma} I_i^{\sigma} \right)^{1/\sigma}.
+\label{eq:ac-risk-symmetric}
+\end{equation}
+
+The productivity shock $a_s$ factors out of the production function.
+
+\paragraph{Portfolio Separation.}
+With symmetric shocks:
+\begin{equation}
+\mathcal{R}(\boldsymbol{\phi}) = \CE[a_s] \cdot \F(\boldsymbol{\phi}, \mathbf{1}).
+\label{eq:ac-risk-R-symmetric}
+\end{equation}
+
+The certainty equivalent of shocks $\CE[a_s]$ is independent of the portfolio. The optimal portfolio maximizes $\F(\boldsymbol{\phi}, \mathbf{1})$, which gives $\phi_i^* = \alpha_i$ as in the deterministic case.
+
+\begin{callouttip}[Separation with Symmetric Shocks]
+When productivity shocks are symmetric across capital types:
+\begin{itemize}[nosep]
+\item The optimal portfolio $\phi_i^* = \alpha_i$ is independent of risk aversion $\gamma$.
+\item Risk affects only the consumption-savings decision (through $\CE[a_s]$), not the portfolio.
+\item This separation fails when shocks are asymmetric: capital-specific risk induces portfolio tilts.
+\end{itemize}
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-risk-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Risk and Adjustment Costs: Key Objects}
+\label{tab:ac-risk-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Output in state $s$ & $Y_s = \F(\bk, \ba_s) = \left( \sum_i (\alpha_i a_{is})^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma}$ \\[6pt]
+Certainty equivalent & $\CE(C_1) = \left( \sum_s \pi_s C_{1s}^{1-\gamma} \right)^{1/(1-\gamma)}$ \\[6pt]
+Risk-adjusted return & $\mathcal{R}(\boldsymbol{\phi}) = \CE_s[\F(\boldsymbol{\phi}, \ba_s)]$ \\[6pt]
+Stochastic discount factor & $M_s = \beta (C_{1s}/C_0)^{-1/\theta}$ \\[6pt]
+Asset pricing & $Q_i = \mathbb{E}[M_s \cdot \partial \F / \partial k_i]$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+Introducing risk into the adjustment cost framework reveals:
+\begin{itemize}[nosep]
+\item \textbf{Timing matters}: Ex-post uncertainty (invest then learn) differs fundamentally from ex-ante (learn then invest).
+\item \textbf{CES of CES}: The risk-adjusted return $\mathcal{R}$ is a certainty equivalent of a production function---nested CES structures.
+\item \textbf{TFP-preference isomorphism}: Productivity shocks and preference shocks are mathematically equivalent in the CES framework.
+\item \textbf{Aggregation order}: The order of CES aggregations (over types vs. over states) generally does not commute.
+\item \textbf{Risk premia}: Adjustment costs amplify risk premia by limiting the economy's ability to reallocate capital.
+\item \textbf{Separation}: With symmetric shocks, portfolio choice separates from risk aversion; with asymmetric shocks, it does not.
+\end{itemize}
+\end{callouttip}

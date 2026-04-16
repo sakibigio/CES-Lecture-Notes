@@ -1,0 +1,484 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children no
+\language american
+\language_package default
+\inputencoding utf8
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement class
+\float_alignment class
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content true
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Ramsey Taxation
+\end_layout
+
+\begin_layout Standard
+The goal of this homework is to study optimal taxation.
+ You will derive some results known as the Atkinson-Stiglitz results on optimal taxes.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Households.
+\end_layout
+
+\begin_layout Standard
+Consider the following static economy.
+ Household are endowed with one unit of labor 
+\begin_inset Formula $n=1$
+\end_inset
+
+ which earns a wage 
+\begin_inset Formula $w$
+\end_inset
+
+.
+ They maximize a CES utility over 
+\begin_inset Formula $N$
+\end_inset
+
+ goods,
+ indexed by 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ To purchase their goods,
+ they sell their labor.
+ They face the following problem:
+\begin_inset Formula 
+\[
+\mathcal{U}=\max_{\left\{ c_{i}\right\} }\sum_{i=1}^{N}\left(\omega_{i}^{1-\rho}c_{i}^{\rho}\right)^{\frac{1}{\rho}}
+\]
+
+\end_inset
+
+subject to:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N}\left(1+\tau_{i}\right)p_{i}c_{i}=w.
+\]
+
+\end_inset
+
+The difference here relative to what we've seen in the past is the presence of a sales tax 
+\begin_inset Formula $\tau_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Question #1.
+ Solve for the household's optimal expenditures given the vector of prices 
+\begin_inset Formula $p_{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Government.
+\end_layout
+
+\begin_layout Standard
+The government purchases 
+\begin_inset Formula $N^{g}$
+\end_inset
+
+ goods,
+ 
+\begin_inset Formula $g_{i}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\in\left\{ 1,2,...,N^{g}\right\} $
+\end_inset
+
+ which we stack in the vector 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\nospellcheck off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\boldsymbol{}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\nospellcheck default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ These goods are bought competitively at prices 
+\begin_inset Formula $p_{i}^{g}$
+\end_inset
+
+.
+ The government faces the following budget constraint:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N^{g}}p_{i}^{g}G_{i}=\sum_{i=1}^{N}\tau_{i}p_{i}c_{i}.
+\]
+
+\end_inset
+
+In other words,
+ the government pays for its own goods by collecting taxes.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Firms.
+\end_layout
+
+\begin_layout Standard
+The economy features a single firm with production technology:
+\begin_inset Formula 
+\[
+\mathcal{H}\left(\boldsymbol{y,g}\right)=n
+\]
+
+\end_inset
+
+where:
+\begin_inset Formula 
+\[
+\mathcal{\mathcal{H}}=\left(\sum_{i=1}^{N}\eta_{i}^{1-\psi}y_{i}^{\psi}+\sum_{i=1}^{N^{g}}\gamma_{i}^{1-\psi}g_{i}^{\psi}\right)^{\frac{1}{\psi}}.
+\]
+
+\end_inset
+
+Relative to what you've seen in the past,
+ here the firm sales consumer goods,
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\nospellcheck off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+,
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\nospellcheck default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and government goods
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\nospellcheck off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\boldsymbol{g}$
+\end_inset
+
+.
+ The firm solves the following problem:
+\begin_inset Formula 
+\[
+\max\sum_{i=1}^{N}p_{i}y_{i}+\sum_{i=1}^{N}p_{i}^{g}g_{i}-wn
+\]
+
+\end_inset
+
+subject to
+\begin_inset Formula 
+\[
+\mathcal{H}\left(\boldsymbol{y,g}\right)=n.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Question #2.
+ Try to solve the firm's problem.
+ In order to do that,
+ maximize revenues subject to a scale 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ Then,
+ argue that if the wage is not equal to revenues,
+ it would choose either zero or infinity 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ Establish a relationship between prices and the wage and the quantities and 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Question #3.
+ Suppose the wage is normalized to 
+\begin_inset Formula $w=1$
+\end_inset
+
+.
+ Can you find prices 
+\begin_inset Formula $\left\{ p_{i},p_{i}^{g}\right\} $
+\end_inset
+
+ and a wage taxes 
+\begin_inset Formula $\left\{ \tau_{i}\right\} $
+\end_inset
+
+ such that firms sell exactly what households want to buy at those prices and the government satisfies its budgetary constraint?
+ You need to find prices taxes such that:
+\begin_inset Formula 
+\[
+c_{i}=y_{i}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+G_{i}=g_{i}
+\]
+
+\end_inset
+
+and that the government can afford its purchases.
+ Are there many combinations of taxes?
+ 
+\end_layout
+
+\begin_layout Standard
+Question #4.
+ This question asks you to obtain what are called Optimal Ramsey Taxes,
+ using what is called the Primal Approach.
+ Suppose that the government can directly choose consumption given the amount of labor to maximize the household's welfare:
+\begin_inset Formula 
+\[
+\mathcal{U}=\max_{\left\{ c_{i}\right\} }\sum_{i=1}^{N}\left(\omega_{i}^{1-\rho}C_{i}^{\rho}\right)^{\frac{1}{\rho}}
+\]
+
+\end_inset
+
+subject to:
+\begin_inset Formula 
+\[
+\left(\sum_{i=1}^{N}\eta_{i}^{1-\psi}C_{i}^{\psi}+\sum_{i=1}^{N^{g}}\gamma_{i}^{1-\psi}G_{i}^{\psi}\right)^{\frac{1}{\psi}}=n.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Find the optimal choice of 
+\begin_inset Formula $c_{i}$
+\end_inset
+
+ to maximize this problem.
+ 
+\end_layout
+
+\begin_layout Standard
+Question #5.
+ What would 
+\begin_inset Formula $\tau_{i}$
+\end_inset
+
+ have to be so 
+\begin_inset Formula $C_{i}=c_{i}=y_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $G_{i}=g_{i}$
+\end_inset
+
+ from the household and firm's choice.
+ What feature do these prices have?
+ Is there a principle you can relate to?
+\end_layout
+
+\begin_layout Section
+Ramsey Taxation II
+\end_layout
+
+\begin_layout Standard
+Suppose now that the household can choose how much time to work 
+\begin_inset Formula $n$
+\end_inset
+
+ and its leisure 
+\begin_inset Formula $\ell$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\[
+\mathcal{V}=\left(\chi^{1-\nu}\mathcal{U}^{\nu}+\left(1-\chi_{i}\right)^{1-\nu}\ell^{\nu}\right)^{\frac{1}{\nu}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left(\gamma^{1-\phi}n^{\phi}+\ell^{\phi}\right)^{\frac{1}{\phi}}=1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathcal{U}=\max_{\left\{ c_{i}\right\} }\sum_{i=1}^{N}\left(\omega_{i}^{1-\rho}C_{i}^{\rho}\right)^{\frac{1}{\rho}}
+\]
+
+\end_inset
+
+subject to:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N}\left(1+\tau_{i}\right)p_{i}c_{i}=\left(1-\tau\right)wn.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

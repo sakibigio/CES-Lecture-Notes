@@ -1,0 +1,335 @@
+% ==============================================================
+\section{The Finite-Horizon Problem}
+\label{sec:ac-T-period}
+% ==============================================================
+
+We now extend the two-period analysis to a finite horizon of $T+1$ periods, $t \in \{0, 1, \ldots, T\}$. This extension reveals the full dynamic structure of adjustment costs: how investment at any date responds to productivity changes at any other date, and how Tobin's $Q$ evolves along the transition path.
+
+% --------------------------------------------------------------
+\subsection{Setup}
+\label{subsec:ac-T-setup}
+% --------------------------------------------------------------
+
+\paragraph{Technology.}
+Production is linear in capital with productivity $A_t$:
+\begin{equation}
+Y_t = A_t k_t.
+\label{eq:ac-T-production}
+\end{equation}
+Capital fully depreciates ($\delta = 1$), so next-period capital equals current investment:
+\begin{equation}
+k_{t+1} = I_t, \qquad t = 0, 1, \ldots, T-1.
+\label{eq:ac-T-capital}
+\end{equation}
+The CES aggregator governs the transformation of output in each period:
+\begin{equation}
+\Hfun(C_t, I_t) = Y_t, \qquad t = 0, 1, \ldots, T-1.
+\label{eq:ac-T-resource}
+\end{equation}
+In the terminal period $T$, there is no investment: $C_T = Y_T$.
+
+\paragraph{Preferences.}
+The household has time-separable preferences with discount factor $\beta \in (0,1)$ and period utility $u(C) = \frac{C^{1-1/\theta} - 1}{1 - 1/\theta}$:
+\begin{equation}
+U = \sum_{t=0}^{T} \beta^t \, u(C_t).
+\label{eq:ac-T-utility}
+\end{equation}
+
+\paragraph{State and Control Variables.}
+The state variable is capital $k_t$. The control variables are consumption $C_t$ and investment $I_t$, linked by the CES constraint. Given the constraint, we can take $I_t$ as the single control: $C_t$ is then determined by $\Hfun(C_t, I_t) = A_t k_t$.
+
+% --------------------------------------------------------------
+\subsection{The Recursive Formulation}
+\label{subsec:ac-T-recursive}
+% --------------------------------------------------------------
+
+\paragraph{The Bellman Equation.}
+Define $V_t(k)$ as the value of entering period $t$ with capital $k$. The Bellman equation is:
+\begin{equation}
+V_t(k) = \max_{I} \left\{ u(C) + \beta V_{t+1}(I) \right\} \quad \text{subject to} \quad \Hfun(C, I) = A_t k,
+\label{eq:ac-T-bellman}
+\end{equation}
+with terminal condition $V_T(k) = u(A_T k)$.
+
+\paragraph{Eliminating $C$.}
+From the CES constraint, consumption is implicitly defined by $\Hfun(C, I) = Y$. For the canonical CES:
+\begin{equation}
+C = \left( \frac{Y^\psi - \omega_I^{1-\psi} I^\psi}{\omega_C^{1-\psi}} \right)^{1/\psi} \equiv C(I; Y).
+\label{eq:ac-T-C-implicit}
+\end{equation}
+
+The Bellman equation becomes:
+\begin{equation}
+V_t(k) = \max_{I} \left\{ u\bigl(C(I; A_t k)\bigr) + \beta V_{t+1}(I) \right\}.
+\label{eq:ac-T-bellman-reduced}
+\end{equation}
+
+\paragraph{First-Order Condition.}
+Differentiating with respect to $I$:
+\begin{equation}
+u'(C) \frac{\partial C}{\partial I} + \beta V_{t+1}'(I) = 0.
+\label{eq:ac-T-foc}
+\end{equation}
+
+From the implicit function theorem applied to $\Hfun(C, I) = Y$:
+\begin{equation}
+\frac{\partial C}{\partial I} = -\frac{\partial \Hfun / \partial I}{\partial \Hfun / \partial C} = -\frac{1}{Q},
+\label{eq:ac-T-dCdI}
+\end{equation}
+where $Q$ is Tobin's $Q$ as defined in \cref{eq:ac-tobin-q}. The first-order condition becomes:
+\begin{equation}
+\frac{u'(C_t)}{Q_t} = \beta V_{t+1}'(k_{t+1}).
+\label{eq:ac-T-foc-Q}
+\end{equation}
+
+\paragraph{Envelope Condition.}
+Differentiating the value function with respect to $k$:
+\begin{equation}
+V_t'(k) = u'(C) \frac{\partial C}{\partial Y} \cdot A_t = u'(C_t) \cdot \frac{A_t}{Q_t} \cdot \frac{1}{1 - s_I},
+\label{eq:ac-T-envelope-raw}
+\end{equation}
+where $s_I = \omega_I^{1-\psi} I^\psi / Y^\psi$ is the investment share in the CES aggregator.
+
+For the CES function, $\partial C / \partial Y = (C/Y) / (1 - s_I)$ by homogeneity arguments. At the optimum, the envelope condition simplifies. Using the homogeneity of $\Hfun$:
+\begin{equation}
+V_t'(k) = \frac{u'(C_t)}{Q_t} \cdot A_t.
+\label{eq:ac-T-envelope}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Euler Equation and Tobin's $Q$}
+\label{subsec:ac-T-euler}
+% --------------------------------------------------------------
+
+Combining the first-order condition \cref{eq:ac-T-foc-Q} with the envelope condition \cref{eq:ac-T-envelope} (shifted forward one period):
+\begin{equation}
+\frac{u'(C_t)}{Q_t} = \beta \cdot \frac{u'(C_{t+1})}{Q_{t+1}} \cdot A_{t+1}.
+\label{eq:ac-T-euler-combined}
+\end{equation}
+
+Rearranging:
+\begin{equation}
+\boxed{u'(C_t) = \beta \frac{A_{t+1}}{Q_{t+1}} Q_t \, u'(C_{t+1}).}
+\label{eq:ac-T-euler}
+\end{equation}
+
+\paragraph{Interpretation.}
+The Euler equation has a natural interpretation in terms of returns:
+\begin{itemize}[nosep]
+\item $Q_t$ is the cost of acquiring one unit of capital at date $t$ (in consumption units).
+\item $A_{t+1}$ is the marginal product of that capital at date $t+1$.
+\item $Q_{t+1}$ is the cost of capital at date $t+1$---relevant if the household could instead acquire capital next period.
+\end{itemize}
+
+Define the \emph{return on capital}:
+\begin{equation}
+R_{t+1} \equiv \frac{A_{t+1}}{Q_{t+1}} \cdot Q_t.
+\label{eq:ac-T-return}
+\end{equation}
+
+The Euler equation becomes the standard form:
+\begin{equation}
+u'(C_t) = \beta R_{t+1} \, u'(C_{t+1}).
+\label{eq:ac-T-euler-standard}
+\end{equation}
+
+\begin{calloutimportant}[The Return with Adjustment Costs]
+The return $R_{t+1} = \frac{A_{t+1}}{Q_{t+1}} Q_t$ has two components:
+\begin{enumerate}[nosep]
+\item \textbf{Dividend yield}: $A_{t+1}/Q_{t+1}$ is the marginal product per unit of capital value.
+\item \textbf{Capital gain}: $Q_t/Q_{t+1}$ captures changes in Tobin's $Q$. If $Q$ is falling ($Q_{t+1} < Q_t$), the return is higher---capital acquired cheaply today can be ``sold'' at a higher implicit price tomorrow.
+\end{enumerate}
+
+In the frictionless case ($\eta = \infty$), $Q_t = Q_{t+1} = 1$ and $R_{t+1} = A_{t+1}$. With adjustment costs, returns include capital gains/losses on $Q$.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Sequence Formulation}
+\label{subsec:ac-T-sequence}
+% --------------------------------------------------------------
+
+An alternative to the recursive approach is to solve the problem in sequence space. This formulation connects directly to the Jacobian methods discussed in earlier chapters.
+
+\paragraph{The Planner's Problem.}
+The planner maximizes:
+\begin{equation}
+\max_{\{C_t, I_t, k_{t+1}\}} \sum_{t=0}^{T} \beta^t u(C_t)
+\label{eq:ac-T-planner-obj}
+\end{equation}
+subject to:
+\begin{align}
+\Hfun(C_t, I_t) &= A_t k_t, \qquad t = 0, \ldots, T-1, \label{eq:ac-T-planner-ces} \\
+k_{t+1} &= I_t, \qquad t = 0, \ldots, T-1, \label{eq:ac-T-planner-accum} \\
+C_T &= A_T k_T, \label{eq:ac-T-planner-terminal}
+\end{align}
+with $k_0$ given.
+
+\paragraph{Lagrangian.}
+Form the Lagrangian with multipliers $\lambda_t$ on the CES constraints and $\mu_t$ on the capital accumulation equations:
+\begin{equation}
+\mathcal{L} = \sum_{t=0}^{T} \beta^t u(C_t) + \sum_{t=0}^{T-1} \lambda_t \left[ A_t k_t - \Hfun(C_t, I_t) \right] + \sum_{t=0}^{T-1} \mu_t \left[ I_t - k_{t+1} \right].
+\label{eq:ac-T-lagrangian}
+\end{equation}
+
+\paragraph{First-Order Conditions.}
+\begin{align}
+C_t: & \quad \beta^t u'(C_t) = \lambda_t \frac{\partial \Hfun}{\partial C_t}, \qquad t = 0, \ldots, T-1, \label{eq:ac-T-foc-C} \\
+I_t: & \quad \lambda_t \frac{\partial \Hfun}{\partial I_t} = \mu_t, \qquad t = 0, \ldots, T-1, \label{eq:ac-T-foc-I} \\
+k_{t+1}: & \quad \mu_t = \lambda_{t+1} A_{t+1}, \qquad t = 0, \ldots, T-2, \label{eq:ac-T-foc-k} \\
+C_T: & \quad \beta^T u'(C_T) = \mu_{T-1} A_T. \label{eq:ac-T-foc-CT}
+\end{align}
+
+\paragraph{Recovering Tobin's $Q$.}
+From \cref{eq:ac-T-foc-C,eq:ac-T-foc-I}:
+\begin{equation}
+\frac{\mu_t}{\lambda_t} = \frac{\partial \Hfun / \partial I_t}{\partial \Hfun / \partial C_t} \cdot \frac{\beta^t u'(C_t)}{\beta^t u'(C_t)} = \frac{1}{Q_t}.
+\label{eq:ac-T-mu-lambda}
+\end{equation}
+
+The ratio $\mu_t / \lambda_t = 1/Q_t$ is the shadow price of investment relative to the shadow price of output. Equivalently, $\mu_t$ is the shadow value of capital (in utils), and $\lambda_t Q_t$ is the shadow value of consumption.
+
+\paragraph{The Euler Equation (Again).}
+From \cref{eq:ac-T-foc-k}: $\mu_t = \lambda_{t+1} A_{t+1}$. Substituting $\mu_t = \lambda_t / Q_t$:
+\begin{equation}
+\frac{\lambda_t}{Q_t} = \lambda_{t+1} A_{t+1}.
+\label{eq:ac-T-lambda-recursion}
+\end{equation}
+
+From \cref{eq:ac-T-foc-C}: $\lambda_t = \beta^t u'(C_t) / (\partial \Hfun / \partial C_t)$. Using $\partial \Hfun / \partial C = 1/Q$ (up to scaling):
+\begin{equation}
+\lambda_t \propto \beta^t u'(C_t) Q_t.
+\label{eq:ac-T-lambda-prop}
+\end{equation}
+
+Substituting into \cref{eq:ac-T-lambda-recursion} and simplifying yields the Euler equation \cref{eq:ac-T-euler}.
+
+% --------------------------------------------------------------
+\subsection{Homothetic Structure and the Normalized Problem}
+\label{subsec:ac-T-homothetic}
+% --------------------------------------------------------------
+
+With homothetic preferences (CRRA) and a homogeneous-of-degree-one production/transformation technology, the problem admits a normalized formulation.
+
+\paragraph{Guess for the Value Function.}
+Conjecture that the value function takes the form:
+\begin{equation}
+V_t(k) = v_t \cdot \frac{k^{1-1/\theta}}{1 - 1/\theta},
+\label{eq:ac-T-value-guess}
+\end{equation}
+where $v_t$ is a time-dependent coefficient to be determined.
+
+\paragraph{Normalized Variables.}
+Define the consumption-output ratio $\bar{c}_t \equiv C_t / Y_t$ and the investment-output ratio $\bar{\imath}_t \equiv I_t / Y_t$. The CES constraint becomes:
+\begin{equation}
+\Hfun(\bar{c}_t, \bar{\imath}_t) = 1,
+\label{eq:ac-T-normalized-ces}
+\end{equation}
+which implicitly defines $\bar{c}_t$ as a function of $\bar{\imath}_t$.
+
+\paragraph{Tobin's $Q$ in Normalized Form.}
+\begin{equation}
+Q_t = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{\bar{c}_t}{\bar{\imath}_t} \right)^{1-\psi}.
+\label{eq:ac-T-Q-normalized}
+\end{equation}
+
+\paragraph{The Normalized Bellman Equation.}
+Substituting the guess into the Bellman equation and using $k_{t+1} = I_t = \bar{\imath}_t Y_t = \bar{\imath}_t A_t k_t$:
+\begin{equation}
+v_t \frac{k^{1-1/\theta}}{1-1/\theta} = \max_{\bar{\imath}} \left\{ \frac{(\bar{c} \cdot A_t k)^{1-1/\theta}}{1-1/\theta} + \beta v_{t+1} \frac{(\bar{\imath} \cdot A_t k)^{1-1/\theta}}{1-1/\theta} \right\}.
+\label{eq:ac-T-bellman-sub}
+\end{equation}
+
+Factoring out $k^{1-1/\theta}$ and $A_t^{1-1/\theta}$:
+\begin{equation}
+v_t = A_t^{1-1/\theta} \max_{\bar{\imath}} \left\{ \frac{\bar{c}^{1-1/\theta} + \beta v_{t+1} \bar{\imath}^{1-1/\theta}}{1-1/\theta} \right\} \cdot (1-1/\theta).
+\label{eq:ac-T-bellman-normalized}
+\end{equation}
+
+This confirms the guess: the value function is linear in $k^{1-1/\theta}$, and the coefficients $v_t$ satisfy a recursion that depends only on $A_t$ and $\beta$, not on $k$.
+
+\paragraph{The Normalized Problem.}
+The coefficients $\{v_t\}$ solve a finite-dimensional problem:
+\begin{equation}
+v_t = \max_{\bar{\imath}_t} \left\{ \bar{c}_t^{1-1/\theta} + \beta v_{t+1} (\bar{\imath}_t A_t)^{1-1/\theta} \right\} \quad \text{s.t.} \quad \Hfun(\bar{c}_t, \bar{\imath}_t) = 1,
+\label{eq:ac-T-v-recursion}
+\end{equation}
+with terminal condition $v_T = A_T^{1-1/\theta}$.
+
+\begin{calloutnote}[Dimensionality Reduction]
+The homothetic structure reduces the state space from $(k_t, t)$ to just $t$. The normalized investment rate $\bar{\imath}_t$ depends only on time (through $A_t$, $\beta$, and the terminal condition), not on the level of capital. This is the dynamic analog of the ``linearity in wealth'' property in consumption-savings problems.
+
+This reduction is valuable computationally: instead of solving a value function over a continuous state space, we solve a sequence of static optimization problems, one for each period.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Steady State and Dynamics}
+\label{subsec:ac-T-dynamics}
+% --------------------------------------------------------------
+
+Consider the case where productivity is constant: $A_t = A$ for all $t$. In an infinite-horizon version (or for $T$ large), the economy converges to a steady state.
+
+\paragraph{Steady-State Conditions.}
+In steady state, $\bar{c}_t = \bar{c}$, $\bar{\imath}_t = \bar{\imath}$, $Q_t = Q$, and $v_t = v$ for all $t$. The Euler equation \cref{eq:ac-T-euler} becomes:
+\begin{equation}
+1 = \beta \frac{A}{Q}.
+\label{eq:ac-T-ss-euler}
+\end{equation}
+
+Thus, in steady state:
+\begin{equation}
+Q^{ss} = \beta A.
+\label{eq:ac-T-Q-ss}
+\end{equation}
+
+Tobin's $Q$ equals the discounted marginal product of capital. If $\beta A > 1$, steady-state $Q > 1$: investment goods are expensive relative to the frictionless benchmark.
+
+\paragraph{Steady-State Investment Rate.}
+From the definition of $Q$:
+\begin{equation}
+\beta A = \frac{\omega_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{\bar{c}^{ss}}{\bar{\imath}^{ss}} \right)^{1-\psi}.
+\label{eq:ac-T-Q-ss-def}
+\end{equation}
+
+Combined with the CES constraint $\Hfun(\bar{c}^{ss}, \bar{\imath}^{ss}) = 1$, this pins down the steady-state allocation.
+
+\paragraph{Transitional Dynamics.}
+Away from steady state, the system exhibits transitional dynamics. Starting from an initial capital stock $k_0 \neq k^{ss}$:
+\begin{itemize}[nosep]
+\item If $k_0 < k^{ss}$: The economy invests heavily, driving up $Q$. High $Q$ means low returns $A/Q$, which moderates investment over time.
+\item If $k_0 > k^{ss}$: The economy disinvests (if possible) or lets capital depreciate, with low investment rates and low $Q$.
+\end{itemize}
+
+The adjustment cost (finite $\eta$) slows the transition: the economy cannot jump immediately to steady state because high investment rates make investment expensive at the margin.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-T-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The Finite-Horizon Problem with CES Adjustment Costs}
+\label{tab:ac-T-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Bellman equation & $V_t(k) = \max_{I} \left\{ u(C) + \beta V_{t+1}(I) \right\}$ s.t. $\Hfun(C,I) = A_t k$ \\[6pt]
+Euler equation & $u'(C_t) = \beta \dfrac{A_{t+1}}{Q_{t+1}} Q_t \, u'(C_{t+1})$ \\[10pt]
+Return on capital & $R_{t+1} = \dfrac{A_{t+1}}{Q_{t+1}} Q_t$ \\[10pt]
+Steady-state $Q$ & $Q^{ss} = \beta A$ \\[6pt]
+Value function form & $V_t(k) = v_t \cdot \dfrac{k^{1-1/\theta}}{1-1/\theta}$ \\[8pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+The finite-horizon extension reveals:
+\begin{itemize}[nosep]
+\item \textbf{Returns include capital gains}: The return $R_{t+1} = (A_{t+1}/Q_{t+1}) Q_t$ has both a dividend yield and a capital gain component from changes in $Q$.
+\item \textbf{Homothetic reduction}: With CRRA utility and CES transformation, the value function is homogeneous in capital, reducing the problem to a sequence of normalized static problems.
+\item \textbf{Steady-state $Q$}: In steady state, $Q = \beta A$---Tobin's $Q$ equals the discounted marginal product.
+\item \textbf{Gradual adjustment}: Finite transformation elasticity $\eta$ implies gradual convergence to steady state; the economy cannot jump instantaneously.
+\end{itemize}
+\end{callouttip}

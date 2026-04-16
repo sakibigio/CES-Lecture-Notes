@@ -1,0 +1,222 @@
+% ==============================================================
+\section{Fixed Points and Value Function Iteration}
+\label{sec:fixed-points}
+% ==============================================================
+
+The recursive structures developed in this chapter define functional equations. Given a consumption stream, the value function is the solution to a recursion---a fixed point. This section develops the fixed point perspective and introduces value function iteration as a computational method.
+
+% --------------------------------------------------------------
+\subsection{The Recursion as a Functional Equation}
+\label{subsec:functional-equation}
+% --------------------------------------------------------------
+
+Consider the infinite-horizon recursion from \cref{sec:discounted-utility}:
+\begin{equation}
+\V_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho).
+\label{eq:recursion-functional}
+\end{equation}
+Given a consumption stream $\{c_t\}_{t=0}^{\infty}$, this defines a relationship that the value function $\{\V_t\}_{t=0}^{\infty}$ must satisfy.
+
+\paragraph{The Operator Perspective.}
+Define the operator $T$ that maps a candidate value function $\V$ to a new value function:
+\begin{equation}
+(T\V)_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho).
+\label{eq:operator-T}
+\end{equation}
+The recursion \cref{eq:recursion-functional} requires $\V = T\V$---the value function is a \emph{fixed point} of $T$.
+
+\paragraph{Existence and Uniqueness.}
+Does a fixed point exist? Is it unique? The answer is yes, under standard conditions, because $T$ is a \emph{contraction mapping}.
+
+\begin{definition}[Contraction Mapping]
+\label{def:contraction}
+An operator $T$ on a metric space with distance $d$ is a contraction if there exists $\delta \in [0, 1)$ such that for all $\V, \V'$:
+\begin{equation}
+d(T\V, T\V') \leq \delta \cdot d(\V, \V').
+\label{eq:contraction-def}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Contraction Property]
+\label{prop:contraction}
+The operator $T$ defined in \cref{eq:operator-T} is a contraction with modulus $\delta = \beta$ under the supremum norm $\|\V\| = \sup_t |\V_t|$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The generalized mean $\Mbar(c_t, \V_{t+1}; 1-\beta, \rho)$ places weight $\beta$ on $\V_{t+1}$. When we change $\V$ to $\V'$, the effect on $(T\V)_t$ is attenuated by $\beta$:
+\begin{equation}
+|(T\V)_t - (T\V')_t| \leq \beta \cdot |\V_{t+1} - \V'_{t+1}| \leq \beta \cdot \|\V - \V'\|.
+\end{equation}
+Taking the supremum over $t$ gives $\|T\V - T\V'\| \leq \beta \|\V - \V'\|$.
+\end{proof}
+
+The Banach fixed point theorem guarantees that a contraction mapping has a unique fixed point.
+
+\begin{theorem}[Banach Fixed Point Theorem]
+\label{thm:banach}
+If $T$ is a contraction on a complete metric space, then:
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item There exists a unique fixed point $\V^*$ satisfying $T\V^* = \V^*$.
+    \item For any initial guess $\V^{(0)}$, the sequence $\V^{(n+1)} = T\V^{(n)}$ converges to $\V^*$.
+\end{enumerate}
+\end{theorem}
+
+% --------------------------------------------------------------
+\subsection{Value Function Iteration}
+\label{subsec:vfi}
+% --------------------------------------------------------------
+
+The Banach theorem suggests a computational algorithm: start with a guess and iterate.
+
+\paragraph{The Algorithm.}
+\begin{enumerate}[label=\textbf{Step \arabic*:}, leftmargin=3.5em]
+    \item Choose an initial guess $\V^{(0)}$ (e.g., $\V_t^{(0)} = 0$ for all $t$).
+    \item Compute $\V^{(n+1)} = T\V^{(n)}$, i.e., $\V_t^{(n+1)} = \Mbar(c_t, \V_{t+1}^{(n)}; 1-\beta, \rho)$ for all $t$.
+    \item Repeat until $\|\V^{(n+1)} - \V^{(n)}\| < \epsilon$ for some tolerance $\epsilon > 0$.
+\end{enumerate}
+
+\paragraph{Convergence Rate.}
+The contraction property guarantees:
+\begin{equation}
+\|\V^{(n)} - \V^*\| \leq \beta^n \|\V^{(0)} - \V^*\|.
+\label{eq:convergence-rate}
+\end{equation}
+Convergence is geometric at rate $\beta$. With $\beta = 0.95$, the error shrinks by 5\% each iteration; after 100 iterations, the error is reduced by a factor of $(0.95)^{100} \approx 0.006$.
+
+\begin{calloutnote}[Practical Computation]
+For computation, we typically truncate the infinite horizon at some large $T$ and work backward from a terminal condition. As $T \to \infty$, the truncated solution converges to the true infinite-horizon fixed point. This combines backward induction (for the finite problem) with the fixed point perspective (for the limit).
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Backward Induction as Finite-Horizon Iteration}
+\label{subsec:backward-finite}
+% --------------------------------------------------------------
+
+In the finite-horizon case, no fixed point is needed---backward induction computes the value function exactly.
+
+\paragraph{The Finite-Horizon Problem.}
+Given $\{c_t\}_{t=0}^{T}$ and terminal condition $\V_T = c_T$:
+\begin{align}
+\V_T &= c_T, \notag \\
+\V_{T-1} &= \Mbar(c_{T-1}, \V_T; 1-\beta, \rho), \notag \\
+\V_{T-2} &= \Mbar(c_{T-2}, \V_{T-1}; 1-\beta, \rho), \notag \\
+&\vdots \notag \\
+\V_0 &= \Mbar(c_0, \V_1; 1-\beta, \rho).
+\label{eq:backward-induction-sequence}
+\end{align}
+This is not iteration toward a fixed point---it is direct computation, stepping backward from the known terminal value.
+
+\paragraph{Connection to Infinite Horizon.}
+Consider solving the finite problem for increasing $T$. Let $\V_0^{(T)}$ denote the time-0 value when the horizon is $T$. As $T \to \infty$:
+\begin{equation}
+\V_0^{(T)} \to \V_0^*,
+\label{eq:finite-to-infinite}
+\end{equation}
+where $\V_0^*$ is the infinite-horizon fixed point. The finite-horizon solutions approximate the infinite-horizon solution, with the approximation improving as $T$ grows.
+
+% --------------------------------------------------------------
+\subsection{Extension to Epstein--Zin}
+\label{subsec:fixed-point-ez}
+% --------------------------------------------------------------
+
+The fixed point framework extends to Epstein--Zin preferences with uncertainty.
+
+\paragraph{The Stochastic Recursion.}
+Recall from \cref{sec:epstein-zin}:
+\begin{equation}
+V_t = \Mbar\Big( c_t, \mu_t(V_{t+1}); 1-\beta, 1-1/\theta \Big),
+\label{eq:ez-recursion-fp}
+\end{equation}
+where $\mu_t(V_{t+1}) = (\E_t[V_{t+1}^{1-\gamma}])^{1/(1-\gamma)}$ is the certainty equivalent.
+
+\paragraph{The Operator.}
+Define the operator:
+\begin{equation}
+(TV)_t = \Mbar\Big( c_t, \mu_t(V_{t+1}); 1-\beta, 1-1/\theta \Big).
+\label{eq:ez-operator}
+\end{equation}
+The value function $V$ is a fixed point: $V = TV$.
+
+\paragraph{Contraction.}
+The operator $T$ remains a contraction under appropriate conditions. The discount factor $\beta$ again provides the contraction modulus, ensuring existence and uniqueness of the fixed point.
+
+\begin{calloutnote}[Two Levels of Aggregation]
+In the Epstein--Zin case, each application of $T$ involves two aggregations:
+\begin{enumerate}[leftmargin=1.5em]
+    \item Compute $\mu_t(V_{t+1})$ by aggregating over states (inner mean, risk).
+    \item Compute $(TV)_t$ by aggregating $c_t$ with $\mu_t$ (outer mean, time).
+\end{enumerate}
+The nested structure is embedded in the operator. Value function iteration respects this hierarchy automatically.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Stationary Environments}
+\label{subsec:stationary}
+% --------------------------------------------------------------
+
+A special case arises when the consumption stream is stationary.
+
+\paragraph{Constant Consumption.}
+Suppose $c_t = c$ for all $t$. The recursion becomes:
+\begin{equation}
+\V = \Mbar(c, \V; 1-\beta, \rho).
+\label{eq:stationary-recursion}
+\end{equation}
+This is a single equation in the single unknown $\V$. Expanding:
+\begin{equation}
+\V = \left( (1-\beta) c^\rho + \beta \V^\rho \right)^{1/\rho}.
+\label{eq:stationary-expanded}
+\end{equation}
+Raising both sides to power $\rho$:
+\begin{equation}
+\V^\rho = (1-\beta) c^\rho + \beta \V^\rho \quad \Longrightarrow \quad \V^\rho (1-\beta) = (1-\beta) c^\rho \quad \Longrightarrow \quad \V = c.
+\label{eq:stationary-solution}
+\end{equation}
+The value of a constant consumption stream is simply that constant level---a reassuring consistency check.
+
+\paragraph{Geometric Growth.}
+Suppose $c_t = c_0 g^t$ for some growth factor $g > 0$. Conjecture $\V_t = \V_0 g^t$ for some $\V_0$. Substituting:
+\begin{equation}
+\V_0 g^t = \left( (1-\beta) (c_0 g^t)^\rho + \beta (\V_0 g^{t+1})^\rho \right)^{1/\rho}.
+\label{eq:growth-substitution}
+\end{equation}
+Factoring out $g^t$:
+\begin{equation}
+\V_0 = \left( (1-\beta) c_0^\rho + \beta g^\rho \V_0^\rho \right)^{1/\rho}.
+\label{eq:growth-simplified}
+\end{equation}
+Solving:
+\begin{equation}
+\V_0 = c_0 \left( \frac{1-\beta}{1 - \beta g^\rho} \right)^{1/\rho},
+\label{eq:growth-solution}
+\end{equation}
+provided $\beta g^\rho < 1$ for convergence.
+
+\begin{callouttip}[Exercise]
+\begin{enumerate}[label=(\alph*), leftmargin=1.5em]
+    \item Verify that \cref{eq:growth-solution} reduces to $\V_0 = c_0$ when $g = 1$.
+    \item For $\rho = 0$ (Cobb--Douglas), show that $\V_0 = c_0 (1-\beta)^{1-\beta} / (1 - \beta g)^{1-\beta}$ or find the correct limit.
+    \item What condition on $g$ ensures $\V_0$ is finite? Interpret economically.
+\end{enumerate}
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:fixed-point-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item The recursive structure defines a \textbf{functional equation}: the value function is a fixed point of the aggregation operator.
+    
+    \item The operator is a \textbf{contraction} with modulus $\beta$, guaranteeing existence and uniqueness of the fixed point (Banach theorem).
+    
+    \item \textbf{Value function iteration}---repeatedly applying the operator---converges geometrically to the fixed point from any initial guess.
+    
+    \item \textbf{Backward induction} solves finite-horizon problems exactly; the infinite-horizon solution is the limit as $T \to \infty$.
+    
+    \item The framework extends to \textbf{Epstein--Zin}: the operator incorporates both risk and time aggregation.
+\end{enumerate}
+\end{calloutimportant}
+
+This completes our treatment of recursive and nested structures for evaluating consumption streams. The value function, computed via fixed point iteration or backward induction, provides the foundation for optimization problems where the agent chooses the consumption stream itself. That is the subject of dynamic programming.

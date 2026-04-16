@@ -1,0 +1,288 @@
+% ==============================================================
+% Section 1: Static Portfolio Choice Revisited
+% ==============================================================
+
+
+
+\section{Static Portfolio Choice Revisited}
+\label{sec:static-portfolio}
+
+This section connects the static CES optimization framework developed earlier to the portfolio choice problem. We begin with complete markets, where the closed-form solutions follow immediately from our canonical problem, then examine how incomplete markets break this tractability.
+
+% --------------------------------------------------------------
+\subsection{The Static Problem}
+\label{subsec:static-problem}
+% --------------------------------------------------------------
+
+Consider an investor with wealth $W$ facing $S$ states of the world. State $s$ occurs with probability $\pi_s > 0$, where $\sum_{s=1}^{S} \pi_s = 1$. The investor chooses state-contingent consumption $(c_1, \ldots, c_S)$ to maximize a certainty equivalent.
+
+\paragraph{CRRA Preferences.}
+
+With constant relative risk aversion $\gamma > 0$, expected utility is
+\begin{equation}
+\E[u(c)] = \sum_{s=1}^{S} \pi_s \frac{c_s^{1-\gamma}}{1-\gamma}.
+\label{eq:expected-utility}
+\end{equation}
+The certainty equivalent---the sure consumption yielding the same utility as the lottery---is
+\begin{equation}
+\CE(\bc; \bm{\pi}, \gamma) = \left( \sum_{s=1}^{S} \pi_s \, c_s^{1-\gamma} \right)^{\frac{1}{1-\gamma}}.
+\label{eq:certainty-equivalent}
+\end{equation}
+
+\paragraph{Connection to Generalized Means.}
+
+The certainty equivalent is a \emph{classical generalized mean} with power parameter $\rho = 1 - \gamma$ and weights equal to probabilities:
+\begin{equation}
+\CE(\bc; \bm{\pi}, \gamma) = \Mbar(\bc; \bm{\pi}, 1-\gamma).
+\label{eq:ce-as-mean}
+\end{equation}
+Risk aversion $\gamma$ maps to the power parameter via $\rho = 1 - \gamma$:
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Risk Aversion & $\gamma < 1$ & $\gamma = 1$ & $\gamma > 1$ \\
+\midrule
+Power $\rho = 1-\gamma$ & $\rho > 0$ & $\rho = 0$ & $\rho < 0$ \\
+Mean Type & Above geometric & Geometric & Below geometric \\
+Risk Attitude & Low aversion & Log utility & High aversion \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Higher risk aversion ($\gamma > 1$) corresponds to $\rho < 0$, which pulls the certainty equivalent below the arithmetic mean---the investor penalizes dispersion across states.
+
+% --------------------------------------------------------------
+\subsection{Complete Markets}
+\label{subsec:complete-markets}
+% --------------------------------------------------------------
+
+\paragraph{Arrow-Debreu Securities.}
+
+A market is \emph{complete} if there exist $S$ linearly independent assets spanning all states. The canonical case is $S$ Arrow-Debreu securities, where security $s$ pays one unit if state $s$ occurs and zero otherwise. Let $q_s > 0$ denote the price of the Arrow-Debreu security for state $s$.
+
+The investor's problem is
+\begin{equation}
+\max_{c_1, \ldots, c_S} \; \CE(\bc; \bm{\pi}, \gamma) \quad \text{subject to} \quad \sum_{s=1}^{S} q_s c_s = W.
+\label{eq:complete-markets-problem}
+\end{equation}
+
+\paragraph{This is the Canonical Problem.}
+
+Problem \eqref{eq:complete-markets-problem} is exactly the CES optimization problem from Chapter~\ref{ch:canonical-problems}:
+\begin{itemize}[nosep]
+    \item Objective: generalized mean $\Mbar(\bc; \bm{\pi}, 1-\gamma)$
+    \item Weights: probabilities $\pi_s$
+    \item Prices: Arrow-Debreu prices $q_s$
+    \item Budget: initial wealth $W$
+\end{itemize}
+
+Applying our earlier results immediately yields the solution.
+
+\begin{proposition}[Complete Markets Solution]
+\label{prop:complete-markets}
+With complete Arrow-Debreu markets, optimal state-contingent consumption is
+\begin{equation}
+c_s\opt = \pi_s^{1/\gamma} \left( \frac{q_s}{\Qstar} \right)^{-1/\gamma} \cdot \frac{W}{\Qstar},
+\label{eq:complete-markets-demand}
+\end{equation}
+where the \emph{risk-adjusted price index} is
+\begin{equation}
+\Qstar = \left( \sum_{s=1}^{S} \pi_s^{1/\gamma} \, q_s^{1-1/\gamma} \right)^{\frac{\gamma}{\gamma-1}}.
+\label{eq:risk-price-index}
+\end{equation}
+The maximized certainty equivalent is
+\begin{equation}
+\CE\opt = \frac{W}{\Qstar}.
+\label{eq:ce-value}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Apply Proposition~\ref{prop:value} with $\omega_s = \pi_s$, $p_s = q_s$, $\rho = 1 - \gamma$, and $B = W$. The elasticity of substitution across states is $\varepsilon = 1/(1 - \rho) = 1/\gamma$.
+\end{proof}
+
+\paragraph{Interpretation.}
+
+The demand function \eqref{eq:complete-markets-demand} has the standard multiplicative structure:
+\[
+c_s\opt = \underbrace{\pi_s^{1/\gamma}}_{\text{probability}} \times \underbrace{\left( \frac{q_s}{\Qstar} \right)^{-1/\gamma}}_{\text{relative price}} \times \underbrace{\frac{W}{\Qstar}}_{\text{real wealth}}.
+\]
+States with higher probability receive more consumption. States with higher Arrow-Debreu prices receive less consumption, with the response governed by the risk tolerance $1/\gamma$. The real wealth $W/\Qstar$ scales all consumption proportionally.
+
+\begin{calloutnote}[State Prices and Risk-Neutral Probabilities]
+Define the \emph{risk-neutral probability} $\tilde{\pi}_s \equiv q_s / \sum_j q_j$. Then
+\[
+\frac{q_s}{\pi_s} = \frac{\tilde{\pi}_s}{\pi_s} \cdot \sum_j q_j
+\]
+is the \emph{pricing kernel} or \emph{stochastic discount factor} for state $s$, up to a constant. States where the pricing kernel is high (consumption is expensive) receive less consumption. This is the foundation of consumption-based asset pricing.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Incomplete Markets}
+\label{subsec:incomplete-markets}
+% --------------------------------------------------------------
+
+Now suppose only $J < S$ assets are available for trade. Let $R_s^j$ denote the gross return of asset $j$ in state $s$. If the investor allocates portfolio share $\alpha_j$ to asset $j$ (with $\sum_{j=1}^{J} \alpha_j = 1$), wealth in state $s$ is
+\begin{equation}
+W_s = W \sum_{j=1}^{J} \alpha_j R_s^j.
+\label{eq:portfolio-wealth}
+\end{equation}
+
+The investor's problem becomes
+\begin{equation}
+\max_{\alpha_1, \ldots, \alpha_J} \; \CE\left( W \sum_{j} \alpha_j R_1^j, \ldots, W \sum_{j} \alpha_j R_S^j \right).
+\label{eq:incomplete-markets-problem}
+\end{equation}
+
+\paragraph{The Spanning Constraint.}
+
+The key difference from complete markets is that consumption across states is no longer freely chosen. Instead, the consumption vector $\bc = (c_1, \ldots, c_S)$ must lie in the \emph{asset span}---the $J$-dimensional subspace of $\mathbb{R}^S$ generated by the columns of the return matrix:
+\begin{equation}
+\bc \in \text{span}\{ \bR^1, \ldots, \bR^J \}, \quad \text{where } \bR^j = (R_1^j, \ldots, R_S^j)'.
+\label{eq:asset-span}
+\end{equation}
+
+\paragraph{Why Closed Forms Fail.}
+
+With complete markets, we optimize over all of $\mathbb{R}^S_+$---there are $S$ choice variables and $S$ first-order conditions, yielding a ``square'' system with closed-form solutions.
+
+With incomplete markets, we have only $J < S$ choice variables (portfolio weights), but the first-order conditions involve expectations over $S$ states. The certainty equivalent
+\begin{equation}
+\CE = \left( \sum_{s=1}^{S} \pi_s \left( W \sum_{j=1}^{J} \alpha_j R_s^j \right)^{1-\gamma} \right)^{\frac{1}{1-\gamma}}
+\label{eq:ce-incomplete}
+\end{equation}
+is a nonlinear function of the portfolio weights $\balpha$. Differentiating with respect to $\alpha_j$:
+\begin{equation}
+\frac{\partial \CE}{\partial \alpha_j} = \CE^{\gamma} \cdot W \sum_{s=1}^{S} \pi_s \, W_s^{-\gamma} \, R_s^j.
+\label{eq:portfolio-foc}
+\end{equation}
+
+The first-order condition $\partial \CE / \partial \alpha_j = \lambda$ (for all $j$) requires
+\begin{equation}
+\E\left[ W_s^{-\gamma} R_s^j \right] = \text{constant for all } j.
+\label{eq:euler-static}
+\end{equation}
+
+This is a system of $J$ equations in $J$ unknowns, but the expectation $\E[W_s^{-\gamma} R_s^j]$ depends on the \emph{entire distribution} of portfolio returns, not just moments. The nonlinear interaction between $W_s^{-\gamma}$ and $R_s^j$ generically precludes closed-form solutions.
+
+\begin{calloutnote}[Why No Closed Form?]
+The complete-markets solution $c_s\opt \propto \pi_s^{1/\gamma} q_s^{-1/\gamma}$ generically does not lie in the asset span. The incomplete-markets solution is the ``closest'' feasible point to this ideal, where distance is measured in the metric induced by the certainty equivalent. This projection onto a lower-dimensional subspace has no closed form except in special cases.
+
+Geometrically: we seek the point in a $J$-dimensional affine subspace that maximizes a strictly concave objective over $\mathbb{R}^S$. The solution exists and is unique, but characterizing it requires solving a nonlinear system.
+\end{calloutnote}
+
+\begin{calloutnote}[Special Cases with Closed Forms]
+Analytical solutions exist in three important cases:
+\begin{enumerate}[label=(\roman*), nosep]
+    \item \textbf{Log utility} ($\gamma = 1$): The objective becomes $\E[\log W_s]$, which separates additively. Portfolio choice is myopic and depends only on expected log returns.
+    
+    \item \textbf{CARA utility with normal returns}: With exponential utility $u(W) = -e^{-aW}$ and jointly normal returns, the problem reduces to mean-variance optimization, yielding the classic two-fund separation.
+    
+    \item \textbf{CRRA utility with log-normal returns}: When log returns are normal, approximate closed forms exist via log-linearization (Campbell-Viceira). The next subsection develops the exact log-utility case.
+\end{enumerate}
+Outside these cases, numerical methods are required---a theme developed in later chapters.
+\end{calloutnote}
+
+\paragraph{Other Linear Constraints.}
+
+The incomplete markets problem is one instance of a broader class: CES optimization subject to linear constraints on the choice vector. Several other economically important constraints share this structure:
+\begin{itemize}[nosep]
+    \item \textbf{Short-sale constraints}: The requirement $\alpha_j \geq 0$ restricts portfolios to a cone within the asset span. Binding constraints create kinks in the value function.
+    
+    \item \textbf{Leverage constraints}: A bound $\sum_j |\alpha_j| \leq L$ or $\alpha_j \geq -\bar{\alpha}$ limits borrowing, truncating the feasible region.
+    
+    \item \textbf{Regulatory constraints}: Capital requirements, position limits, or concentration limits impose linear inequalities on portfolio weights.
+    
+    \item \textbf{Linear transaction costs}: Proportional costs $\kappa |\text{trade}_j|$ can be reformulated as linear constraints on rebalancing, though they introduce state-dependence.
+\end{itemize}
+
+In each case, the mathematical structure is identical: maximize a CES objective over a polyhedron---the intersection of half-spaces---rather than the full asset span. The complete-markets closed form provides the \emph{unconstrained} optimum; the actual solution is a projection onto the feasible set. When constraints bind, Lagrange multipliers have natural interpretations as shadow prices of the restricted resources.
+
+% --------------------------------------------------------------
+\subsection{The Log-Normal / Log-Utility Case}
+\label{subsec:log-utility}
+% --------------------------------------------------------------
+
+The log-utility case ($\gamma = 1$) with log-normal returns provides a complete analytical solution and serves as the tractability benchmark.
+
+\paragraph{Setup.}
+
+Consider two assets: a risk-free bond with gross return $R^f$ and a risky asset with random gross return $R$. Assume log returns are normal:
+\begin{equation}
+\log R \sim N(\mu - \tfrac{1}{2}\sigma^2, \sigma^2),
+\label{eq:log-return}
+\end{equation}
+where the parametrization ensures $\E[R] = e^{\mu}$. Let $\alpha$ denote the portfolio share in the risky asset.
+
+\paragraph{The Log-Utility Objective.}
+
+With log utility, the certainty equivalent is the geometric mean:
+\begin{equation}
+\CE = \exp\left( \E[\log W_1] \right) = \exp\left( \log W_0 + \E[\log R^p] \right),
+\label{eq:log-ce}
+\end{equation}
+where $R^p = (1-\alpha) R^f + \alpha R$ is the portfolio return. Maximizing $\CE$ is equivalent to maximizing expected log return:
+\begin{equation}
+\max_{\alpha} \; \E\left[ \log\left( (1-\alpha) R^f + \alpha R \right) \right].
+\label{eq:log-utility-problem}
+\end{equation}
+
+\paragraph{The Solution.}
+
+For log-normal returns, the first-order condition yields the celebrated result.
+
+\begin{proposition}[Log-Utility Portfolio]
+\label{prop:log-portfolio}
+With log utility and a risky asset satisfying \eqref{eq:log-return}, the optimal portfolio share is
+\begin{equation}
+\alpha\opt = \frac{\mu - \log R^f}{\sigma^2} = \frac{\E[\log R] + \frac{1}{2}\sigma^2 - \log R^f}{\sigma^2}.
+\label{eq:log-portfolio}
+\end{equation}
+Equivalently, using the arithmetic risk premium $\E[R] - R^f \approx \mu - \log R^f + \frac{1}{2}\sigma^2$:
+\begin{equation}
+\alpha\opt \approx \frac{\E[R] - R^f}{\sigma^2}.
+\label{eq:log-portfolio-approx}
+\end{equation}
+\end{proposition}
+
+This is the \emph{Kelly criterion}---the growth-optimal portfolio that maximizes the long-run geometric growth rate of wealth.
+
+\paragraph{Key Properties.}
+
+The log-utility solution has remarkable features:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Myopic}: The optimal portfolio share depends only on the current-period return distribution, not on the investment horizon or future opportunities.
+    
+    \item \textbf{Wealth-independent}: The share $\alpha\opt$ does not depend on wealth $W_0$. Rich and poor investors hold the same portfolio proportions.
+    
+    \item \textbf{Separation}: Portfolio choice is independent of the consumption-savings decision. We can solve for $\alpha\opt$ first, then determine optimal consumption.
+\end{enumerate}
+
+\begin{calloutimportant}[Why Log Utility is Special]
+Log utility ($\gamma = 1$) corresponds to $\rho = 0$ in the generalized mean---the geometric mean. This is the boundary between means that favor high values ($\rho > 0$) and means that favor low values ($\rho < 0$).
+
+At this boundary, the certainty equivalent has a multiplicative structure:
+\[
+\CE = \left( \prod_{s} c_s^{\pi_s} \right) = \exp\left( \sum_s \pi_s \log c_s \right).
+\]
+The logarithm converts the product to a sum, making the objective \emph{additively separable} across states. This separability is what delivers closed forms.
+
+For $\gamma \neq 1$, the power function $c^{1-\gamma}$ does not separate, and the nonlinear interaction between states prevents analytical solutions.
+\end{calloutimportant}
+
+\paragraph{Beyond Log Utility.}
+
+For general $\gamma \neq 1$, the optimal portfolio share with log-normal returns satisfies
+\begin{equation}
+\alpha\opt \approx \frac{1}{\gamma} \cdot \frac{\mu - \log R^f}{\sigma^2}.
+\label{eq:crra-portfolio-approx}
+\end{equation}
+This approximation (Merton, Campbell-Viceira) shows that higher risk aversion $\gamma$ reduces the risky share proportionally. However, the exact solution requires numerical methods because $\E[W^{1-\gamma}]$ depends on the full distribution, not just $\mu$ and $\sigma^2$.
+
+The factor $1/\gamma$ is the \emph{risk tolerance}. It measures the investor's willingness to bear risk in exchange for higher expected returns. Log utility ($\gamma = 1$) has unit risk tolerance; higher risk aversion reduces the risky allocation.
+
+\begin{callouttip}[The Merton Share]
+Equation \eqref{eq:crra-portfolio-approx} is often called the \emph{Merton share} after Merton (1969). In continuous time with geometric Brownian motion, this expression is exact. The discrete-time/log-normal case is an approximation that becomes exact as the time interval shrinks.
+\end{callouttip}
+

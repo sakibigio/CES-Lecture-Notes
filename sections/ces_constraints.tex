@@ -1,0 +1,533 @@
+% ==============================================================
+% Section: Optimization with CES Objectives and Constraints
+% ==============================================================
+
+\chapter{Optimization with CES Objectives and Constraints}
+\label{sec:ces-constraints}
+
+This section studies optimization when \emph{both} the objective and the constraint have CES structure. Such problems arise naturally in multi-stage production, transformation frontiers, nested allocation decisions, and---as we shall see---intertemporal consumption with non-trivial savings technology.
+
+% --------------------------------------------------------------
+\section{The Problem}
+\label{subsec:ces-ces-problem}
+% --------------------------------------------------------------
+
+\begin{definition}[CES/CES Optimization Problem]
+\label{def:ces-ces-problem}
+Maximize a CES objective subject to a CES constraint:
+\begin{equation}
+\label{eq:ces-ces-objective}
+\U\opt = \left( \omega_1^{1-q} c_1^{q} + \omega_2^{1-q} c_2^{q} \right)^{1/q}, \qquad q \leq 1,
+\end{equation}
+subject to
+\begin{equation}
+\label{eq:ces-ces-constraint}
+\Hfun(c_1, c_2) = \left( \eta_1^{1-h} c_1^{h} + \eta_2^{1-h} c_2^{h} \right)^{1/h} = 1, \qquad h \geq 1,
+\end{equation}
+where $\omega_1 + \omega_2 = 1$, $\eta_1 + \eta_2 = 1$, and at least one of the inequalities $q < 1$ or $h > 1$ is strict.
+\end{definition}
+
+The constraint $\Hfun = 1$ defines a \emph{transformation frontier} or \emph{production possibilities frontier} when interpreted as a technology. The curvature of the constraint ($h \geq 1$) opposes the curvature of the objective ($q \leq 1$).
+
+\begin{calloutnote}[When This Structure Arises]
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+    \item \textbf{Nested production}: Intermediate goods combine via CES to produce final output
+    \item \textbf{Transformation frontiers}: Resources transform between uses with diminishing returns
+    \item \textbf{Two-stage allocation}: First allocate across categories, then within categories
+\end{enumerate}
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\section{Direct Solution via First-Order Conditions}
+\label{subsec:ces-ces-direct}
+% --------------------------------------------------------------
+
+The direct approach applies Lagrangian methods to the original problem.
+
+\begin{proposition}[FOC for CES/CES Problem]
+\label{prop:ces-ces-foc}
+The first-order conditions yield:
+\begin{equation}
+\label{eq:ces-ces-foc}
+\frac{\omega_1^{1-q} c_1^{q-1}}{\omega_2^{1-q} c_2^{q-1}} = \frac{\eta_1^{1-h} c_1^{h-1}}{\eta_2^{1-h} c_2^{h-1}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The Lagrangian is $\mathcal{L} = \U - \lambda(\Hfun - 1)$. Differentiating with respect to $c_1$ and $c_2$ and taking the ratio eliminates the multiplier $\lambda$ and the common terms from $\U^{1-q}$ and $\Hfun^{1-h}$.
+\end{proof}
+
+Rearranging \eqref{eq:ces-ces-foc}:
+\begin{equation}
+\label{eq:ces-ces-foc-rearranged}
+\frac{\omega_1^{1-q}}{\omega_2^{1-q}} \cdot \frac{c_1^{q-h}}{c_2^{q-h}} = \frac{\eta_1^{1-h}}{\eta_2^{1-h}}.
+\end{equation}
+
+This can be solved directly, but the expressions become cumbersome. The change-of-coordinates approach below yields cleaner formulas and deeper insight.
+
+% --------------------------------------------------------------
+\section{Solution via Change of Coordinates}
+\label{subsec:ces-ces-coordinates}
+% --------------------------------------------------------------
+
+The key insight is to transform variables so that the CES constraint becomes \emph{linear}. This allows us to apply the canonical formulas from the previous section.
+
+\begin{definition}[Coordinate Transformation]
+\label{def:coordinate-transform}
+Define new variables:
+\begin{equation}
+\label{eq:transform-forward}
+x_1 = \eta_1^{1-h} c_1^{h}, \qquad x_2 = \eta_2^{1-h} c_2^{h}.
+\end{equation}
+The inverse transformation is:
+\begin{equation}
+\label{eq:transform-inverse}
+c_1 = \eta_1^{\frac{h-1}{h}} x_1^{1/h}, \qquad c_2 = \eta_2^{\frac{h-1}{h}} x_2^{1/h}.
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Linearized Constraint]
+\label{prop:linear-constraint}
+Under the transformation \eqref{eq:transform-forward}, the CES constraint becomes linear:
+\begin{equation}
+\label{eq:linear-constraint}
+\eta_1 x_1 + \eta_2 x_2 = 1.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Substituting into $\Hfun^h = 1$:
+\[
+\eta_1^{1-h} c_1^{h} + \eta_2^{1-h} c_2^{h} = x_1 + x_2 = 1.
+\]
+Rewriting with the weights explicit: $\eta_1 \cdot (\eta_1^{-1} x_1) + \eta_2 \cdot (\eta_2^{-1} x_2) = 1$, but since we want the constraint in the form of prices times quantities, we note that the effective ``prices'' are $\eta_1$ and $\eta_2$, giving \eqref{eq:linear-constraint}.
+\end{proof}
+
+\begin{remark}
+The transformation interprets $\eta_i$ as ``prices'' in the new coordinate system. The non-linearity of the original constraint is absorbed into the change of units.
+\end{remark}
+
+% --------------------------------------------------------------
+\subsection{The Transformed Objective}
+\label{subsec:transformed-objective}
+% --------------------------------------------------------------
+
+Substituting \eqref{eq:transform-inverse} into the objective:
+
+\begin{align}
+\U &= \left( \omega_1^{1-q} c_1^{q} + \omega_2^{1-q} c_2^{q} \right)^{1/q} \notag \\
+&= \left( \omega_1^{1-q} \eta_1^{\frac{(h-1)q}{h}} x_1^{q/h} + \omega_2^{1-q} \eta_2^{\frac{(h-1)q}{h}} x_2^{q/h} \right)^{1/q}.
+\label{eq:transformed-objective-raw}
+\end{align}
+
+\begin{definition}[Effective Power Parameter]
+\label{def:effective-power}
+The \emph{effective power} in the transformed problem is:
+\begin{equation}
+\label{eq:psi-def}
+\boxed{\psi = \frac{q}{h}}
+\end{equation}
+This is the ratio of the objective's power to the constraint's power.
+\end{definition}
+
+\begin{calloutimportant}[The Effective Elasticity]
+The parameter $\psi$ governs the transformed problem. Since $q \leq 1$ and $h \geq 1$:
+\begin{itemize}[leftmargin=*]
+    \item $\psi < 1$: The objective is ``more concave'' than the constraint is ``convex''
+    \item $\psi = 1$: The curvatures match (e.g., Cobb--Douglas objective with Cobb--Douglas constraint)
+    \item $\psi > 1$: The constraint curvature dominates (possible only if $q > h$, which requires $q > 1$)
+\end{itemize}
+The effective elasticity of substitution in the transformed problem is $\tilde{\varepsilon} = 1/(1-\psi)$.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Normalizing the Transformed Weights}
+\label{subsec:normalize-weights}
+% --------------------------------------------------------------
+
+The expression \eqref{eq:transformed-objective-raw} is not yet in canonical form because the coefficients do not sum to one. We proceed in steps.
+
+\textbf{Step 1: Identify the coefficient structure.}
+
+Rewrite \eqref{eq:transformed-objective-raw} as:
+\begin{equation}
+\U = \left( \alpha_1 x_1^{\psi} + \alpha_2 x_2^{\psi} \right)^{1/q},
+\end{equation}
+where $\alpha_i = \omega_i^{1-q} \eta_i^{(h-1)q/h} = \omega_i^{1-q} \eta_i^{q - q/h}$.
+
+\textbf{Step 2: Apply a monotone transformation.}
+
+Since we maximize utility, raising to any positive power preserves the optimum. Define:
+\begin{equation}
+\tilde{\U} = \U^{h} = \left( \alpha_1 x_1^{\psi} + \alpha_2 x_2^{\psi} \right)^{h/q} = \left( \alpha_1 x_1^{\psi} + \alpha_2 x_2^{\psi} \right)^{1/\psi}.
+\end{equation}
+
+\textbf{Step 3: Extract the scaling factor.}
+
+To put this in canonical form with weights summing to one, define:
+\begin{equation}
+\label{eq:kappa-def}
+\kappa = \alpha_1^{\frac{1}{1-\psi}} + \alpha_2^{\frac{1}{1-\psi}} = \left( \omega_1^{1-q} \eta_1^{q-\psi} \right)^{\frac{1}{1-\psi}} + \left( \omega_2^{1-q} \eta_2^{q-\psi} \right)^{\frac{1}{1-\psi}}.
+\end{equation}
+
+\begin{definition}[Transformed Weights]
+\label{def:transformed-weights}
+The \emph{transformed weights} are:
+\begin{equation}
+\label{eq:tilde-omega}
+\tilde{\omega}_i = \frac{\alpha_i^{\frac{1}{1-\psi}}}{\kappa} = \frac{\left( \omega_i^{1-q} \eta_i^{q-\psi} \right)^{\frac{1}{1-\psi}}}{\kappa}, \qquad i = 1, 2.
+\end{equation}
+By construction, $\tilde{\omega}_1 + \tilde{\omega}_2 = 1$.
+\end{definition}
+
+\begin{proposition}[Canonical Form of Transformed Problem]
+\label{prop:canonical-transformed}
+The optimization problem becomes:
+\begin{equation}
+\label{eq:canonical-transformed}
+\max_{\{x_1, x_2\}} \; \tilde{\U} = \kappa^{\frac{1-\psi}{\psi}} \left( \tilde{\omega}_1^{1-\psi} x_1^{\psi} + \tilde{\omega}_2^{1-\psi} x_2^{\psi} \right)^{1/\psi}
+\end{equation}
+subject to
+\begin{equation}
+\eta_1 x_1 + \eta_2 x_2 = 1.
+\end{equation}
+\end{proposition}
+
+Since $\kappa^{(1-\psi)/\psi}$ is a positive constant, maximizing $\tilde{\U}$ is equivalent to maximizing the canonical CES mean:
+\begin{equation}
+\M(\bx; \tilde{\bom}, \psi) = \left( \tilde{\omega}_1^{1-\psi} x_1^{\psi} + \tilde{\omega}_2^{1-\psi} x_2^{\psi} \right)^{1/\psi}.
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{Applying the Canonical Solution}
+\label{subsec:apply-canonical}
+% --------------------------------------------------------------
+
+We now have a CES objective (with power $\psi$ and weights $\tilde{\bom}$) subject to a linear constraint (with ``prices'' $\eta_i$). The canonical formulas apply directly.
+
+\begin{proposition}[Solution in Transformed Coordinates]
+\label{prop:solution-transformed}
+The optimal allocation in the transformed space is:
+\begin{equation}
+\label{eq:x-star}
+x_i\opt = \frac{\tilde{\omega}_i \eta_i^{\frac{1}{\psi - 1}}}{\tilde{\omega}_1 \eta_1^{\frac{\psi}{\psi-1}} + \tilde{\omega}_2 \eta_2^{\frac{\psi}{\psi-1}}}, \qquad i = 1, 2.
+\end{equation}
+The expenditure shares in the transformed space are:
+\begin{equation}
+\label{eq:shares-transformed}
+\eta_i x_i\opt = \frac{\tilde{\omega}_i \eta_i^{\frac{\psi}{\psi - 1}}}{\tilde{\omega}_1 \eta_1^{\frac{\psi}{\psi-1}} + \tilde{\omega}_2 \eta_2^{\frac{\psi}{\psi-1}}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Apply the canonical CES demand formula with prices $p_i = \eta_i$, weights $\tilde{\omega}_i$, power $\psi$, and budget $B = 1$.
+\end{proof}
+
+\begin{callouttip}[Interpretation]
+In the transformed coordinate system:
+\begin{itemize}[leftmargin=*]
+    \item The constraint weights $\eta_i$ act as ``prices''
+    \item The transformed weights $\tilde{\omega}_i$ combine both the objective weights $\omega_i$ and the constraint weights $\eta_i$
+    \item The effective elasticity $\tilde{\varepsilon} = 1/(1-\psi)$ governs substitution patterns
+\end{itemize}
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Returning to Original Coordinates}
+\label{subsec:return-original}
+% --------------------------------------------------------------
+
+The optimal allocation in original coordinates is recovered via \eqref{eq:transform-inverse}:
+\begin{equation}
+\label{eq:c-star}
+c_i\opt = \eta_i^{\frac{h-1}{h}} \left( x_i\opt \right)^{1/h}, \qquad i = 1, 2.
+\end{equation}
+
+\begin{proposition}[Optimal Value]
+\label{prop:optimal-value}
+The optimal utility is:
+\begin{equation}
+\label{eq:U-star}
+\U\opt = \kappa^{\frac{1-\psi}{q}} \cdot \left( \tilde{\Pstar} \right)^{-h/q},
+\end{equation}
+where $\tilde{\Pstar}$ is the ideal price index in the transformed problem:
+\begin{equation}
+\tilde{\Pstar} = \left( \tilde{\omega}_1 \eta_1^{\frac{\psi}{\psi-1}} + \tilde{\omega}_2 \eta_2^{\frac{\psi}{\psi-1}} \right)^{\frac{\psi-1}{\psi}}.
+\end{equation}
+\end{proposition}
+
+\begin{remark}[Decentralization]
+\label{rem:decentralization}
+The planning problem can be decentralized as a competitive equilibrium. Suppose the consumer owns a firm operating technology $\Hfun$. The firm maximizes revenue $p_1 y_1 + p_2 y_2$ subject to $\Hfun(y_1, y_2) \leq 1$---a Linear/CES problem. The consumer maximizes $\U(c_1, c_2)$ subject to the budget $p_1 c_1 + p_2 c_2 \leq \Pi$, where $\Pi$ denotes firm profits---a CES/Linear problem. At equilibrium prices, markets clear ($c_i = y_i$) and the allocation coincides with the planning solution.
+
+This illustrates the First Welfare Theorem: competitive equilibria are Pareto efficient. It also shows that the \emph{organization} of production---whether centralized or decentralized---is immaterial for efficiency. Prices encode the technological trade-offs ($\eta_i$, $h$) and transmit them to the consumer, who need not know the technology directly. Exercise~\ref{ex:decentralization} asks you to verify this equivalence.
+\end{remark}
+
+% --------------------------------------------------------------
+\subsection{Alternative Approach: Linearizing the Objective}
+\label{subsec:linear-objective}
+% --------------------------------------------------------------
+
+The previous approach transformed coordinates to make the \emph{constraint} linear. We now develop the dual approach: transform coordinates to make the \emph{objective} linear while the constraint remains CES.
+
+\begin{definition}[Objective-Linearizing Transformation]
+\label{def:obj-linear-transform}
+Define new variables:
+\begin{equation}
+\label{eq:transform-obj-forward}
+y_1 = \omega_1^{1-q} c_1^{q}, \qquad y_2 = \omega_2^{1-q} c_2^{q}.
+\end{equation}
+The inverse transformation is:
+\begin{equation}
+\label{eq:transform-obj-inverse}
+c_1 = \omega_1^{\frac{q-1}{q}} y_1^{1/q}, \qquad c_2 = \omega_2^{\frac{q-1}{q}} y_2^{1/q}.
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Linearized Objective]
+\label{prop:linear-objective}
+Under transformation \eqref{eq:transform-obj-forward}, the CES objective becomes linear:
+\begin{equation}
+\U^q = y_1 + y_2.
+\end{equation}
+Since $q \leq 1$, maximizing $\U$ is equivalent to maximizing $y_1 + y_2$.
+\end{proposition}
+
+\begin{proposition}[Transformed Constraint]
+\label{prop:transformed-constraint}
+The CES constraint $\Hfun = 1$ becomes:
+\begin{equation}
+\label{eq:ces-constraint-transformed}
+\left( \tilde{\eta}_1^{1-\phi} y_1^{\phi} + \tilde{\eta}_2^{1-\phi} y_2^{\phi} \right)^{1/\phi} = 1,
+\end{equation}
+where the effective power is:
+\begin{equation}
+\boxed{\phi = \frac{h}{q}}
+\end{equation}
+and the transformed constraint weights $\tilde{\eta}_i$ combine $\omega_i$ and $\eta_i$.
+\end{proposition}
+
+\begin{calloutimportant}[Duality of Transformations]
+The two approaches are related by:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Approach} & \textbf{Effective Power} & \textbf{Linearizes} \\
+\midrule
+Constraint-linearizing & $\psi = q/h$ & Constraint \\
+Objective-linearizing & $\phi = h/q = 1/\psi$ & Objective \\
+\bottomrule
+\end{tabular}
+\end{center}
+The effective powers are reciprocals: $\phi = 1/\psi$. This reflects a fundamental symmetry: what appears as ``curvature in preferences'' from one viewpoint appears as ``curvature in technology'' from the other.
+\end{calloutimportant}
+
+\begin{remark}[Which Transformation to Use?]
+The constraint-linearizing approach (Section~\ref{subsec:ces-ces-coordinates}) is typically more convenient because it yields a standard consumer problem with linear budget. The objective-linearizing approach is useful when:
+\begin{enumerate}[label=(\roman*)]
+    \item The constraint has a natural ``cost minimization'' interpretation
+    \item We want to emphasize the role of technology curvature
+    \item The problem is naturally cast as minimizing a CES cost subject to a target utility level
+\end{enumerate}
+\end{remark}
+
+% --------------------------------------------------------------
+\subsection{Connection to Intertemporal Elasticity of Substitution}
+\label{subsec:ies-connection}
+% --------------------------------------------------------------
+
+The CES/CES structure provides a unified framework for understanding how preferences and technology interact in dynamic settings.
+
+\begin{definition}[Intertemporal Problem]
+\label{def:intertemporal}
+Consider a two-period consumption problem:
+\begin{equation}
+\max_{c_1, c_2} \; \U = \left( \omega_1^{1-q} c_1^{q} + \omega_2^{1-q} c_2^{q} \right)^{1/q}
+\end{equation}
+subject to the intertemporal budget:
+\begin{equation}
+\label{eq:intertemporal-budget}
+c_1 + \frac{c_2}{R} = W,
+\end{equation}
+where $R$ is the gross interest rate and $W$ is initial wealth.
+\end{definition}
+
+The standard analysis treats \eqref{eq:intertemporal-budget} as a linear constraint with prices $(1, 1/R)$. The intertemporal elasticity of substitution (IES) is:
+\begin{equation}
+\text{IES} = \frac{1}{1-q}.
+\end{equation}
+
+Now consider a generalization where the savings technology has curvature:
+
+\begin{definition}[Non-Linear Savings Technology]
+\label{def:nonlinear-savings}
+Suppose the transformation between present and future resources is:
+\begin{equation}
+\label{eq:ces-technology}
+\Hfun(c_1, c_2) = \left( \eta_1^{1-h} c_1^{h} + \eta_2^{1-h} c_2^{h} \right)^{1/h} = W,
+\end{equation}
+with $h \geq 1$. This captures diminishing returns to intertemporal transfer---each additional unit of future consumption costs more in terms of present consumption.
+\end{definition}
+
+\begin{proposition}[Effective IES]
+\label{prop:effective-ies}
+With CES preferences (power $q$) and CES technology (power $h$), the \emph{effective} intertemporal elasticity of substitution is:
+\begin{equation}
+\boxed{\text{IES}_{\text{eff}} = \frac{1}{1-\psi} = \frac{1}{1 - q/h}}
+\end{equation}
+\end{proposition}
+
+\begin{calloutnote}[Equivalence Principle]
+The following perturbations have \emph{equivalent effects} on the effective IES:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Lower preference elasticity}: Decreasing $q$ (more concave utility) reduces $\psi = q/h$, lowering the effective IES
+    \item \textbf{Higher technology curvature}: Increasing $h$ (more convex constraint) also reduces $\psi$, with the same effect on the effective IES
+\end{enumerate}
+In other words: \emph{a lower elasticity of substitution in the technology is equivalent to a lower elasticity of substitution in preferences}, and vice versa. The agent cannot distinguish whether reluctance to substitute intertemporally comes from curved preferences or curved technology.
+\end{calloutnote}
+
+\begin{remark}[Interpretation]
+This equivalence has important implications:
+\begin{itemize}[leftmargin=*]
+    \item Empirical estimates of IES may conflate preference and technology parameters
+    \item Policy interventions that change technology curvature (e.g., progressive taxation of savings) are equivalent to changing the agent's preferences
+    \item In calibration, one can normalize either $q$ or $h$ without loss of generality; only the ratio $q/h$ matters for allocations
+\end{itemize}
+\end{remark}
+
+% --------------------------------------------------------------
+\subsection{Exercise: The Dual Transformation}
+\label{subsec:exercise-dual}
+% --------------------------------------------------------------
+
+\begin{tcolorbox}[
+    enhanced, breakable,
+    colback=gray!5, colframe=gray!50!black,
+    title={\textbf{Exercise: Objective-Linearizing Transformation}},
+    fonttitle=\bfseries
+]
+Consider the CES/CES problem from Definition~\ref{def:ces-ces-problem}.
+
+\textbf{Part (a):} Starting from the transformation $y_i = \omega_i^{1-q} c_i^q$, show that:
+\begin{enumerate}[label=(\roman*)]
+    \item The objective becomes $\U = (y_1 + y_2)^{1/q}$
+    \item The constraint becomes a CES aggregator in $y$ with power $\phi = h/q$
+\end{enumerate}
+
+\textbf{Part (b):} Derive the transformed constraint weights $\tilde{\eta}_i$ as functions of $\omega_i$, $\eta_i$, $q$, and $h$.
+
+\textbf{Part (c):} Solve for the optimal $y_i\opt$ using the Linear/CES formulas, then transform back to obtain $c_i\opt$.
+
+\textbf{Part (d):} Verify that your solution matches the one obtained via the constraint-linearizing approach in Section~\ref{subsec:apply-canonical}.
+
+\textbf{Part (e):} Interpret: Under what economic circumstances is this ``dual'' approach more natural?
+
+\medskip
+\emph{Hint for (b)}: Substitute $c_i = \omega_i^{(q-1)/q} y_i^{1/q}$ into $\Hfun^h$ and collect terms.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    enhanced, breakable,
+    colback=gray!5, colframe=gray!50!black,
+    title={\textbf{Exercise: Decentralization}},
+    fonttitle=\bfseries,
+    label={ex:decentralization}
+]
+Consider the CES/CES planning problem from Definition~\ref{def:ces-ces-problem}. We decentralize it into a competitive equilibrium with a consumer and a firm.
+
+\textbf{Setup:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Firm:} Maximizes revenue $p_1 y_1 + p_2 y_2$ subject to $\Hfun(y_1, y_2) \leq 1$
+    \item \textbf{Consumer:} Owns the firm, receives profits $\Pi = p_1 y_1^\ast + p_2 y_2^\ast$, and maximizes $\U(c_1, c_2)$ subject to $p_1 c_1 + p_2 c_2 \leq \Pi$
+    \item \textbf{Market clearing:} $c_i = y_i$ for $i = 1, 2$
+\end{itemize}
+
+\textbf{Part (a):} Write down the firm's first-order conditions. Show that optimal supply satisfies:
+\begin{equation*}
+\frac{p_1}{p_2} = \frac{\eta_1^{1-h} (y_1^\ast)^{h-1}}{\eta_2^{1-h} (y_2^\ast)^{h-1}}.
+\end{equation*}
+
+\textbf{Part (b):} Write down the consumer's first-order conditions. Show that optimal demand satisfies:
+\begin{equation*}
+\frac{p_1}{p_2} = \frac{\omega_1^{1-q} (c_1^\ast)^{q-1}}{\omega_2^{1-q} (c_2^\ast)^{q-1}}.
+\end{equation*}
+
+\textbf{Part (c):} Impose market clearing $c_i = y_i$. Show that the equilibrium conditions from (a) and (b) together imply the planning FOC \eqref{eq:ces-ces-foc}.
+
+\textbf{Part (d):} Verify Walras' Law: show that if the goods market clears, the budget constraint holds with equality.
+
+\textbf{Part (e):} Interpret: The consumer never observes the technology parameters $(\eta_1, \eta_2, h)$ directly. How does the price system transmit this information?
+
+\medskip
+\emph{This exercise illustrates the First Welfare Theorem: the competitive equilibrium replicates the efficient planning allocation.}
+\end{tcolorbox}
+
+% --------------------------------------------------------------
+\subsection{Special Cases}
+\label{subsec:ces-ces-special}
+% --------------------------------------------------------------
+
+\begin{proposition}[Cobb--Douglas Limit]
+\label{prop:cd-limit}
+When $q \to 0$ and $h \to 1$ such that $\psi = q/h \to 0$:
+\begin{enumerate}[label=(\roman*)]
+    \item The objective becomes Cobb--Douglas: $\U \to c_1^{\omega_1} c_2^{\omega_2}$
+    \item The constraint becomes linear: $\Hfun \to \eta_1 c_1 + \eta_2 c_2$
+    \item The solution reduces to $\eta_i c_i\opt = \omega_i$
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Symmetric Case]
+\label{prop:symmetric}
+When $\omega_1 = \omega_2 = 1/2$ and $\eta_1 = \eta_2 = 1/2$:
+\begin{enumerate}[label=(\roman*)]
+    \item The transformed weights are also symmetric: $\tilde{\omega}_1 = \tilde{\omega}_2 = 1/2$
+    \item The optimal allocation is $c_1\opt = c_2\opt$
+    \item The optimal utility is $\U\opt = 2^{(1-h)/h}$
+\end{enumerate}
+\end{proposition}
+
+% --------------------------------------------------------------
+\subsection{Comparative Statics}
+\label{subsec:ces-ces-compar}
+% --------------------------------------------------------------
+
+The response of optimal allocations to parameter changes involves three channels:
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Direct effect}: Changes in $\omega_i$ or $\eta_i$ directly affect the transformed weights $\tilde{\omega}_i$
+    
+    \item \textbf{Price effect}: Changes in $\eta_i$ affect both the ``prices'' in the linear constraint and the transformed weights
+    
+    \item \textbf{Curvature effect}: Changes in $q$ or $h$ affect the effective power $\psi = q/h$, which governs substitution patterns
+\end{enumerate}
+
+\begin{calloutnote}[The Key Insight]
+The effective elasticity is the \emph{ratio} $\psi = q/h$. This means:
+\begin{itemize}[leftmargin=*]
+    \item Increasing objective concavity ($q \downarrow$) reduces $\psi$, making demand less elastic
+    \item Increasing constraint convexity ($h \uparrow$) also reduces $\psi$, with the same effect
+    \item The two curvatures interact multiplicatively, not additively
+\end{itemize}
+\end{calloutnote}
+
+The full comparative statics analysis---including decomposition into income-like and substitution-like effects---is developed in Chapter~\ref{ch:recursive-structure}, where we treat nested CES structures more generally.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ces-ces-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results for CES/CES Optimization]
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+    \item The \textbf{change of coordinates} $x_i = \eta_i^{1-h} c_i^h$ converts the CES constraint to a linear constraint with ``prices'' $\eta_i$
+    
+    \item The \textbf{effective power} is $\psi = q/h$, the ratio of objective power to constraint power
+    
+    \item The \textbf{transformed weights} $\tilde{\omega}_i$ combine both objective weights $\omega_i$ and constraint weights $\eta_i$
+    
+    \item The \textbf{canonical solution} applies in the transformed space; invert to recover original allocations
+    
+    \item The \textbf{scaling factor} $\kappa$ captures the welfare cost of the non-linear constraint structure
+\end{enumerate}
+\end{calloutimportant}

@@ -1,0 +1,321 @@
+% ==============================================================
+\section{Properties of the Price Index}
+\label{sec:price-index-properties}
+% ==============================================================
+
+The ideal price index $\Pstar$ emerged from the transformation approach as the normalizing constant that converts heterogeneous prices into an equivalent homogeneous problem. This section establishes its properties by recognizing it as a generalized mean and invoking results from \cref{ch:generalized-means}.
+
+% --------------------------------------------------------------
+\subsection{The Price Index as a Classical Mean}
+\label{subsec:price-index-mean}
+% --------------------------------------------------------------
+
+Recall the definition:
+\begin{equation}
+\label{eq:price-index-recall}
+\Pstar = \left( \sum_{j=1}^{n} \omega_j \, p_j^{\frac{\rho}{\rho-1}} \right)^{\frac{\rho-1}{\rho}} = \Ssum_p^{\frac{\rho-1}{\rho}}.
+\end{equation}
+
+\paragraph{Identifying the Structure.}
+Compare this with the classical generalized mean:
+\begin{equation}
+\Mbar(\mathbf{p}; \bom, \tilde{\rho}) = \left( \sum_{j=1}^{n} \omega_j \, p_j^{\tilde{\rho}} \right)^{1/\tilde{\rho}}.
+\end{equation}
+Matching exponents: the inner power is $\tilde{\rho} = \rho/(\rho-1)$, and the outer power is $1/\tilde{\rho} = (\rho-1)/\rho$. Therefore:
+
+\begin{proposition}[Price Index as Classical Mean]
+\label{prop:price-index-mean}
+The ideal price index is a classical generalized mean of prices with weights $\bom$ and power parameter
+\begin{equation}
+\label{eq:tilde-rho}
+\boxed{\tilde{\rho} = \frac{\rho}{\rho-1} = 1 - \varepsilon,}
+\end{equation}
+where $\varepsilon = 1/(1-\rho)$ is the elasticity of substitution. That is:
+\begin{equation}
+\Pstar = \Mbar(\mathbf{p}; \bom, \tilde{\rho}).
+\end{equation}
+\end{proposition}
+
+\paragraph{The Parameter Mapping.}
+The relationship between the objective's power $\rho$ and the price index's power $\tilde{\rho}$ is a key structural feature:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Case} & $\rho$ & $\varepsilon$ & $\tilde{\rho} = 1 - \varepsilon$ \\
+\midrule
+Perfect substitutes & $\to 1^-$ & $\to +\infty$ & $\to -\infty$ \\
+High substitutability & $0.5$ & $2$ & $-1$ \\
+Cobb-Douglas & $0$ & $1$ & $0$ \\
+Low substitutability & $-1$ & $0.5$ & $0.5$ \\
+Perfect complements & $\to -\infty$ & $\to 0^+$ & $\to 1^-$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+As goods become more substitutable ($\varepsilon$ increases), the price index power $\tilde{\rho}$ decreases. This has important implications for the shape of the price index.
+
+% --------------------------------------------------------------
+\subsection{Inherited Properties}
+\label{subsec:inherited-properties}
+% --------------------------------------------------------------
+
+Since $\Pstar$ is a classical mean, all properties established in \cref{ch:generalized-means} apply directly. We summarize the key results.
+
+\paragraph{Monotonicity.}
+From \cref{prop:monotonicity}, the price index is strictly increasing in each price:
+\begin{equation}
+\frac{\partial \Pstar}{\partial p_i} > 0 \quad \text{for all } i.
+\end{equation}
+Higher prices raise the cost of achieving any given utility level.
+
+\paragraph{Homogeneity.}
+From \cref{prop:homogeneity}, the price index is homogeneous of degree one:
+\begin{equation}
+\Pstar(\lambda \mathbf{p}; \bom, \rho) = \lambda \, \Pstar(\mathbf{p}; \bom, \rho) \quad \text{for all } \lambda > 0.
+\end{equation}
+Doubling all prices doubles the price index---only relative prices matter for substitution patterns.
+
+\paragraph{Bounds.}
+From \cref{prop:bounds}, the price index lies between the extreme prices:
+\begin{equation}
+\min_i \{p_i\} \leq \Pstar \leq \max_i \{p_i\},
+\end{equation}
+with equality only when all prices are equal ($\Pstar = p$ if $p_i = p$ for all $i$).
+
+\paragraph{Concavity and Convexity.}
+From \cref{prop:convexity}, the curvature depends on $\tilde{\rho}$:
+\begin{itemize}[leftmargin=2em]
+\item $\tilde{\rho} < 1$ (i.e., $\varepsilon > 0$): $\Pstar$ is \textbf{concave} in prices.
+\item $\tilde{\rho} = 1$: $\Pstar$ is \textbf{linear} in prices.
+\item $\tilde{\rho} > 1$ (i.e., $\varepsilon < 0$): $\Pstar$ is \textbf{convex} in prices.
+\end{itemize}
+
+Since we restrict attention to $\rho < 1$ (concave objectives), we have $\varepsilon > 0$ and hence $\tilde{\rho} < 1$. The price index is concave in prices for all standard CES preferences.
+
+\begin{calloutnote}[Economic Interpretation of Concavity]
+Concavity of $\Pstar$ reflects the gains from substitution. When prices are dispersed, the consumer can shift expenditure toward cheaper goods, achieving a lower effective price than the arithmetic average. The more substitutable the goods (higher $\varepsilon$, lower $\tilde{\rho}$), the more concave the price index, and the greater the gains from price dispersion.
+
+At the Cobb-Douglas case ($\tilde{\rho} = 0$), the price index is the geometric mean: $\Pstar = \prod_i p_i^{\omega_i}$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Ordering by Substitutability}
+\label{subsec:ordering-substitutability}
+% --------------------------------------------------------------
+
+From \cref{prop:ordering}, generalized means are ordered by their power parameter. Applying this to the price index:
+
+\begin{proposition}[Price Index Ordering]
+\label{prop:price-ordering}
+For fixed prices $\mathbf{p}$ (not all equal) and weights $\bom$:
+\begin{equation}
+\varepsilon_1 < \varepsilon_2 \quad \Longrightarrow \quad \Pstar(\varepsilon_1) > \Pstar(\varepsilon_2).
+\end{equation}
+Higher substitutability implies a lower price index.
+\end{proposition}
+
+\begin{proof}
+Higher $\varepsilon$ means lower $\tilde{\rho} = 1 - \varepsilon$. From \cref{prop:ordering}, lower power parameters yield lower classical means when arguments are not all equal.
+\end{proof}
+
+\paragraph{Welfare Implication.}
+Since $\M^* = W/\Pstar$, a lower price index implies higher welfare:
+\begin{equation}
+\varepsilon_1 < \varepsilon_2 \quad \Longrightarrow \quad \M^*(\varepsilon_1) < \M^*(\varepsilon_2).
+\end{equation}
+More substitutable preferences allow the consumer to better exploit price differences, achieving higher utility from the same budget.
+
+% --------------------------------------------------------------
+\subsection{Limiting Cases}
+\label{subsec:limiting-cases}
+% --------------------------------------------------------------
+
+The limiting behavior of the price index follows from the limiting cases of generalized means (\cref{sec:limiting-cases}).
+
+\begin{proposition}[Limiting Price Indices]
+\label{prop:limiting-price}
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Perfect substitutes} ($\rho \to 1^-$, $\tilde{\rho} \to -\infty$):
+\begin{equation}
+\Pstar \to \min_i \{p_i\}.
+\end{equation}
+The consumer buys only the cheapest good.
+
+\item \textbf{Cobb-Douglas} ($\rho \to 0$, $\tilde{\rho} \to 0$):
+\begin{equation}
+\Pstar \to \prod_{i=1}^{n} p_i^{\omega_i}.
+\end{equation}
+The price index is the geometric mean of prices.
+
+\item \textbf{Perfect complements} ($\rho \to -\infty$, $\tilde{\rho} \to 1^-$):
+\begin{equation}
+\Pstar \to \sum_{i=1}^{n} \omega_i \, p_i.
+\end{equation}
+The price index is the arithmetic mean---no substitution is possible.
+\end{enumerate}
+\end{proposition}
+
+\begin{table}[H]
+\centering
+\caption{Price Index and Optimal Allocation in Limiting Cases}
+\label{tab:limiting-cases}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& \textbf{Perfect Substitutes} & \textbf{Cobb-Douglas} & \textbf{Perfect Complements} \\
+& $\varepsilon \to \infty$ & $\varepsilon = 1$ & $\varepsilon \to 0$ \\
+\midrule
+$\Pstar$ & $\min_i p_i$ & $\prod_i p_i^{\omega_i}$ & $\sum_i \omega_i p_i$ \\[6pt]
+$w_i^*$ & $\begin{cases} 1 & p_i = \min_j p_j \\ 0 & \text{else} \end{cases}$ & $\omega_i$ & $\dfrac{\omega_i p_i}{\sum_j \omega_j p_j}$ \\[16pt]
+$x_i^*$ & $\begin{cases} W/p_i & p_i = \min_j p_j \\ 0 & \text{else} \end{cases}$ & $\dfrac{\omega_i W}{p_i}$ & $\dfrac{\omega_i W}{\sum_j \omega_j p_j}$ \\[12pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\subsection{The Convex Case: Revenue Maximization}
+\label{subsec:convex-case}
+% --------------------------------------------------------------
+
+Throughout this chapter, we have assumed $\rho < 1$, which ensures the objective $\M$ is concave in quantities---a necessary condition for the first-order conditions to characterize a maximum. But generalized means with $\rho > 1$ also play an important economic role.
+
+\paragraph{When does $\rho > 1$ arise?}
+When $\rho > 1$:
+\begin{itemize}[leftmargin=2em]
+\item The generalized mean $\M$ is \textbf{convex} in its arguments.
+\item The level sets (isoquants) are \textbf{concave} to the origin.
+\item A convex objective has no interior maximum---the agent prefers extremes.
+\end{itemize}
+
+This makes $\rho > 1$ unsuitable for utility or production functions. However, convex aggregators arise naturally as \emph{constraints}---specifically, as transformation frontiers or production possibility frontiers.
+
+\paragraph{The Revenue Maximization Problem.}
+Consider a firm that can produce multiple outputs $\by = (y_1, \ldots, y_n)$ subject to a technological constraint. The transformation frontier describes the feasible combinations:
+\begin{equation}
+\Hfun(\by; \bm{\eta}, h) = \left( \sum_{i=1}^{n} \eta_i^{1-h} y_i^{h} \right)^{1/h} \leq 1, \qquad h > 1.
+\end{equation}
+Here $\bm{\eta}$ are technology weights and $h > 1$ ensures the frontier is concave (bowed outward from the origin), reflecting increasing opportunity costs of transformation.
+
+Given output prices $\mathbf{p}$, the firm maximizes revenue:
+\begin{equation}
+\label{eq:revenue-max}
+\max_{\by} \; \sum_{i=1}^{n} p_i y_i \quad \text{subject to} \quad \Hfun(\by; \bm{\eta}, h) \leq 1.
+\end{equation}
+
+This is the mirror image of utility maximization:
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Utility maximization}: Concave objective ($\rho < 1$), linear constraint
+\item \textbf{Revenue maximization}: Linear objective, convex constraint ($h > 1$)
+\end{itemize}
+
+\paragraph{Solution Structure.}
+The first-order conditions for \cref{eq:revenue-max} yield:
+\begin{equation}
+\frac{p_i}{p_j} = \frac{\eta_i^{1-h} y_i^{h-1}}{\eta_j^{1-h} y_j^{h-1}}.
+\end{equation}
+This is the same MRS-equals-price-ratio condition, now applied to the transformation frontier.
+
+Define the \emph{revenue index} (the maximum revenue achievable with unit capacity):
+\begin{equation}
+\label{eq:revenue-index}
+\Rstar = \left( \sum_{j=1}^{n} \eta_j \, p_j^{\frac{h}{h-1}} \right)^{\frac{h-1}{h}}.
+\end{equation}
+This is a classical mean of prices with power $\tilde{h} = h/(h-1) > 1$.
+
+The optimal outputs are:
+\begin{equation}
+y_i^* = \eta_i \left( \frac{p_i}{\Rstar} \right)^{\frac{1}{h-1}} \cdot 1 = \eta_i \left( \frac{p_i}{\Rstar} \right)^{\sigma_h},
+\end{equation}
+where $\sigma_h = 1/(h-1) > 0$ is the elasticity of transformation.
+
+Maximum revenue is:
+\begin{equation}
+\sum_{i=1}^{n} p_i y_i^* = \Rstar.
+\end{equation}
+
+\begin{calloutnote}[Comparison with Utility Maximization]
+The revenue maximization solution mirrors utility maximization:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Utility Max} & \textbf{Revenue Max} \\
+\midrule
+Objective & $\M(\bx)$ concave & $\sum p_i y_i$ linear \\
+Constraint & $\sum p_i x_i = W$ linear & $\Hfun(\by) \leq 1$ convex \\
+Price index & $\Pstar = \Mbar(\mathbf{p}; \bom, \tilde{\rho})$ & $\Rstar = \Mbar(\mathbf{p}; \bm{\eta}, \tilde{h})$ \\
+Optimal value & $\M^* = W / \Pstar$ & $R^* = \Rstar \cdot 1 = \Rstar$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+In both cases, a price index emerges that aggregates prices according to the curvature of the non-linear component.
+\end{calloutnote}
+
+\paragraph{The Dual: Input Minimization.}
+Every revenue maximization problem has a dual. If the firm targets revenue $\bar{R}$, what is the minimum ``capacity'' required?
+\begin{equation}
+\label{eq:input-min}
+\min_{\by} \; \Hfun(\by; \bm{\eta}, h) \quad \text{subject to} \quad \sum_{i=1}^{n} p_i y_i \geq \bar{R}.
+\end{equation}
+
+This asks: minimize the resource aggregate needed to achieve a revenue target. The solution is:
+\begin{equation}
+\Hfun^* = \frac{\bar{R}}{\Rstar}.
+\end{equation}
+
+The duality relation mirrors the consumer case: $\Rstar$ converts between revenue (dollars) and capacity (units of $\Hfun$).
+
+\begin{calloutimportant}[The Four Canonical Problems]
+We now have two pairs of primal-dual problems:
+
+\medskip
+\textbf{Consumer Pair} (concave $\M$, $\rho < 1$):
+\begin{itemize}[nosep, leftmargin=2em]
+\item Primal: max $\M(\bx)$ s.t.\ $\sum p_i x_i = W$ \quad $\longrightarrow$ \quad $\M^* = W/\Pstar$
+\item Dual: min $\sum p_i x_i$ s.t.\ $\M(\bx) \geq \bar{m}$ \quad $\longrightarrow$ \quad $C = \Pstar \cdot \bar{m}$
+\end{itemize}
+
+\medskip
+\textbf{Producer Pair} (convex $\Hfun$, $h > 1$):
+\begin{itemize}[nosep, leftmargin=2em]
+\item Primal: max $\sum p_i y_i$ s.t.\ $\Hfun(\by) \leq 1$ \quad $\longrightarrow$ \quad $R^* = \Rstar$
+\item Dual: min $\Hfun(\by)$ s.t.\ $\sum p_i y_i \geq \bar{R}$ \quad $\longrightarrow$ \quad $\Hfun^* = \bar{R}/\Rstar$
+\end{itemize}
+
+\medskip
+The next section develops this four-problem structure in detail.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Price Elasticity of the Price Index}
+\label{subsec:price-elasticity}
+% --------------------------------------------------------------
+
+A useful result relates the price elasticity of $\Pstar$ to budget shares.
+
+\begin{proposition}[Price Elasticity]
+\label{prop:price-elasticity}
+The elasticity of the price index with respect to price $p_i$ equals the optimal budget share:
+\begin{equation}
+\frac{\partial \ln \Pstar}{\partial \ln p_i} = w_i^*.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiating $\Pstar = \Ssum_p^{(\rho-1)/\rho}$ where $\Ssum_p = \sum_j \omega_j p_j^{\rho/(\rho-1)}$:
+\[
+\frac{\partial \Pstar}{\partial p_i} = \frac{\rho-1}{\rho} \Ssum_p^{\frac{\rho-1}{\rho} - 1} \cdot \omega_i \cdot \frac{\rho}{\rho-1} p_i^{\frac{\rho}{\rho-1} - 1} = \Ssum_p^{-1/\rho} \cdot \omega_i \, p_i^{\frac{1}{\rho-1}}.
+\]
+Converting to elasticity form:
+\[
+\frac{\partial \ln \Pstar}{\partial \ln p_i} = \frac{p_i}{\Pstar} \cdot \frac{\partial \Pstar}{\partial p_i} = \frac{p_i}{\Ssum_p^{(\rho-1)/\rho}} \cdot \Ssum_p^{-1/\rho} \cdot \omega_i \, p_i^{\frac{1}{\rho-1}} = \frac{\omega_i \, p_i^{\frac{\rho}{\rho-1}}}{\Ssum_p} = w_i^*.
+\]
+\end{proof}
+
+This result has an intuitive interpretation: goods with larger budget shares have greater influence on the overall price level. It also provides a consistency check---the budget shares sum to one, and so do the price elasticities:
+\[
+\sum_i \frac{\partial \ln \Pstar}{\partial \ln p_i} = \sum_i w_i^* = 1.
+\]
+This confirms that the price index is homogeneous of degree one.

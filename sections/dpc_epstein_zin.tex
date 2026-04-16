@@ -1,0 +1,243 @@
+% ==============================================================
+% Section 2: Epstein-Zin Preferences
+% ==============================================================
+
+\section{Epstein-Zin Preferences}
+\label{sec:epstein-zin}
+
+The standard time-separable expected utility model ties together two conceptually distinct aspects of preferences: aversion to risk (across states) and aversion to intertemporal fluctuations (across time). Epstein-Zin preferences untie this knot, allowing risk aversion and the elasticity of intertemporal substitution to be specified independently. This separation is not merely a generalization for its own sake---it resolves empirical puzzles and provides a cleaner conceptual framework for dynamic portfolio choice.
+
+% --------------------------------------------------------------
+\subsection{The Recursive Aggregator}
+\label{subsec:ez-aggregator}
+% --------------------------------------------------------------
+
+\paragraph{Motivation.}
+
+Consider two distinct questions an investor might face:
+\begin{enumerate}[nosep]
+    \item \textbf{Risk aversion}: How much would you pay to avoid a fair gamble over consumption \emph{today}?
+    \item \textbf{Intertemporal substitution}: How willing are you to shift consumption between \emph{today and tomorrow} in response to interest rate changes?
+\end{enumerate}
+
+These are logically independent questions. An investor might be highly risk averse (unwilling to bear uncertainty) yet also highly willing to substitute intertemporally (responsive to interest rates). Or vice versa.
+
+With standard time-separable CRRA utility,
+\begin{equation}
+U = \E_0 \left[ \sum_{t=0}^{\infty} \beta^t \frac{c_t^{1-\gamma}}{1-\gamma} \right],
+\label{eq:time-separable}
+\end{equation}
+both questions are answered by the \emph{same} parameter $\gamma$: risk aversion equals $\gamma$, and the elasticity of intertemporal substitution (IES) equals $1/\gamma$. This is a strong restriction with no economic justification.
+
+\paragraph{The Epstein-Zin Aggregator.}
+
+Epstein and Zin (1989) proposed a recursive utility specification that separates these two roles. The value function $V_t$ satisfies
+\begin{equation}
+\boxed{V_t = \left[ (1-\beta) \, c_t^{1-1/\theta} + \beta \left( \E_t\left[ V_{t+1}^{1-\gamma} \right] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}},}
+\label{eq:epstein-zin}
+\end{equation}
+where:
+\begin{itemize}[nosep]
+    \item $\theta > 0$ is the \textbf{elasticity of intertemporal substitution} (IES)
+    \item $\gamma > 0$ is the \textbf{coefficient of relative risk aversion}
+    \item $\beta \in (0,1)$ is the \textbf{discount factor}
+\end{itemize}
+
+The recursion has two nested aggregations, each with CES structure.
+
+\paragraph{Two Nested CES Aggregations.}
+
+Equation \eqref{eq:epstein-zin} combines two generalized means:
+
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Aggregation across states} (inner): The term
+    \begin{equation}
+    \mu_t(V_{t+1}) \equiv \left( \E_t\left[ V_{t+1}^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}
+    \label{eq:certainty-equivalent-v}
+    \end{equation}
+    is the \emph{certainty equivalent} of next period's value. This is a generalized mean with power $\rho_{\text{risk}} = 1 - \gamma$ and weights equal to probabilities. Risk aversion $\gamma$ governs this aggregation.
+    
+    \item \textbf{Aggregation across time} (outer): Given the certainty equivalent $\mu_t$, the recursion
+    \begin{equation}
+    V_t = \left[ (1-\beta) \, c_t^{1-1/\theta} + \beta \, \mu_t^{1-1/\theta} \right]^{\frac{1}{1-1/\theta}}
+    \label{eq:intertemporal-aggregation}
+    \end{equation}
+    is a CES aggregator over $(c_t, \mu_t)$ with power $\rho_{\text{time}} = 1 - 1/\theta$. The IES $\theta$ governs this aggregation.
+\end{enumerate}
+
+\begin{calloutimportant}[The Two-Layer Structure]
+Epstein-Zin preferences nest two CES aggregations:
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Aggregation} & \textbf{Power Parameter} & \textbf{Elasticity} \\
+\midrule
+Across states (risk) & $\rho_{\text{risk}} = 1 - \gamma$ & $1/\gamma$ \\
+Across time (intertemporal) & $\rho_{\text{time}} = 1 - 1/\theta$ & $\theta$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The certainty equivalent $\mu_t$ serves as the ``price'' of future utility in the intertemporal aggregation. This nested structure is the key to tractability.
+\end{calloutimportant}
+
+\paragraph{Rewriting with Explicit Means.}
+
+Using our notation for generalized means, \eqref{eq:epstein-zin} becomes
+\begin{equation}
+V_t = \M\left( c_t, \mu_t(V_{t+1}); (1-\beta, \beta), 1-\tfrac{1}{\theta} \right),
+\label{eq:ez-as-mean}
+\end{equation}
+where
+\begin{equation}
+\mu_t(V_{t+1}) = \Mbar\left( V_{t+1}; \mathbf{p}_t, 1-\gamma \right)
+\label{eq:mu-as-mean}
+\end{equation}
+and $\mathbf{p}_t$ is the vector of state probabilities conditional on information at $t$.
+
+% --------------------------------------------------------------
+\subsection{The Time-Separable Case}
+\label{subsec:time-separable}
+% --------------------------------------------------------------
+
+\paragraph{The Restriction $\gamma = 1/\theta$.}
+
+A remarkable simplification occurs when risk aversion equals the inverse of the IES:
+\begin{equation}
+\gamma = \frac{1}{\theta} \quad \Longleftrightarrow \quad \rho_{\text{risk}} = \rho_{\text{time}} = 1 - \gamma.
+\label{eq:ez-restriction}
+\end{equation}
+Under this restriction, both aggregations use the \emph{same} power parameter. The nested structure collapses.
+
+\begin{proposition}[Recovery of Time-Separable Utility]
+\label{prop:time-separable}
+When $\gamma = 1/\theta$, Epstein-Zin utility reduces to standard time-separable CRRA expected utility:
+\begin{equation}
+V_t = \left( \E_t \left[ \sum_{s=t}^{\infty} \beta^{s-t} c_s^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ez-to-crra}
+\end{equation}
+Equivalently, maximizing $V_t$ is equivalent to maximizing $\E_t[\sum_{s=t}^{\infty} \beta^{s-t} u(c_s)]$ with $u(c) = c^{1-\gamma}/(1-\gamma)$.
+\end{proposition}
+
+\begin{proof}
+With $\gamma = 1/\theta$, write $\rho = 1 - \gamma = 1 - 1/\theta$. The recursion \eqref{eq:epstein-zin} becomes
+\begin{align}
+V_t &= \left[ (1-\beta) c_t^{\rho} + \beta \left( \E_t[V_{t+1}^{\rho}] \right)^{\rho/\rho} \right]^{1/\rho} \notag \\
+&= \left[ (1-\beta) c_t^{\rho} + \beta \, \E_t[V_{t+1}^{\rho}] \right]^{1/\rho}.
+\label{eq:collapsed-recursion}
+\end{align}
+Define $\tilde{V}_t = V_t^{\rho}$. Then
+\[
+\tilde{V}_t = (1-\beta) c_t^{\rho} + \beta \, \E_t[\tilde{V}_{t+1}].
+\]
+This is a linear recursion with solution
+\[
+\tilde{V}_t = (1-\beta) \E_t \left[ \sum_{s=t}^{\infty} \beta^{s-t} c_s^{\rho} \right].
+\]
+Taking the $1/\rho$ power and noting that monotonic transformations preserve optima yields \eqref{eq:ez-to-crra}.
+\end{proof}
+
+\paragraph{Why This Restriction is Problematic.}
+
+The restriction $\gamma = 1/\theta$ implies:
+\begin{itemize}[nosep]
+    \item High risk aversion ($\gamma > 1$) $\Rightarrow$ low IES ($\theta < 1$): Risk-averse investors are also unwilling to substitute intertemporally.
+    \item Low risk aversion ($\gamma < 1$) $\Rightarrow$ high IES ($\theta > 1$): Risk-tolerant investors are also highly responsive to interest rates.
+\end{itemize}
+
+Empirically, these implications are problematic:
+\begin{itemize}[nosep]
+    \item The equity premium puzzle suggests $\gamma \approx 10$ or higher to rationalize observed risk premia.
+    \item But $\theta = 1/\gamma = 0.1$ implies extremely low intertemporal substitution, inconsistent with consumption responses to interest rate changes.
+\end{itemize}
+
+Epstein-Zin preferences resolve this by allowing, say, $\gamma = 10$ and $\theta = 1.5$ simultaneously---high risk aversion with moderate intertemporal substitution.
+
+\begin{calloutnote}[The Unit Elasticity Benchmark]
+When $\gamma = \theta = 1$, both aggregations become geometric means (Cobb-Douglas), and preferences reduce to
+\[
+V_t = c_t^{1-\beta} \cdot \exp\left( \beta \, \E_t[\log V_{t+1}] \right).
+\]
+Maximizing $\log V_t$ gives the additively separable objective $\E_t[\sum_s \beta^{s-t} \log c_s]$. This is the log-utility case from Section~\ref{subsec:log-utility}, which admits closed-form portfolio solutions.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Preference for Early or Late Resolution of Uncertainty}
+\label{subsec:resolution-timing}
+% --------------------------------------------------------------
+
+A distinctive feature of Epstein-Zin preferences is that they encode attitudes toward the \emph{timing} of uncertainty resolution, not just its presence.
+
+\paragraph{The Key Parameter.}
+
+Define
+\begin{equation}
+\psi \equiv \frac{1 - \gamma}{1 - 1/\theta} = \frac{\rho_{\text{risk}}}{\rho_{\text{time}}}.
+\label{eq:psi-definition}
+\end{equation}
+This ratio determines preferences over the timing of resolution:
+\begin{itemize}[nosep]
+    \item $\psi < 1$ (equivalently, $\gamma > 1/\theta$): \textbf{Preference for early resolution}. The agent prefers to learn outcomes sooner rather than later, even if no action can be taken.
+    \item $\psi > 1$ (equivalently, $\gamma < 1/\theta$): \textbf{Preference for late resolution}. The agent prefers to delay learning outcomes.
+    \item $\psi = 1$ (equivalently, $\gamma = 1/\theta$): \textbf{Indifference}. This is the time-separable case---timing of resolution is irrelevant.
+\end{itemize}
+
+\paragraph{Intuition.}
+
+Consider two lotteries that deliver the same consumption streams with the same probabilities, but differ in when uncertainty is resolved:
+\begin{itemize}[nosep]
+    \item \textbf{Early resolution}: A coin is flipped today; you learn tomorrow's consumption now.
+    \item \textbf{Late resolution}: The same coin flip occurs, but you learn the outcome tomorrow.
+\end{itemize}
+
+With time-separable utility, these are equivalent---only the probability distribution over final outcomes matters. With Epstein-Zin preferences and $\gamma > 1/\theta$, early resolution is preferred. The agent values ``knowing where they stand'' even before acting.
+
+\begin{calloutimportant}[Why Timing Matters for Portfolio Choice]
+Preference for early resolution ($\gamma > 1/\theta$) has important implications:
+\begin{itemize}[nosep]
+    \item Agents value assets that resolve uncertainty quickly (e.g., options, insurance).
+    \item Long-horizon investors may behave differently than short-horizon investors \emph{even with identical terminal objectives}.
+    \item The equity premium reflects not just risk aversion but also compensation for bearing persistent uncertainty.
+\end{itemize}
+This is one reason Epstein-Zin preferences have become central to modern asset pricing.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Ordinally Equivalent Formulation}
+\label{subsec:ordinal-ez}
+% --------------------------------------------------------------
+
+For analytical work, it is often convenient to use an ordinally equivalent transformation of \eqref{eq:epstein-zin}.
+
+\paragraph{The Transformed Value Function.}
+
+Define $\tilde{V}_t = V_t^{1-\gamma}$ when $\gamma \neq 1$. The recursion becomes
+\begin{equation}
+\tilde{V}_t = \left[ (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t[\tilde{V}_{t+1}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1-\gamma}{1-1/\theta}}.
+\label{eq:ez-transformed}
+\end{equation}
+
+\paragraph{The Weil Parametrization.}
+
+An alternative form, due to Weil (1990), writes
+\begin{equation}
+U_t = \left[ (1-\beta) c_t^{\rho} + \beta \left( \E_t[U_{t+1}^{\alpha}] \right)^{\rho/\alpha} \right]^{1/\rho},
+\label{eq:weil-form}
+\end{equation}
+where $\rho = 1 - 1/\theta$ and $\alpha = (1-\gamma)/(1-1/\theta)$. This makes the nested CES structure explicit: power $\rho$ for intertemporal aggregation, power $\alpha \cdot \rho$ effectively for risk aggregation.
+
+\paragraph{Special Cases.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lccl@{}}
+\toprule
+\textbf{Case} & $\gamma$ & $\theta$ & \textbf{Utility Form} \\
+\midrule
+Log utility & $1$ & $1$ & $\E[\sum_t \beta^t \log c_t]$ \\
+Time-separable CRRA & $\gamma$ & $1/\gamma$ & $\E[\sum_t \beta^t c_t^{1-\gamma}/(1-\gamma)]$ \\
+Risk-neutral, unit IES & $0$ & $1$ & $\E[\sum_t \beta^t c_t] / (1-\beta)$ \\
+High RA, high IES & $10$ & $1.5$ & Full Epstein-Zin recursion \\
+\bottomrule
+\end{tabular}
+\end{center}
+

@@ -1,0 +1,427 @@
+% ==============================================================
+\section{Beyond RBC: Heterogeneity}
+\label{sec:beyond-rbc}
+% ==============================================================
+
+The representative agent RBC model provides a powerful framework for understanding aggregate fluctuations, but it abstracts from the rich heterogeneity observed in data. Workers differ in skills, capital goods differ in their characteristics, and these differences interact in economically important ways. This section extends the CES framework to incorporate heterogeneity in both labor and capital, connecting to the discrete choice and recursive structures developed in earlier chapters.
+
+% --------------------------------------------------------------
+\subsection{Why Heterogeneity Matters}
+\label{subsec:why-heterogeneity}
+% --------------------------------------------------------------
+
+The representative agent assumption imposes strong restrictions. All workers are identical, all capital goods are identical, and shocks affect everyone symmetrically. Relaxing these assumptions opens new channels for understanding macroeconomic dynamics.
+
+\paragraph{Heterogeneous Labor.}
+Workers differ along many dimensions: education, experience, occupation, and innate ability. These differences matter for:
+\begin{itemize}[nosep]
+\item \textbf{Wage inequality}: Different skill types command different wages.
+\item \textbf{Skill premia}: The college wage premium has risen dramatically since 1980.
+\item \textbf{Differential exposure to shocks}: Recessions disproportionately affect less-skilled workers.
+\item \textbf{Skill-biased technical change}: Technology may complement some skills while substituting for others.
+\end{itemize}
+
+\paragraph{Heterogeneous Capital.}
+Capital goods also differ: structures versus equipment, computers versus vehicles, tangible versus intangible. These differences matter for:
+\begin{itemize}[nosep]
+\item \textbf{Investment composition}: The share of equipment in total investment has risen over time.
+\item \textbf{Differential depreciation}: Equipment depreciates faster than structures.
+\item \textbf{Sector-specific technical change}: The price of computing equipment has fallen dramatically.
+\item \textbf{Complementarity patterns}: Some capital types may complement skilled labor while substituting for unskilled labor.
+\end{itemize}
+
+\paragraph{The CES Approach to Heterogeneity.}
+The CES framework provides a natural language for modeling heterogeneity. Different types of labor or capital are aggregated using generalized means, with the elasticity of substitution governing how easily one type can replace another. The nested CES structure allows for rich patterns of complementarity and substitutability across different levels of aggregation.
+
+% --------------------------------------------------------------
+\subsection{Heterogeneous Labor: Skill Types}
+\label{subsec:heterogeneous-labor}
+% --------------------------------------------------------------
+
+We begin by introducing multiple skill types into the production function. This extension captures the observation that workers with different skills are imperfect substitutes.
+
+\paragraph{The Labor Aggregate.}
+Suppose there are two types of labor: skilled ($L_S$) and unskilled ($L_U$). The labor aggregate is a CES composite:
+\begin{equation}
+L = \M(L_S, L_U; \bom^L, \sigma_L) = \left( \omega_S^{1-\rho_L} L_S^{\rho_L} + \omega_U^{1-\rho_L} L_U^{\rho_L} \right)^{1/\rho_L},
+\label{eq:labor-aggregate}
+\end{equation}
+where $\sigma_L = 1/(1-\rho_L)$ is the elasticity of substitution between skill types, and $\omega_S + \omega_U = 1$.
+
+\paragraph{The Production Function.}
+Output combines the labor aggregate with capital:
+\begin{equation}
+Y = A \cdot \M(K, L; \bom, \sigma) = A \left( \omega_K^{1-\rho} K^\rho + \omega_L^{1-\rho} L^\rho \right)^{1/\rho}.
+\label{eq:production-hetero-labor}
+\end{equation}
+
+This is a nested CES structure with labor types in the inner nest and capital-labor in the outer nest.
+
+\paragraph{Wages by Skill Type.}
+The wage of each skill type is its marginal product:
+\begin{align}
+w_S &= \frac{\partial Y}{\partial L_S} = \frac{\partial Y}{\partial L} \cdot \frac{\partial L}{\partial L_S}, \label{eq:wage-skilled} \\[6pt]
+w_U &= \frac{\partial Y}{\partial L_U} = \frac{\partial Y}{\partial L} \cdot \frac{\partial L}{\partial L_U}. \label{eq:wage-unskilled}
+\end{align}
+
+Using the CES formulas:
+\begin{equation}
+w_S = \omega_L^{1-\rho} A^\rho \left( \frac{Y}{L} \right)^{1/\sigma} \cdot \omega_S^{1-\rho_L} \left( \frac{L}{L_S} \right)^{1/\sigma_L}.
+\label{eq:wage-skilled-full}
+\end{equation}
+
+\paragraph{The Skill Premium.}
+The ratio of skilled to unskilled wages is the skill premium:
+\begin{equation}
+\frac{w_S}{w_U} = \frac{\omega_S}{\omega_U} \left( \frac{L_S}{L_U} \right)^{-1/\sigma_L} = \frac{\omega_S}{\omega_U} \left( \frac{L_U}{L_S} \right)^{1/\sigma_L}.
+\label{eq:skill-premium}
+\end{equation}
+
+The skill premium depends on:
+\begin{itemize}[nosep]
+\item Relative weights $\omega_S/\omega_U$: reflecting productivity differences
+\item Relative supplies $L_S/L_U$: more skilled workers reduce the premium
+\item The elasticity $\sigma_L$: lower elasticity means supplies matter more
+\end{itemize}
+
+\begin{calloutimportant}[The Skill Premium and $\sigma_L$]
+If $\sigma_L < \infty$, skilled and unskilled workers are imperfect substitutes. An increase in skilled labor supply reduces the skill premium, but the effect is larger when $\sigma_L$ is smaller (less substitutable).
+
+Estimates of $\sigma_L$ typically range from 1.4 to 2.0, implying significant but not perfect substitutability. This means that supply shifts (e.g., increased college enrollment) have substantial effects on wage inequality.
+\end{calloutimportant}
+
+\paragraph{Skill-Biased Technical Change.}
+Suppose technological progress augments skilled labor: $L_S$ is replaced by $A_S \cdot L_S$ in the production function. The skill premium becomes:
+\begin{equation}
+\frac{w_S}{w_U} = \frac{\omega_S}{\omega_U} \left( \frac{A_S L_S}{L_U} \right)^{(\sigma_L - 1)/\sigma_L} \cdot A_S.
+\label{eq:skill-premium-sbtc}
+\end{equation}
+
+When $\sigma_L > 1$, an increase in $A_S$ raises the skill premium through two channels:
+\begin{enumerate}[nosep]
+\item Direct effect: skilled workers are more productive (factor $A_S$)
+\item Indirect effect: effective skilled labor rises, but with $\sigma_L > 1$, this raises relative demand for skilled workers
+\end{enumerate}
+
+This is the canonical model of skill-biased technical change (SBTC), used to explain the rising college wage premium since 1980.
+
+% --------------------------------------------------------------
+\subsection{Heterogeneous Capital: Equipment and Structures}
+\label{subsec:heterogeneous-capital}
+% --------------------------------------------------------------
+
+We now extend the model to include multiple capital types, building on the nested CES framework from \cref{sec:nested-capital}.
+
+\paragraph{The Capital Aggregate.}
+Capital consists of equipment ($K_E$) and structures ($K_S$):
+\begin{equation}
+K = \M(K_E, K_S; \bom^K, \sigma_K) = \left( \omega_E^{1-\rho_K} K_E^{\rho_K} + \omega_S^{1-\rho_K} K_S^{\rho_K} \right)^{1/\rho_K}.
+\label{eq:capital-aggregate}
+\end{equation}
+
+\paragraph{The Full Nested Structure.}
+Combining heterogeneous labor and heterogeneous capital:
+\begin{equation}
+Y = A \cdot \M\left( \M(K_E, K_S; \bom^K, \sigma_K), \, \M(L_S, L_U; \bom^L, \sigma_L); \, \bom, \sigma \right).
+\label{eq:full-nested}
+\end{equation}
+
+This three-level nested CES has:
+\begin{itemize}[nosep]
+\item Inner capital nest: elasticity $\sigma_K$ between equipment and structures
+\item Inner labor nest: elasticity $\sigma_L$ between skilled and unskilled labor
+\item Outer nest: elasticity $\sigma$ between the capital and labor composites
+\end{itemize}
+
+\paragraph{Price Indices at Each Level.}
+The nested structure generates nested price indices:
+\begin{align}
+C_K^* &= \M_{1-\sigma_K}(r_E, r_S; \bom^K), \label{eq:capital-price-index} \\[6pt]
+W^* &= \M_{1-\sigma_L}(w_S, w_U; \bom^L), \label{eq:labor-price-index} \\[6pt]
+\Cstar &= \M_{1-\sigma}(C_K^*, W^*; \bom). \label{eq:total-price-index}
+\end{align}
+
+The labor price index $W^*$ is the unit cost of the labor composite---a CES aggregate of wages.
+
+% --------------------------------------------------------------
+\subsection{Capital-Skill Complementarity}
+\label{subsec:capital-skill-complementarity}
+% --------------------------------------------------------------
+
+A key hypothesis in the inequality literature is that capital (especially equipment) is more complementary with skilled labor than with unskilled labor. The nested CES framework can capture this through alternative nesting structures.
+
+\paragraph{The Krusell-Ohanian-Rios-Rull-Violante (KORV) Specification.}
+A leading specification places equipment and unskilled labor in one nest, and this composite with skilled labor in another:
+\begin{equation}
+Y = A \cdot \M\left( K_S, \, \M\left( L_S, \, \M(K_E, L_U; \bom^{EU}, \sigma_{EU}); \bom^{S}, \sigma_S \right); \bom, \sigma_{\text{out}} \right).
+\label{eq:korv}
+\end{equation}
+
+The key feature is that equipment ($K_E$) and unskilled labor ($L_U$) are in the innermost nest with elasticity $\sigma_{EU}$. If $\sigma_{EU} > 1$, equipment substitutes for unskilled labor.
+
+\paragraph{The Capital-Skill Complementarity Hypothesis.}
+The KORV specification implies:
+\begin{itemize}[nosep]
+\item Equipment and unskilled labor are substitutes ($\sigma_{EU} > 1$)
+\item The equipment-unskilled composite and skilled labor are complements ($\sigma_S < 1$)
+\item Cheaper equipment replaces unskilled workers and raises demand for skilled workers
+\end{itemize}
+
+This generates a link between the falling price of equipment and rising wage inequality.
+
+\begin{calloutnote}[Automation and Inequality]
+The capital-skill complementarity framework formalizes the intuition that automation displaces some workers while complementing others. As equipment becomes cheaper:
+\begin{enumerate}[nosep]
+\item Firms substitute equipment for unskilled labor (inner nest, $\sigma_{EU} > 1$)
+\item The effective supply of the equipment-unskilled composite rises
+\item This raises demand for skilled labor (outer nest, $\sigma_S < 1$)
+\item The skill premium rises
+\end{enumerate}
+This mechanism can explain both the falling labor share (especially for unskilled workers) and the rising skill premium observed since 1980.
+\end{calloutnote}
+
+\paragraph{Quantitative Implications.}
+Krusell et al. (2000) estimate the KORV model and find:
+\begin{itemize}[nosep]
+\item $\sigma_{EU} \approx 1.67$: equipment and unskilled labor are substitutes
+\item $\sigma_S \approx 0.67$: the composite and skilled labor are complements
+\item The falling relative price of equipment can explain much of the rise in the skill premium
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{Connecting to Discrete Choice}
+\label{subsec:discrete-choice-connection}
+% --------------------------------------------------------------
+
+The CES framework with heterogeneous factors connects deeply to discrete choice models. This connection, developed in \cref{sec:discrete-choice}, provides both economic intuition and computational tools.
+
+\paragraph{The CES-Logit Isomorphism.}
+Recall that the CES demand system is isomorphic to the multinomial logit. In the production context:
+\begin{itemize}[nosep]
+\item Factor shares $s_i$ correspond to choice probabilities $\pi_i$
+\item The elasticity $\sigma$ corresponds to the inverse scale parameter $1/\lambda$
+\item Factor prices $p_i$ correspond to (negative) utilities $-v_i$
+\end{itemize}
+
+The CES share formula:
+\begin{equation}
+s_i = \frac{\omega_i \, p_i^{1-\sigma}}{\sum_j \omega_j \, p_j^{1-\sigma}}
+\label{eq:ces-share}
+\end{equation}
+is equivalent to the logit probability:
+\begin{equation}
+\pi_i = \frac{\exp(v_i / \lambda)}{\sum_j \exp(v_j / \lambda)}
+\label{eq:logit-prob}
+\end{equation}
+under the transformation $v_i = -\lambda(1-\sigma) \log p_i + \lambda \log \omega_i$.
+
+\paragraph{Nested Logit and Nested CES.}
+The nested CES structure corresponds to the nested logit model:
+\begin{itemize}[nosep]
+\item Groups of factors (e.g., skill types within labor) correspond to nests
+\item Different elasticities at different levels correspond to different scale parameters
+\item The inclusive value (log-sum) in nested logit corresponds to the price index in nested CES
+\end{itemize}
+
+\begin{calloutimportant}[The Discrete Choice Interpretation]
+Think of the firm as ``choosing'' how to allocate expenditure across factors. The CES structure implies that this choice follows a logit model:
+\begin{itemize}[nosep]
+\item Cheaper factors are more likely to be ``chosen'' (higher expenditure share)
+\item The elasticity $\sigma$ governs how sensitive the choice is to price
+\item Nested CES allows for correlation within groups (skilled vs. unskilled labor)
+\end{itemize}
+This interpretation is useful for building intuition and for computational methods (simulated method of moments, BLP-style estimation).
+\end{calloutimportant}
+
+\paragraph{Random Coefficients and Continuous Heterogeneity.}
+The discrete choice perspective suggests extensions to continuous heterogeneity. Instead of a finite number of skill types, workers may be distributed along a continuum of skills. The CES aggregate becomes an integral:
+\begin{equation}
+L = \left( \int_0^1 \omega(z)^{1-\rho_L} L(z)^{\rho_L} \, dz \right)^{1/\rho_L},
+\label{eq:continuous-ces}
+\end{equation}
+where $z$ indexes skill types.
+
+This connects to the ``task-based'' approach to labor markets, where workers of different skills have comparative advantage in different tasks, and automation changes which tasks are performed by machines versus humans.
+
+% --------------------------------------------------------------
+\subsection{Connecting to Recursive Structures}
+\label{subsec:recursive-connection}
+% --------------------------------------------------------------
+
+The dynamic models with heterogeneity connect to the recursive structures developed in \cref{sec:recursive-decomposition}. The value function inherits the CES structure, enabling tractable characterization of equilibrium.
+
+\paragraph{The Bellman Equation with Heterogeneity.}
+Consider a planner's problem with heterogeneous capital:
+\begin{equation}
+V(k_E, k_S, A) = \max_{c, i_E, i_S} \left\{ u(c) + \beta \, \E \left[ V(k_E', k_S', A') \right] \right\}
+\label{eq:bellman-hetero}
+\end{equation}
+subject to:
+\begin{align}
+c + i_E + i_S &= Y(k_E, k_S, A), \\
+k_E' &= (1-\delta_E) k_E + i_E, \\
+k_S' &= (1-\delta_S) k_S + i_S.
+\end{align}
+
+\paragraph{Homogeneity and Dimension Reduction.}
+With CES production and CRRA utility, the value function is homogeneous:
+\begin{equation}
+V(k_E, k_S, A) = \phi(k_E/k_S, A) \cdot \frac{(k_E + k_S)^{1-1/\theta}}{1 - 1/\theta}.
+\label{eq:value-homogeneous}
+\end{equation}
+
+This reduces the state space: instead of tracking $(k_E, k_S)$ separately, we can track total capital and the composition ratio $k_E/k_S$. The CES structure ensures that the composition dynamics are tractable.
+
+\paragraph{The Recursive CES Structure.}
+The nested CES production function has a recursive structure that mirrors the recursive structure of the value function. Define:
+\begin{align}
+K &= \M(k_E, k_S; \bom^K, \sigma_K), \\
+Y &= A \cdot \M(K, L; \bom, \sigma).
+\end{align}
+
+The first-order conditions for investment allocation satisfy:
+\begin{equation}
+\frac{\partial V / \partial k_E}{\partial V / \partial k_S} = \frac{1 - \delta_E}{1 - \delta_S} \cdot \frac{\partial Y / \partial k_E}{\partial Y / \partial k_S}.
+\label{eq:investment-foc}
+\end{equation}
+
+With CES, this ratio depends only on the composition $k_E/k_S$ and the depreciation rates, not on the level of capital. This separability is a hallmark of the CES structure.
+
+\paragraph{Epstein-Zin with Heterogeneous Capital.}
+The Epstein-Zin framework from \cref{sec:epstein-zin} extends naturally to heterogeneous capital. The value function becomes:
+\begin{equation}
+V_t = \M\left( c_t, \, \CE\left( V_{t+1}(k_E', k_S', A') \right); \bom^\beta, \theta \right),
+\label{eq:ez-hetero}
+\end{equation}
+where $\CE$ is the certainty equivalent over future states.
+
+This ``CES over CES'' structure---CES aggregation over time, CES aggregation over capital types, CES certainty equivalent over states---maintains tractability while allowing rich dynamics.
+
+% --------------------------------------------------------------
+\subsection{Background Risk and Precautionary Behavior}
+\label{subsec:background-risk}
+% --------------------------------------------------------------
+
+Heterogeneity interacts with risk in important ways. When agents face uninsurable ``background risk,'' their behavior changes even with respect to insurable risks.
+
+\paragraph{Background Risk in the Labor Market.}
+Workers face idiosyncratic income risk that cannot be fully insured:
+\begin{equation}
+y_t^i = w_t \cdot \ell_t^i \cdot \exp(\eta_t^i), \qquad \eta_t^i \sim N(-\sigma_\eta^2/2, \sigma_\eta^2),
+\label{eq:idiosyncratic-income}
+\end{equation}
+where $\eta_t^i$ is an idiosyncratic shock to worker $i$'s effective labor supply.
+
+\paragraph{Precautionary Saving.}
+Background risk induces precautionary saving. With CRRA utility, the Euler equation becomes:
+\begin{equation}
+c_t^{-1/\theta} = \beta R \, \E_t \left[ c_{t+1}^{-1/\theta} \right] > \beta R \, \left( \E_t[c_{t+1}] \right)^{-1/\theta},
+\label{eq:precautionary-euler}
+\end{equation}
+where the inequality follows from Jensen's inequality when $1/\theta > 0$ (risk aversion).
+
+The gap represents precautionary saving: agents save more than they would without risk, to self-insure against future income shocks.
+
+\paragraph{Effects on Interest Rates.}
+In general equilibrium, precautionary saving lowers the interest rate. The steady-state return satisfies:
+\begin{equation}
+R^* = \frac{(1+g)^{1/\theta}}{\beta} \cdot \underbrace{\frac{1}{\E[m^{-1/\theta}] / (\E[m])^{-1/\theta}}}_{\text{precautionary factor} < 1},
+\label{eq:interest-rate-precautionary}
+\end{equation}
+where $m$ captures the distribution of marginal utilities.
+
+Greater background risk (higher $\sigma_\eta$) reduces $R^*$: households want to save more, driving down the equilibrium return.
+
+\begin{calloutnote}[The Risk-Free Rate Puzzle]
+The low level of risk-free interest rates has been a puzzle in asset pricing. One resolution involves background risk: if households face substantial uninsurable income risk, they have strong precautionary motives, which can explain low equilibrium interest rates even with moderate time preference.
+
+The CES framework with heterogeneity provides a tractable setting to study these effects quantitatively.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Shocks with Heterogeneous Factors}
+\label{subsec:shocks-heterogeneity}
+% --------------------------------------------------------------
+
+We conclude by examining how aggregate shocks propagate when factors are heterogeneous. The key insight is that different shocks have different distributional implications.
+
+\paragraph{Neutral vs. Biased Shocks.}
+Consider three types of productivity shocks:
+\begin{enumerate}[nosep]
+\item \textbf{Hicks-neutral}: $A$ rises, scaling output proportionally
+\item \textbf{Capital-biased}: $A_K$ rises, augmenting effective capital
+\item \textbf{Skill-biased}: $A_S$ rises, augmenting effective skilled labor
+\end{enumerate}
+
+Each has different implications for factor shares and inequality.
+
+\paragraph{Impulse Responses by Factor Type.}
+The following table summarizes the qualitative responses to each shock type:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& \textbf{Hicks-Neutral} & \textbf{Capital-Biased} & \textbf{Skill-Biased} \\
+\midrule
+Output $Y$ & $\uparrow$ & $\uparrow$ & $\uparrow$ \\
+Capital share $s_K$ & $\approx$ constant & $\uparrow$ (if $\sigma > 1$) & $\downarrow$ \\
+Labor share $s_L$ & $\approx$ constant & $\downarrow$ (if $\sigma > 1$) & $\uparrow$ \\
+Skill premium $w_S/w_U$ & $\approx$ constant & $\uparrow$ (if CSC) & $\uparrow$ (if $\sigma_L > 1$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+(CSC = capital-skill complementarity)
+
+\paragraph{Business Cycles with Distributional Consequences.}
+In the heterogeneous-factor model, business cycles have distributional consequences beyond the representative agent framework:
+\begin{itemize}[nosep]
+\item Recessions may disproportionately affect unskilled workers (if driven by capital-biased shocks)
+\item Booms may increase inequality (if driven by skill-biased shocks)
+\item The welfare cost of fluctuations differs across worker types
+\end{itemize}
+
+\paragraph{Policy Implications.}
+Understanding the source of shocks matters for policy:
+\begin{itemize}[nosep]
+\item Neutral shocks: stabilization policy affects all factors symmetrically
+\item Biased shocks: stabilization policy has distributional implications
+\item Targeted policies (e.g., training programs, investment incentives) can address factor-specific disruptions
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:beyond-rbc-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Beyond RBC: Heterogeneity Extensions}
+\label{tab:beyond-rbc-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Extension} & \textbf{Key Feature} \\
+\midrule
+Heterogeneous labor & $L = \M(L_S, L_U; \sigma_L)$, skill premium \\[6pt]
+Heterogeneous capital & $K = \M(K_E, K_S; \sigma_K)$, investment composition \\[6pt]
+Capital-skill complementarity & Equipment substitutes for unskilled, complements skilled \\[6pt]
+Discrete choice connection & CES shares $\leftrightarrow$ logit probabilities \\[6pt]
+Recursive structure & Homogeneity reduces state space \\[6pt]
+Background risk & Precautionary saving, lower interest rates \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+Moving beyond the representative agent RBC model, the CES framework accommodates rich heterogeneity:
+\begin{itemize}[nosep]
+\item \textbf{Multiple factor types}: Skilled/unskilled labor, equipment/structures capital
+\item \textbf{Nested substitution patterns}: Different elasticities at different levels
+\item \textbf{Capital-skill complementarity}: A unified explanation for falling labor shares and rising skill premia
+\item \textbf{Connections}: To discrete choice (CES-logit isomorphism) and recursive methods (homogeneity)
+\end{itemize}
+
+The nested CES structure is more than a tractable functional form---it encodes economically meaningful hypotheses about how different factors interact. Estimating the elasticities at each level of the nest is an active area of empirical research, with implications for understanding automation, inequality, and the future of work.
+\end{callouttip}

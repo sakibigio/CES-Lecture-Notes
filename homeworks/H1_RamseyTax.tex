@@ -1,0 +1,353 @@
+% ==============================================================
+\chapter{Homework: The Case for a Flat Value-Added Tax}
+\label{chap:hw-ramsey}
+% ==============================================================
+ 
+\begin{calloutimportant}[How to Answer This Homework]
+Equations alone are not answers. Every question requires a written response. When you derive a condition, explain in words what it means economically. When you identify a pattern, provide the intuition. When you state a result, argue why it holds. Grading weights written explanations at least as much as correct algebra. A page of equations with no sentences will receive little credit; a clear economic argument supported by the right equations will receive full credit.
+\end{calloutimportant}
+ 
+\begin{calloutnote}[Motivation and Goal]
+A \emph{value-added tax} (VAT) is a broad-based consumption tax applied uniformly across goods. In practice, governments routinely deviate from uniformity --- applying reduced rates to food, medicine, or energy, and higher rates to luxury goods or ``sin'' goods. Is this a good idea? This homework builds the theoretical foundation for answering that question. You will show that in an economy with CES preferences and CES technology, a \emph{uniform} VAT is optimal: differentiating tax rates across goods cannot improve household welfare. This result is a version of the \emph{Atkinson--Stiglitz theorem} (1976), one of the most influential results in public finance.
+ 
+The homework is organized in three parts. \textbf{Part~I} builds the baseline economy and derives an equilibrium. \textbf{Part~II} characterizes the optimal tax system and establishes the case for a flat VAT. \textbf{Part~III} asks you to verify all results computationally in Julia. A fourth part, marked as a \textbf{Challenge}, extends the economy to allow households to choose how much to work --- putting the Atkinson--Stiglitz theorem in its full and original form.
+\end{calloutnote}
+ 
+% ==============================================================
+\section{Part I: The Baseline Economy}
+\label{sec:baseline}
+% ==============================================================
+ 
+We describe the three actors in the baseline economy and then assemble them into an equilibrium.
+ 
+% --------------------------------------------------------------
+\subsection{Households}
+\label{subsec:hh-baseline}
+% --------------------------------------------------------------
+ 
+Consider a static economy. Households are endowed with one unit of labor, $L = 1$, which earns a competitive wage $w$. They derive utility from $N$ consumption goods, indexed by $i \in \{1, \ldots, N\}$, via a CES aggregator. A distinguishing feature is the presence of commodity taxes $\tau_i$ on each good --- think of these as the rates of a VAT that may differ across goods. The household solves:
+%
+\begin{equation}
+    \U \;=\; \max_{\{c_i\}} \; \left( \sum_{i=1}^{N} \omega_i^{1-\rho}\, c_i^{\rho} \right)^{1/\rho}
+    \label{eq:hh-baseline}
+\end{equation}
+%
+subject to:
+%
+\begin{equation}
+    \sum_{i=1}^{N} (1+\tau_i)\, p_i\, c_i \;=\; w.
+    \label{eq:budget-baseline}
+\end{equation}
+%
+Here $\omega_i > 0$ with $\sum_i \omega_i = 1$, $\rho < 1$ governs the elasticity of substitution $\varepsilon = 1/(1-\rho)$, $p_i$ is the producer price of good $i$, and $\tau_i \geq 0$ is the ad valorem tax rate. The consumer faces effective prices $q_i \equiv (1+\tau_i)p_i$.
+ 
+\paragraph{Question 1.}
+Solve for the household's optimal allocation.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Derive the ideal price index $\Pstar(\mathbf{q})$, the budget-share formula $s_i^*$, and the optimal quantities $c_i^*$ as functions of $\mathbf{q}$ and $w$.
+ 
+    \item \emph{Written answer required.} In two sentences, explain how the tax $\tau_i$ enters the household's decision and what the price index $\Pstar$ captures economically. If producer prices are all equal but tax rates differ across goods, what does the optimal allocation look like and what happens to utility relative to the zero-tax case?
+\end{enumerate}
+ 
+% --------------------------------------------------------------
+\subsection{The Government}
+\label{subsec:gov-baseline}
+% --------------------------------------------------------------
+ 
+The government purchases $N_g$ goods $\{G_i\}_{i=1}^{N_g}$ at producer prices $p_i^g$. It finances these purchases through VAT revenue:
+%
+\begin{equation}
+    \sum_{i=1}^{N_g} p_i^g\, G_i \;=\; \sum_{i=1}^{N} \tau_i\, p_i\, c_i.
+    \label{eq:gov-budget-baseline}
+\end{equation}
+%
+The right-hand side is tax revenue: the tax wedge $\tau_i$ on each good times its producer price and quantity sold. The government must raise enough revenue to cover its purchases, but it chooses how to distribute the tax burden across goods.
+ 
+% --------------------------------------------------------------
+\subsection{Firms}
+\label{subsec:firms-baseline}
+% --------------------------------------------------------------
+ 
+A single representative firm produces consumer goods $\{y_i\}$ and government goods $\{g_i\}$ using labor $L$ as the only input, with $H(\mathbf{y}, \mathbf{g}) = L$ where:
+%
+\begin{equation}
+    H(\mathbf{y}, \mathbf{g}) \;\equiv\; \left( \sum_{i=1}^{N} \eta_i^{1-\psi} y_i^{\psi} \;+\; \sum_{i=1}^{N_g} \gamma_i^{1-\psi} g_i^{\psi} \right)^{1/\psi}.
+    \label{eq:firm-tech}
+\end{equation}
+%
+The firm sells consumer goods at prices $p_i$ and government goods at prices $p_i^g$, hiring labor at wage $w$. It solves:
+%
+\begin{equation}
+    \max_{\mathbf{y},\, \mathbf{g},\, L} \;\; \sum_{i=1}^{N} p_i\, y_i \;+\; \sum_{i=1}^{N_g} p_i^g\, g_i \;-\; w\, L
+    \quad \text{subject to} \quad H(\mathbf{y}, \mathbf{g}) = L.
+    \label{eq:firm-problem}
+\end{equation}
+ 
+\paragraph{Question 2.}
+Solve the firm's problem in three steps.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Revenue maximization at fixed scale.} Given $L$, maximize revenue $R \equiv \sum_i p_i y_i + \sum_i p_i^g g_i$ subject to $H(\mathbf{y}, \mathbf{g}) = L$. Express $R^*(L;\,\mathbf{p},\mathbf{p}^g)$ as a function of $L$ and prices.
+ 
+    \item \emph{Homogeneity.} Show that $R^*(L;\,\mathbf{p},\mathbf{p}^g) = L \cdot R^*(1;\,\mathbf{p},\mathbf{p}^g)$. Identify the property of $H$ that makes this true. Use it to write profit as $\Pi = L\cdot[R^*(1;\,\mathbf{p},\mathbf{p}^g) - w]$.
+ 
+    \item \emph{Pricing condition.} Argue that if $w \neq R^*(1;\,\mathbf{p},\mathbf{p}^g)$ the firm chooses $L = 0$ or $L \to \infty$. Derive the zero-profit condition and write one sentence on its economic content.
+\end{enumerate}
+ 
+% --------------------------------------------------------------
+\subsection{Equilibrium}
+\label{subsec:eq-baseline}
+% --------------------------------------------------------------
+ 
+An equilibrium is prices $\{p_i, p_i^g, w\}$ and taxes $\{\tau_i\}$ such that households and firms optimize, markets clear ($c_i = y_i$, $G_i = g_i$, $L = 1$), and the government balances its budget \eqref{eq:gov-budget-baseline}.
+ 
+\paragraph{Question 3.}
+Normalize $w = 1$.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Use the firm's pricing condition from Question~2 to pin down producer prices $\{p_i, p_i^g\}$. Construct one explicit equilibrium, specifying the tax vector $\{\tau_i\}$.
+ 
+    \item How many degrees of freedom remain in $\{\tau_i\}$ after all equilibrium conditions are imposed? What economic object is pinned down even when individual tax rates are not?
+ 
+    \item \emph{Written answer required.} In two or three sentences, explain the source of tax indeterminacy: the idea that multiple combinations of taxes can finance the government's expenditures. Why does only a combination of tax rates matter rather than their individual levels? Connect your answer to the idea that a VAT shifts the consumer price index.
+\end{enumerate}
+ 
+% ==============================================================
+\section{Part II: The Case for a Flat VAT}
+\label{sec:optimal-baseline}
+% ==============================================================
+ 
+% --------------------------------------------------------------
+\subsection{The Ramsey Problem}
+\label{subsec:ramsey-baseline}
+% --------------------------------------------------------------
+ 
+We now ask: which tax structure maximizes household welfare? This is the \emph{Ramsey problem}. Rather than optimizing directly over tax rates, we use the \emph{primal approach}: we characterize the best feasible allocation directly, and then find the taxes that implement it. With $L = 1$, the Ramsey planner solves:
+%
+\begin{equation}
+    \max_{\{C_i\}} \; \left( \sum_{i=1}^{N} \omega_i^{1-\rho}\, C_i^{\rho} \right)^{1/\rho}
+    \label{eq:ramsey-baseline-obj}
+\end{equation}
+%
+subject to the economy's resource constraint:
+%
+\begin{equation}
+    \left( \sum_{i=1}^{N} \eta_i^{1-\psi} C_i^{\psi} \;+\; \sum_{i=1}^{N_g} \gamma_i^{1-\psi} G_i^{\psi} \right)^{1/\psi} = 1.
+    \label{eq:ramsey-baseline-constraint}
+\end{equation}
+%
+The constraint says that total production --- of consumer goods and government goods together --- cannot exceed the available labor endowment. The planner can allocate labor freely across all goods, but faces the CES production frontier \eqref{eq:firm-tech}.
+ 
+\paragraph{Question 4.}
+Solve the Ramsey planner's problem.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Solve the problem using the transformation approach learned in class.
+ 
+    \item Show that the ratio condition takes the form:
+    \[
+        \frac{C_i^*}{C_j^*} \;=\; \left[ \left(\frac{\omega_j}{\omega_i}\right)^{1-\rho} \left(\frac{\eta_i}{\eta_j}\right)^{1-\psi} \right]^{\frac{1}{\rho - \psi}}.
+    \]
+    Identify how the gap $\rho - \psi$ governs the sensitivity of the allocation to relative weights.
+ 
+    \item Characterize the full solution $C_i^*$ and the maximized value $\U^*$ as functions of $\{\omega_i, \eta_i, \rho, \psi, \mathbf{G}\}$.
+ 
+    \item \emph{Written answer required.} Explain in a paragraph what the planner is doing. Why is the resource constraint \eqref{eq:ramsey-baseline-constraint} not a standard linear budget, and how does the CES structure of both the objective and the constraint shape the solution?
+\end{enumerate}
+ 
+% --------------------------------------------------------------
+\subsection{Recovering the Optimal Tax Rates}
+\label{subsec:taxes-baseline}
+% --------------------------------------------------------------
+ 
+\paragraph{Question 5.}
+Find the tax rates $\{\tau_i^*\}$ that implement the planner's allocation as a competitive equilibrium.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Compare the household's ratio condition from Question~1 with the planner's from Question~4b. Show that the household replicates the planner's goods mix if and only if $\tau_i^* = \tau^*$ for all $i$ --- the optimal VAT is \emph{flat}.
+ 
+    \item \emph{Written answer required.} State the result in your own words. Why does the CES structure on both sides of the economy imply that relative producer prices already encode the planner's preferred trade-offs, leaving no role for differentiated tax rates? Is there an intuition for why taxing some goods more heavily than others would be wasteful here?
+ 
+    \item \emph{Extension.} The flat VAT rate $\tau^*$ must be high enough to satisfy the government budget \eqref{eq:gov-budget-baseline}. Is $\tau^*$ uniquely determined? What happens to household utility $\U^*$ as $\tau^*$ rises --- does it fall, and at what rate? Interpret the answer in terms of the price index $\Pstar$.
+\end{enumerate}
+ 
+% ==============================================================
+\section{Part III: Computational Verification in Julia}
+\label{sec:julia}
+% ==============================================================
+ 
+\begin{calloutnote}[Instructions for Part III]
+This part asks you to verify the results of Parts~I and~II computationally. Do \emph{not} hardcode analytical solutions: your Julia code must produce correct answers for any parameter values in the admissible range. You may use \texttt{Optim.jl} and \texttt{ForwardDiff.jl}. You are encouraged to use AI tools to help write and debug code --- but every sub-question requires a written explanation in your own words. Code without explanation will receive half credit at most.
+\end{calloutnote}
+ 
+Use the following baseline parameters throughout:
+%
+\begin{equation}
+\begin{aligned}
+    N &= 3, \quad N_g = 2, \quad w = 1, \\
+    \boldsymbol{\omega} &= (0.5,\; 0.3,\; 0.2), \quad \boldsymbol{\eta} = (0.4,\; 0.4,\; 0.2), \quad \rho = 0.4, \quad \psi = 0.6, \\
+    \boldsymbol{\gamma}^g &= (0.6,\; 0.4), \quad \mathbf{G} = (0.15,\; 0.10).
+\end{aligned}
+\label{eq:baseline-params}
+\end{equation}
+ 
+\paragraph{Question 6.}
+Build the model blocks.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Write a Julia function \texttt{household(q, w, params)} that returns the optimal $(\mathbf{c}^*, \U^*)$ by solving the household's problem numerically using \texttt{Optim.jl}, without invoking any closed-form expressions.
+ 
+    \item Write a Julia function \texttt{firm(p, pg, w, params)} that returns $(\mathbf{y}^*, \mathbf{g}^*, L^*)$ by numerical optimization.
+ 
+    \item At $\tau_i = 0$ for all $i$, find equilibrium producer prices numerically and verify that the goods market clears ($c_i^* = y_i^*$). Report the equilibrium values.
+ 
+    \item \emph{Written answer required.} Describe in a few sentences how you verified that your numerical solutions are correct. What checks did you perform, and what would a wrong answer look like?
+\end{enumerate}
+ 
+\paragraph{Question 7.}
+Solve the Ramsey problem numerically.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Write a Julia function \texttt{ramsey(params)} that numerically maximizes household utility $\U^*$ over $\{\tau_i\}$ subject to the government budget constraint \eqref{eq:gov-budget-baseline}. Do not use the analytical solution from Part~II.
+ 
+    \item Report the optimal tax vector $(\tau_1^*, \tau_2^*, \tau_3^*)$. Are the taxes uniform? Compute $\max_{i,j}|\tau_i^* - \tau_j^*|$ and report it.
+ 
+    \item \emph{Written answer required.} Does the numerical result confirm the case for a flat VAT from Part~II? Explain what you see in the output and connect it to the analytical derivation. If there is any numerical deviation from exact uniformity, what is its likely source?
+\end{enumerate}
+ 
+\paragraph{Question 8.}
+Explore the role of $\rho$ and $\psi$.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Hold all parameters at the baseline but vary $\rho \in \{0.1, 0.3, 0.5, 0.7, 0.9\}$ with $\psi = 0.6$ fixed. For each value, solve the Ramsey problem numerically and record the optimal allocation $\mathbf{C}^*$ and the uniform tax rate $\tau^*$. Plot how each changes with $\rho$.
+ 
+    \item Repeat with $\psi \in \{0.1, 0.3, 0.5, 0.7, 0.9\}$ and $\rho = 0.4$ fixed.
+ 
+    \item \emph{Written answer required.} What do the plots reveal? The optimal VAT remains flat throughout --- but how does the optimal allocation and the required tax rate respond to changes in $\rho$ and $\psi$? Provide an economic interpretation, and address what happens as $\rho \to \psi$.
+\end{enumerate}
+ 
+\paragraph{Question 9.}
+Test the limits of tax uniformity.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Suppose preferences are not CES. Replace the household's objective \eqref{eq:hh-baseline} with a Stone--Geary utility function:
+    \[
+        \U^{SG} \;=\; \prod_{i=1}^{N} (c_i - \bar{c}_i)^{\omega_i},
+    \]
+    where $\bar{c}_i \geq 0$ is a subsistence level and $\omega_i > 0$ with $\sum_i \omega_i = 1$. Set $\bar{c}_i = 0.05$ for all $i$ and keep all other parameters at the baseline. Solve the Ramsey problem numerically. Are optimal taxes still uniform? Report the pattern and describe which goods are taxed more heavily.
+ 
+    \item \emph{Written answer required.} Connect your findings to the theory from Part~II. Which assumption of the uniform-tax result breaks down under Stone--Geary preferences? What feature of Stone--Geary utility drives the departure from uniformity, and what does this suggest about the policy relevance of applying reduced VAT rates to necessities?
+\end{enumerate}
+ 
+% 
+\newpage
+==============================================================
+\section{Challenge: Labor, Leisure, and the Full Atkinson--Stiglitz Theorem}
+\label{sec:challenge}
+% ==============================================================
+ 
+\begin{calloutnote}[What Changes and Why]
+In Parts~I--III, labor supply was fixed at $L = 1$. The Atkinson--Stiglitz theorem requires that utility be weakly separable between consumption goods and labor --- but this condition is vacuous when labor is not a choice variable. In this challenge, households choose how much to work. Weak separability then becomes a genuine restriction on preferences, and the theorem emerges in its full and original form: because goods enter utility only through a sub-index $U$, distorting the goods mix cannot help the government improve the labor--leisure trade-off, and a flat VAT remains optimal. The challenge also introduces the transformation approach to re-derive these results without first-order conditions.
+\end{calloutnote}
+ 
+% --------------------------------------------------------------
+\subsection{Households with Labor--Leisure Choice}
+\label{subsec:hh-extended}
+% --------------------------------------------------------------
+ 
+Households now choose consumption goods $\{c_i\}$, labor supply $n$, and leisure $\ell$. At the top, a CES aggregator $V$ combines the consumption sub-index $U$ with leisure:
+%
+\begin{equation}
+    V \;=\; \left( \chi^{1-\nu}\, U^{\nu} \;+\; (1-\chi)^{1-\nu}\, \ell^{\nu} \right)^{1/\nu},
+    \label{eq:V}
+\end{equation}
+%
+where $\chi \in (0,1)$ and $\nu < 1$. The sub-index $U$ is the same CES aggregator as in \eqref{eq:hh-baseline}. Notice that $V$ depends on goods only through $U$ --- this is \emph{weak separability} between goods and leisure.
+ 
+\paragraph{Constraints.}
+Time obeys the CES constraint $\left( \gamma^{1-\phi} n^{\phi} + \ell^{\phi} \right)^{1/\phi} = 1$ with $\phi < 1$.
+A labor income tax $\tau_w$ is now available, so the budget constraint becomes:
+%
+\begin{equation}
+    \sum_{i=1}^{N} (1+\tau_i)\, p_i\, c_i \;=\; (1-\tau_w)\, w\, n,
+    \label{eq:budget-extended}
+\end{equation}
+%
+and the government budget gains labor-tax revenue:
+%
+\begin{equation}
+    \sum_{i=1}^{N_g} p_i^g\, G_i \;=\; \sum_{i=1}^{N} \tau_i\, p_i\, c_i \;+\; \tau_w\, w\, n.
+    \label{eq:gov-budget-extended}
+\end{equation}
+ 
+\paragraph{Challenge Question A.}
+Solve the household's problem using two-stage budgeting.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Inner stage.} Given expenditure $E \equiv (1-\tau_w)wn$, show that $U^* = E / \Pstar(\mathbf{q})$ with the same price index as in Question~1.
+ 
+    \item \emph{Outer stage.} Substitute $U^*$ into $V$ and maximize over $(n, \ell)$ subject to the time constraint. Derive the optimality condition linking $n^*$ and $\ell^*$.
+ 
+    \item \emph{Written answer required.} Explain why two-stage budgeting is valid. What property of $V$ makes it work, and what would break without it?
+\end{enumerate}
+ 
+% --------------------------------------------------------------
+\subsection{Optimal Taxation with Labor--Leisure}
+\label{subsec:ramsey-extended}
+% --------------------------------------------------------------
+ 
+The Ramsey planner now chooses $\{C_i, n, \ell\}$ to maximize \eqref{eq:V} subject to the resource constraint $H(\mathbf{C}, \mathbf{G})^{1/\psi} = n$ and the time constraint.
+ 
+\paragraph{Challenge Question B.}
+Solve the extended Ramsey problem.
+ 
+\medskip
+\noindent\textbf{Standard approach.}
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Inner stage.} Fix $n$ and maximize $U(\mathbf{C})$ subject to the resource constraint. Show that the optimal ratio $C_i^*/C_j^*$ is independent of $n$ and $\ell$, and that $U^*(n) \propto n$.
+ 
+    \item \emph{Outer stage.} Using $U^*(n)$, derive the planner's optimality condition for $(n^*, \ell^*)$.
+\end{enumerate}
+ 
+\medskip
+\noindent\textbf{Transformation approach.} \emph{Re-derive the inner-stage result without first-order conditions, using the weight transformation $T_\rho$ from the transformations chapter. Name and apply the relevant propositions explicitly.}
+ 
+\begin{enumerate}[label=(\alph*), resume]
+    \item Show that the inner-stage resource constraint reduces to $\sum_i \eta_i^{1-\psi} C_i^\psi = A(n)$ for some $A(n)$. Apply the \textbf{Normalization Proposition} to put the left-hand side in classical form, then apply $T_\psi^{-1}$ to obtain a canonical CES problem. Invoke the \textbf{Benchmark Solution} to read off $C_i^*$ by inspection.
+ 
+    \item \emph{Written answer required.} Explain what the transformation approach reveals that the FOC approach does not. What does it mean economically that the undistorted allocation equals the transformed weights?
+\end{enumerate}
+ 
+\begin{calloutnote}[On the Transformation Approach]
+This skill cannot be replaced by asking an AI to compute FOCs for this specific problem. It requires understanding the transformation machinery well enough to apply it to novel settings. A student who has genuinely internalized the lecture notes can read off the answer to part (c) in one line.
+\end{calloutnote}
+ 
+\paragraph{Challenge Question C.}
+Recover the optimal taxes $\{\tau_i^*, \tau_w^*\}$ and state the Atkinson--Stiglitz theorem.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the household replicates the planner's goods mix if and only if $\tau_i^* = \tau^*$ for all $i$. Characterize $\tau_w^*$ and explain what distortion it corrects.
+ 
+    \item \emph{Written answer required.} State the Atkinson--Stiglitz theorem in your own words. Why does weak separability imply that a flat VAT is optimal, and why could this result not have been derived in Parts~I--II where labor was fixed? What is the economic role of $\tau_w^*$ in this extended economy?
+ 
+    \item \emph{Extension.} Suppose $\tau_w \equiv 0$. Does the flat VAT result survive? Explain.
+\end{enumerate}
+ 
+\begin{calloutimportant}[The Atkinson--Stiglitz Theorem]
+The theorem (Atkinson and Stiglitz, 1976) states that when indirect utility is weakly separable between consumption goods and labor, optimal commodity taxes are uniform and all distortionary work is done by the labor income tax. The CES structure makes the mechanism transparent: weak separability causes the goods-mix and time-allocation problems to decompose at every level --- in the household's problem, in the planner's problem, and in the implementation step. The VAT is flat because the planner's shadow prices for goods are proportional to producer prices, leaving no room for rate differentiation.
+\end{calloutimportant}
+ 
+\paragraph{Challenge Question D.}
+Computational extension. Use the baseline parameters from \eqref{eq:baseline-params} augmented with $\chi = 0.7$, $\nu = 0.5$, $\phi = 0.4$, $\gamma = 0.6$.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Solve the extended Ramsey problem numerically. Report $(\tau_1^*, \tau_2^*, \tau_3^*, \tau_w^*)$. Does the flat VAT result hold?
+ 
+    \item Break weak separability by replacing $V$ with $\tilde{V} = \left( \sum_i \tilde{\omega}_i^{1-\nu} c_i^\nu + (1-\chi)^{1-\nu} \ell^\nu \right)^{1/\nu}$. Solve the Ramsey problem again. Are commodity taxes still uniform?
+ 
+    \item \emph{Written answer required.} Connect your findings in (a) and (b) to the theory. In (b), which assumption of the theorem fails? What do the two cases reveal about the necessity of weak separability?
+\end{enumerate}
+ 
+ 

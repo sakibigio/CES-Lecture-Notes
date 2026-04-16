@@ -1,0 +1,338 @@
+% ==============================================================
+% Syllabus: ECON 109B / 109C -- Spring 2026
+% ==============================================================
+
+\chapter*{UCLA -- ECON 109B / 109C: Advanced Sequence\\
+Dynamic Economics \& Computational Economics}
+\addcontentsline{toc}{chapter}{Syllabus}
+
+\noindent
+\textbf{Spring 2026}\\[0.3em]
+\textbf{Instructor:} Saki Bigio\\[0.3em]
+\begin{tabular}{@{}ll@{}}
+\textbf{ECON 109B} (Theory):        & TR 2:00--3:15\,pm, Bunche 3211 \\
+\textbf{ECON 109C} (Computational): & TR 3:30--4:45\,pm, Bunche 3211 \\
+\end{tabular}\\[0.3em]
+\textbf{Email:} \href{mailto:sbigio@econ.ucla.edu}{\texttt{sbigio@econ.ucla.edu}}
+
+% -------------------------------------------------------
+\paragraph{Office Hours.}
+Fridays 1:00\,pm.
+My office is located on Floor~8 of Bunche Hall, Room~8373.
+Please email me in advance to confirm attendance.
+
+% -------------------------------------------------------
+\paragraph{Course Pages.}
+\begin{enumerate}
+    \item \href{https://bruinlearn.ucla.edu}{\texttt{bruinlearn.ucla.edu}} (BruinLearn)
+    \item \href{https://github.com/sakibigio/CES-Lecture-Notes}{\texttt{github.com/sakibigio/CES-Lecture-Notes}}
+\end{enumerate}
+
+% -------------------------------------------------------
+\paragraph{Main References.}
+The primary reference for both courses is the set of lecture notes distributed through the course GitHub repository.
+For 109C, we will rely heavily on the \textit{Quantitative Economics with Julia} lectures.
+I will also give references to additional readings as needed.
+\begin{itemize}
+    \item Saki Bigio, \textit{Constant Elasticity Structure: Recursive Methods for Macroeconomics and Finance}, UCLA lecture notes. Distributed via \href{https://github.com/sakibigio/CES-Lecture-Notes}{\texttt{GitHub}}. Primary reference for 109B. [CES]
+    \item Jesse Perla, Thomas J.\ Sargent, and John Stachurski, \textit{Quantitative Economics with Julia}, \href{https://julia.quantecon.org}{\texttt{julia.quantecon.org}}. Open access. Primary computational reference for 109C. [QE]
+\end{itemize}
+
+% -------------------------------------------------------
+\paragraph{Objectives.}
+The goal of these courses is to build a unified analytical and computational toolkit for macroeconomics and finance.
+The central object is the \emph{generalized mean}---the mathematical structure underlying CES utility, CRRA risk preferences, CES production functions, and intertemporal discounting.
+Once this common structure is recognized, the same formulas---price indices, budget shares, Slutsky decompositions, Bellman equations---apply across consumer theory, firm theory, asset pricing, and dynamic programming.
+The courses trace this structure from its static foundations through recursive and dynamic settings, culminating in a set of canonical applications.
+
+ECON 109B is the theory component: it develops the analytical framework, proves the key results, and establishes the economic intuition.
+ECON 109C is the computational component: it implements the same material in Julia using Jupyter notebooks.
+The two courses are designed to be taken together and meet back-to-back in the same room.
+
+% -------------------------------------------------------
+\paragraph{Why should you take both courses?}
+The combination provides something neither course offers alone.
+Analytical economics without computation leaves you unable to evaluate models quantitatively or solve problems that lack closed forms.
+Computation without analytical foundations leaves you unable to interpret what the algorithm is doing, diagnose errors, or extend the model to new questions.
+The recurring exercise in both courses is to solve the same problem twice: once analytically and once numerically.
+When the two agree, you gain confidence in both; when they diverge, the discrepancy is itself a lesson.
+Students aiming for doctoral programs will find this combination essential preparation for first-year sequences in macroeconomics and finance.
+
+% -------------------------------------------------------
+\paragraph{Prerequisites.}
+A solid undergraduate understanding of calculus and constrained optimization is assumed.
+You should be comfortable taking derivatives, setting up Lagrangians, and interpreting first-order conditions.
+Some prior exposure to dynamic programming is helpful but not required---the relevant concepts are introduced as needed.
+For ECON 109C, no prior experience in Julia is assumed; the first week is devoted entirely to setting up the computational environment and learning the language.
+
+% -------------------------------------------------------
+\paragraph{Grading Policy.}
+Both courses are graded on the same structure: three problem sets functioning as two midterms and a final, each weighted equally at 33\%.
+\begin{itemize}
+    \item \textbf{Problem Set 1} (33\%): covers Part~I (Tools). Due Thursday April~23.
+    \item \textbf{Problem Set 2} (33\%): covers Part~II (Recursive Structure and Dynamic Programming). Due Tuesday May~5.
+    \item \textbf{Problem Set 3} (34\%): covers Part~III (Applications). Due at the scheduled final examination time.
+\end{itemize}
+Problem sets for 109B are submitted as PDF write-ups on BruinLearn.
+Problem sets for 109C are submitted as Jupyter notebooks via GitHub Classroom, run top-to-bottom with all outputs present.
+
+% -------------------------------------------------------
+\paragraph{Important Dates.}
+\begin{itemize}
+    \item \textbf{PS1 due:} Thursday April 23
+    \item \textbf{PS2 due:} Tuesday May 5
+    \item \textbf{Makeup session:} Friday May 2 (replaces Thursday May 7 --- instructor away)
+    \item \textbf{PS3 / Final 109B:} Wednesday June 10, 3:00--6:00\,pm
+    \item \textbf{PS3 / Final 109C:} Friday June 12, 8:00--11:00\,am
+\end{itemize}
+
+% -------------------------------------------------------
+\paragraph{Course Policy.}
+\begin{itemize}
+    \item Regular attendance is essential and expected.
+    \item Laptops and tablets are permitted for note-taking and in-class computation (109C).
+    \item All students in 109C are expected to have a GitHub account and a working Julia installation by the end of Week~1.
+    \item Late problem sets will not be accepted without prior arrangement.
+\end{itemize}
+
+% -------------------------------------------------------
+\paragraph{Academic Honesty.}
+I expect the highest standard of academic honesty.
+All submitted work must be your own; use of any references or code must be cited.
+The use of AI tools (Claude, Copilot, etc.) is permitted and encouraged in 109C as part of the computational workflow, but the understanding behind every line of code submitted is your responsibility.
+Lack of knowledge of the academic honesty policy is not a reasonable explanation for a violation.
+% ==============================================================
+\section*{Course Outline}
+% ==============================================================
+
+The schedule below lists both courses side by side.
+Makeup session: \textbf{Friday May~2} replaces Thursday May~7 (instructor away).
+QuantEcon lecture references~[QE] are linked for 109C.
+
+% -------------------------------------------------------
+\paragraph{Part I: Tools (Weeks 1--3).}
+This part introduces the generalized mean as a mathematical object, establishes its key properties, and shows how it unifies the main static models in microeconomics.
+
+\vspace{0.5em}
+\noindent\textbf{Week 1 \hfill Introduction and Generalized Means}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Mar~31 &
+Introduction. Generalized means: classical vs.\ canonical forms. Special cases, inner sums, vector generalization. Uses in economics: utility, production, certainty equivalents &
+VS Code, GitHub Classroom, Copilot, Claude Code \newline
+\href{https://julia.quantecon.org/software_engineering/tools_editors.html}{[QE L11]},
+\href{https://julia.quantecon.org/software_engineering/version_control.html}{[QE L12]} \\[4pt]
+Thu Apr~2 &
+Properties: monotonicity, homogeneity, idempotency, level curves, convexity. Limiting cases: Cobb-Douglas, Leontief, linear, maximum &
+Julia setup. Jupyter notebooks. \LaTeX\ and Overleaf. Workflow conventions \newline
+\href{https://julia.quantecon.org/getting_started_julia/getting_started.html}{[QE L1]},
+\href{https://julia.quantecon.org/getting_started_julia/julia_by_example.html}{[QE L2]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 2 \hfill Properties and Julia Foundations}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Apr~7 &
+Ordering of means. KL divergence connection. Transformations: canonical-classical relationship &
+Julia essentials: functions, types, arrays. Plotting generalized means \newline
+\href{https://julia.quantecon.org/getting_started_julia/julia_essentials.html}{[QE L3]},
+\href{https://julia.quantecon.org/getting_started_julia/fundamental_types.html}{[QE L4]},
+\href{https://julia.quantecon.org/getting_started_julia/introduction_to_types.html}{[QE L5]} \\[4pt]
+Thu Apr~9 &
+Canonical optimization: expenditure minimization &
+Implementing generalized means. Special cases. Level curves \newline
+\href{https://julia.quantecon.org/more_julia/quadrature_interpolation.html}{[QE L8]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 3 \hfill Optimization and Comparative Statics}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Apr~14 &
+Duality. Price indices. Budget shares &
+Optimization in Julia. Expenditure minimization. Price indices numerically \newline
+\href{https://julia.quantecon.org/more_julia/optimization_solver_packages.html}{[QE L10]} \\[4pt]
+Thu Apr~16 &
+Comparative statics: Slutsky decomposition. CES constraints &
+Automatic differentiation. Slutsky decomposition. CES constraints \newline
+\href{https://julia.quantecon.org/more_julia/auto_differentiation.html}{[QE L7]} \\
+\bottomrule
+\end{tabularx}
+
+\begin{calloutnote}[PS1 --- Due Thursday April 23]
+Problem Set 1 covers Part~I: generalized means, properties, optimization, and comparative statics.
+\end{calloutnote}
+
+% -------------------------------------------------------
+\paragraph{Part II: Recursive Structure and Dynamic Programming (Weeks 4--6).}
+This part develops the recursive structure of CES aggregators, introduces dynamic programming, and establishes the Bellman equation as the central analytical tool.
+
+\vspace{0.5em}
+\noindent\textbf{Week 4 \hfill Recursive Structure}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Apr~21 &
+Nested and recursive CES. Two-period problems &
+Nested CES in Julia. Two-period problems \newline
+\href{https://julia.quantecon.org/introduction_dynamics/linear_models.html}{[QE L25]} \\[4pt]
+Thu Apr~23 &
+Epstein-Zin preferences \newline \textbf{PS1 due} &
+Epstein-Zin: numerical implementation \newline \textbf{PS1 due} \newline
+\href{https://julia.quantecon.org/introduction_dynamics/scalar_dynam.html}{[QE L22]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 5 \hfill Markovian Risk and Bellman Equation}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Apr~28 &
+Markovian risk. Invariant distributions &
+Markov chains in Julia. Invariant distributions \newline
+\href{https://julia.quantecon.org/introduction_dynamics/finite_markov.html}{[QE L24]},
+\href{https://julia.quantecon.org/tools_and_techniques/stationary_densities.html}{[QE L19]} \\[4pt]
+Thu Apr~30 &
+Bellman equation. Contraction mappings &
+Bellman equation. Value function iteration \newline
+\href{https://julia.quantecon.org/dynamic_programming/mccall_model.html}{[QE L29]},
+\href{https://julia.quantecon.org/dynamic_programming/optgrowth.html}{[QE L35]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 6 \hfill Dynamic Programming\quad{\normalfont\small Makeup: Fri May~2\enspace·\enspace Thu May~7 cancelled}}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Fri May~2 \newline {\small(makeup)} &
+Value function iteration. Policy functions &
+Policy function iteration. Time iteration. Convergence \newline
+\href{https://julia.quantecon.org/dynamic_programming/coleman_policy_iter.html}{[QE L36]} \\[4pt]
+Tue May~5 &
+Infinite horizon. Convergence \newline \textbf{PS2 due} &
+Infinite horizon. Discrete state DP \newline \textbf{PS2 due} \newline
+\href{https://julia.quantecon.org/dynamic_programming/discrete_dp.html}{[QE L44]} \\
+\bottomrule
+\end{tabularx}
+
+\begin{calloutnote}[PS2 --- Due Tuesday May 5]
+Problem Set 2 covers Part~II: recursive structure, Epstein-Zin, Markovian risk, and dynamic programming.
+\end{calloutnote}
+
+% -------------------------------------------------------
+\paragraph{Part III: Applications (Weeks 7--10).}
+This part applies the recursive CES framework to four canonical models in macroeconomics and finance.
+Each application is largely self-contained.
+
+\vspace{0.5em}
+\noindent\textbf{Week 7 \hfill Recursive Markov and Consumption-Savings}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue May~12 &
+Recursive Markov. Fixed points &
+Recursive Markov. Fixed points numerically \newline
+\href{https://julia.quantecon.org/introduction_dynamics/ar1_processes.html}{[QE L23]},
+\href{https://julia.quantecon.org/software_engineering/need_for_speed.html}{[QE L14]} \\[4pt]
+Thu May~14 &
+Consumption and savings: two-period and T-period &
+Consumption and savings: two-period and T-period \newline
+\href{https://julia.quantecon.org/dynamic_programming/perm_income.html}{[QE L39]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 8 \hfill Consumption-Savings (Infinite Horizon) and Investment I}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue May~19 &
+Consumption and savings: infinite horizon &
+Consumption and savings: infinite horizon \newline
+\href{https://julia.quantecon.org/dynamic_programming/perm_income_cons.html}{[QE L40]},
+\href{https://julia.quantecon.org/dynamic_programming/ifp.html}{[QE L42]} \\[4pt]
+Thu May~21 &
+Investment with adjustment costs I &
+Investment with adjustment costs I: setup and calibration \newline
+\href{https://julia.quantecon.org/dynamic_programming/lqcontrol.html}{[QE L38]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 9 \hfill Investment II and Labor}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue May~26 &
+Investment with adjustment costs II: solution and comparative statics &
+Investment with adjustment costs II: impulse responses \newline
+\href{https://julia.quantecon.org/dynamic_programming/coleman_policy_iter.html}{[QE L36]},
+\href{https://julia.quantecon.org/dynamic_programming/egm_policy_iter.html}{[QE L37]} \\[4pt]
+Thu May~28 &
+Labor and leisure &
+Labor and leisure: implementation and comparative statics \newline
+\href{https://julia.quantecon.org/dynamic_programming/smoothing.html}{[QE L41]} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.8em}
+\noindent\textbf{Week 10 \hfill Dynamic Portfolio Choice and Review}
+\vspace{0.3em}
+
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}YY@{}}
+\toprule
+\textbf{Date} & \textbf{109B\enspace·\enspace Theory} & \textbf{109C\enspace·\enspace Computational} \\
+\midrule
+Tue Jun~2 &
+Dynamic portfolio choice \newline \textbf{PS3 distributed} &
+Dynamic portfolio choice \newline \textbf{PS3 distributed} \newline
+\href{https://julia.quantecon.org/multi_agent_models/markov_asset.html}{[QE L53]},
+\href{https://julia.quantecon.org/multi_agent_models/lucas_model.html}{[QE L54]} \\[4pt]
+Thu Jun~4 &
+Review and synthesis &
+Review and synthesis. Notebook presentations \newline
+\href{https://julia.quantecon.org/software_engineering/testing.html}{[QE L13]} \\
+\bottomrule
+\end{tabularx}
+
+\begin{calloutimportant}[PS3 / Final]
+Problem Set 3 covers Part~III and is distributed Tuesday June~2.\\[0.3em]
+\textbf{ECON 109B} due: Wednesday June~10, 3:00--6:00\,pm.\\
+\textbf{ECON 109C} due: Friday June~12, 8:00--11:00\,am.\\[0.3em]
+Both courses submit via GitHub Classroom.
+\end{calloutimportant}

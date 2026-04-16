@@ -1,0 +1,102 @@
+
+% ==============================================================
+\chapter{Introduction}
+\label{chap:introduction}
+% ==============================================================
+\epigraph{Nature uses only the longest threads to weave her patterns, so each small piece of her fabric reveals the organization of the entire tapestry.}{\textit{Richard Feynman}}
+
+These notes develop a single mathematical object---a CES function or, otherwise, a \emph{generalized mean}---and trace its consequences across a wide range of problems in economics and finance.
+CES function is not an exotic construction: it is the structure underlying CES utility, CRRA risk preferences, CES production functions, and intertemporal discounting.
+What is less well known is that these are not merely analogies.
+They are the same object, parameterized differently, and their shared structure can be exploited systematically.
+
+The payoff is practical.
+Once one recognizes that the consumer's expenditure minimization problem, the firm's cost minimization problem, and the computation of a certainty equivalent are all instances of the same optimization over a generalized mean, the same formulas---price indices, budget shares, elasticity decompositions---apply in every setting.
+
+The goal of these notes is to make this common structure visible and to show how far it extends, including into dynamic and recursive settings where it underpins the tractability of a large class of intertemporal problems.
+
+Several properties make the CES structure particularly well-suited as a workhorse for economic analysis.
+First, the elasticity of substitution is \emph{constant}---it does not vary with prices or quantities---which makes comparative statics transparent and parameter identification clean.
+Second, CES aggregators are homogeneous of degree one, which means that scale and substitution are cleanly separated: adjustment costs, fixed costs, and other non-convexities can be introduced without contaminating the substitution margin with scale effects or income effects.
+Third, the CES family is rich enough to span the full range of substitutability through its limiting cases---perfect complements (Leontief), unit elasticity (Cobb--Douglas), and perfect substitutes (linear)---making it a natural language for discussing flexibility and rigidity in technology and preferences.
+Fourth, income and substitution effects decompose cleanly under CES, yielding closed-form Slutsky expressions that connect directly to observable expenditure shares.
+These properties are not independent: they are all consequences of constant elasticity structure, and together they explain why the same functional form recurs across so many subfields.
+
+Perhaps the most consequential structural insight is that dynamic problems are, in a precise sense, static problems in disguise.
+A consumer choosing consumption across two periods faces the same aggregation problem as one choosing across two goods---with the discount factor playing the role of a preference weight and the interest rate playing the role of a relative price.
+With uncertainty, outcomes across states of the world enter the aggregator alongside outcomes across time, and nested CES structures naturally represent preferences over both dimensions simultaneously---this is the Epstein-Zin framework.
+The recursive decomposition of the generalized mean, developed in Part~\ref{part:recursive}, makes this correspondence exact: a finite-horizon dynamic problem reduces to a sequence of two-good static problems, each solved by the same formulas.
+This is why CES preferences are tractable in dynamic settings while most other functional forms are not.
+The connection extends further, into information theory.
+The Kullback--Leibler divergence---the canonical measure of distance between probability distributions---emerges as a limiting case of the CES aggregator as the elasticity of substitution approaches one.
+This is not a coincidence: it reflects a duality between optimal resource allocation and information compression that runs through the notes.
+The KL divergence appears naturally in the analysis of discrete choice, in the characterization of optimal portfolios, and in the dual representation of expenditure minimization.
+
+% ==============================================================
+\section{Roadmap}
+\label{sec:roadmap}
+% ==============================================================
+
+The notes are organized into five parts, but not every reader needs to follow them in order or in full---think of the book Rayuela, by Julio Cortázar. However, the material has been designed so that two natural paths through the text exist, depending on the reader's background and goals.
+
+\paragraph{A Core Course.}
+The first path is recommended for advanced undergraduates, master's students, and first-year doctoral students encountering these ideas for the first time.
+It begins with Part~\ref{part:tools}, covering generalized means, the canonical optimization problems, and comparative statics---these chapters establish the vocabulary and the core formulas that recur throughout the notes.
+From there, the reader moves directly to Part~\ref{part:recursive} on recursive structure and dynamic programming, which is the analytical heart of the course.
+Part~\ref{part:applications} on applications can then be sampled selectively according to interest: consumption and savings, investment, portfolio choice, and labor--leisure are largely self-contained and can be read in any order.
+On this path, Part~\ref{part:advanced} on advanced topics and the information theory chapter in Part~\ref{part:tools} should be skipped without loss of continuity.
+
+\paragraph{A More Complete Treatment.}
+The second path is intended for second-year doctoral students who wish to go deeper into the structural foundations.
+It follows the notes in full sequence.
+The information theory chapter in Part~\ref{part:tools} reveals the duality between CES aggregation and entropy minimization, and provides the tools needed for the discrete choice and KL representation chapters later in the notes.
+Part~\ref{part:advanced}---production networks, discrete choice, and flexibility---connects the CES framework to the frontier of quantitative macroeconomics and trade.
+Readers on this path are encouraged to work through the computational notebooks in parallel, as the advanced topics are best understood alongside their Julia implementations.
+
+% ==============================================================
+\section{The Computational Companion}
+\label{sec:companion}
+% ==============================================================
+
+These notes are designed to be taken alongside a companion course in computational economics, also implemented in Julia.
+
+The two courses are parallel and complementary: the analytical structure developed here finds its computational expression there.
+Each chapter of these notes has a corresponding set of Jupyter notebooks in the companion course that implement the same formulas, produce the figures appearing in the text, and extend the analysis numerically.
+
+\paragraph{Numerical versus Closed-Form Solutions.}
+A recurring exercise across both courses is to solve the same problem twice---once analytically, deriving the closed-form solution, and once numerically.
+The comparison is deliberate.
+The closed-form solution reveals the economic structure: which parameters matter, how they interact, and what the limiting cases look like.
+The numerical solution builds computational intuition and demonstrates that the formulas are not merely theoretical constructs but can be evaluated efficiently for any parameter configuration.
+When the two agree, the student gains confidence in both; when they diverge, the source of the discrepancy is itself a lesson.
+
+\paragraph{How to Use the Two Courses.}
+Every figure in these notes was produced by the companion notebooks, so the code is always available for inspection.
+Students following both courses are encouraged to treat the notebooks as a laboratory for the analytical results: change a parameter, re-run a cell, and observe how the solution changes.
+Instructors may assign the analytical and computational components of each chapter in parallel, or use the companion notebooks as problem sets that complement the theoretical exposition here.
+
+% ==============================================================
+\section{How to Use These Notes}
+\label{sec:how-to-use}
+% ==============================================================
+
+These notes are self-contained but assume a degree of mathematical maturity.
+A reader comfortable with calculus, basic optimization, and first-year microeconomics or macroeconomics will find the material accessible.
+Some familiarity with dynamic programming is helpful but not required---the relevant concepts are introduced as needed.
+
+\paragraph{Mathematical Conventions.}
+A separate chapter on notation and conventions precedes the main text.
+Readers are encouraged to consult it before proceeding, as the notes use a consistent set of symbols throughout---calligraphic letters for aggregator functions, Greek letters for elasticity parameters, boldface for vectors---and this consistency is part of the analytical payoff of the unified approach.
+
+\paragraph{Callout Boxes.}
+The text makes frequent use of four types of callout boxes.
+\textsc{Notes} provide historical context, economic interpretation, or clarifying remarks that complement the main exposition.
+\textsc{Important} boxes highlight results that recur across chapters or that deserve particular attention.
+\textsc{Tips} contain exercises---some are routine verifications, others are small extensions that anticipate later material.
+\textsc{Caution} boxes flag notational choices or special cases where confusion is easy.
+Exercises are embedded in the text rather than collected at the end of each chapter, and readers are encouraged to attempt them before moving on.
+
+\paragraph{Prerequisites and Selectivity.}
+The two suggested paths through the notes are described in the Roadmap section above.
+In both cases, the chapters within each part are largely self-contained, and individual sections can be read selectively.
+Cross-references indicate when a result from an earlier chapter is being used, so a reader who skips ahead will know exactly what to retrieve.

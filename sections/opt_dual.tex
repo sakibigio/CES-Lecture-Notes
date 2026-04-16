@@ -1,0 +1,468 @@
+% ==============================================================
+\section{The Dual Problem}
+\label{sec:dual-problem}
+% ==============================================================
+
+Every maximization problem has an associated minimization problem---its \emph{dual}. For CES optimization, the dual asks: what is the minimum cost to achieve a target level of the generalized mean? This section develops the dual problem and establishes the fundamental duality relations that connect the two formulations.
+
+% --------------------------------------------------------------
+\subsection{Primal and Dual: Side by Side}
+\label{subsec:primal-dual-setup}
+% --------------------------------------------------------------
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=gray!60,
+  title={\textbf{The Two Problems}},
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  arc=2pt
+]
+\begin{minipage}[t]{0.47\textwidth}
+\begin{center}
+\textbf{Primal Problem}
+\end{center}
+\vspace{-0.5em}
+\begin{equation*}
+\max_{\bx} \; \M(\bx; \bom, \rho)
+\end{equation*}
+subject to
+\begin{equation*}
+\sum_{i=1}^{n} p_i x_i = W
+\end{equation*}
+
+\medskip
+\textit{Given}: Wealth $W$, prices $\mathbf{p}$
+
+\textit{Find}: Optimal quantities $\bx^*$
+
+\textit{Value}: Maximum utility $\M^*$
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+\begin{center}
+\textbf{Dual Problem}
+\end{center}
+\vspace{-0.5em}
+\begin{equation*}
+\min_{\bx} \; \sum_{i=1}^{n} p_i x_i
+\end{equation*}
+subject to
+\begin{equation*}
+\M(\bx; \bom, \rho) \geq \bar{m}
+\end{equation*}
+
+\medskip
+\textit{Given}: Target $\bar{m}$, prices $\mathbf{p}$
+
+\textit{Find}: Cost-minimizing quantities $\bx^c$
+
+\textit{Value}: Minimum cost $C$
+\end{minipage}
+\end{tcolorbox}
+
+The primal problem asks: ``Given a budget, what is the best outcome?'' The dual asks: ``Given a target outcome, what is the cheapest way to achieve it?''
+
+% --------------------------------------------------------------
+\subsection{Solving the Dual Problem}
+\label{subsec:dual-solution}
+% --------------------------------------------------------------
+
+\paragraph{First-Order Conditions.}
+The Lagrangian for the dual problem is:
+\begin{equation}
+\mathcal{L} = \sum_{i=1}^{n} p_i x_i - \mu \left[ \M(\bx; \bom, \rho) - \bar{m} \right],
+\end{equation}
+where $\mu \geq 0$ is the multiplier on the utility constraint.
+
+The first-order conditions are:
+\begin{equation}
+\label{eq:dual-foc}
+p_i = \mu \cdot \frac{\partial \M}{\partial x_i} = \mu \cdot \M^{1-\rho} \cdot \omega_i^{1-\rho} x_i^{\rho-1}, \qquad i = 1, \ldots, n.
+\end{equation}
+
+\paragraph{The Key Observation.}
+Taking the ratio of FOCs for goods $i$ and $j$:
+\begin{equation}
+\frac{p_i}{p_j} = \frac{\omega_i^{1-\rho} x_i^{\rho-1}}{\omega_j^{1-\rho} x_j^{\rho-1}}.
+\end{equation}
+This is \emph{identical} to the primal FOC ratio! The optimality condition---marginal rate of substitution equals price ratio---is the same in both problems.
+
+\paragraph{Binding Constraint.}
+At the optimum, the constraint binds: $\M(\bx^c; \bom, \rho) = \bar{m}$. (If it did not bind, we could reduce some $x_i$ and lower cost while still satisfying the constraint.)
+
+\paragraph{Solution.}
+Since the FOC ratios are identical, the cost-minimizing allocation has the same \emph{structure} as the utility-maximizing allocation. From \cref{sec:transformation-approach}, the optimal budget shares are:
+\begin{equation}
+w_i^c = \frac{\omega_i \, p_i^{\rho/(\rho-1)}}{\Ssum_p} = \tilde{\omega}_i.
+\end{equation}
+
+The difference is in the \emph{scale}. In the primal, wealth $W$ is given and determines $\M^*$. In the dual, the target $\bar{m}$ is given and determines the required expenditure.
+
+\begin{proposition}[Compensated Demand]
+\label{prop:compensated-demand}
+The cost-minimizing quantities (compensated or Hicksian demands) are:
+\begin{equation}
+\label{eq:compensated-demand}
+\boxed{x_i^c(\mathbf{p}, \bar{m}) = \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \cdot \bar{m}.}
+\end{equation}
+\end{proposition}
+
+Compare with the primal solution: $x_i^* = \omega_i (p_i/\Pstar)^{-\varepsilon} \cdot (W/\Pstar)$. The structure is identical---only the last factor differs:
+\begin{itemize}[leftmargin=2em]
+\item Primal: scale factor is $\M^* = W/\Pstar$ (endogenous)
+\item Dual: scale factor is $\bar{m}$ (given)
+\end{itemize}
+
+% --------------------------------------------------------------
+\subsection{The Cost Function}
+\label{subsec:cost-function}
+% --------------------------------------------------------------
+
+The minimum cost to achieve utility level $\bar{m}$ defines the \emph{cost function} (or \emph{expenditure function} in consumer theory).
+
+\begin{proposition}[Cost Function]
+\label{prop:cost-function}
+The cost function is:
+\begin{equation}
+\label{eq:cost-function}
+\boxed{C(\mathbf{p}, \bar{m}) = \Pstar \cdot \bar{m}.}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Total expenditure at the optimum is:
+\begin{align}
+C &= \sum_{i=1}^{n} p_i x_i^c = \sum_{i=1}^{n} p_i \cdot \omega_i \left( \frac{p_i}{\Pstar} \right)^{-\varepsilon} \bar{m} \notag \\
+&= \bar{m} \sum_{i=1}^{n} \omega_i \, p_i^{1-\varepsilon} \, (\Pstar)^{\varepsilon} \notag \\
+&= \bar{m} \cdot (\Pstar)^{\varepsilon} \sum_{i=1}^{n} \omega_i \, p_i^{1-\varepsilon}.
+\end{align}
+Now, $1 - \varepsilon = 1 - \frac{1}{1-\rho} = \frac{-\rho}{1-\rho} = \frac{\rho}{\rho-1}$. So:
+\[
+\sum_{i=1}^{n} \omega_i \, p_i^{1-\varepsilon} = \sum_{i=1}^{n} \omega_i \, p_i^{\rho/(\rho-1)} = \Ssum_p = (\Pstar)^{\rho/(\rho-1)} = (\Pstar)^{1-\varepsilon}.
+\]
+Therefore:
+\[
+C = \bar{m} \cdot (\Pstar)^{\varepsilon} \cdot (\Pstar)^{1-\varepsilon} = \bar{m} \cdot \Pstar. \qedhere
+\]
+\end{proof}
+
+\begin{calloutnote}[The Price Index as Unit Cost]
+The cost function $C = \Pstar \cdot \bar{m}$ reveals the economic meaning of the price index: $\Pstar$ is the \textbf{cost per unit of the generalized mean}. To achieve one unit of $\M$, you must spend $\Pstar$ dollars. The price index converts between ``utils'' and dollars.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Comparison of Solutions}
+\label{subsec:comparison}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Primal vs.\ Dual: Complete Comparison}
+\label{tab:primal-dual}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Primal} & \textbf{Dual} \\
+\midrule
+\textit{Objective} & $\max \M(\bx)$ & $\min \sum_i p_i x_i$ \\[4pt]
+\textit{Constraint} & $\sum_i p_i x_i = W$ & $\M(\bx) \geq \bar{m}$ \\[4pt]
+\textit{Given} & Wealth $W$ & Target $\bar{m}$ \\[4pt]
+\textit{Value function} & $V(\mathbf{p}, W) = \dfrac{W}{\Pstar}$ & $C(\mathbf{p}, \bar{m}) = \Pstar \cdot \bar{m}$ \\[12pt]
+\textit{Optimal quantity} & $x_i^* = \omega_i \left(\dfrac{p_i}{\Pstar}\right)^{-\varepsilon} \dfrac{W}{\Pstar}$ & $x_i^c = \omega_i \left(\dfrac{p_i}{\Pstar}\right)^{-\varepsilon} \bar{m}$ \\[12pt]
+\textit{Budget share} & $w_i^* = \tilde{\omega}_i$ & $w_i^c = \tilde{\omega}_i$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+The budget shares are identical in both problems---they depend only on prices and preference parameters, not on the scale of the problem (wealth or target utility).
+
+% --------------------------------------------------------------
+\subsection{Shephard's Lemma}
+\label{subsec:shephard}
+% --------------------------------------------------------------
+
+A fundamental result in duality theory connects the cost function to compensated demands.
+
+\begin{proposition}[Shephard's Lemma]
+\label{prop:shephard}
+The compensated demand for good $i$ equals the partial derivative of the cost function with respect to $p_i$:
+\begin{equation}
+\label{eq:shephard}
+\boxed{x_i^c(\mathbf{p}, \bar{m}) = \frac{\partial C(\mathbf{p}, \bar{m})}{\partial p_i}.}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+From $C = \Pstar \cdot \bar{m}$:
+\[
+\frac{\partial C}{\partial p_i} = \bar{m} \cdot \frac{\partial \Pstar}{\partial p_i}.
+\]
+From \cref{prop:price-elasticity}, $\frac{\partial \ln \Pstar}{\partial \ln p_i} = w_i^c$, so $\frac{\partial \Pstar}{\partial p_i} = \frac{\Pstar}{p_i} \cdot w_i^c$. Therefore:
+\[
+\frac{\partial C}{\partial p_i} = \bar{m} \cdot \frac{\Pstar}{p_i} \cdot w_i^c = \frac{\bar{m} \cdot \Pstar \cdot w_i^c}{p_i} = \frac{C \cdot w_i^c}{p_i}.
+\]
+Since $w_i^c = p_i x_i^c / C$, we have:
+\[
+\frac{\partial C}{\partial p_i} = \frac{C}{p_i} \cdot \frac{p_i x_i^c}{C} = x_i^c. \qedhere
+\]
+\end{proof}
+
+\begin{calloutnote}[Intuition for Shephard's Lemma]
+Shephard's lemma is an application of the envelope theorem. When $p_i$ increases, the cost of achieving $\bar{m}$ rises. The rate of increase equals the quantity $x_i^c$ being purchased at that price---you pay more for exactly the units you're buying. The reoptimization effect (substituting away from good $i$) is second-order and vanishes in the derivative.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Roy's Identity}
+\label{subsec:roy}
+% --------------------------------------------------------------
+
+An analogous result connects the indirect utility function to Marshallian demands in the primal problem.
+
+\begin{proposition}[Roy's Identity]
+\label{prop:roy}
+The optimal quantity in the primal problem satisfies:
+\begin{equation}
+\label{eq:roy}
+\boxed{x_i^*(\mathbf{p}, W) = -\frac{\partial V / \partial p_i}{\partial V / \partial W}.}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+From $V = W / \Pstar$:
+\begin{align}
+\frac{\partial V}{\partial W} &= \frac{1}{\Pstar}, \\[6pt]
+\frac{\partial V}{\partial p_i} &= -\frac{W}{(\Pstar)^2} \cdot \frac{\partial \Pstar}{\partial p_i} = -\frac{W}{(\Pstar)^2} \cdot \frac{\Pstar}{p_i} \cdot w_i^* = -\frac{W \cdot w_i^*}{\Pstar \cdot p_i}.
+\end{align}
+Therefore:
+\[
+-\frac{\partial V / \partial p_i}{\partial V / \partial W} = -\frac{-W \cdot w_i^* / (\Pstar \cdot p_i)}{1/\Pstar} = \frac{W \cdot w_i^*}{p_i} = x_i^*. \qedhere
+\]
+\end{proof}
+
+\begin{calloutnote}[Intuition for Roy's Identity]
+When $p_i$ rises, utility falls. Roy's identity says the rate of utility loss, normalized by the marginal utility of wealth, equals the quantity consumed. You lose utility in proportion to how much of good $i$ you were buying.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Fundamental Duality Relations}
+\label{subsec:duality-relations}
+% --------------------------------------------------------------
+
+The value function $V$ and cost function $C$ are inverses of each other.
+
+\begin{proposition}[Duality]
+\label{prop:duality}
+For any prices $\mathbf{p}$:
+\begin{align}
+V(\mathbf{p}, C(\mathbf{p}, \bar{m})) &= \bar{m}, \label{eq:duality-1} \\[4pt]
+C(\mathbf{p}, V(\mathbf{p}, W)) &= W. \label{eq:duality-2}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+For \cref{eq:duality-1}:
+\[
+V(\mathbf{p}, C(\mathbf{p}, \bar{m})) = V(\mathbf{p}, \Pstar \cdot \bar{m}) = \frac{\Pstar \cdot \bar{m}}{\Pstar} = \bar{m}.
+\]
+For \cref{eq:duality-2}:
+\[
+C(\mathbf{p}, V(\mathbf{p}, W)) = C\left(\mathbf{p}, \frac{W}{\Pstar}\right) = \Pstar \cdot \frac{W}{\Pstar} = W. \qedhere
+\]
+\end{proof}
+
+\paragraph{Interpretation.}
+\begin{itemize}[leftmargin=2em]
+\item \Cref{eq:duality-1}: If you have exactly enough wealth to achieve utility $\bar{m}$ at minimum cost, then maximizing utility with that wealth gives you exactly $\bar{m}$.
+\item \Cref{eq:duality-2}: If you maximize utility with wealth $W$, achieving $V$, then the minimum cost to achieve $V$ is exactly $W$.
+\end{itemize}
+
+The two problems contain the same information, just organized differently.
+
+\begin{calloutimportant}[The Complete Duality Picture]
+\textbf{Key relationships:}
+\begin{itemize}[leftmargin=2em, nosep]
+\item $V$ and $C$ are inverses: $V(\mathbf{p}, C(\mathbf{p}, \bar{m})) = \bar{m}$ and $C(\mathbf{p}, V(\mathbf{p}, W)) = W$
+\item Shephard: $x_i^c = \partial C / \partial p_i$
+\item Roy: $x_i^* = -(\partial V / \partial p_i) / (\partial V / \partial W)$
+\item At $W = C(\mathbf{p}, \bar{m})$: demands coincide, i.e., $x_i^*(\mathbf{p}, W) = x_i^c(\mathbf{p}, \bar{m})$
+\end{itemize}
+
+\medskip
+The price index $\Pstar$ is central to both:
+\begin{itemize}[leftmargin=2em, nosep]
+\item In the primal: $\Pstar$ converts wealth to utility ($\M^* = W/\Pstar$)
+\item In the dual: $\Pstar$ converts utility to cost ($C = \Pstar \cdot \bar{m}$)
+\end{itemize}
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Four Canonical Problems}
+\label{subsec:four-problems}
+% --------------------------------------------------------------
+
+The consumer's primal-dual pair is one of two fundamental problem pairs in CES optimization. The other involves \emph{convex} CES aggregators as constraints, arising naturally in production and transformation contexts. Together, these form a complete 2×2 structure.
+
+\paragraph{The Producer Pair.}
+Consider a firm that transforms resources into outputs $\by = (y_1, \ldots, y_n)$ according to a CES technology with $h > 1$:
+\begin{equation}
+\Hfun(\by; \boldsymbol{\eta}, h) = \left( \sum_{i=1}^{n} \eta_i^{1-h} y_i^{h} \right)^{1/h} \leq 1.
+\end{equation}
+The convexity of $\Hfun$ (for $h > 1$) makes this a valid constraint---the feasible set is convex.
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=white,
+  colframe=gray!60,
+  title={\textbf{The Producer Pair}},
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  arc=2pt
+]
+\begin{minipage}[t]{0.47\textwidth}
+\begin{center}
+\textbf{Revenue Maximization}
+\end{center}
+\vspace{-0.5em}
+\begin{equation*}
+\max_{\by} \; \sum_{i=1}^{n} p_i y_i
+\end{equation*}
+subject to
+\begin{equation*}
+\Hfun(\by; \boldsymbol{\eta}, h) \leq 1
+\end{equation*}
+
+\medskip
+\textit{Given}: Capacity (normalized to 1), prices $\mathbf{p}$
+
+\textit{Find}: Optimal outputs $\by^*$
+
+\textit{Value}: Maximum revenue $R^*$
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+\begin{center}
+\textbf{Input Minimization}
+\end{center}
+\vspace{-0.5em}
+\begin{equation*}
+\min_{\by} \; \Hfun(\by; \boldsymbol{\eta}, h)
+\end{equation*}
+subject to
+\begin{equation*}
+\sum_{i=1}^{n} p_i y_i \geq \bar{R}
+\end{equation*}
+
+\medskip
+\textit{Given}: Target revenue $\bar{R}$, prices $\mathbf{p}$
+
+\textit{Find}: Efficient outputs $\by^c$
+
+\textit{Value}: Minimum capacity $\Hfun^*$
+\end{minipage}
+\end{tcolorbox}
+
+\paragraph{Solution of the Producer Pair.}
+The mathematics parallels the consumer pair exactly. Define the \emph{output price index}:
+\begin{equation}
+Q^* = \left( \sum_{j=1}^{n} \eta_j \, p_j^{h/(h-1)} \right)^{(h-1)/h}.
+\end{equation}
+This is a classical mean with power $\tilde{h} = h/(h-1) > 1$.
+
+The solutions are:
+\begin{align}
+R^* &= Q^*, & \Hfun^* &= \frac{\bar{R}}{Q^*}, \\[6pt]
+y_i^* &= \eta_i \left( \frac{p_i}{Q^*} \right)^{1/(h-1)}, & y_i^c &= \eta_i \left( \frac{p_i}{Q^*} \right)^{1/(h-1)} \cdot \frac{\bar{R}}{Q^*}.
+\end{align}
+
+The duality relations mirror those for the consumer:
+\begin{itemize}[leftmargin=2em]
+\item Revenue function $R(Q^*) = Q^*$ converts capacity to revenue
+\item Capacity function $\Hfun^* = \bar{R}/Q^*$ converts revenue to required capacity
+\item $Q^*$ plays the role of $\Pstar$: the price index that mediates the duality
+\end{itemize}
+
+\paragraph{The Complete 2×2 Structure.}
+
+\begin{table}[H]
+\centering
+\caption{The Four Canonical CES Optimization Problems}
+\label{tab:four-problems}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}l|cc@{}}
+\toprule
+& \textbf{CES Objective} & \textbf{Linear Objective} \\
+\midrule
+\textbf{Linear} & \textit{Consumer Primal} & \textit{Producer Dual} \\
+\textbf{Constraint} & max $\M(\bx)$ s.t.\ $\sum p_i x_i = W$ & min $\Hfun(\by)$ s.t.\ $\sum p_i y_i \geq \bar{R}$ \\
+& $\M^* = W/\Pstar$ & $\Hfun^* = \bar{R}/Q^*$ \\
+\midrule
+\textbf{CES} & \textit{Consumer Dual} & \textit{Producer Primal} \\
+\textbf{Constraint} & min $\sum p_i x_i$ s.t.\ $\M(\bx) \geq \bar{m}$ & max $\sum p_i y_i$ s.t.\ $\Hfun(\by) \leq 1$ \\
+& $C = \Pstar \cdot \bar{m}$ & $R^* = Q^*$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{calloutimportant}[Curvature and Problem Type]
+The key insight is that curvature determines role:
+
+\medskip
+\textbf{Concave CES} ($\rho < 1$): Appears as \textit{objectives} to maximize or constraints to \textit{achieve}
+\begin{itemize}[nosep, leftmargin=2em]
+\item Consumer primal: maximize $\M(\bx)$ (concave objective)
+\item Consumer dual: achieve $\M(\bx) \geq \bar{m}$ (sublevel set is convex)
+\end{itemize}
+
+\medskip
+\textbf{Convex CES} ($h > 1$): Appears as \textit{constraints} to satisfy or objectives to \textit{minimize}
+\begin{itemize}[nosep, leftmargin=2em]
+\item Producer primal: satisfy $\Hfun(\by) \leq 1$ (sublevel set is convex)
+\item Producer dual: minimize $\Hfun(\by)$ (convex objective)
+\end{itemize}
+
+\medskip
+In all four problems, a price index emerges from the CES component: $\Pstar$ from concave $\M$, and $Q^*$ from convex $\Hfun$. This index mediates the conversion between the two sides of each duality.
+\end{calloutimportant}
+
+\paragraph{Why This Structure Matters.}
+The four-problem structure becomes essential when we study:
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{General equilibrium}: Consumers solve the consumer pair; firms solve the producer pair; prices equilibrate both.
+\item \textbf{Nested problems}: A consumer who owns a firm solves a CES/CES problem---concave utility over convex production possibilities.
+\item \textbf{Transformation frontiers}: Economy-wide constraints on what can be produced take the producer form.
+\end{enumerate}
+
+% --------------------------------------------------------------
+\subsection{Marshallian vs.\ Hicksian Demand}
+\label{subsec:marshallian-hicksian}
+% --------------------------------------------------------------
+
+The primal yields \emph{Marshallian} (uncompensated) demands $x_i^*(\mathbf{p}, W)$; the dual yields \emph{Hicksian} (compensated) demands $x_i^c(\mathbf{p}, \bar{m})$.
+
+\paragraph{When are they equal?}
+The two coincide when the wealth in the primal equals the cost in the dual:
+\begin{equation}
+x_i^*(\mathbf{p}, W) = x_i^c(\mathbf{p}, \bar{m}) \quad \text{if and only if} \quad W = C(\mathbf{p}, \bar{m}) = \Pstar \cdot \bar{m}.
+\end{equation}
+Equivalently, when $\bar{m} = V(\mathbf{p}, W) = W/\Pstar$.
+
+\paragraph{Slutsky Decomposition.}
+The difference between Marshallian and Hicksian price responses is the \emph{income effect}. For CES preferences, the Slutsky equation takes the form:
+\begin{equation}
+\frac{\partial x_i^*}{\partial p_j} = \underbrace{\frac{\partial x_i^c}{\partial p_j}}_{\text{substitution effect}} - \underbrace{x_j^* \frac{\partial x_i^*}{\partial W}}_{\text{income effect}}.
+\end{equation}
+
+The Hicksian cross-price effect is always positive (goods are net substitutes in CES). Whether goods are \emph{gross} substitutes (positive Marshallian cross-price effect) depends on whether the substitution effect dominates the income effect.
+
+\begin{calloutnote}[Gross vs.\ Net Substitutes]
+In CES:
+\begin{itemize}[nosep]
+\item Goods are always \textbf{net substitutes} (Hicksian cross-price effect positive)
+\item Goods are \textbf{gross substitutes} if $\varepsilon > 1$ (substitution effect dominates)
+\item Goods are \textbf{gross complements} if $\varepsilon < 1$ (income effect dominates)
+\item At Cobb-Douglas ($\varepsilon = 1$), goods are \textbf{gross independent}---Marshallian demand for $i$ is unaffected by $p_j$
+\end{itemize}
+The comparative statics chapter develops these elasticities in detail.
+\end{calloutnote}

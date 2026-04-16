@@ -1,0 +1,240 @@
+% ==============================================================
+% Section 3: The Consumption-Portfolio Problem
+% ==============================================================
+
+\section{The Consumption-Portfolio Problem}
+\label{sec:consumption-portfolio}
+
+We now embed portfolio choice within the full dynamic consumption-savings problem. The key insight is that with homothetic preferences, the problem has a nested structure: portfolio allocation is an ``inner'' problem whose solution feeds into the ``outer'' consumption-savings decision. This separation dramatically simplifies the analysis.
+
+% --------------------------------------------------------------
+\subsection{The Sequential Problem}
+\label{subsec:sequential-problem}
+% --------------------------------------------------------------
+
+\paragraph{Setup.}
+
+Consider an investor with initial wealth $W_t$ at time $t$. The investor:
+\begin{enumerate}[nosep]
+    \item Chooses consumption $c_t$
+    \item Allocates savings $W_t - c_t$ across $J$ assets with random returns $(R_{t+1}^1, \ldots, R_{t+1}^J)$
+    \item Receives wealth $W_{t+1} = (W_t - c_t) \sum_{j=1}^{J} \alpha_j R_{t+1}^j$ next period
+\end{enumerate}
+
+Let $R_{t+1}^p(\balpha) = \sum_{j=1}^{J} \alpha_j R_{t+1}^j$ denote the portfolio return given weights $\balpha = (\alpha_1, \ldots, \alpha_J)$ with $\sum_j \alpha_j = 1$.
+
+\paragraph{The Bellman Equation.}
+
+With Epstein-Zin preferences, the value function satisfies
+\begin{equation}
+V_t(W_t) = \max_{c_t, \balpha} \left[ (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t\left[ V_{t+1}(W_{t+1})^{1-\gamma} \right] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}}
+\label{eq:bellman-ez}
+\end{equation}
+subject to
+\begin{equation}
+W_{t+1} = (W_t - c_t) R_{t+1}^p(\balpha).
+\label{eq:wealth-evolution}
+\end{equation}
+
+This is a joint optimization over consumption $c_t$ and portfolio weights $\balpha$. The challenge is that both decisions interact through the budget constraint and the continuation value.
+
+% --------------------------------------------------------------
+\subsection{Nesting of Decisions}
+\label{subsec:nesting}
+% --------------------------------------------------------------
+
+The structure of \eqref{eq:bellman-ez} suggests a natural decomposition: first optimize the portfolio for any given level of savings, then optimize consumption taking into account the value of optimally invested savings.
+
+\paragraph{The Inner Problem: Portfolio Choice.}
+
+Fix savings $S_t = W_t - c_t > 0$. The portfolio problem is
+\begin{equation}
+\max_{\balpha} \; \mu_t\left( S_t \cdot R_{t+1}^p(\balpha) \right),
+\label{eq:inner-problem}
+\end{equation}
+where $\mu_t(\cdot)$ denotes the certainty equivalent of next period's wealth mapped through the continuation value:
+\begin{equation}
+\mu_t(W_{t+1}) = \left( \E_t\left[ V_{t+1}(W_{t+1})^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:mu-continuation}
+\end{equation}
+
+\paragraph{Homogeneity is the Key.}
+
+The crucial observation is that with homothetic preferences, the value function is homogeneous in wealth:
+\begin{equation}
+V_{t+1}(W_{t+1}) = W_{t+1} \cdot v_{t+1},
+\label{eq:value-homogeneity}
+\end{equation}
+where $v_{t+1}$ is the ``normalized'' value that depends on state variables other than wealth (e.g., investment opportunities, labor income ratios) but not on the level of wealth itself.
+
+Substituting into \eqref{eq:mu-continuation}:
+\begin{align}
+\mu_t(S_t \cdot R_{t+1}^p) &= \left( \E_t\left[ \left( S_t \cdot R_{t+1}^p \cdot v_{t+1} \right)^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}} \notag \\
+&= S_t \cdot \left( \E_t\left[ \left( R_{t+1}^p \cdot v_{t+1} \right)^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:mu-factored}
+\end{align}
+
+The savings level $S_t$ factors out! This means the portfolio problem \eqref{eq:inner-problem} reduces to
+\begin{equation}
+\max_{\balpha} \; \left( \E_t\left[ \left( R_{t+1}^p(\balpha) \cdot v_{t+1} \right)^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}},
+\label{eq:portfolio-problem-reduced}
+\end{equation}
+which is independent of the level of savings.
+
+\begin{proposition}[Separation of Portfolio Choice]
+\label{prop:portfolio-separation}
+With homothetic Epstein-Zin preferences, the optimal portfolio weights $\balpha\opt$ are independent of:
+\begin{enumerate}[label=(\roman*), nosep]
+    \item Current wealth $W_t$
+    \item Current consumption $c_t$
+    \item The savings rate $s_t = (W_t - c_t)/W_t$
+\end{enumerate}
+Portfolio choice depends only on the distribution of returns and the normalized continuation value $v_{t+1}$.
+\end{proposition}
+
+\paragraph{The Outer Problem: Consumption-Savings.}
+
+Given the optimal portfolio, define the \emph{certainty equivalent return}:
+\begin{equation}
+R_t^{CE} \equiv \left( \E_t\left[ \left( R_{t+1}^p(\balpha\opt) \cdot v_{t+1} \right)^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ce-return}
+\end{equation}
+
+The Bellman equation \eqref{eq:bellman-ez} becomes
+\begin{equation}
+V_t(W_t) = \max_{c_t} \left[ (1-\beta) c_t^{1-1/\theta} + \beta \left( (W_t - c_t) \cdot R_t^{CE} \right)^{1-1/\theta} \right]^{\frac{1}{1-1/\theta}}.
+\label{eq:outer-problem}
+\end{equation}
+
+This is now a \emph{deterministic} optimization problem in $c_t$---all uncertainty has been absorbed into the certainty equivalent return $R_t^{CE}$.
+
+\paragraph{The Consumption Rule.}
+
+The first-order condition for \eqref{eq:outer-problem} yields the optimal consumption-wealth ratio.
+
+\begin{proposition}[Optimal Consumption]
+\label{prop:optimal-consumption}
+The optimal consumption policy is linear in wealth:
+\begin{equation}
+c_t\opt = m_t \cdot W_t,
+\label{eq:consumption-rule}
+\end{equation}
+where the marginal propensity to consume $m_t$ satisfies
+\begin{equation}
+\frac{m_t}{1 - m_t} = \left( \frac{1-\beta}{\beta} \right)^{\theta} \left( R_t^{CE} \right)^{\theta - 1}.
+\label{eq:mpc-formula}
+\end{equation}
+Equivalently,
+\begin{equation}
+m_t = \frac{1}{1 + \left( \frac{\beta}{1-\beta} \right)^{\theta} \left( R_t^{CE} \right)^{\theta - 1}}.
+\label{eq:mpc-explicit}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Write $s = W_t - c_t$ for savings. The objective \eqref{eq:outer-problem} is
+\[
+\left[ (1-\beta) c^{1-1/\theta} + \beta (s \cdot R_t^{CE})^{1-1/\theta} \right]^{\frac{1}{1-1/\theta}}.
+\]
+The FOC with respect to $c$ (using $ds/dc = -1$) is
+\[
+(1-\beta) c^{-1/\theta} = \beta (s \cdot R_t^{CE})^{-1/\theta} \cdot R_t^{CE}.
+\]
+Rearranging:
+\[
+\frac{c}{s} = \left( \frac{1-\beta}{\beta} \right)^{\theta} (R_t^{CE})^{\theta - 1}.
+\]
+Since $c/s = m/(1-m)$ when $c = mW$ and $s = (1-m)W$, we obtain \eqref{eq:mpc-formula}.
+\end{proof}
+
+\begin{calloutnote}[The Role of the IES]
+The elasticity $\theta$ governs how consumption responds to the certainty equivalent return:
+\begin{itemize}[nosep]
+    \item $\theta > 1$: Higher $R_t^{CE}$ \emph{reduces} current consumption (substitution effect dominates). The investor saves more to exploit good investment opportunities.
+    \item $\theta < 1$: Higher $R_t^{CE}$ \emph{increases} current consumption (income effect dominates). The investor consumes more because future wealth will be higher.
+    \item $\theta = 1$: Consumption-wealth ratio is constant regardless of investment opportunities (log utility).
+\end{itemize}
+This is the \emph{intertemporal} substitution effect, governed by $\theta$---completely separate from risk aversion $\gamma$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Certainty Equivalent of Wealth Growth}
+\label{subsec:ce-wealth-growth}
+% --------------------------------------------------------------
+
+The certainty equivalent return $R_t^{CE}$ is the central object connecting portfolio choice to consumption-savings. It summarizes all relevant information about investment opportunities.
+
+\paragraph{Interpretation.}
+
+The certainty equivalent return answers the question: ``What risk-free return would make the investor indifferent between (i) investing optimally in risky assets and (ii) investing in a safe asset?''
+
+If markets offered a risk-free return equal to $R_t^{CE}$, the investor would achieve the same utility as with the optimal risky portfolio.
+
+\paragraph{Decomposition.}
+
+When the normalized value $v_{t+1}$ is independent of returns (e.g., i.i.d. returns), we can decompose:
+\begin{equation}
+R_t^{CE} = \underbrace{\left( \E_t\left[ (R_{t+1}^{p,*})^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}}_{\text{CE of portfolio return}} \times \underbrace{\left( \E_t\left[ v_{t+1}^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}}_{\text{CE of continuation value}}.
+\label{eq:ce-decomposition}
+\end{equation}
+
+The first term is the certainty equivalent of the optimally invested portfolio return---this is determined by the portfolio problem. The second term reflects uncertainty about future investment opportunities or other state variables.
+
+\paragraph{The i.i.d. Case.}
+
+When returns are i.i.d. and there are no other state variables, $v_{t+1} = v$ is constant. Then
+\begin{equation}
+R_t^{CE} = v \cdot \CE(R_{t+1}^{p,*}),
+\label{eq:ce-iid}
+\end{equation}
+where $\CE(R^{p,*}) = (\E[(R^{p,*})^{1-\gamma}])^{1/(1-\gamma)}$ is the static certainty equivalent of the optimal portfolio return.
+
+\begin{calloutimportant}[The Nested Structure]
+The complete solution has a clean recursive structure:
+
+\textbf{Step 1 (Portfolio):} Solve for optimal weights $\balpha\opt$ by maximizing the certainty equivalent of wealth growth. This is independent of current wealth and consumption.
+
+\textbf{Step 2 (Consumption):} Given $\balpha\opt$, compute $R_t^{CE}$. Then solve for optimal consumption as a fraction of wealth using \eqref{eq:mpc-explicit}.
+
+\textbf{Step 3 (Value):} The value function is $V_t(W_t) = v_t \cdot W_t$, where $v_t$ satisfies a recursion involving $R_t^{CE}$ and $m_t$.
+
+This separation is the payoff from homothetic preferences: a high-dimensional joint optimization decomposes into tractable pieces.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{When Does Separation Fail?}
+\label{subsec:separation-failure}
+% --------------------------------------------------------------
+
+The separation result relies on homotheticity. Several economically important features break this property.
+
+\paragraph{Labor Income.}
+
+If the investor receives non-tradeable labor income $Y_t$, the budget constraint becomes
+\begin{equation}
+W_{t+1} = (W_t + Y_t - c_t) R_{t+1}^p.
+\label{eq:wealth-with-labor}
+\end{equation}
+Now savings $W_t + Y_t - c_t$ depends on the \emph{level} of wealth relative to income. The portfolio problem no longer separates because human capital (the present value of future labor income) is an implicit asset that cannot be traded.
+
+\paragraph{Subsistence or Satiation.}
+
+Preferences with a subsistence level $\bar{c}$,
+\begin{equation}
+u(c) = \frac{(c - \bar{c})^{1-\gamma}}{1-\gamma},
+\label{eq:stone-geary}
+\end{equation}
+are not homothetic in $c$. The portfolio choice depends on how far consumption is from subsistence.
+
+\paragraph{Borrowing Constraints.}
+
+A constraint $W_{t+1} \geq \underline{W}$ introduces a kink in the value function. Near the constraint, the investor becomes effectively more risk averse, altering portfolio choice.
+
+\paragraph{Background Risk.}
+
+Uninsurable risks (health, unemployment, housing) interact with portfolio risk. Even if these risks are independent of asset returns, they affect the marginal utility of wealth and hence portfolio choice.
+
+\begin{calloutnote}[Numerical Methods]
+When separation fails, we must solve the joint consumption-portfolio problem numerically. The state space includes wealth plus any variables affecting labor income, constraints, or background risk. This is where the ``curse of dimensionality'' from Chapter~\ref{chap:introduction} bites---and where the computational methods developed later become essential.
+\end{calloutnote}
+

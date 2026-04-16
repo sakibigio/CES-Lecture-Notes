@@ -1,0 +1,399 @@
+% ==============================================================
+\section{Capital Heterogeneity}
+\label{sec:ac-heterogeneity}
+% ==============================================================
+
+We now introduce multiple capital types, indexed by $i \in \{1, 2, \ldots, N\}$. This extension connects adjustment costs to portfolio theory: the planner allocates investment across sectors, facing a trade-off between diversification and the curvature of the production technology. The CES structure appears at two levels---in the transformation of output into consumption and investment, and in the aggregation of different capital types into output.
+
+% --------------------------------------------------------------
+\subsection{Setup with Multiple Capital Types}
+\label{subsec:ac-het-setup}
+% --------------------------------------------------------------
+
+\paragraph{Technology.}
+The economy has $N$ types of capital, with stocks $\bk = (k_1, \ldots, k_N)$. Output is produced by a CES aggregator over effective capital inputs:
+\begin{equation}
+Y = \F(\bk) = \left( \sum_{i=1}^{N} \alpha_i^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma},
+\label{eq:ac-het-production}
+\end{equation}
+where $\sigma \in (-\infty, 1]$ is the power parameter and $\alpha_i > 0$ are weights satisfying $\sum_i \alpha_i = 1$. The elasticity of substitution across capital types is:
+\begin{equation}
+\varepsilon = \frac{1}{1 - \sigma}.
+\label{eq:ac-het-epsilon}
+\end{equation}
+
+\paragraph{Transformation Technology.}
+Output is transformed into consumption $C$ and a vector of investments $\bI = (I_1, \ldots, I_N)$ through a CES aggregator:
+\begin{equation}
+\Hfun(C, \bI) = \left( \omega_C^{1-\psi} C^{\psi} + \sum_{i=1}^{N} \omega_i^{1-\psi} I_i^{\psi} \right)^{1/\psi} = Y,
+\label{eq:ac-het-transformation}
+\end{equation}
+where $\psi$ governs the transformation elasticity $\eta = 1/(1-\psi)$, and the weights satisfy $\omega_C + \sum_i \omega_i = 1$.
+
+\paragraph{Capital Accumulation.}
+With full depreciation ($\delta = 1$):
+\begin{equation}
+k_i' = I_i, \qquad i = 1, \ldots, N.
+\label{eq:ac-het-accum}
+\end{equation}
+
+\paragraph{Notation.}
+We use bold for vectors: $\bk = (k_1, \ldots, k_N)$, $\bI = (I_1, \ldots, I_N)$, $\boldsymbol{\alpha} = (\alpha_1, \ldots, \alpha_N)$, $\boldsymbol{\omega} = (\omega_1, \ldots, \omega_N)$. Let $\be$ denote the vector of ones, so aggregate capital is $K = \be^\top \bk = \sum_i k_i$.
+
+% --------------------------------------------------------------
+\subsection{The Two-Period Problem}
+\label{subsec:ac-het-two-period}
+% --------------------------------------------------------------
+
+Consider the two-period problem. The planner enters period 0 with capital stocks $\bk_0$ and chooses $(C_0, \bI_0)$ to maximize:
+\begin{equation}
+\max_{C_0, \bI_0} \left\{ u(C_0) + \beta \, u(C_1) \right\}
+\label{eq:ac-het-objective}
+\end{equation}
+subject to:
+\begin{align}
+\Hfun(C_0, \bI_0) &= \F(\bk_0), \label{eq:ac-het-constraint0} \\
+C_1 &= \F(\bI_0). \label{eq:ac-het-constraint1}
+\end{align}
+
+\paragraph{The Nested Structure.}
+The problem has a nested structure:
+\begin{enumerate}[nosep]
+\item \textbf{Outer problem}: Allocate output $Y_0$ between consumption $C_0$ and total investment.
+\item \textbf{Inner problem}: Allocate total investment across capital types $\bI_0$ to maximize future output $\F(\bI_0)$.
+\end{enumerate}
+
+This decomposition is possible because future consumption $C_1 = \F(\bI_0)$ depends only on the composition of investment, not on the consumption-investment split.
+
+% --------------------------------------------------------------
+\subsection{The Portfolio Problem}
+\label{subsec:ac-het-portfolio}
+% --------------------------------------------------------------
+
+\paragraph{Defining Portfolio Shares.}
+Let $\bar{I} = \sum_i I_i$ denote total investment and define portfolio shares:
+\begin{equation}
+\phi_i \equiv \frac{I_i}{\bar{I}}, \qquad \sum_{i=1}^{N} \phi_i = 1.
+\label{eq:ac-het-shares}
+\end{equation}
+
+Future output can be written as:
+\begin{equation}
+\F(\bI) = \F(\phi_1 \bar{I}, \ldots, \phi_N \bar{I}) = \bar{I} \cdot \F(\boldsymbol{\phi}),
+\label{eq:ac-het-F-homog}
+\end{equation}
+using the homogeneity of $\F$. Here $\F(\boldsymbol{\phi})$ is the ``return per unit of investment'' given portfolio $\boldsymbol{\phi}$:
+\begin{equation}
+\F(\boldsymbol{\phi}) = \left( \sum_{i=1}^{N} \alpha_i^{1-\sigma} \phi_i^{\sigma} \right)^{1/\sigma}.
+\label{eq:ac-het-F-phi}
+\end{equation}
+
+\paragraph{The Inner Problem: Optimal Portfolio.}
+The planner chooses $\boldsymbol{\phi}$ to maximize the return per unit of investment:
+\begin{equation}
+\max_{\boldsymbol{\phi}} \; \F(\boldsymbol{\phi}) = \left( \sum_{i=1}^{N} \alpha_i^{1-\sigma} \phi_i^{\sigma} \right)^{1/\sigma} \quad \text{subject to} \quad \sum_{i=1}^{N} \phi_i = 1.
+\label{eq:ac-het-inner}
+\end{equation}
+
+This is exactly the canonical CES optimization problem! Applying our standard results:
+
+\begin{proposition}[Optimal Investment Portfolio]
+\label{prop:ac-het-portfolio}
+The optimal portfolio shares are:
+\begin{equation}
+\phi_i^* = \alpha_i.
+\label{eq:ac-het-phi-star}
+\end{equation}
+The maximized return per unit of investment is:
+\begin{equation}
+\F^* \equiv \F(\boldsymbol{\alpha}) = \left( \sum_{i=1}^{N} \alpha_i^{1-\sigma} \alpha_i^{\sigma} \right)^{1/\sigma} = \left( \sum_{i=1}^{N} \alpha_i \right)^{1/\sigma} = 1.
+\label{eq:ac-het-F-star}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+This follows directly from the benchmark solution (Proposition~\ref{prop:benchmark}): with equal ``prices'' (the constraint $\sum_i \phi_i = 1$ has uniform coefficients), the optimal allocation equals the canonical weights.
+\end{proof}
+
+\begin{calloutnote}[Portfolio Separation]
+The optimal portfolio $\phi_i^* = \alpha_i$ is \emph{independent} of:
+\begin{itemize}[nosep]
+\item The level of total investment $\bar{I}$.
+\item The transformation elasticity $\eta$.
+\item The discount factor $\beta$ and IES $\theta$.
+\end{itemize}
+This is a separation result: the composition of investment is determined solely by the production technology (through $\boldsymbol{\alpha}$), while the level of investment is determined by the consumption-savings trade-off.
+
+The result $\F^* = 1$ (with our normalization $\sum_i \alpha_i = 1$) means that one unit of optimally allocated investment produces one unit of future output.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Outer Problem: Consumption vs. Investment}
+\label{subsec:ac-het-outer}
+% --------------------------------------------------------------
+
+Given the optimal portfolio, future consumption is $C_1 = \F(\bI_0) = \bar{I}_0 \cdot \F^* = \bar{I}_0$ (using $\F^* = 1$). The problem reduces to choosing $(C_0, \bar{I}_0)$:
+\begin{equation}
+\max_{C_0, \bar{I}_0} \left\{ u(C_0) + \beta \, u(\bar{I}_0) \right\} \quad \text{subject to} \quad \Hfun(C_0, \bI_0) = Y_0,
+\label{eq:ac-het-outer}
+\end{equation}
+where $\bI_0 = \boldsymbol{\alpha} \bar{I}_0$ (the optimal portfolio).
+
+\paragraph{The Effective Transformation.}
+Substituting $I_i = \alpha_i \bar{I}$ into the transformation function:
+\begin{equation}
+\Hfun(C, \boldsymbol{\alpha} \bar{I}) = \left( \omega_C^{1-\psi} C^{\psi} + \sum_{i=1}^{N} \omega_i^{1-\psi} (\alpha_i \bar{I})^{\psi} \right)^{1/\psi}.
+\label{eq:ac-het-H-sub}
+\end{equation}
+
+Define the \emph{effective investment weight}:
+\begin{equation}
+\tilde{\omega}_I \equiv \left( \sum_{i=1}^{N} \omega_i^{1-\psi} \alpha_i^{\psi} \right)^{1/(1-\psi)}.
+\label{eq:ac-het-omega-tilde}
+\end{equation}
+
+Then the transformation simplifies to:
+\begin{equation}
+\Hfun(C, \boldsymbol{\alpha} \bar{I}) = \left( \omega_C^{1-\psi} C^{\psi} + \tilde{\omega}_I^{1-\psi} \bar{I}^{\psi} \right)^{1/\psi} \equiv \tilde{\Hfun}(C, \bar{I}).
+\label{eq:ac-het-H-effective}
+\end{equation}
+
+\begin{calloutimportant}[Aggregation Result]
+When investment is optimally allocated, the multi-sector transformation technology aggregates to an \emph{equivalent two-good technology} $\tilde{\Hfun}(C, \bar{I})$ with effective weight $\tilde{\omega}_I$.
+
+The effective weight $\tilde{\omega}_I$ combines the transformation weights $\omega_i$ and the production weights $\alpha_i$. It is itself a CES aggregate---a generalized mean of the $\omega_i$ with weights $\alpha_i$:
+\[
+\tilde{\omega}_I = \left( \sum_{i=1}^{N} \alpha_i \left( \frac{\omega_i}{\alpha_i} \right)^{1-\psi} \alpha_i^{\psi} \right)^{1/(1-\psi)} = \M\left( \frac{\boldsymbol{\omega}}{\boldsymbol{\alpha}}; \boldsymbol{\alpha}, \psi \right) \cdot \left( \sum_i \alpha_i \right).
+\]
+This nesting of CES aggregators is a recurring theme.
+\end{calloutimportant}
+
+\paragraph{Tobin's $Q$ with Heterogeneous Capital.}
+With the effective transformation $\tilde{\Hfun}(C, \bar{I}) = Y$, Tobin's $Q$ for aggregate investment is:
+\begin{equation}
+Q = \frac{\tilde{\omega}_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{\bar{I}} \right)^{1-\psi}.
+\label{eq:ac-het-Q}
+\end{equation}
+
+The Euler equation takes the same form as in the single-capital case:
+\begin{equation}
+u'(C_0) = \beta \frac{1}{Q} u'(C_1),
+\label{eq:ac-het-euler}
+\end{equation}
+where we used $\F^* = 1$ so that the ``marginal product'' of optimally allocated investment is unity.
+
+% --------------------------------------------------------------
+\subsection{Sector-Specific Prices}
+\label{subsec:ac-het-prices}
+% --------------------------------------------------------------
+
+\paragraph{Decentralization.}
+To decentralize, we need prices for each investment good $I_i$. The transformation firm solves:
+\begin{equation}
+\max_{C, \bI} \; p_C C + \sum_{i=1}^{N} p_i I_i \quad \text{subject to} \quad \Hfun(C, \bI) = Y.
+\label{eq:ac-het-firm}
+\end{equation}
+
+The first-order conditions give:
+\begin{equation}
+\frac{p_i}{p_C} = \frac{\partial \Hfun / \partial I_i}{\partial \Hfun / \partial C} = \frac{\omega_i^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I_i} \right)^{1-\psi}.
+\label{eq:ac-het-price-ratio}
+\end{equation}
+
+\paragraph{Sector-Specific Tobin's $Q$.}
+Define the sector-specific Tobin's $Q$:
+\begin{equation}
+Q_i \equiv \frac{p_i}{p_C} = \frac{\omega_i^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{I_i} \right)^{1-\psi}.
+\label{eq:ac-het-Qi}
+\end{equation}
+
+At the optimal portfolio where $I_i = \alpha_i \bar{I}$:
+\begin{equation}
+Q_i^* = \frac{\omega_i^{1-\psi}}{\omega_C^{1-\psi}} \left( \frac{C}{\alpha_i \bar{I}} \right)^{1-\psi} = \frac{\omega_i^{1-\psi}}{\alpha_i^{1-\psi}} \cdot \frac{1}{\omega_C^{1-\psi}} \left( \frac{C}{\bar{I}} \right)^{1-\psi}.
+\label{eq:ac-het-Qi-star}
+\end{equation}
+
+\paragraph{Relative Prices Across Sectors.}
+The ratio of sector prices is:
+\begin{equation}
+\frac{Q_i}{Q_j} = \frac{\omega_i^{1-\psi} / \alpha_i^{1-\psi}}{\omega_j^{1-\psi} / \alpha_j^{1-\psi}} = \left( \frac{\omega_i / \alpha_i}{\omega_j / \alpha_j} \right)^{1-\psi}.
+\label{eq:ac-het-price-ratio-ij}
+\end{equation}
+
+When $\omega_i / \alpha_i = \omega_j / \alpha_j$ for all $i, j$ (i.e., transformation weights are proportional to production weights), all investment goods have the same price: $Q_i = Q_j = Q$.
+
+\begin{calloutnote}[When Prices Differ]
+Sector-specific prices $Q_i$ differ when the transformation weights $\omega_i$ are not proportional to the production weights $\alpha_i$. Intuitively:
+\begin{itemize}[nosep]
+\item If $\omega_i / \alpha_i$ is high, sector $i$ is ``easy to produce'' relative to its importance in production. Its price $Q_i$ is low.
+\item If $\omega_i / \alpha_i$ is low, sector $i$ is ``hard to produce.'' Its price $Q_i$ is high.
+\end{itemize}
+
+In the symmetric case ($\omega_i = \alpha_i$ for all $i$), all sectors have equal prices and the multi-sector model reduces exactly to the single-sector case.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Production Firm's Problem}
+\label{subsec:ac-het-production-firm}
+% --------------------------------------------------------------
+
+A separate production firm (or the same firm in a later period) uses installed capital to produce output. The firm solves:
+\begin{equation}
+\max_{\bk} \; p_Y \F(\bk) - \sum_{i=1}^{N} r_i k_i,
+\label{eq:ac-het-prod-firm}
+\end{equation}
+where $r_i$ is the rental rate for capital of type $i$.
+
+\paragraph{First-Order Conditions.}
+\begin{equation}
+r_i = p_Y \frac{\partial \F}{\partial k_i} = p_Y \alpha_i^{1-\sigma} k_i^{\sigma - 1} \F^{1-\sigma}.
+\label{eq:ac-het-rental}
+\end{equation}
+
+\paragraph{Zero Profits.}
+By homogeneity of $\F$:
+\begin{equation}
+p_Y \F(\bk) = \sum_{i=1}^{N} r_i k_i.
+\label{eq:ac-het-prod-zero-profit}
+\end{equation}
+
+The production firm earns zero profits, as expected with CRS technology.
+
+\paragraph{Equilibrium Rental Rates.}
+With full depreciation, $k_i = I_{i,-1}$ (capital equals last period's investment). The rental rate satisfies:
+\begin{equation}
+r_i = p_Y \alpha_i^{1-\sigma} \left( \frac{k_i}{\F(\bk)} \right)^{\sigma - 1} = p_Y \alpha_i^{1-\sigma} \left( \frac{I_{i,-1}}{Y} \right)^{\sigma - 1}.
+\label{eq:ac-het-rental-eq}
+\end{equation}
+
+At the optimal portfolio where $I_i / \bar{I} = \alpha_i$:
+\begin{equation}
+r_i^* = p_Y \alpha_i^{1-\sigma} \alpha_i^{\sigma - 1} = p_Y.
+\label{eq:ac-het-rental-star}
+\end{equation}
+
+All capital types earn the same rental rate $r_i = p_Y$ when investment is optimally allocated!
+
+\begin{calloutimportant}[Equalization of Rental Rates]
+At the optimal portfolio, the marginal product of each capital type (weighted by its price) is equalized:
+\[
+\frac{r_i}{p_Y} = \frac{\partial \F}{\partial k_i} = 1 \quad \text{for all } i.
+\]
+This is the multi-sector analog of the single-sector condition $\partial F / \partial k = A$. Optimal diversification implies that no sector offers a higher risk-adjusted return than any other.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Connection to Portfolio Theory}
+\label{subsec:ac-het-portfolio-theory}
+% --------------------------------------------------------------
+
+The structure of the investment allocation problem mirrors portfolio choice in finance.
+
+\paragraph{The Analogy.}
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Concept} & \textbf{Portfolio Theory} & \textbf{Capital Allocation} \\
+\midrule
+Choice variable & Asset shares $\alpha_j$ & Investment shares $\phi_i$ \\
+Constraint & $\sum_j \alpha_j = 1$ & $\sum_i \phi_i = 1$ \\
+Objective & Certainty equivalent of returns & Production $\F(\boldsymbol{\phi})$ \\
+Aggregator & $\CE(\bR; \boldsymbol{\pi}, \gamma)$ & $\F(\boldsymbol{\phi}; \boldsymbol{\alpha}, \sigma)$ \\
+Curvature & Risk aversion $\gamma$ & Substitution $\varepsilon = 1/(1-\sigma)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Key Difference: Deterministic vs. Stochastic.}
+In portfolio theory, the curvature of the certainty equivalent reflects risk aversion over uncertain outcomes. Here, the curvature of $\F$ reflects technological complementarity/substitutability across capital types---a deterministic feature.
+
+However, when we introduce uncertainty (Section~\ref{sec:ac-risk}), the two interpretations merge: the production function aggregates over states (via capital-specific productivity shocks), and the curvature reflects both technological and risk considerations.
+
+\paragraph{The CES as a Unifying Framework.}
+The CES aggregator provides a unified treatment:
+\begin{itemize}[nosep]
+\item \textbf{Preferences}: Elasticity of substitution across goods, time, or states.
+\item \textbf{Technology}: Elasticity of substitution across inputs.
+\item \textbf{Transformation}: Elasticity of transformation between consumption and investment.
+\end{itemize}
+
+The optimal allocation rule $\phi_i^* = \alpha_i$ (invest proportionally to production weights) is the deterministic analog of ``invest proportionally to probabilities'' in the log-utility portfolio problem.
+
+% --------------------------------------------------------------
+\subsection{Dynamics with Capital Heterogeneity}
+\label{subsec:ac-het-dynamics}
+% --------------------------------------------------------------
+
+\paragraph{The $T$-Period Problem.}
+Extending to $T$ periods, the planner solves:
+\begin{equation}
+\max_{\{C_t, \bI_t\}} \sum_{t=0}^{T} \beta^t u(C_t)
+\label{eq:ac-het-T-obj}
+\end{equation}
+subject to:
+\begin{align}
+\Hfun(C_t, \bI_t) &= \F(\bk_t), \qquad t = 0, \ldots, T-1, \\
+\bk_{t+1} &= \bI_t, \\
+C_T &= \F(\bk_T).
+\end{align}
+
+\paragraph{Portfolio Separation Over Time.}
+At each date $t$, the optimal investment portfolio is $\phi_{i,t}^* = \alpha_i$---independent of $t$. The portfolio is constant over time, even as the level of investment $\bar{I}_t$ varies.
+
+This follows because the production function $\F$ is time-invariant (no capital-specific productivity shocks). The optimal portfolio maximizes the static return $\F(\boldsymbol{\phi})$, which has the same solution at every date.
+
+\paragraph{Aggregate Dynamics.}
+Define aggregate investment $\bar{I}_t = \sum_i I_{i,t}$. The aggregate dynamics follow:
+\begin{align}
+\tilde{\Hfun}(C_t, \bar{I}_t) &= Y_t, \\
+Y_{t+1} &= \F(\boldsymbol{\alpha} \bar{I}_t) = \bar{I}_t,
+\end{align}
+where we used $\F(\boldsymbol{\alpha}) = 1$.
+
+This is exactly the single-capital model with $A = 1$! The heterogeneous-capital economy, under optimal allocation, behaves like a single-capital economy with unit productivity.
+
+\begin{callouttip}[Aggregation Theorem]
+With CES production and transformation technologies, the heterogeneous-capital economy aggregates to an equivalent single-capital economy:
+\begin{itemize}[nosep]
+\item The optimal portfolio is $\phi_i^* = \alpha_i$ (time-invariant).
+\item The effective transformation is $\tilde{\Hfun}(C, \bar{I}) = Y$ with weight $\tilde{\omega}_I$.
+\item The effective productivity is $\F^* = 1$ (with normalized weights).
+\item Aggregate dynamics follow the single-capital model of Section~\ref{sec:ac-T-period}.
+\end{itemize}
+This aggregation result relies on homogeneity and the absence of capital-specific shocks. When we introduce risk (next section), the aggregation becomes more subtle.
+\end{callouttip}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:ac-het-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Capital Heterogeneity with CES Adjustment Costs}
+\label{tab:ac-het-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Production & $Y = \F(\bk) = \left( \sum_i \alpha_i^{1-\sigma} k_i^{\sigma} \right)^{1/\sigma}$ \\[6pt]
+Transformation & $\Hfun(C, \bI) = \left( \omega_C^{1-\psi} C^{\psi} + \sum_i \omega_i^{1-\psi} I_i^{\psi} \right)^{1/\psi} = Y$ \\[6pt]
+Optimal portfolio & $\phi_i^* = I_i / \bar{I} = \alpha_i$ \\[6pt]
+Effective weight & $\tilde{\omega}_I = \left( \sum_i \omega_i^{1-\psi} \alpha_i^{\psi} \right)^{1/(1-\psi)}$ \\[6pt]
+Sector price & $Q_i = \dfrac{\omega_i^{1-\psi}}{\omega_C^{1-\psi}} \left( \dfrac{C}{I_i} \right)^{1-\psi}$ \\[10pt]
+Aggregate $Q$ & $Q = \dfrac{\tilde{\omega}_I^{1-\psi}}{\omega_C^{1-\psi}} \left( \dfrac{C}{\bar{I}} \right)^{1-\psi}$ \\[10pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insights]
+Capital heterogeneity with CES technologies yields:
+\begin{itemize}[nosep]
+\item \textbf{Portfolio separation}: The optimal investment mix $\phi_i^* = \alpha_i$ is independent of the consumption-savings decision and constant over time.
+\item \textbf{Aggregation}: The multi-sector economy reduces to an equivalent single-sector economy with effective weight $\tilde{\omega}_I$.
+\item \textbf{Sector-specific prices}: Each capital type has its own Tobin's $Q_i$, which differ when $\omega_i / \alpha_i$ varies across sectors.
+\item \textbf{Zero profits}: Both transformation and production firms earn zero profits under CRS.
+\item \textbf{Connection to portfolio theory}: The investment allocation problem has the same structure as portfolio choice, with production curvature playing the role of risk aversion.
+\end{itemize}
+\end{callouttip}

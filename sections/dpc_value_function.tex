@@ -1,0 +1,295 @@
+% ==============================================================
+% Section 4: The Value Function and Normalization
+% ==============================================================
+
+\section{The Value Function and Normalization}
+\label{sec:value-function}
+
+The homothetic structure of Epstein-Zin preferences implies that the value function is proportional to wealth. This section exploits this property to derive the normalized Bellman equation, characterize the portfolio and consumption first-order conditions, and establish the Euler equations that govern intertemporal optimality.
+
+% --------------------------------------------------------------
+\subsection{Homogeneity and Wealth Normalization}
+\label{subsec:homogeneity-normalization}
+% --------------------------------------------------------------
+
+\paragraph{Homothetic Scaling.}
+
+With CRRA or Epstein-Zin preferences, the value function inherits the homogeneity of the utility function.
+
+\begin{proposition}[Homogeneity of the Value Function]
+\label{prop:homogeneity}
+Under Epstein-Zin preferences with no labor income or binding constraints, the value function satisfies
+\begin{equation}
+V_t(\lambda W_t) = \lambda \cdot V_t(W_t) \quad \text{for all } \lambda > 0.
+\label{eq:homogeneity}
+\end{equation}
+That is, $V_t$ is homogeneous of degree one in wealth.
+\end{proposition}
+
+\begin{proof}
+By induction. At terminal date $T$ (if finite horizon), $V_T(W) = W$ or $V_T(W) = u(W)$ which is homogeneous. For the inductive step, suppose $V_{t+1}(\lambda W) = \lambda V_{t+1}(W)$. Then the Bellman equation at $t$:
+\begin{align*}
+V_t(\lambda W_t) &= \max_{c, \balpha} \left[ (1-\beta) c^{1-1/\theta} + \beta \left( \E_t[V_{t+1}((\lambda W_t - c) R^p)^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}}.
+\end{align*}
+Substituting $c = \lambda \tilde{c}$ and using $V_{t+1}(\lambda(\tilde{W}_t - \tilde{c}) R^p) = \lambda V_{t+1}((\tilde{W}_t - \tilde{c}) R^p)$:
+\begin{align*}
+V_t(\lambda W_t) &= \lambda \max_{\tilde{c}, \balpha} \left[ (1-\beta) \tilde{c}^{1-1/\theta} + \beta \left( \E_t[V_{t+1}((\tilde{W}_t - \tilde{c}) R^p)^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}} \\
+&= \lambda \cdot V_t(W_t).
+\end{align*}
+The factor $\lambda$ pulls out by the homogeneity of the CES aggregator.
+\end{proof}
+
+\paragraph{The Normalized Value Function.}
+
+Homogeneity implies we can write
+\begin{equation}
+V_t(W_t) = v_t \cdot W_t,
+\label{eq:normalized-value}
+\end{equation}
+where $v_t$ is the \emph{value per unit wealth}---a ``normalized'' value function that depends on state variables other than wealth (investment opportunities, time to horizon, etc.) but not on wealth itself.
+
+This normalization reduces the dimensionality of the problem: instead of solving for $V_t(W)$ over a wealth grid, we solve for the scalar $v_t$ (or a function of non-wealth states).
+
+\paragraph{Normalized Consumption and Portfolio Rules.}
+
+The optimal policies also normalize:
+\begin{align}
+c_t\opt &= m_t \cdot W_t, \label{eq:normalized-consumption} \\
+\balpha_t\opt &= \balpha_t\opt(\text{states other than } W_t). \label{eq:normalized-portfolio}
+\end{align}
+The consumption-wealth ratio $m_t$ and portfolio weights $\balpha_t\opt$ are independent of the wealth level.
+
+% --------------------------------------------------------------
+\subsection{The Normalized Bellman Equation}
+\label{subsec:normalized-bellman}
+% --------------------------------------------------------------
+
+Substituting the normalized form into the Bellman equation yields a recursion for $v_t$.
+
+\paragraph{Derivation.}
+
+Start with
+\begin{equation}
+v_t W_t = \max_{c_t, \balpha} \left[ (1-\beta) c_t^{1-1/\theta} + \beta \left( \E_t[(v_{t+1} W_{t+1})^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}}.
+\label{eq:bellman-substituted}
+\end{equation}
+
+Using $c_t = m_t W_t$ and $W_{t+1} = (1 - m_t) W_t R_{t+1}^p$:
+\begin{align}
+v_t W_t &= \left[ (1-\beta) (m_t W_t)^{1-1/\theta} + \beta \left( \E_t[(v_{t+1} (1-m_t) W_t R_{t+1}^p)^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}} \notag \\
+&= W_t \left[ (1-\beta) m_t^{1-1/\theta} + \beta (1-m_t)^{1-1/\theta} \left( \E_t[(v_{t+1} R_{t+1}^p)^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}}.
+\label{eq:bellman-factored}
+\end{align}
+
+Dividing by $W_t$:
+\begin{equation}
+\boxed{v_t = \max_{m_t, \balpha} \left[ (1-\beta) m_t^{1-1/\theta} + \beta (1-m_t)^{1-1/\theta} \left( \E_t[(v_{t+1} R_{t+1}^p)^{1-\gamma}] \right)^{\frac{1-1/\theta}{1-\gamma}} \right]^{\frac{1}{1-1/\theta}}.}
+\label{eq:normalized-bellman}
+\end{equation}
+
+This is the \emph{normalized Bellman equation}. The state variable $W_t$ has been eliminated entirely.
+
+\paragraph{The Certainty Equivalent Return (Revisited).}
+
+Define
+\begin{equation}
+\tilde{R}_t^{CE}(\balpha) \equiv \left( \E_t\left[ (v_{t+1} R_{t+1}^p(\balpha))^{1-\gamma} \right] \right)^{\frac{1}{1-\gamma}}.
+\label{eq:ce-return-normalized}
+\end{equation}
+
+This is the certainty equivalent of the ``value-weighted'' portfolio return. The normalized Bellman equation becomes
+\begin{equation}
+v_t = \max_{m_t, \balpha} \left[ (1-\beta) m_t^{1-1/\theta} + \beta (1-m_t)^{1-1/\theta} \left( \tilde{R}_t^{CE}(\balpha) \right)^{1-1/\theta} \right]^{\frac{1}{1-1/\theta}}.
+\label{eq:bellman-with-ce}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{First-Order Conditions}
+\label{subsec:foc}
+% --------------------------------------------------------------
+
+The normalized Bellman equation \eqref{eq:normalized-bellman} is optimized over the consumption rate $m_t$ and portfolio weights $\balpha$.
+
+\paragraph{The Portfolio FOC.}
+
+The portfolio weights enter only through $\tilde{R}_t^{CE}(\balpha)$. Maximizing over $\balpha$ is equivalent to maximizing the certainty equivalent:
+\begin{equation}
+\balpha\opt = \arg\max_{\balpha} \; \tilde{R}_t^{CE}(\balpha) = \arg\max_{\balpha} \; \E_t\left[ (v_{t+1} R_{t+1}^p(\balpha))^{1-\gamma} \right].
+\label{eq:portfolio-foc-max}
+\end{equation}
+
+The first-order condition for an interior solution with respect to $\alpha_j$ is
+\begin{equation}
+\E_t\left[ (v_{t+1} R_{t+1}^p)^{-\gamma} \cdot v_{t+1} \cdot (R_{t+1}^j - R_{t+1}^k) \right] = 0 \quad \text{for all } j, k.
+\label{eq:portfolio-foc}
+\end{equation}
+
+With a risk-free asset (return $R^f$), this simplifies to
+\begin{equation}
+\E_t\left[ (v_{t+1} R_{t+1}^p)^{-\gamma} \cdot v_{t+1} \cdot (R_{t+1}^j - R^f) \right] = 0 \quad \text{for all risky } j.
+\label{eq:portfolio-foc-riskfree}
+\end{equation}
+
+\begin{calloutnote}[Interpretation of the Portfolio FOC]
+Define the \emph{stochastic discount factor} (SDF):
+\begin{equation}
+M_{t+1} \equiv \beta \left( \frac{v_{t+1}(1-m_t) R_{t+1}^p}{v_t} \right)^{-1/\theta} \cdot \left( \frac{v_{t+1} R_{t+1}^p}{\tilde{R}_t^{CE}} \right)^{1/\theta - \gamma}.
+\label{eq:sdf-ez}
+\end{equation}
+The portfolio FOC can be written as the asset pricing condition:
+\begin{equation}
+\E_t[M_{t+1} R_{t+1}^j] = 1 \quad \text{for all assets } j.
+\label{eq:asset-pricing}
+\end{equation}
+This connects portfolio choice to the consumption-based asset pricing literature.
+\end{calloutnote}
+
+\paragraph{The Consumption FOC.}
+
+Taking the first-order condition of \eqref{eq:bellman-with-ce} with respect to $m_t$:
+\begin{align}
+(1-\beta) m_t^{-1/\theta} &= \beta (1-m_t)^{-1/\theta} \left( \tilde{R}_t^{CE} \right)^{1-1/\theta}.
+\label{eq:consumption-foc}
+\end{align}
+
+Rearranging:
+\begin{equation}
+\frac{m_t}{1-m_t} = \left( \frac{1-\beta}{\beta} \right)^{\theta} \left( \tilde{R}_t^{CE} \right)^{\theta - 1}.
+\label{eq:consumption-foc-ratio}
+\end{equation}
+
+This confirms equation \eqref{eq:mpc-formula} from Section~\ref{subsec:nesting}.
+
+\paragraph{Solving for the Normalized Value.}
+
+Substituting the optimal $m_t\opt$ back into \eqref{eq:bellman-with-ce}, after algebra:
+\begin{equation}
+v_t = \left[ (1-\beta)^{\theta} + \beta^{\theta} \left( \tilde{R}_t^{CE} \right)^{\theta - 1} \right]^{\frac{1}{\theta - 1}} \cdot (1-\beta)^{\frac{\theta}{1-\theta}}.
+\label{eq:v-solution}
+\end{equation}
+
+For the important case $\theta = 1$ (log utility over time), this simplifies dramatically:
+\begin{equation}
+v_t = (1-\beta) \exp\left( \frac{\beta}{1-\beta} \E_t[\log(v_{t+1} R_{t+1}^p)] \right).
+\label{eq:v-log-utility}
+\end{equation}
+
+% --------------------------------------------------------------
+\subsection{The Euler Equation}
+\label{subsec:euler}
+% --------------------------------------------------------------
+
+The Euler equation characterizes intertemporal optimality by equating marginal utilities across time.
+
+\paragraph{Derivation.}
+
+The envelope condition for the Bellman equation gives
+\begin{equation}
+\frac{\partial V_t}{\partial W_t} = v_t.
+\label{eq:envelope}
+\end{equation}
+
+The Euler equation for consumption is
+\begin{equation}
+(1-\beta) c_t^{-1/\theta} = \beta \E_t\left[ \frac{\partial V_{t+1}}{\partial W_{t+1}} \cdot R_{t+1}^p \right] \cdot \left( \frac{\mu_t}{\E_t[V_{t+1}^{1-\gamma}]^{1/(1-\gamma)}} \right)^{1/\theta - 1},
+\label{eq:euler-raw}
+\end{equation}
+where the last term adjusts for the Epstein-Zin recursion.
+
+\paragraph{The Consumption Euler Equation.}
+
+After simplification, the Euler equation takes the form
+\begin{equation}
+\boxed{1 = \E_t\left[ \beta^{\theta} \left( \frac{c_{t+1}}{c_t} \right)^{-1/\theta} \left( \frac{v_{t+1} R_{t+1}^p}{\tilde{R}_t^{CE}} \right)^{1 - 1/\theta - (1-\gamma)} R_{t+1}^j \right]}
+\label{eq:euler-ez}
+\end{equation}
+for any asset $j$ with return $R_{t+1}^j$.
+
+\paragraph{Special Case: Time-Separable Utility.}
+
+When $\gamma = 1/\theta$, the exponent $1 - 1/\theta - (1-\gamma) = 0$, and the Euler equation reduces to
+\begin{equation}
+1 = \E_t\left[ \beta \left( \frac{c_{t+1}}{c_t} \right)^{-\gamma} R_{t+1}^j \right],
+\label{eq:euler-crra}
+\end{equation}
+the familiar CRRA Euler equation.
+
+\paragraph{The Wealth Euler Equation.}
+
+An equivalent formulation uses wealth growth instead of consumption growth. Since $c_t = m_t W_t$:
+\begin{equation}
+\frac{c_{t+1}}{c_t} = \frac{m_{t+1}}{m_t} \cdot \frac{W_{t+1}}{W_t} = \frac{m_{t+1}}{m_t} \cdot (1-m_t) R_{t+1}^p.
+\label{eq:consumption-growth}
+\end{equation}
+
+In the i.i.d. case where $m_t = m$ is constant:
+\begin{equation}
+\frac{c_{t+1}}{c_t} = (1-m) R_{t+1}^p,
+\label{eq:consumption-growth-iid}
+\end{equation}
+and the Euler equation depends only on the portfolio return.
+
+% --------------------------------------------------------------
+\subsection{Stationary Solutions}
+\label{subsec:stationary}
+% --------------------------------------------------------------
+
+When the investment opportunity set is constant (i.i.d. returns), the problem admits a stationary solution.
+
+\paragraph{The i.i.d. Case.}
+
+Suppose returns $(R^1, \ldots, R^J)$ are i.i.d. over time with a fixed distribution. Then:
+\begin{itemize}[nosep]
+    \item The normalized value $v_t = v$ is constant
+    \item The consumption rate $m_t = m$ is constant
+    \item The portfolio weights $\balpha_t = \balpha$ are constant
+\end{itemize}
+
+\paragraph{Characterizing the Stationary Solution.}
+
+The stationary normalized value satisfies
+\begin{equation}
+v = \left[ (1-\beta) m^{1-1/\theta} + \beta (1-m)^{1-1/\theta} \left( v \cdot \CE(R^p) \right)^{1-1/\theta} \right]^{\frac{1}{1-1/\theta}},
+\label{eq:stationary-v}
+\end{equation}
+where $\CE(R^p) = (\E[(R^p)^{1-\gamma}])^{1/(1-\gamma)}$ is the certainty equivalent of the portfolio return.
+
+The stationary consumption rate satisfies
+\begin{equation}
+\frac{m}{1-m} = \left( \frac{1-\beta}{\beta} \right)^{\theta} \left( v \cdot \CE(R^p) \right)^{\theta - 1}.
+\label{eq:stationary-m}
+\end{equation}
+
+These two equations jointly determine $(v, m)$ given the optimal portfolio return distribution.
+
+\begin{proposition}[Stationary Solution]
+\label{prop:stationary}
+With i.i.d. returns, the stationary normalized value is
+\begin{equation}
+v = \left( \frac{1-\beta}{1 - \beta \cdot \CE(R^{p,*})^{(\theta-1)/\theta}} \right)^{\theta},
+\label{eq:v-stationary-closed}
+\end{equation}
+and the stationary consumption rate is
+\begin{equation}
+m = 1 - \beta^{\theta} \cdot \CE(R^{p,*})^{\theta - 1} \cdot (1-\beta)^{1-\theta}.
+\label{eq:m-stationary-closed}
+\end{equation}
+These are well-defined when $\beta \cdot \CE(R^{p,*})^{(\theta-1)/\theta} < 1$.
+\end{proposition}
+
+\begin{calloutimportant}[The Complete Solution Algorithm]
+For the i.i.d. case, the complete solution proceeds as:
+
+\textbf{Step 1:} Solve for optimal portfolio weights $\balpha\opt$ by maximizing $\CE(R^p(\balpha)) = (\E[(R^p)^{1-\gamma}])^{1/(1-\gamma)}$. This is a static optimization problem.
+
+\textbf{Step 2:} Compute $\CE(R^{p,*})$ at the optimal portfolio.
+
+\textbf{Step 3:} Compute the stationary normalized value $v$ from \eqref{eq:v-stationary-closed}.
+
+\textbf{Step 4:} Compute the consumption rate $m$ from \eqref{eq:m-stationary-closed}.
+
+\textbf{Step 5:} The policy functions are $c_t = m W_t$ and $\balpha_t = \balpha\opt$.
+
+When returns are not i.i.d. (e.g., predictable returns, stochastic volatility), Step 1 must be solved jointly with a recursion for $v_t$ as a function of the state variables describing investment opportunities.
+\end{calloutimportant}
+

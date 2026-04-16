@@ -1,0 +1,371 @@
+% ==============================================================
+\section{The Two-Period Problem with Labor and Capital}
+\label{sec:lc-two-period}
+% ==============================================================
+
+We begin by studying factor choice in a two-period setting. A firm combines labor and capital to produce output, and the elasticity of substitution between these factors determines how the firm responds to changes in factor prices and technology. This section establishes the core framework that will be extended to dynamics and uncertainty in subsequent sections.
+
+% --------------------------------------------------------------
+\subsection{From Varieties to Factors}
+\label{subsec:varieties-to-factors}
+% --------------------------------------------------------------
+
+In the canonical CES problem, a consumer chose quantities $\bx = (x_1, \ldots, x_n)$ of different goods subject to a budget constraint. The relative price $p_i/p_j$ governed the trade-off between goods $i$ and $j$, and the elasticity of substitution $\varepsilon$ determined how sensitive the allocation was to price changes.
+
+Now consider a firm that combines two factors---labor $L$ and capital $K$---to produce output $Y$. The fundamental trade-off is no longer between consumption goods but between hiring workers and renting machines. The wage $w$ and the rental rate $r$ play the role of prices, and output plays the role of utility.
+
+\paragraph{The Production Function as a Generalized Mean.}
+If the firm's technology exhibits constant elasticity of substitution, output is a generalized mean of factor inputs:
+\begin{equation}
+Y = \F(K, L; \bom, \sigma) = A \cdot \M(K, L; \bom, \sigma),
+\label{eq:ces-production}
+\end{equation}
+where $A > 0$ is total factor productivity (TFP), $\bom = (\omega_K, \omega_L)$ with $\omega_K + \omega_L = 1$ are factor weights, and $\sigma > 0$ is the elasticity of substitution between capital and labor.
+
+In canonical form, the production function is:
+\begin{equation}
+Y = A \left( \omega_K^{1-\rho} K^\rho + \omega_L^{1-\rho} L^\rho \right)^{1/\rho}, \qquad \rho = 1 - \frac{1}{\sigma}.
+\label{eq:ces-canonical}
+\end{equation}
+
+\paragraph{The Cost Minimization Problem.}
+The firm's problem is the dual of the consumer's: minimize the cost of producing a target output level $\bar{Y}$:
+\begin{equation}
+\min_{K, L} \left\{ rK + wL \right\} \quad \text{s.t.} \quad \F(K, L) \geq \bar{Y}.
+\label{eq:cost-min}
+\end{equation}
+
+This is exactly the structure of the canonical problem with the roles reversed: output is the constraint, and cost is the objective. The solutions from \cref{sec:problem-solution} apply directly.
+
+% --------------------------------------------------------------
+\subsection{The Canonical Structure and Primal-Dual Symmetry}
+\label{subsec:canonical-production}
+% --------------------------------------------------------------
+
+The connection between production and the canonical CES problem runs deeper than analogy. We now make this precise, showing that cost minimization and utility maximization are dual problems with symmetric solutions.
+
+\paragraph{The Primal Problem: Utility Maximization.}
+Recall the consumer's problem from \cref{sec:problem-solution}:
+\begin{equation}
+\max_{\bx} \; \M(\bx; \bom, \rho) \quad \text{s.t.} \quad \sum_i p_i x_i = B.
+\label{eq:primal-utility}
+\end{equation}
+The solution yields optimal quantities $x_i^* = \omega_i (p_i / \Pstar)^{-\varepsilon} \cdot (B / \Pstar)$, where the price index is:
+\begin{equation}
+\Pstar = \M_{1-\varepsilon}(\bp; \bom) = \left( \sum_i \omega_i \, p_i^{1-\varepsilon} \right)^{1/(1-\varepsilon)}.
+\label{eq:price-index-recall}
+\end{equation}
+The indirect utility is $\M^* = B / \Pstar$: the budget divided by the price index.
+
+\paragraph{The Dual Problem: Cost Minimization.}
+The firm's cost minimization problem is:
+\begin{equation}
+\min_{K, L} \; \left\{ rK + wL \right\} \quad \text{s.t.} \quad A \cdot \M(K, L; \bom, \rho) \geq \bar{Y}.
+\label{eq:dual-cost}
+\end{equation}
+This is the \emph{dual} of the primal: we minimize cost (the ``budget'') subject to achieving a target utility (output).
+
+\paragraph{The Unit Cost Index as a Price Index.}
+Solving the cost minimization problem yields the cost function:
+\begin{equation}
+C(\bar{Y}, r, w) = \Cstar \cdot \frac{\bar{Y}}{A},
+\label{eq:cost-function}
+\end{equation}
+where the \emph{unit cost index} is:
+\begin{equation}
+\Cstar = \M_{1-\sigma}(r, w; \bom) = \left( \omega_K \, r^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}.
+\label{eq:unit-cost-as-mean}
+\end{equation}
+
+\begin{calloutimportant}[The Unit Cost is a Generalized Mean of Factor Prices]
+The unit cost index $\Cstar$ is itself a generalized mean---specifically, a mean of factor prices $(r, w)$ with weights $(\omega_K, \omega_L)$ and power parameter $1 - \sigma$. This is the \emph{same} formula as the ideal price index in the consumption problem, with factor prices replacing goods prices and $\sigma$ replacing $\varepsilon$.
+
+The symmetry is complete:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Consumption} & \textbf{Production} \\
+\midrule
+Quantities & Goods $x_i$ & Factors $K, L$ \\
+Prices & Goods prices $p_i$ & Factor prices $r, w$ \\
+Objective & Maximize utility $\M(\bx)$ & Minimize cost $rK + wL$ \\
+Constraint & Budget $\sum p_i x_i = B$ & Output $\M(K,L) \geq \bar{Y}/A$ \\
+Index & Price index $\Pstar$ & Unit cost $\Cstar$ \\
+Value & $\M^* = B/\Pstar$ & $C^* = \Cstar \cdot \bar{Y}/A$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{calloutimportant}
+
+\paragraph{Factor Shares as Induced Weights.}
+In the consumption problem, the expenditure share of good $i$ is $\wexp_i = p_i x_i / B$. At the optimum, this equals the induced weight:
+\begin{equation}
+\wexp_i = \omega_i \left( \frac{p_i}{\Pstar} \right)^{1-\varepsilon}.
+\label{eq:exp-share-recall}
+\end{equation}
+
+The production analog is the \emph{cost share}---the fraction of total cost paid to each factor:
+\begin{equation}
+s_K = \frac{rK}{rK + wL} = \omega_K \left( \frac{r}{\Cstar} \right)^{1-\sigma}, \qquad s_L = \omega_L \left( \frac{w}{\Cstar} \right)^{1-\sigma}.
+\label{eq:cost-share-induced}
+\end{equation}
+
+These are exactly the induced weights of the generalized mean $\Cstar$ evaluated at factor prices $(r, w)$. The cost shares emerge from the same mathematical structure as expenditure shares.
+
+\paragraph{The Transformation Perspective.}
+Recall from \cref{sec:transformations} that the canonical and classical representations are related by a weight transformation. In the production context, we can write the unit cost in classical form:
+\begin{equation}
+\Cstar = \left( \tilde{\omega}_K \, r^{1-\sigma} + \tilde{\omega}_L \, w^{1-\sigma} \right)^{1/(1-\sigma)},
+\label{eq:unit-cost-classical}
+\end{equation}
+where $\tilde{\omega}_K + \tilde{\omega}_L = 1$ are the transformed weights. The cost shares are then:
+\begin{equation}
+s_K = \frac{\tilde{\omega}_K \, r^{1-\sigma}}{\tilde{\omega}_K \, r^{1-\sigma} + \tilde{\omega}_L \, w^{1-\sigma}}, \qquad s_L = \frac{\tilde{\omega}_L \, w^{1-\sigma}}{\tilde{\omega}_K \, r^{1-\sigma} + \tilde{\omega}_L \, w^{1-\sigma}}.
+\label{eq:shares-classical}
+\end{equation}
+
+This is the ``inner sum divided by total'' formula for induced weights. The cost shares are the normalized contributions to the inner sum of the unit cost aggregator.
+
+\begin{calloutnote}[Why the Canonical Form?]
+The canonical representation $\M(K, L; \bom, \rho)$ with weights $\omega_i^{1-\rho}$ inside the sum has a key advantage: when factors are paid their marginal products, the cost shares $s_i$ equal the induced weights of the production function evaluated at the optimum. This connects factor payments directly to the structure of technology.
+
+In contrast, the classical form requires tracking transformed weights that depend on the power parameter. The canonical form keeps the primitive weights $\omega_i$ interpretable across different values of $\sigma$.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Complementary Factors}
+\label{subsec:complementary-factors}
+% --------------------------------------------------------------
+
+When $\sigma < 1$, capital and labor are \emph{complements}: an increase in one factor raises the marginal product of the other. The limiting case $\sigma \to 0$ yields the Leontief technology, where factors must be used in fixed proportions.
+
+\paragraph{The Cobb-Douglas Benchmark.}
+The knife-edge case $\sigma = 1$ (equivalently, $\rho \to 0$) gives the Cobb-Douglas production function:
+\begin{equation}
+Y = A \, K^{\omega_K} L^{\omega_L}.
+\label{eq:cobb-douglas}
+\end{equation}
+This specification has remarkable properties. Factor shares are constant regardless of factor prices:
+\begin{equation}
+\text{Capital share:} \quad \frac{rK}{Y} = \omega_K, \qquad \text{Labor share:} \quad \frac{wL}{Y} = \omega_L.
+\label{eq:cd-shares}
+\end{equation}
+
+The Cobb-Douglas case serves as the dividing line between complements ($\sigma < 1$) and substitutes ($\sigma > 1$).
+
+\paragraph{Factor Demands.}
+Applying the solution formulas from the canonical problem, the cost-minimizing factor demands are:
+\begin{equation}
+K^* = \omega_K \left( \frac{r}{\Cstar} \right)^{-\sigma} \cdot \frac{\bar{Y}/A}{\Cstar}, \qquad L^* = \omega_L \left( \frac{w}{\Cstar} \right)^{-\sigma} \cdot \frac{\bar{Y}/A}{\Cstar},
+\label{eq:factor-demands}
+\end{equation}
+where $\Cstar$ is the unit cost index (the cost of producing one unit of output):
+\begin{equation}
+\Cstar = \left( \omega_K \, r^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}.
+\label{eq:unit-cost}
+\end{equation}
+
+\paragraph{The Cost Share Formulas.}
+The share of total cost paid to each factor is:
+\begin{equation}
+s_K \equiv \frac{rK}{rK + wL} = \omega_K \left( \frac{r}{\Cstar} \right)^{1-\sigma}, \qquad s_L = \omega_L \left( \frac{w}{\Cstar} \right)^{1-\sigma}.
+\label{eq:cost-shares}
+\end{equation}
+
+When $\sigma < 1$, a rise in the relative price of capital $(r/w)$ \emph{increases} the capital share. The intuition is that with complementary factors, the firm cannot easily substitute away from the more expensive input, so its expenditure share rises.
+
+\begin{calloutimportant}[Complements: Price and Share Move Together]
+When factors are complements ($\sigma < 1$), the factor whose relative price rises sees its cost share \emph{increase}. This is the opposite of what happens with substitutes. The firm is ``stuck'' using the expensive factor because it cannot produce without it.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Substitutable Factors}
+\label{subsec:substitutable-factors}
+% --------------------------------------------------------------
+
+When $\sigma > 1$, capital and labor are \emph{substitutes}: the firm can more easily replace one factor with the other in response to price changes. This case has attracted renewed attention due to concerns about automation and the declining labor share.
+
+\paragraph{High Elasticity of Substitution.}
+With $\sigma > 1$, a rise in the relative price of labor $(w/r)$ leads to a \emph{fall} in the labor share. The firm substitutes toward capital so aggressively that labor's share of costs declines despite the higher wage.
+
+\paragraph{The Labor Share and Automation.}
+Consider the response of the labor share to a fall in the rental rate of capital (perhaps due to technological progress in producing capital goods):
+\begin{equation}
+\frac{d \log s_L}{d \log r} = (1 - \sigma)(1 - s_L).
+\label{eq:labor-share-response}
+\end{equation}
+
+When $\sigma > 1$, this expression is negative: cheaper capital reduces the labor share. This mechanism is central to theories of automation and the ``rise of the robots.''
+
+\begin{calloutnote}[The Automation Debate]
+The empirical debate centers on the magnitude of $\sigma$. If $\sigma$ is close to or below one, cheaper capital goods need not threaten labor's share. If $\sigma$ substantially exceeds one, technological progress that reduces the cost of capital can significantly compress labor income as a fraction of output.
+
+Cross-country and time-series evidence suggests $\sigma$ may vary by sector and time period, with some estimates above one for the aggregate economy in recent decades.
+\end{calloutnote}
+
+\paragraph{Comparative Statics Summary.}
+The following table summarizes how factor shares respond to a rise in the relative price of capital $(r/w)$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& $\sigma < 1$ (Complements) & $\sigma > 1$ (Substitutes) \\
+\midrule
+Capital share $s_K$ & Increases & Decreases \\
+Labor share $s_L$ & Decreases & Increases \\
+Capital-labor ratio $K/L$ & Decreases & Decreases \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The capital-labor ratio always falls when capital becomes relatively more expensive---this is the substitution effect. But the \emph{share} response depends on whether the quantity adjustment is large enough to offset the price change.
+
+% --------------------------------------------------------------
+\subsection{Types of Technical Change}
+\label{subsec:technical-change}
+% --------------------------------------------------------------
+
+Technical progress can take different forms depending on which factor it augments. The classification matters for long-run growth and for the evolution of factor shares.
+
+\paragraph{The Augmented Production Function.}
+We generalize \cref{eq:ces-canonical} to allow factor-specific productivity:
+\begin{equation}
+Y = \left( \omega_K^{1-\rho} (A_K K)^\rho + \omega_L^{1-\rho} (A_L L)^\rho \right)^{1/\rho},
+\label{eq:augmented-ces}
+\end{equation}
+where $A_K$ is capital-augmenting technology and $A_L$ is labor-augmenting technology. The type of technical change is classified by which productivity term grows over time.
+
+\paragraph{Harrod-Neutral (Labor-Augmenting) Technical Change.}
+Technical progress is \emph{Harrod-neutral} if it augments labor: $A_L$ grows while $A_K$ is constant. The production function becomes:
+\begin{equation}
+Y = \F(K, A_L L).
+\label{eq:harrod-neutral}
+\end{equation}
+
+This is the only form of technical change consistent with balanced growth when $\sigma \neq 1$. Along a balanced growth path with Harrod-neutral progress, the capital-output ratio $K/Y$ is constant, the interest rate is constant, and output per worker grows at the rate of labor-augmenting technical change.
+
+\paragraph{Solow-Neutral (Capital-Augmenting) Technical Change.}
+Technical progress is \emph{Solow-neutral} if it augments capital: $A_K$ grows while $A_L$ is constant. The production function becomes:
+\begin{equation}
+Y = \F(A_K K, L).
+\label{eq:solow-neutral}
+\end{equation}
+
+With $\sigma \neq 1$, Solow-neutral progress is \emph{not} consistent with balanced growth. The capital share trends over time, and either capital or labor eventually dominates production.
+
+\paragraph{Hicks-Neutral Technical Change.}
+Technical progress is \emph{Hicks-neutral} if it scales output without changing the marginal rate of technical substitution:
+\begin{equation}
+Y = A \cdot \F(K, L),
+\label{eq:hicks-neutral}
+\end{equation}
+where $A$ grows over time. This is equivalent to setting $A_K = A_L = A^{1/\rho}$ in the augmented formulation.
+
+With Cobb-Douglas technology ($\sigma = 1$), all three types of neutral technical change are equivalent. With $\sigma \neq 1$, they have distinct implications.
+
+\begin{calloutimportant}[Why Harrod-Neutrality Matters]
+The requirement for balanced growth with $\sigma \neq 1$ restricts attention to labor-augmenting technical change. This is a strong assumption, and its empirical validity is debated. The restriction disappears in the Cobb-Douglas case, which partly explains that specification's enduring popularity in growth models.
+\end{calloutimportant}
+
+\paragraph{Effects on Factor Shares.}
+Consider Harrod-neutral progress (rising $A_L$). The effective labor supply is $\tilde{L} = A_L L$, so the labor share becomes:
+\begin{equation}
+s_L = \omega_L \left( \frac{w/A_L}{\Cstar} \right)^{1-\sigma}.
+\label{eq:share-harrod}
+\end{equation}
+
+If $\sigma < 1$, labor-augmenting progress \emph{raises} the labor share: effective labor becomes more abundant relative to capital, but with complementary factors, labor's share rises. If $\sigma > 1$, the opposite occurs.
+
+The following table summarizes the effect of factor-augmenting technical progress on factor shares:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Type of Progress & Effect on $s_L$ if $\sigma < 1$ & Effect on $s_L$ if $\sigma > 1$ \\
+\midrule
+Labor-augmenting ($\uparrow A_L$) & $\uparrow$ & $\downarrow$ \\
+Capital-augmenting ($\uparrow A_K$) & $\downarrow$ & $\uparrow$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% --------------------------------------------------------------
+\subsection{The Dual Problem: Profit Maximization}
+\label{subsec:dual-problem}
+% --------------------------------------------------------------
+
+Rather than minimizing cost for a given output, the firm may maximize profit taking factor prices as given. With constant returns to scale, the two problems are closely related.
+
+\paragraph{The Profit Function.}
+A competitive firm taking output price $P$, wage $w$, and rental rate $r$ as given solves:
+\begin{equation}
+\max_{K, L} \left\{ P \cdot \F(K, L) - rK - wL \right\}.
+\label{eq:profit-max}
+\end{equation}
+
+With constant returns to scale, the first-order conditions equate factor prices to marginal products:
+\begin{equation}
+r = P \cdot \frac{\partial \F}{\partial K}, \qquad w = P \cdot \frac{\partial \F}{\partial L}.
+\label{eq:foc-profit}
+\end{equation}
+
+\paragraph{Marginal Products in CES.}
+From the canonical CES production function \cref{eq:ces-canonical}:
+\begin{align}
+\frac{\partial Y}{\partial K} &= A \cdot \omega_K^{1-\rho} \left( \frac{Y}{AK} \right)^{1-\rho} = \omega_K^{1-\rho} A^\rho \left( \frac{Y}{K} \right)^{1-\rho}, \label{eq:mpk} \\[6pt]
+\frac{\partial Y}{\partial L} &= A \cdot \omega_L^{1-\rho} \left( \frac{Y}{AL} \right)^{1-\rho} = \omega_L^{1-\rho} A^\rho \left( \frac{Y}{L} \right)^{1-\rho}. \label{eq:mpl}
+\end{align}
+
+The marginal product of each factor depends on the output-to-factor ratio raised to the power $1-\rho = 1/\sigma$. When $\sigma < 1$ (complements), marginal products are highly sensitive to factor ratios. When $\sigma > 1$ (substitutes), marginal products are less sensitive.
+
+\paragraph{Zero Profit with Constant Returns.}
+With constant returns to scale, Euler's theorem implies:
+\begin{equation}
+Y = \frac{\partial Y}{\partial K} \cdot K + \frac{\partial Y}{\partial L} \cdot L.
+\label{eq:euler}
+\end{equation}
+
+Combined with the first-order conditions \cref{eq:foc-profit}, this yields zero economic profit:
+\begin{equation}
+P \cdot Y = rK + wL \quad \Longrightarrow \quad \text{Profit} = 0.
+\label{eq:zero-profit}
+\end{equation}
+
+This is the production-side analog of the budget constraint holding with equality in the consumer problem.
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:two-period-lc-summary}
+% --------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{The CES Production Framework}
+\label{tab:ces-production-summary}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Object} & \textbf{Formula} \\
+\midrule
+Production function & $Y = A \left( \omega_K^{1-\rho} K^\rho + \omega_L^{1-\rho} L^\rho \right)^{1/\rho}$ \\[6pt]
+Elasticity of substitution & $\sigma = 1/(1-\rho)$ \\[6pt]
+Unit cost index & $\Cstar = \left( \omega_K \, r^{1-\sigma} + \omega_L \, w^{1-\sigma} \right)^{1/(1-\sigma)}$ \\[6pt]
+Capital share & $s_K = \omega_K \left( r / \Cstar \right)^{1-\sigma}$ \\[6pt]
+Labor share & $s_L = \omega_L \left( w / \Cstar \right)^{1-\sigma}$ \\[6pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{callouttip}[Key Insight]
+The two-period labor-capital problem is a CES optimization problem in the factor space:
+\begin{itemize}[nosep]
+\item Factors $\{K, L\}$ play the role of goods $\{1, 2\}$
+\item Factor prices $(r, w)$ are the relative prices
+\item The elasticity of substitution $\sigma$ governs factor substitution
+\item The weights $(\omega_K, \omega_L)$ capture factor importance
+\end{itemize}
+All the machinery of generalized means---cost indices, factor shares, comparative statics---applies directly. The key economic question is the magnitude of $\sigma$: complements ($\sigma < 1$) versus substitutes ($\sigma > 1$) yield qualitatively different responses to price and technology changes.
+\end{callouttip}

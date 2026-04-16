@@ -1,0 +1,373 @@
+% Fonts & encoding
+% Note: fontenc conflicts with fontspec in LuaLaTeX - removed for compatibility
+% \usepackage[T1]{fontenc}  % Conflicts with fontspec
+\usepackage{fontspec}
+\usepackage{microtype}
+% \usepackage{lmodern}  % Not needed with fontspec
+\usepackage{enumitem}
+% citations in chapters
+\usepackage{epigraph}
+
+% Define JuliaMono font for code listings (supports Unicode/Greek)
+\newfontfamily\juliamono{JuliaMono}[
+  Path=../assets/fonts/,
+  Extension=.ttf,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-LightItalic,
+  BoldItalicFont=*-SemiBoldItalic
+]
+
+
+
+% Math & symbols
+\usepackage{amsmath, amssymb, amsthm, mathtools, bm}
+
+% Graphics & layout
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{threeparttable}
+\usepackage{array}
+\usepackage{makecell}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{chngcntr} % allow numbering floats by chapter
+
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{algpseudocode}
+% \usepackage{algorithm}
+% \usepackage[noend]{algpseudocode}
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+\SetKw{KwReturn}{return}
+\SetKw{KwInitialize}{initialize}
+\SetKw{KwFunction}{function}
+\SetKwComment{Comment}{}{}
+% \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+% \makeatletter
+% \newcommand{\dontusealgpseudocode}{}
+% \makeatotherx
+
+% % Algorithm2e style settings
+% \SetKwInput{KwInput}{Input}
+% \SetKwInput{KwOutput}{Output}
+% \SetKw{KwReturn}{return}
+% \SetKw{KwInitialize}{initialize}
+% \SetKw{KwFunction}{function}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{algorithm}{\par\vspace{0.5em}}
+\AfterEndEnvironment{algorithm}{\par\vspace{0.5em}}
+
+
+% Code listings (Julia-friendly) - using minted for better Unicode support
+\usepackage{xcolor}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{dkgreen}{RGB}{0,100,0}
+\definecolor{dkblue}{RGB}{0,0,139}
+\definecolor{gray}{RGB}{102,102,102}
+\definecolor{violet}{RGB}{148,0,211}
+\definecolor{my_blue}{RGB}{0,114,178}
+\definecolor{my_red}{RGB}{213,94,0}
+\definecolor{my_green}{RGB}{0,158,115}
+
+
+% \usepackage[cachedir=_minted-main]{minted}
+% \usepackage[cache=true,cachedir=_minted-main]{minted}
+\usepackage[cache=false]{minted}
+\setminted{
+  autogobble,
+  breaklines=true,
+  breakanywhere=true,
+  breakautoindent=false,
+  fontsize=\small,
+  bgcolor=codebg,
+  linenos=true,
+  numbersep=8pt,
+  frame=single,
+  framesep=6pt,
+  breaklines=true,
+  tabsize=2
+}
+
+
+
+% % Enable page breaks within minted environments
+\usepackage{etoolbox}
+\AtBeginEnvironment{minted}{\par\vspace{0.5em}}
+\AtEndEnvironment{minted}{\par\vspace{0.5em}}
+
+% \renewenvironment{listing}{\begin{listing}[H]\begin{minipage}{\linewidth}}{\end{minipage}\end{listing}}
+
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{JuliaREPL}{Verbatim}
+{breaklines,fontsize=\small,formatcom=\color{black!90}}
+
+\newcommand{\juliaout}[1]{\textcolor{gray!60}{#1}}
+
+% Number listing floats per chapter: e.g., 2.1, 2.2, ...
+\counterwithin{listing}{chapter}
+
+% Use JuliaMono for minted code
+%\setmonofont{JuliaMono}[
+%  Path=../assets/fonts/,
+%  Extension=.ttf,
+%  UprightFont=*-Regular,
+%  BoldFont=*-Bold,
+%  ItalicFont=*-LightItalic,
+%  BoldItalicFont=*-SemiBoldItalic
+%]
+% ADD this instead (uses fonts available on Overleaf):
+\setmonofont{DejaVu Sans Mono}  % Good Unicode support, available on Overleaf
+% \renewcommand{\ttdefault}{JuliaMono}
+
+% Breakable, captioned code listings without floats
+% (Removed temporary jucode helpers; using explicit captionof + minted instead)
+
+% Ensure latexmk notices changes to external code files included via \inputminted
+\newread\mintedtrackin
+\newcommand{\mintedtrackline}{}
+\newcommand{\mintedtrack}[1]{% reads one line to register file as INPUT in .fls
+  \begingroup
+  \openin\mintedtrackin=#1\relax
+  \read\mintedtrackin to\mintedtrackline
+  \closein\mintedtrackin
+  \endgroup
+  \par\ignorespaces
+}
+
+% Hyperlinks & clever references
+% Define colors for links
+\definecolor{webbrown}{rgb}{.6,0,0}  % Reddish-brown for citations
+\usepackage{hyperref}
+\usepackage{bookmark} % reduces rerun warnings for outlines
+\hypersetup{
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=webbrown,
+  urlcolor=webbrown,
+  filecolor=black
+}
+\usepackage{cleveref}
+
+% Avoid large vertical stretch/shrink warnings
+\raggedbottom
+
+% Theorems
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% natbib (AER .bst expects author-year)
+\usepackage[round,authoryear]{natbib}
+
+% Callouts (tcolorbox)
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% (Reverted) Remove custom breakable minted tcolorbox code environments
+
+% Optional icons for callout titles (fallbacks if fontawesome5 missing)
+\IfFileExists{fontawesome5.sty}{
+  \usepackage{fontawesome5}
+  \newcommand{\iconnote}{\ifdefined\faIcon\faIcon{info-circle}\else\textbf{i}\fi}
+  \newcommand{\icontip}{\ifdefined\faIcon\faIcon{lightbulb}\else\textbf{!}\fi}
+  \newcommand{\iconimportant}{\ifdefined\faIcon\faIcon{exclamation-triangle}\else\textbf{!}\fi}
+  \newcommand{\iconcaution}{\ifdefined\faIcon\faIcon{exclamation}\else\textbf{!}\fi}
+}{
+  \newcommand{\iconnote}{\textbf{i}}
+  \newcommand{\icontip}{\textbf{!}}
+  \newcommand{\iconimportant}{\textbf{!}}
+  \newcommand{\iconcaution}{\textbf{!}}
+}
+
+% Callout color palette
+\definecolor{calloutnote}{RGB}{30,100,180}
+\definecolor{callouttip}{RGB}{0,130,90}
+\definecolor{calloutimportant}{RGB}{180,60,0}
+\definecolor{calloutcaution}{RGB}{160,0,0}
+
+
+% Custom commands
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\mathrm{d}}
+
+% Ensure figures go where asked (optional)
+\usepackage{placeins}
+
+% NOTE
+\newenvironment{calloutnote}[1][Note]{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    boxrule=0.6pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    coltitle=black, fonttitle=\bfseries,
+    titlerule=0pt, toptitle=2pt, bottomtitle=2pt,
+    borderline west={2.5pt}{0pt}{calloutnote},
+    colback=calloutnote!6, colframe=calloutnote!55!black,
+    colbacktitle=calloutnote!10,
+    title={\small \iconnote\ \ #1}
+  ]%
+}{\end{tcolorbox}}
+
+% TIP
+\newenvironment{callouttip}[1][Tip]{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    boxrule=0.6pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    coltitle=black, fonttitle=\bfseries,
+    titlerule=0pt, toptitle=2pt, bottomtitle=2pt,
+    borderline west={2.5pt}{0pt}{callouttip},
+    colback=callouttip!6, colframe=callouttip!55!black,
+    colbacktitle=callouttip!10,
+    title={\small \icontip\ \ #1}
+  ]%
+}{\end{tcolorbox}}
+
+% IMPORTANT
+\newenvironment{calloutimportant}[1][Important]{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    boxrule=0.6pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    coltitle=black, fonttitle=\bfseries,
+    titlerule=0pt, toptitle=2pt, bottomtitle=2pt,
+    borderline west={2.5pt}{0pt}{calloutimportant},
+    colback=calloutimportant!6, colframe=calloutimportant!55!black,
+    colbacktitle=calloutimportant!10,
+    title={\small \iconimportant\ \ #1}
+  ]%
+}{\end{tcolorbox}}
+
+% CAUTION
+\newenvironment{calloutcaution}[1][Caution]{%
+  \begin{tcolorbox}[
+    enhanced, breakable,
+    boxrule=0.6pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    coltitle=black, fonttitle=\bfseries,
+    titlerule=0pt, toptitle=2pt, bottomtitle=2pt,
+    borderline west={2.5pt}{0pt}{calloutcaution},
+    colback=calloutcaution!6, colframe=calloutcaution!55!black,
+    colbacktitle=calloutcaution!10,
+    title={\small \iconcaution\ \ #1}
+  ]%
+}{\end{tcolorbox}}    
+
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bej}{\mathbf{e}}
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bi}{\mathbf{i}}
+\newcommand{\bj}{\mathbf{j}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bff}{\mathbf{f}}
+\newcommand{\bg}{\mathbf{g}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bups}{\mathbf{\Upsilon}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\veta}{\boldsymbol{\eta}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bpi}{\bm{\pi}}
+\DeclareMathOperator{\Tr}{Tr}
+\newcommand{\hs}{\mathbf{H}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\hjb}{\textrm{HJB}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\balpha}{\boldsymbol{\alpha}} 
+\newcommand{\bsigma}{\boldsymbol{\sigma}} 
+\newcommand{\bmu}{\boldsymbol{\mu}} 
+
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{calc,arrows.meta,positioning,tikzmark,backgrounds}
+\usepackage{pgfplots}
+\usepgfplotslibrary{patchplots,fillbetween}
+\pgfplotsset{compat=1.18}
+\tikzset{
+  annarrow/.style={-{Latex[length=3mm]}, thick},
+  anntext/.style={font=\small\bfseries}
+}
+
+% Node styles
+\tikzset{
+  neuron/.style     = {circle, draw=black!50, very thick, minimum size=8.5mm},
+  inputnode/.style  = {neuron, fill=my_green!90},
+  hiddennode/.style = {neuron, fill=my_blue!90},
+  outputnode/.style = {neuron, fill=my_red!85},
+  conn/.style       = {gray!70, -{Latex[length=2.2mm,width=1.4mm]}, line width=0.5pt},
+  lbl/.style        = {font=\small},
+  biglbl/.style     = {font=\normalsize\bfseries}
+}
+
+% ============================================================
+% CES Notation and Conventions
+% Include via \input{ces_notation} or \include{ces_notation}
+% Assumes preamble with: amsmath, amsthm, tcolorbox, theorem environments
+% ============================================================
+
+% ------------------------------------------------------------
+% Custom commands for CES notation (add to master preamble or keep here)
+% ------------------------------------------------------------
+
+% Aggregators (calligraphic)
+\newcommand{\M}{\mathcal{M}}              % Generic mean
+\newcommand{\Mbar}{\bar{\mathcal{M}}}     % Classical mean
+\newcommand{\Ssum}{\mathcal{S}}           % Inner sum
+\newcommand{\U}{\mathcal{U}}              % Utility over goods
+\newcommand{\F}{\mathcal{F}}              % Production function
+\newcommand{\Hfun}{\mathcal{H}}           % Production possibility frontier (PPF)
+\newcommand{\V}{\mathcal{V}}              % Intertemporal utility
+\newcommand{\CE}{\mathcal{R}}             % Certainty equivalent
+
+% Weight vector
+\newcommand{\bom}{\boldsymbol{\omega}}    % omega vector
+\newcommand{\bell}{\boldsymbol{\ell}}     % ell vector
+
+% Optimal values
+\newcommand{\opt}{^{*}}                   % Superscript for optima
+
+% Price index
+\newcommand{\Pstar}{P^{*}}                % Ideal price index
+
+% Expenditure shares
+\newcommand{\wexp}{w}
+
+\newcommand{\Rstar}{R^{*}}% Expenditure share
+
+% KL divergence
+\newcommand{\KL}[2]{D_{\mathrm{KL}}\left(#1 \,\|\, #2\right)}
