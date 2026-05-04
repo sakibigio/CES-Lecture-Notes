@@ -1,0 +1,177 @@
+% ==============================================================
+\section{Solution Methods}
+\label{sec:dp-solution}
+% ==============================================================
+
+The Bellman equation is a fixed-point problem; the Euler equation is a functional equation in the policy. Each suggests an algorithm: value function iteration (VFI) for the former, policy function iteration (PFI) for the latter. We develop both, discuss their relative merits, and conclude with a two-step decomposition that exploits CES structure to reduce the dimensionality of the inner problem.
+
+% --------------------------------------------------------------
+\subsection{Value Function Iteration}
+\label{subsec:dp-vfi}
+% --------------------------------------------------------------
+
+VFI solves the Bellman equation $V = T^\star V$ by direct iteration on the operator $T^\star$.
+
+\paragraph{The Algorithm.}
+Initialize $V^{(0)}$ (e.g., $V^{(0)} \equiv 0$ or $V^{(0)} = u$). At iteration $n$:
+\begin{equation}
+V^{(n+1)}(W) = \max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V^{(n)}(R'(W-c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:vfi-step}
+\end{equation}
+Iterate until $\|V^{(n+1)} - V^{(n)}\| < \epsilon$.
+
+\paragraph{Convergence.}
+By the contraction property of $T^\star$ (\cref{prop:bellman-contraction}):
+\begin{equation}
+\|V^{(n)} - V^\star\| \leq \beta^n \|V^{(0)} - V^\star\|.
+\label{eq:vfi-convergence}
+\end{equation}
+Geometric convergence at rate $\beta$. With $\beta = 0.96$, achieving $\epsilon = 10^{-6}$ requires about 340 iterations from any starting point.
+
+\paragraph{Implementation Considerations.}
+Each iteration requires solving \cref{eq:vfi-step} at every grid point. The cost decomposes as:
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Discretization:} Choose a grid $\{W_1, \ldots, W_N\}$ over the state space.
+    \item \textbf{Interpolation:} Evaluating $V^{(n)}(R'(W-c))$ at off-grid values requires interpolation (linear, cubic spline, or Chebyshev).
+    \item \textbf{Inner optimization:} For each $W_i$, solve a one-dimensional optimization over $c$ (golden-section, Brent's method, or grid search).
+    \item \textbf{Expectation:} If returns are stochastic, $\mu(V(R'\cdot))$ must be approximated by quadrature or Monte Carlo.
+\end{itemize}
+Total cost per iteration is $O(N \cdot N_c \cdot N_R)$ where $N$ is the state grid, $N_c$ the number of candidate consumption levels, and $N_R$ the number of return draws.
+
+\begin{calloutnote}[Why VFI Is the Default]
+VFI is robust: it converges from \emph{any} starting point, requires no derivatives, and handles non-smooth or constrained problems gracefully. The downside is the cost per iteration. For smooth, interior problems, the methods below converge faster.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Policy Function Iteration}
+\label{subsec:dp-pfi}
+% --------------------------------------------------------------
+
+PFI exploits the fact that, given a candidate policy, the value function it induces is computed cheaply (no max, just evaluation), and then the policy can be improved.
+
+\paragraph{The Algorithm.}
+Initialize a policy $g^{(0)}: \mathbb{R}_+ \to \mathbb{R}_+$. At iteration $n$:
+
+\textbf{Step 1 (Policy Evaluation).} Compute the value $V^{(n)}$ induced by policy $g^{(n)}$, by solving the linear functional equation
+\begin{equation}
+V^{(n)}(W) = \Mbar\Big( g^{(n)}(W), \, \mu\big( V^{(n)}(R'(W - g^{(n)}(W))) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:pfi-eval}
+\end{equation}
+This is a fixed-point problem in $V^{(n)}$ \emph{for fixed} $g^{(n)}$. Because no $\max$ is involved, the operator on the right is the evaluation operator $T$ from \cref{sec:fixed-points}, and the contraction argument applies. In practice, \cref{eq:pfi-eval} is often solved iteratively (a few sub-iterations of $T$) or, in special cases, analytically.
+
+\textbf{Step 2 (Policy Improvement).} Given $V^{(n)}$, compute the new policy:
+\begin{equation}
+g^{(n+1)}(W) = \arg\max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V^{(n)}(R'(W - c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:pfi-improve}
+\end{equation}
+
+Iterate until $\|g^{(n+1)} - g^{(n)}\| < \epsilon$.
+
+\paragraph{Howard Improvement.}
+\Cref{eq:pfi-eval} is itself a fixed-point problem. If we solve it exactly at each $n$, the algorithm is \emph{exact policy iteration} and converges in $O(\log(\epsilon))$ outer iterations---superlinear convergence. If we instead apply $T$ a fixed finite number of times (say, $K$) before improving, we obtain \emph{Howard improvement}, also called \emph{modified policy iteration}. With $K = 1$, Howard improvement reduces to VFI; with $K = \infty$, to exact PFI. Intermediate $K$ trades inner cost for outer iterations.
+
+\begin{calloutnote}[Why PFI Is Faster When It Works]
+PFI converges quadratically near the optimum (as a Newton method on the Bellman equation), versus geometrically for VFI. The cost is the policy evaluation step, which itself requires solving a fixed-point problem. When this inner problem is cheap---e.g., when policies admit closed-form value functions, as in linear-quadratic problems or our homothetic CES setting---PFI dominates VFI in total compute time.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Two-Step Decomposition for CES Problems}
+\label{subsec:dp-two-step}
+% --------------------------------------------------------------
+
+For homothetic CES problems, the structure developed in \cref{sec:dp-homothetic} suggests an algorithm that exploits the static-canonical-problem mapping at every iteration.
+
+\paragraph{The Decomposition.}
+The Bellman equation in normalized form \cref{eq:normalized-bellman} factors into:
+\begin{enumerate}[leftmargin=2em]
+    \item An \emph{inner problem}: compute the certainty equivalent $\mu(R')$ of returns.
+    \item An \emph{outer problem}: solve the two-good static CES problem in $m$ vs.\ $1-m$, with shadow price $1/(v \mu(R'))$ on the future.
+\end{enumerate}
+The outer problem is one-dimensional (in $m$); the inner problem is one-dimensional (in the random variable $R'$).
+
+\paragraph{The Algorithm.}
+Initialize $v^{(0)}$. At iteration $n$:
+
+\textbf{Step 1 (Inner: Certainty Equivalent).} Compute
+\begin{equation}
+\mu^{(n)} = \mu(R'),
+\label{eq:inner-CE}
+\end{equation}
+which is independent of $v^{(n)}$ and so is computed once (or at the optimum of an outer portfolio problem in the multi-asset case).
+
+\textbf{Step 2 (Outer: Static CES Update).} Solve the two-good static problem
+\begin{equation}
+v^{(n+1)} = \max_{m \in [0,1]} \Mbar\big( m, \, (1-m) v^{(n)} \mu^{(n)}; \; 1-\beta, \, 1-1/\theta \big).
+\label{eq:outer-CES}
+\end{equation}
+Use the closed-form static solution from \cref{ch:canonical-problems}: with shadow prices $(1, 1/(v^{(n)} \mu^{(n)}))$ and weights $(1-\beta, \beta)$, the optimal $m$ and the resulting value follow directly.
+
+Iterate to convergence in $v$. Convergence is geometric, with modulus governed by the elasticity of $v$ to $v$ in \cref{eq:outer-CES}, typically much smaller than $\beta$.
+
+\begin{calloutimportant}[Why This Works]
+Each iteration in the two-step algorithm reduces to:
+\begin{itemize}[leftmargin=2em]
+    \item A static portfolio problem (Step 1) of the kind solved in \cref{ch:canonical-problems}.
+    \item A static intertemporal allocation problem (Step 2) of the kind solved in the same chapter.
+\end{itemize}
+The full toolbox of comparative statics, KL representations, and closed-form solutions from Part I applies at every iteration. The dynamic problem is decomposed into a sequence of static problems for which we already have analytical solutions.
+\end{calloutimportant}
+
+\paragraph{Multi-Asset Extension.}
+With multiple risky assets and portfolio weights $\balpha$, Step 1 becomes the static portfolio problem
+\begin{equation}
+\balpha^\star = \arg\max_{\balpha} \mu\big( R'(\balpha) \big), \qquad R'(\balpha) = \sum_j \alpha_j R_j',
+\label{eq:portfolio-step}
+\end{equation}
+which is itself a CES problem (in the certainty equivalent form). Step 2 is unchanged. The two-step decomposition isolates the portfolio choice from the consumption-savings choice---a separation theorem that holds because of homotheticity and the time-separable risk-time structure of Epstein--Zin.
+
+% --------------------------------------------------------------
+\subsection{Projection and Collocation}
+\label{subsec:dp-projection}
+% --------------------------------------------------------------
+
+When the homothetic reduction does not apply---e.g., with borrowing constraints---the value function depends nontrivially on $W$, and we need a function approximation method.
+
+\paragraph{Projection Methods.}
+Approximate $V$ by a finite-dimensional family:
+\begin{equation}
+V(W) \approx \hat V(W; \boldsymbol{\theta}) = \sum_{k=1}^{K} \theta_k \phi_k(W),
+\label{eq:projection}
+\end{equation}
+where $\{\phi_k\}$ are basis functions (Chebyshev polynomials, splines, neural networks) and $\boldsymbol\theta = (\theta_1, \ldots, \theta_K)$ are coefficients.
+
+\paragraph{Collocation.}
+Choose $K$ collocation points $\{W_i\}_{i=1}^{K}$. Require the Bellman equation to hold exactly at these points:
+\begin{equation}
+\hat V(W_i; \boldsymbol\theta) = (T^\star \hat V)(W_i; \boldsymbol\theta), \quad i = 1, \ldots, K.
+\label{eq:collocation}
+\end{equation}
+This is a system of $K$ equations in the $K$ coefficients $\boldsymbol\theta$. Solve by Newton iteration, or by combining with VFI (alternating updates of $\boldsymbol\theta$ via least squares and updates of the maximizers).
+
+\paragraph{When to Use Projection.}
+Projection methods are most attractive when the value function is smooth (Chebyshev), when the state has multiple dimensions (where grid methods scale poorly), or when high accuracy is required. Modern implementations using neural networks scale to very high-dimensional state spaces but at the cost of analytical transparency.
+
+\begin{calloutnote}[The Curse of Dimensionality]
+For low-dimensional problems ($d \leq 3$), VFI on a grid is reliable and easy to implement. For $d \geq 4$, the grid grows exponentially ($N^d$ points), and projection methods or simulation-based methods (e.g., simulated method of moments, deep reinforcement learning) become necessary. The CES homothetic reduction is one of the few generic tools that reduces dimensionality \emph{exactly}, without approximation. This is what makes it valuable.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dp-solution-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item \textbf{Value function iteration} (VFI) iterates the Bellman operator $T^\star$. Convergence is geometric at rate $\beta$. Robust but expensive.
+    
+    \item \textbf{Policy function iteration} (PFI) alternates policy evaluation and policy improvement. Converges quadratically near the optimum, but requires solving a sub-fixed-point in the evaluation step.
+    
+    \item \textbf{Howard improvement} interpolates between VFI and PFI, applying $T$ a finite number of times before improving. The $K=1$ case recovers VFI.
+    
+    \item For \textbf{homothetic CES problems}, the two-step decomposition reduces each iteration to a static portfolio problem (inner) and a static intertemporal allocation (outer). Both have closed-form solutions from \cref{ch:canonical-problems}.
+    
+    \item When homotheticity fails, \textbf{projection methods} approximate $V$ by a basis expansion and impose the Bellman equation at collocation points. This handles multi-dimensional states and smooth problems efficiently.
+\end{enumerate}
+\end{calloutimportant}
+
+This concludes our development of the foundational tools of dynamic programming. The chapters that follow---consumption and savings, portfolio choice, labor and leisure, investment with adjustment costs---each apply this machinery to a specific economic environment. In each case, the same template recurs: write the Bellman equation, exploit homotheticity to normalize, recognize the per-period problem as a static CES allocation, and solve. The tools developed here are the universal solvent.

@@ -1,0 +1,23 @@
+% ==============================================================
+% Chapter Master: Classic Dynamic Programming
+% File: sections/dp_master.tex
+% ==============================================================
+
+% \chapter{Classic Dynamic Programming}
+\label{ch:dynamic-programming}
+
+The previous chapter developed a recursive language for \emph{evaluating} consumption streams. Given an exogenous sequence $\{c_t\}$, the value function $\V_t$ was characterized as a fixed point of an aggregation operator $T$. Two facts made this work: the generalized mean admits an exact recursive decomposition, and the operator $T$ is a contraction with modulus $\beta$.
+
+This chapter takes the next step: the consumption stream is no longer given. The agent \emph{chooses} it, subject to a budget constraint that links today's choices to tomorrow's resources. The mathematical machinery from the previous chapter survives almost intact. We replace the operator $T$ with a new operator $T^\star$ that includes a $\max$, and the same contraction argument delivers existence, uniqueness, and a constructive algorithm. What is genuinely new is the \emph{first-order condition}---the Euler equation---which characterizes optimal choices and connects dynamic programming back to the canonical CES problems of \cref{ch:canonical-problems}.
+
+The CES structure plays a starring role. Homotheticity collapses the state space: the value function is linear in wealth, and the per-period problem reduces to a canonical static CES problem with the same KL-divergence representation developed in \cref{ch:information}. The dynamic problem is, in this sense, a sequence of static problems glued together by a single scalar---the marginal propensity to consume.
+
+\input{sections/dp_problem}
+
+\input{sections/dp_bellman}
+
+\input{sections/dp_euler}
+
+\input{sections/dp_homothetic}
+
+\input{sections/dp_solution}

@@ -14,12 +14,12 @@ We now apply the generalized means framework to intertemporal choice. The key in
 
 In previous sections, an agent chose quantities $\bx = (x_1, \ldots, x_n)$ of different goods subject to a budget constraint $\sum_i p_i x_i = W$. The relative price $p_i/p_j$ governed the trade-off between goods $i$ and $j$.
 
-Now consider an agent who lives for two periods, $t \in \{0, 1\}$. The agent chooses consumption $(c_0, c_1)$ over time rather than across varieties. The fundamental trade-off is no longer between apples and oranges, but between consuming today versus tomorrow.
+We now consider an agent who lives for two periods, $t \in \{0, 1\}$. The agent chooses consumption $(c_0, c_1)$ over time, rather than across varieties. The fundamental trade-off is no longer between two goods (e.g., apples and oranges), but between consuming today versus tomorrow, which can be thought of as two goods.
 
 \paragraph{The Interest Rate as a Relative Price.}
-If the agent saves one unit of the consumption good today, it grows to $R$ units tomorrow, where $R = 1 + r$ is the gross interest rate. Equivalently, one unit of future consumption costs $q \equiv R^{-1}$ units of current consumption. The bond price $q$ is the relative price of future consumption in terms of current consumption.
+If the agent saves one unit of the consumption good today, it grows to $R$ units tomorrow, where $R = 1 + r$ is the gross interest rate. Equivalently, one unit of future consumption costs $q \equiv R^{-1}$ units of current consumption. 
 
-This observation is the bridge between static and dynamic optimization: with $p_0 = 1$ (current consumption as numeraire) and $p_1 = q = R^{-1}$, the intertemporal problem is a special case of the canonical CES problem with two goods.
+The price $q$ is the relative price of future consumption in terms of current consumption. This price is the bridge between static and dynamic optimization: with $p_0 = 1$ (current consumption as numeraire) and $p_1 = q = R^{-1}$, the intertemporal problem is a special case of the canonical CES problem with two goods.
 
 % --------------------------------------------------------------
 \subsection{The Sequential Formulation}
@@ -28,10 +28,19 @@ This observation is the bridge between static and dynamic optimization: with $p_
 
 The standard macroeconomic formulation presents the problem in sequential form.
 
-\paragraph{Budget Constraints.}
-The agent enters period $0$ with initial wealth $b_0$ and receives income $y_0$. After consuming $c_0$, the remainder is saved in a bond $b_1$:
+\paragraph{Preferences.}
+The agent has preferences with discount factor $\beta \in (0,1)$ and period utility power utility, $u(c) = \frac{c^{1-1/\theta} - 1}{1 - 1/\theta}$, where $\theta > 0$ is the intertemporal elasticity of substitution (IES). The role if the -1 terms subtracting is to guarantee that utility is continuous in the parameter $\theta$: without this term $U$ is discountinuos at $\theta=0.$ Of course, adding a constant does not change the preference relationship of the agent.
+
+The objective is:
 \begin{equation}
-c_0 + b_1 = b_0 + y_0.
+U = u(c_0) + \beta \, u(c_1) = \frac{c_0^{1-1/\theta} - 1}{1 - 1/\theta} + \beta \frac{c_1^{1-1/\theta} - 1}{1 - 1/\theta}.
+\label{eq:objective-sequential}
+\end{equation}
+
+\paragraph{Budget Constraints.}
+The agent enters period $0$ with initial wealth $a_0$ and receives income $y_0$. After consuming $c_0$, the remainder is saved in a bond $b_1$:
+\begin{equation}
+c_0 + b_1 = a_0 + y_0.
 \label{eq:budget-t0}
 \end{equation}
 In period $1$, the bond matures with gross return $R$, and the agent receives income $y_1$:
@@ -39,65 +48,66 @@ In period $1$, the bond matures with gross return $R$, and the agent receives in
 c_1 = R b_1 + y_1.
 \label{eq:budget-t1}
 \end{equation}
-We assume no bequest motive, so the agent consumes all available resources in period $1$.
+We assume no bequest motive, so the agent consumes all available resources in period $1$. 
 
-\paragraph{Preferences.}
-The agent has time-separable preferences with discount factor $\beta \in (0,1)$ and period utility $u(c) = \frac{c^{1-1/\theta} - 1}{1 - 1/\theta}$, where $\theta > 0$ is the intertemporal elasticity of substitution (IES). The objective is:
-\begin{equation}
-U = u(c_0) + \beta \, u(c_1) = \frac{c_0^{1-1/\theta} - 1}{1 - 1/\theta} + \beta \frac{c_1^{1-1/\theta} - 1}{1 - 1/\theta}.
-\label{eq:objective-sequential}
-\end{equation}
+We can perform a change of variables and denote by $a_1=R b_1$ the wealth carried to period 1. In that case, the first period's budget is,
+\[
+c_0 + \frac{a_1}{R} = a_0 + y_0.
+\]
+Both formulations are equivalent. 
 
 \paragraph{The Optimization Problem.}
-The agent maximizes \cref{eq:objective-sequential} subject to the sequential budgets \cref{eq:budget-t0,eq:budget-t1}:
-\begin{equation}
-\max_{c_0, c_1, b_1} \left\{ u(c_0) + \beta \, u(c_1) \right\} \quad \text{s.t.} \quad c_0 + b_1 = b_0 + y_0, \quad c_1 = R b_1 + y_1.
-\label{eq:problem-sequential}
-\end{equation}
+The agent maximizes \cref{eq:objective-sequential} subject to the sequential budgets \cref{eq:budget-t0,eq:budget-t1}.
 
 % --------------------------------------------------------------
 \subsection{The Lifetime Budget}
 \label{subsec:lifetime-budget}
 % --------------------------------------------------------------
 
-The two sequential constraints can be consolidated into a single lifetime budget constraint.
-
-\paragraph{Derivation.}
-From \cref{eq:budget-t1}, $b_1 = (c_1 - y_1)/R$. Substituting into \cref{eq:budget-t0}:
+The two sequential constraints can be consolidated into a single lifetime budget constraint. From \cref{eq:budget-t1}, $b_1 = (c_1 - y_1)/R$. Substituting into \cref{eq:budget-t0}:
 \[
-c_0 + \frac{c_1 - y_1}{R} = b_0 + y_0 \quad \Longrightarrow \quad c_0 + \frac{c_1}{R} = b_0 + y_0 + \frac{y_1}{R}.
+c_0 + \frac{c_1 - y_1}{R} = a_0 + y_0 \quad \Longrightarrow \quad c_0 + \frac{c_1}{R} = a_0 + y_0 + \frac{y_1}{R}.
 \]
+This relationship tells us the present value of consumption equals the present value of wealth. 
 
 \begin{definition}[Lifetime Wealth]
 \label{def:lifetime-wealth}
 The agent's lifetime wealth is the present discounted value of all resources:
 \begin{equation}
-W \equiv b_0 + y_0 + \frac{y_1}{R} = b_0 + y_0 + q \cdot y_1.
+W \equiv a_0 + y_0 + \frac{y_1}{R} = a_0 + y_0 + q \cdot y_1.
 \label{eq:lifetime-wealth}
 \end{equation}
 \end{definition}
 
 The lifetime budget constraint becomes:
 \begin{equation}
-\boxed{c_0 + q \cdot c_1 = W, \qquad q \equiv R^{-1}.}
+c_0 + q \cdot c_1 = W, \qquad q \equiv R^{-1}.
 \label{eq:lifetime-budget}
 \end{equation}
-
-This is a linear constraint in $(c_0, c_1)$ with prices $(1, q)$ and wealth $W$---exactly the structure of the canonical problem.
+This is a linear constraint in $(c_0, c_1)$ with prices $(1, q)$ and wealth $W$---exactly the structure of the static problems.
 
 \begin{calloutnote}[The Role of $q$]
 The bond price $q = R^{-1}$ is the relative price of future consumption. When $R$ rises, $q$ falls: future consumption becomes cheaper in terms of current consumption. This is the price effect that drives intertemporal substitution.
 \end{calloutnote}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{two_period_budget_optimum}
+  \caption{Lifetime budget constraint $c_0 + c_1/R = W$, indifference curve, endowment, and optimum, for $\beta = 0.96$, $\theta = 1$, $R = 1.04$.}
+  \label{fig:two-period-budget}
+\end{figure}
 
 % --------------------------------------------------------------
 \subsection{Transformation to Generalized Mean Form}
 \label{subsec:transformation-canonical}
 % --------------------------------------------------------------
 
-The objective \cref{eq:objective-sequential} is not yet in generalized mean form. We now apply monotone transformations to rewrite it as a CES aggregator, enabling direct application of the solution formulas from \cref{sec:problem-solution}. We present both the classical and canonical representations, showing explicitly how the discount factor $\beta$ maps to aggregator weights.
+The objective \cref{eq:objective-sequential} is not yet in a generalized mean form. However, we now apply monotone transformations to rewrite it as a CES aggregator, enabling direct application of the solution formulas from \cref{sec:problem-solution}. We present both the classical and canonical representations, showing explicitly how the discount factor $\beta$ maps to aggregator weights.
 
 \paragraph{Step 1: Dropping Constants.}
-Since the $-1/(1-1/\theta)$ terms do not depend on $(c_0, c_1)$, maximizing $U$ is equivalent to maximizing:
+Since the $-1/(1-1/\theta)$ terms do not depend on $(c_0, c_1)$, we can forget about these additive constants. We check later whether the transformed problems are continuous in $\theta$, which is why the constants were introduced in the first place. 
+
+Maximizing $U$ is equivalent to maximizing:
 \begin{equation}
 \tilde{U} = \frac{c_0^{1-1/\theta}}{1 - 1/\theta} + \beta \frac{c_1^{1-1/\theta}}{1 - 1/\theta} = \frac{1}{1-1/\theta} \left( c_0^{1-1/\theta} + \beta \, c_1^{1-1/\theta} \right).
 \label{eq:U-tilde}
@@ -115,10 +125,9 @@ The objective becomes:
 \tilde{U} = \frac{1}{\rho} \left( c_0^{\rho} + \beta \, c_1^{\rho} \right).
 \label{eq:U-power}
 \end{equation}
-
 The term in parentheses, $c_0^{\rho} + \beta \, c_1^{\rho}$, is almost the inner sum of a generalized mean---but the coefficients $(1, \beta)$ do not sum to one, and they do not yet have the form required by either the classical or canonical representation.
 
-\paragraph{Step 3: Normalizing to Classical Form.}
+\paragraph{Step 3: Normalizing to  obtain a Classical Form.}
 To obtain a classical generalized mean, we need weights $(\tilde{\omega}_0, \tilde{\omega}_1)$ that sum to one. Multiply $\tilde{U}$ by the positive constant $(1+\beta)^{-1}$:
 \begin{equation}
 \frac{\tilde{U}}{1+\beta} = \frac{1}{\rho} \left( \frac{1}{1+\beta} \, c_0^{\rho} + \frac{\beta}{1+\beta} \, c_1^{\rho} \right) = \frac{1}{\rho} \left( \tilde{\omega}_0 \, c_0^{\rho} + \tilde{\omega}_1 \, c_1^{\rho} \right),
@@ -131,7 +140,17 @@ where:
 \end{equation}
 
 \paragraph{Step 4: Applying the Outer Power.}
-The inner sum $\bar{\Ssum} = \tilde{\omega}_0 \, c_0^{\rho} + \tilde{\omega}_1 \, c_1^{\rho}$ defines the classical generalized mean via $\Mbar = \bar{\Ssum}^{1/\rho}$. Since $1/\rho$ is a monotone transformation (for $\rho \neq 0$), maximizing $\tilde{U}$ is equivalent to maximizing the classical mean $\Mbar$.
+The inner sum $\bar{\Ssum} = \tilde{\omega}_0 \, c_0^{\rho} + \tilde{\omega}_1 \, c_1^{\rho}>0$ defines the classical generalized mean via $\Mbar = \bar{\Ssum}^{1/\rho}$. 
+
+However, before we raise $\frac{\tilde{U}}{1+\beta}$ to the power $1/\rho$, we must make sure this is a monotone transformation. 
+
+If $\rho>0$, we are fine because $\frac{1}{\rho}s_1>\frac{1}{\rho}s_2\Rightarrow \left(\frac{1}{\rho}s_1\right)^{1/\rho}>\left(\frac{1}{\rho}s_2\right)^{1/\rho}$. When $\rho<0$, we $s_1>s_2\Rightarrow m^{1/\rho}<n^{1/\rho}$, so raising to the power is not a monotone transformation. However, multiplying by -1 and raising to the power $1/\rho$ is a monotone transformation. 
+\[
+s_1>s_2 \Rightarrow -\frac{1}{\rho}s_1>-\frac{1}{\rho}s_2\Rightarrow \left(-\frac{1}{\rho}s_1\right)^{1/\rho}>\left(-\frac{1}{\rho}s_2\right)^{1/\rho}
+\]. 
+Since $\left(\frac{1}{\rho}\right)^{1/\rho}$ and $\left(-\frac{1}{\rho}\right)^{1/\rho}$ are positive constants when $\rho$ is positive and negative, respectively, we can drop the constants, again monotone transformations. Hence, maximizing $\tilde{U}$ is equivalent to maximizing the classical mean $\Mbar$.
+
+We have further seen that maximizing a problem in its classical form is equivalent to maximizing it in its canonical form.
 
 \paragraph{The Two Representations.}
 We can now state the intertemporal problem in both classical and canonical form. The two are equivalent representations of the same optimization problem, connected by the weight transformation from \cref{sec:problem-solution}.
@@ -238,6 +257,11 @@ The ratio is:
 \end{equation}
 which confirms that the canonical inner sum has terms proportional to $c_0^{\rho}$ and $\beta c_1^{\rho}$, matching the original objective up to a constant.
 
+We further verify that as $\rho \rightarrow 0$, our cannonical form becomes:
+\[\mathcal{M}=\left(c_0c_1^{\beta}\right)^{\frac{1}{1+\beta}}.
+\]
+Taking logs, another monotone transformation, leads to the same objective as the original formulation, up to a constant. Both problems are equivalent also at their limit. 
+
 \begin{calloutimportant}[The Mapping to the Canonical Problem]
 The intertemporal problem maps to the canonical CES problem with:
 \begin{center}
@@ -249,7 +273,7 @@ The intertemporal problem maps to the canonical CES problem with:
 Goods $\{1, \ldots, n\}$ & Periods $\{0, 1\}$ & --- \\
 Quantities $x_i$ & Consumption $c_t$ & --- \\
 Prices $p_i$ & $(p_0, p_1) = (1, q)$ & $q = R^{-1}$ \\
-Wealth $W$ & Lifetime wealth $W$ & $W = b_0 + y_0 + q \cdot y_1$ \\
+Wealth $W$ & Lifetime wealth $W$ & $W = a_0 + y_0 + q \cdot y_1$ \\
 Elasticity $\varepsilon$ & IES $\theta$ & --- \\
 Power $\rho$ & Power $\rho$ & $\rho = 1 - 1/\theta$ \\
 Classical weight $\tilde{\omega}_i$ & Normalized discount & $\tilde{\omega}_1 = \beta/(1+\beta)$ \\
@@ -268,20 +292,24 @@ With this mapping, all results from \cref{sec:problem-solution}---optimal alloca
 With the problem in canonical form, we apply the solution formulas from \cref{sec:problem-solution}.
 
 \paragraph{The Intertemporal Price Index.}
-The ideal price index aggregates prices $(1, q)$ with weights $(\omega_0, \omega_1)$:
+Using that $\frac{\rho}{\rho-1}=\frac{1-\frac{1}{\theta}}{-\frac{1}{\theta}}=1-\theta$, we reconstruct the ideal price index.  The ideal price index aggregates prices $(1, q)$ with weights $(\omega_0, \omega_1)$:
 \begin{equation}
 \Pstar = \left( \omega_0 \cdot 1^{1-\theta} + \omega_1 \cdot q^{1-\theta} \right)^{1/(1-\theta)} = \left( \omega_0 + \omega_1 \, q^{1-\theta} \right)^{1/(1-\theta)}.
 \label{eq:price-index-intertemporal}
 \end{equation}
-
 Since $q = R^{-1}$, we have $q^{1-\theta} = R^{\theta - 1}$, and:
 \begin{equation}
 \Pstar = \left( \omega_0 + \omega_1 \, R^{\theta - 1} \right)^{1/(1-\theta)}.
 \label{eq:price-index-R}
 \end{equation}
+The term $\Pstar$ in this case indicates the cost of transforming a unit of lifetime wealth into lifetime utility (in its canonical form). 
 
 \paragraph{Budget Shares.}
-The expenditure shares on current and future consumption are:
+Recall that the optimal expenditure shares were given by:
+\[
+w_i=\omega_i\left(\frac{p_i}{P^{*}}\right)^{\frac{\rho}{\rho-1}}.
+\]
+Thus, the expenditure shares on current and future consumption are, consumption at the different dates is given by:
 \begin{align}
 \wexp_0 &= \frac{c_0}{W} = \omega_0 \left( \frac{1}{\Pstar} \right)^{1-\theta} = \frac{\omega_0}{\omega_0 + \omega_1 \, R^{\theta-1}}, \label{eq:share-c0} \\[6pt]
 \wexp_1 &= \frac{q \cdot c_1}{W} = \omega_1 \left( \frac{q}{\Pstar} \right)^{1-\theta} = \frac{\omega_1 \, R^{\theta-1}}{\omega_0 + \omega_1 \, R^{\theta-1}}. \label{eq:share-c1}
@@ -300,10 +328,9 @@ Dividing $c_1^*$ by $c_0^*$:
 \frac{c_1^*}{c_0^*} = \frac{\omega_1}{\omega_0} \left( \frac{q}{1} \right)^{-\theta} = \frac{\omega_1}{\omega_0} R^{\theta}.
 \label{eq:consumption-ratio}
 \end{equation}
-
 Using the relationship $\omega_1 / \omega_0 = \beta^{1/(1-\rho)} = \beta^{\theta}$:
 \begin{equation}
-\boxed{\frac{c_1^*}{c_0^*} = (\beta R)^{\theta}.}
+\frac{c_1^*}{c_0^*} = (\beta R)^{\theta}.
 \label{eq:consumption-ratio-final}
 \end{equation}
 
@@ -338,7 +365,7 @@ Using $\omega_1^{1-\rho} / \omega_0^{1-\rho} = \beta$ and $\rho - 1 = -1/\theta$
 \paragraph{The Euler Equation.}
 Recognizing that $u'(c) = c^{-1/\theta}$ for our utility specification:
 \begin{equation}
-\boxed{u'(c_0) = \beta R \, u'(c_1) \qquad \Longleftrightarrow \qquad c_0^{-1/\theta} = \beta R \, c_1^{-1/\theta}.}
+u'(c_0) = \beta R \, u'(c_1) \qquad \Longleftrightarrow \qquad c_0^{-1/\theta} = \beta R \, c_1^{-1/\theta}.
 \label{eq:euler}
 \end{equation}
 
@@ -351,6 +378,13 @@ Equivalently, the intertemporal marginal rate of substitution equals the gross i
 \]
 \end{calloutnote}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{two_period_euler_growth}
+  \caption{Log consumption growth $\log(c_1^\star / c_0^\star)$ as a function of $\log(\beta R)$, for different IES values. The slope equals $\theta$.}
+  \label{fig:two-period-euler-growth}
+\end{figure}
+
 % --------------------------------------------------------------
 \subsection{Special Cases and the Role of the IES}
 \label{subsec:special-cases}
@@ -358,7 +392,7 @@ Equivalently, the intertemporal marginal rate of substitution equals the gross i
 
 Different values of the IES $\theta$ yield qualitatively different responses to interest rate changes. The Cobb-Douglas case ($\theta = 1$) serves as a crucial benchmark.
 
-\paragraph{Cobb-Douglas ($\theta = 1$, Log Utility).}
+\paragraph{Cobb-Douglas ($\rho=0,\theta = 1$, Log Utility).}
 When $\theta = 1$, the utility function is $u(c) = \log c$. The consumption ratio becomes:
 \begin{equation}
 \frac{c_1}{c_0} = \beta R,
@@ -372,7 +406,7 @@ and the budget shares are constant:
 
 The expenditure share on current consumption is independent of $R$. This is a striking result: changes in the interest rate have no effect on how much wealth the agent allocates to period-$0$ consumption.
 
-\paragraph{Why Income and Substitution Effects Cancel.}
+\paragraph{Why the Cobb-Douglas Share is Invariant.}
 This result connects directly to the cross-price elasticity analysis from the static CES problem. Recall that in the canonical problem, the expenditure share on good $i$ is:
 \begin{equation}
 \wexp_i = \omega_i \left( \frac{p_i}{\Pstar} \right)^{1-\varepsilon}.
@@ -385,18 +419,22 @@ The elasticity of the expenditure share with respect to another good's price $p_
 \label{eq:share-cobb-douglas}
 \end{equation}
 
-In the intertemporal context, with $\varepsilon = \theta$ and the price of future consumption $p_1 = q = R^{-1}$, the expenditure on current consumption $c_0$ has zero cross-price elasticity with respect to $q$. This is precisely the condition for income and substitution effects to cancel.
+In the intertemporal context, with $\varepsilon = \theta$ and the price of future consumption $p_1 = q = R^{-1}$, the expenditure on current consumption $c_0$ has zero cross-price elasticity with respect to $q$. The intertemporal expenditure share $\wexp_0$ is invariant to $R$ at $\theta = 1$, mirroring the static Cobb--Douglas result.
 
-To see this economically: when $R$ rises (equivalently, $q$ falls), two forces act on $c_0$. The \emph{substitution effect} makes future consumption cheaper, inducing the agent to shift expenditure toward $c_1$ and away from $c_0$. The \emph{income effect} makes the agent wealthier in present-value terms (the same nominal wealth buys more future consumption), inducing higher spending on all goods including $c_0$. At $\theta = 1$, these two effects exactly offset, leaving $c_0 = \wexp_0 \cdot W$ unchanged.
+To see this in the language of the Slutsky decomposition we develop in \cref{subsec:slutsky}, the Cobb--Douglas knife-edge is exactly where the compensated substitution $-\theta\wexp_1$ and the purchasing-power income effect $+\wexp_1$ cancel each other---these are the only two forces operating in the static problem with exogenous wealth.
+
+\medskip
+\noindent
+\emph{But $c_0$ is not invariant in $R$.} The intertemporal problem has a third channel that the static problem lacks: \emph{endowment revaluation}. When $R$ rises, the present value of $y_1$ falls, and lifetime wealth $W$ shrinks. Since $c_0 = \wexp_0 \cdot W$ with $\wexp_0$ constant at $\theta = 1$, the Cobb-Douglas response to $R$ is fully channeled through $W$ rather than through the relative price. This is the simplest illustration of the point that the intertemporal problem is an endowment economy: a price change revalues the agent's holdings of future income, and this revaluation does not disappear at the Cobb-Douglas benchmark even though the substitution and purchasing-power channels do.
 
 \begin{calloutimportant}[The Cobb-Douglas Benchmark]
 The case $\theta = 1$ is the knife-edge where:
 \begin{itemize}[nosep]
-\item Expenditure shares are constant across all price configurations
-\item Cross-price elasticities of expenditure are zero
-\item Income and substitution effects cancel exactly
+\item Expenditure shares $\wexp_0, \wexp_1$ are constant across all values of $R$.
+\item Cross-price elasticities of expenditure are zero.
+\item In the Slutsky decomposition, the compensated substitution and the purchasing-power income channels exactly offset each other.
 \end{itemize}
-This is not a coincidence---it is the same mathematical structure as in the static CES problem with unit elasticity. The intertemporal and intratemporal problems share identical comparative statics at the Cobb-Douglas benchmark.
+This is not a coincidence---it is the same mathematical structure as in the static CES problem with unit elasticity. What survives at $\theta = 1$ in the intertemporal problem, and what is absent from the static problem, is the endowment-revaluation channel: changes in $R$ continue to move $c_0$ through their effect on lifetime wealth $W$. The two problems share identical \emph{share} comparative statics at the Cobb--Douglas benchmark, but the intertemporal level response carries an extra wealth term that the static problem does not.
 \end{calloutimportant}
 
 \paragraph{Low IES ($\theta < 1$).}
@@ -432,12 +470,26 @@ The CRRA family (including log utility as a limiting case) and exponential utili
 In all CES cases, if $\beta R = 1$, the agent chooses $c_0 = c_1$: perfect consumption smoothing. This benchmark is useful for understanding deviations---when $\beta R \neq 1$, consumption tilts toward the period with higher effective return.
 \end{calloutnote}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{two_period_c0_vs_R_by_theta}
+  \caption{Current consumption $c_0^\star$ as a function of $R$ for different values of $\theta$, with $y_0 = y_1 = 1$, $\beta = 0.96$.}
+  \label{fig:two-period-c0-by-theta}
+\end{figure}
+
 % --------------------------------------------------------------
 \subsection{Comparative Statics: The Slutsky Decomposition}
 \label{subsec:slutsky}
 % --------------------------------------------------------------
 
-We now develop a systematic approach to comparative statics with respect to the interest rate. The goal is to decompose the total effect of a change in $R$ into substitution and income effects, paralleling the Slutsky decomposition from static consumer theory.
+We now develop a systematic approach to comparative statics with respect to the interest rate. The goal is to decompose the total effect of a change in $R$ into substitution and wealth effects, paralleling the Slutsky decomposition from static consumer theory. Because $R$ enters both the budget constraint (through the relative price $q = 1/R$) and the present value of future income (through $y_1/R$), the decomposition has a richer structure than its static analog.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{two_period_wealth_vs_R}
+  \caption{Lifetime wealth $W = a_0 + y_0 + y_1/R$ as a function of $R$, for three income profiles. A rate change is a pure wealth shock whose sign depends on the timing of income.}
+  \label{fig:two-period-wealth-vs-R}
+\end{figure}
 
 \paragraph{The System in Levels.}
 The agent's optimum is characterized by the Euler equation and the budget constraint:
@@ -447,10 +499,9 @@ c_0 + \frac{c_1}{R} &= W. \label{eq:budget-system}
 \end{align}
 Lifetime wealth $W$ itself depends on $R$ through the present value of future income:
 \begin{equation}
-W = b_0 + y_0 + \frac{y_1}{R}.
+W = a_0 + y_0 + \frac{y_1}{R}.
 \label{eq:wealth-R}
 \end{equation}
-
 This is a system of two equations in two unknowns $(c_0, c_1)$, with $R$ as a parameter. Changes in $R$ affect the system through three channels: the intertemporal price in the Euler equation, the relative price in the budget constraint, and the present value of future income.
 
 \paragraph{Differentiating the System.}
@@ -459,13 +510,12 @@ We work in elasticity form, expressing all changes as log-deviations. Differenti
 \frac{u''(c_0)}{u'(c_0)} c_0 \cdot \frac{dc_0}{c_0} = \frac{u''(c_1)}{u'(c_1)} c_1 \cdot \frac{dc_1}{c_1} + \frac{dR}{R}.
 \label{eq:euler-diff}
 \end{equation}
-
-Define the coefficient of relative risk aversion (equivalently, the inverse of the IES) as:
+Define the coefficient of relative risk aversion (the inverse of the IES) as
 \begin{equation}
 \sigma(c) \equiv -\frac{u''(c) \cdot c}{u'(c)}.
 \label{eq:rra-def}
 \end{equation}
-For CRRA utility, $\sigma(c) = 1/\theta$ is constant. The differentiated Euler equation becomes:
+For CRRA utility $\sigma(c) = 1/\theta$ is constant. The differentiated Euler equation becomes
 \begin{equation}
 -\sigma_0 \cdot \frac{dc_0}{c_0} = -\sigma_1 \cdot \frac{dc_1}{c_1} + \frac{dR}{R},
 \label{eq:euler-diff-sigma}
@@ -477,138 +527,206 @@ Differentiating the budget constraint:
 c_0 \cdot \frac{dc_0}{c_0} + \frac{c_1}{R} \cdot \frac{dc_1}{c_1} - \frac{c_1}{R} \cdot \frac{dR}{R} = dW.
 \label{eq:budget-diff}
 \end{equation}
-
 Differentiating lifetime wealth:
 \begin{equation}
 dW = -\frac{y_1}{R} \cdot \frac{dR}{R}.
 \label{eq:wealth-diff}
 \end{equation}
+Combining:
+\begin{equation}
+c_0 \cdot \frac{dc_0}{c_0} + \frac{c_1}{R} \cdot \frac{dc_1}{c_1} = \frac{c_1 - y_1}{R} \cdot \frac{dR}{R}.
+\label{eq:budget-combined}
+\end{equation}
 
-\paragraph{Matrix Formulation.}
+\paragraph{Matrix Formulation and Algebraic Channel Split.}
 Collecting terms, the system can be written in matrix form:
 \begin{equation}
 \underbrace{\begin{bmatrix} -\sigma_0 & \sigma_1 \\[4pt] c_0 & \dfrac{c_1}{R} \end{bmatrix}}_{\mathbf{A}}
 \begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}
-= \begin{bmatrix} 1 \\[4pt] \dfrac{c_1}{R} - \dfrac{y_1}{R} \end{bmatrix} \frac{dR}{R}.
+= \begin{bmatrix} 1 \\[4pt] \dfrac{c_1 - y_1}{R} \end{bmatrix} \frac{dR}{R}.
 \label{eq:matrix-system}
 \end{equation}
-
-The right-hand side decomposes naturally. The first component, $1$, captures the direct effect of $R$ on the intertemporal price---the pure substitution channel. The second component, $(c_1 - y_1)/R$, captures two effects: the change in the relative price in the budget constraint ($c_1/R$) and the change in lifetime wealth ($-y_1/R$).
-
-\paragraph{Isolating Substitution and Income Effects.}
-We can rewrite the right-hand side to separate the channels:
+The right-hand side admits the algebraic split:
 \begin{equation}
-\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}
-= \mathbf{A}^{-1} \left( \underbrace{\begin{bmatrix} 1 \\[4pt] \dfrac{c_1}{R} \end{bmatrix}}_{\text{substitution}} + \underbrace{\begin{bmatrix} 0 \\[4pt] -\dfrac{y_1}{R} \end{bmatrix}}_{\text{wealth}} \right) \frac{dR}{R}.
-\label{eq:decomposition-setup}
+\begin{bmatrix} 1 \\[4pt] \dfrac{c_1 - y_1}{R} \end{bmatrix}
+= \underbrace{\begin{bmatrix} 1 \\[4pt] \dfrac{c_1}{R} \end{bmatrix}}_{\substack{\text{relative-price}\\\text{vector at fixed }W}}
+\;+\; \underbrace{\begin{bmatrix} 0 \\[4pt] -\dfrac{y_1}{R} \end{bmatrix}}_{\substack{\text{endowment}\\\text{revaluation}}}.
+\label{eq:channel-split}
 \end{equation}
+The first vector is the impact of $R$ on the Euler equation and the relative price in the budget, holding lifetime wealth $W$ \emph{nominally} fixed. The second vector captures the erosion of present-value wealth, $-y_1/R$. Applying $\mathbf{A}^{-1}$ linearly, the total response decomposes into these two algebraic pieces.
 
-The substitution effect isolates the impact of the change in relative prices holding wealth constant. The wealth (income) effect captures the impact of the change in the present value of future income.
-
-Rearranging:
-\begin{equation}
-\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}
-= \underbrace{\mathbf{A}^{-1} \begin{bmatrix} 1 \\[4pt] \dfrac{c_1}{R} \end{bmatrix}}_{\text{substitution effect}} \frac{dR}{R} + \underbrace{\mathbf{A}^{-1} \begin{bmatrix} 0 \\[4pt] 1 \end{bmatrix}}_{\text{income effect}} \cdot \underbrace{\left( \frac{c_1}{R} - \frac{y_1}{R} \right)}_{\text{saving position}} \frac{dR}{R}.
-\label{eq:slutsky-general}
-\end{equation}
+\medskip
+\noindent
+\emph{A note on terminology.} It is tempting to call the first vector the ``substitution effect'' and the second the ``income effect''---and in much of the macro literature this is what is done. We will see momentarily that this labeling is a slight abuse: the response at \emph{fixed nominal $W$} is not the same as the response at \emph{fixed utility}, which is the proper Hicksian definition. The two coincide only at the Cobb--Douglas benchmark $\theta = 1$. We will return to this point after computing both pieces.
 
 \paragraph{The CRRA Case.}
 With CRRA utility, $\sigma_0 = \sigma_1 = \sigma = 1/\theta$. The matrix $\mathbf{A}$ and its inverse simplify considerably:
 \begin{equation}
 \mathbf{A} = \begin{bmatrix} -\sigma & \sigma \\[4pt] c_0 & \dfrac{c_1}{R} \end{bmatrix}, \qquad
-\det(\mathbf{A}) = -\sigma \cdot \frac{c_1}{R} - \sigma \cdot c_0 = -\sigma \left( c_0 + \frac{c_1}{R} \right) = -\sigma W.
+\det(\mathbf{A}) = -\sigma \left( c_0 + \frac{c_1}{R} \right) = -\sigma W,
 \label{eq:A-crra}
 \end{equation}
-
-The inverse is:
+and
 \begin{equation}
-\mathbf{A}^{-1} = \frac{1}{-\sigma W} \begin{bmatrix} \dfrac{c_1}{R} & -\sigma \\[4pt] -c_0 & -\sigma \end{bmatrix}
-= \frac{1}{W} \begin{bmatrix} -\dfrac{1}{\sigma} \dfrac{c_1}{R} & 1 \\[4pt] \dfrac{1}{\sigma} c_0 & 1 \end{bmatrix}.
+\mathbf{A}^{-1} = \frac{1}{W} \begin{bmatrix} -\dfrac{1}{\sigma} \dfrac{c_1}{R} & 1 \\[4pt] \dfrac{1}{\sigma} c_0 & 1 \end{bmatrix}.
 \label{eq:A-inverse}
 \end{equation}
 
-\paragraph{Substitution Effect.}
-Applying $\mathbf{A}^{-1}$ to the substitution vector:
+\paragraph{Fixed-$W$ Response.}
+Applying $\mathbf{A}^{-1}$ to the relative-price vector:
 \begin{equation}
 \mathbf{A}^{-1} \begin{bmatrix} 1 \\[4pt] \dfrac{c_1}{R} \end{bmatrix}
-= \frac{1}{W} \begin{bmatrix} -\dfrac{1}{\sigma} \dfrac{c_1}{R} + \dfrac{c_1}{R} \\[8pt] \dfrac{1}{\sigma} c_0 + \dfrac{c_1}{R} \end{bmatrix}
-= \frac{1}{W} \begin{bmatrix} \dfrac{c_1}{R} \left(1 - \dfrac{1}{\sigma}\right) \\[8pt] \dfrac{c_0}{\sigma} + \dfrac{c_1}{R} \end{bmatrix}.
+= \frac{1}{W} \begin{bmatrix} \dfrac{c_1}{R}\left(1 - \dfrac{1}{\sigma}\right) \\[8pt] \dfrac{c_0}{\sigma} + \dfrac{c_1}{R} \end{bmatrix}.
 \label{eq:sub-effect-calc}
 \end{equation}
-
-Using $1 - 1/\sigma = 1 - \theta$ and $\wexp_1 = c_1/(RW)$, $\wexp_0 = c_0/W$:
+Using $1 - 1/\sigma = 1 - \theta$ and the expenditure shares $\wexp_0 = c_0/W$, $\wexp_1 = c_1/(RW)$:
 \begin{equation}
-\boxed{\text{Substitution effect:} \quad \begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}_{\text{sub}} = \begin{bmatrix} (1-\theta) \, \wexp_1 \\[4pt] \theta \, \wexp_0 + \wexp_1 \end{bmatrix} \frac{dR}{R}.}
-\label{eq:substitution-effect}
+\left.\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}\right|_{\text{fixed-}W} = \begin{bmatrix} (1-\theta) \, \wexp_1 \\[4pt] \theta \, \wexp_0 + \wexp_1 \end{bmatrix} \frac{dR}{R}.
+\label{eq:fixed-W-effect}
 \end{equation}
+This is the response that would obtain if lifetime nominal wealth $W$ were held constant during the price change. For $c_0$, the fixed-$W$ response is $(1-\theta)\wexp_1$: negative when $\theta>1$, positive when $\theta<1$, and zero at $\theta=1$.
 
-The substitution effect reduces $c_0$ when $\theta > 1$ (high IES) and increases $c_0$ when $\theta < 1$ (low IES). At $\theta = 1$, the effect on $c_0$ is zero.
-
-\paragraph{Income Effect.}
-Applying $\mathbf{A}^{-1}$ to the income vector:
+\paragraph{Endowment Revaluation.}
+Applying $\mathbf{A}^{-1}$ to the endowment-revaluation vector:
 \begin{equation}
-\mathbf{A}^{-1} \begin{bmatrix} 0 \\[4pt] 1 \end{bmatrix}
-= \frac{1}{W} \begin{bmatrix} 1 \\[4pt] 1 \end{bmatrix}.
-\label{eq:inc-effect-calc}
+\mathbf{A}^{-1} \begin{bmatrix} 0 \\[4pt] -\dfrac{y_1}{R} \end{bmatrix}
+= -\frac{y_1}{RW} \begin{bmatrix} 1 \\[4pt] 1 \end{bmatrix}.
+\label{eq:wealth-effect-calc}
 \end{equation}
-
-This confirms that income effects raise both $c_0$ and $c_1$ proportionally---a pure wealth effect.
-
+Both consumption levels adjust proportionally---a pure income response whose magnitude is the PV-share of future income in lifetime wealth, $y_1/(RW)$. The effect is non-positive whenever $y_1 > 0$: a higher interest rate lowers the present value of future income, regardless of preferences.
 \begin{equation}
-\boxed{\text{Income effect:} \quad \begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}_{\text{inc}} = \begin{bmatrix} \dfrac{1}{W} \\[8pt] \dfrac{1}{W} \end{bmatrix} \cdot \left( \frac{c_1 - y_1}{R} \right) \frac{dR}{R}.}
+\left.\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix}\right|_{\text{reval.}} = -\frac{y_1}{RW} \begin{bmatrix} 1 \\[4pt] 1 \end{bmatrix} \frac{dR}{R}.
 \label{eq:income-effect}
 \end{equation}
 
-The magnitude depends on the agent's \emph{saving position}: the term $(c_1 - y_1)/R$ equals $-a$, the negative of savings ($a = y_0 - c_0$). A saver has $c_1 > y_1$ (consuming more than period-1 income), so the income effect is positive: higher $R$ makes the saver wealthier. A borrower has $c_1 < y_1$, and higher $R$ makes the borrower poorer.
-
-\paragraph{The Complete Decomposition.}
-Combining the two effects:
+\paragraph{The Marshallian Total.}
+Combining the two algebraic pieces gives the total response:
 \begin{equation}
-\boxed{\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix} = \underbrace{\begin{bmatrix} (1-\theta) \, \wexp_1 \\[4pt] \theta \, \wexp_0 + \wexp_1 \end{bmatrix}}_{\text{substitution}} \frac{dR}{R} + \underbrace{\begin{bmatrix} 1 \\[4pt] 1 \end{bmatrix} \frac{1}{W}}_{\text{income}} \cdot \underbrace{\left( \frac{c_1 - y_1}{R} \right)}_{-\text{savings}} \frac{dR}{R}.}
+\;\begin{bmatrix} \dfrac{dc_0}{c_0} \\[8pt] \dfrac{dc_1}{c_1} \end{bmatrix} = \underbrace{\begin{bmatrix} (1-\theta) \, \wexp_1 \\[4pt] \theta \, \wexp_0 + \wexp_1 \end{bmatrix}}_{\substack{\text{fixed-$W$}\\\text{response}}} \frac{dR}{R} \;-\; \underbrace{\frac{y_1}{RW} \begin{bmatrix} 1 \\[4pt] 1 \end{bmatrix}}_{\substack{\text{endowment}\\\text{revaluation}}} \frac{dR}{R}.\;
 \label{eq:slutsky-complete}
 \end{equation}
+For current consumption alone:
+\begin{equation}
+\frac{d\log c_0}{d\log R} = (1-\theta)\,\wexp_1 \;-\; \frac{y_1}{RW}.
+\label{eq:slutsky-c0}
+\end{equation}
+A useful cross-check: differencing the two rows of \cref{eq:slutsky-complete} gives $d\log c_1/d\log R - d\log c_0/d\log R = \theta\,(\wexp_0 + \wexp_1) = \theta$, exactly what one obtains by differentiating the consumption ratio $c_1/c_0 = (\beta R)^\theta$ directly. The decomposition is therefore consistent with the Euler equation at all points.
 
-\begin{calloutimportant}[The Slutsky Decomposition for Intertemporal Choice]
-The total effect of an interest rate change decomposes into:
+% --------------------------------------------------------------
+\paragraph{Three Primitive Channels.}
+The response in \cref{eq:slutsky-c0} mixes three economically distinct forces, and to make sense of the saver/borrower split we need to disentangle them. A change in $R$ does three things at once:
 
-\medskip
-\textbf{Substitution effect}: Depends on the IES $\theta$ and the expenditure share $\wexp_1$. For current consumption:
-\[
-\left. \frac{dc_0}{c_0} \right|_{\text{sub}} = (1 - \theta) \, \wexp_1 \cdot \frac{dR}{R}.
-\]
-When $\theta = 1$, this term vanishes---the Cobb-Douglas benchmark.
+\begin{enumerate}
+\item \textbf{Compensated substitution.} Holding utility constant, the cheaper good ($c_1$, since $q = 1/R$ falls when $R$ rises) gets a larger share of consumption and the dearer good ($c_0$) a smaller share. For CRRA utility, the Hicksian response of $c_0$ to $\log R$ is $-\theta\,\wexp_1$.
+\item \textbf{Purchasing-power income effect.} Even at fixed nominal $W$, the agent's existing bundle gets cheaper when $c_1$ becomes cheaper, so real income rises. This is the standard Slutsky income term, $-x_j \,\partial x_i^M / \partial W$ from static consumer theory; in our problem it equals $+\wexp_1$ for $c_0$.
+\item \textbf{Endowment revaluation.} Lifetime wealth $W$ is itself a function of $R$, since $dW/dR = -y_1/R^2 < 0$. This is the channel \emph{absent} from the static problem with exogenous $W$: it appears here because the agent owns a portion of their consumption stream. The induced effect on $c_0$ is $-y_1/(RW)$.
+\end{enumerate}
 
-\medskip
-\textbf{Income effect}: Depends on the saving position. For a saver ($a > 0$), higher $R$ raises wealth and increases $c_0$. For a borrower ($a < 0$), higher $R$ lowers wealth and decreases $c_0$.
+The three add up to the total:
+\begin{equation}
+\frac{d\log c_0}{d\log R} \;=\; \underbrace{-\theta\,\wexp_1}_{\substack{\text{compensated}\\\text{substitution}}} \;+\; \underbrace{\wexp_1}_{\substack{\text{purchasing-power}\\\text{income}}} \;-\; \underbrace{\frac{y_1}{RW}}_{\substack{\text{endowment}\\\text{revaluation}}}.
+\label{eq:three-term}
+\end{equation}
+The arithmetic is immediate: $-\theta\wexp_1 + \wexp_1 = (1-\theta)\wexp_1$, recovering \cref{eq:slutsky-c0}.
 
-\medskip
-The net effect on current consumption is ambiguous in general: substitution and income effects work in opposite directions for savers when $\theta > 1$, and in the same direction for savers when $\theta < 1$.
+\begin{calloutimportant}[Why an Extra Channel?]
+In the static consumer problem with exogenous wealth, only two forces operate: the compensated substitution and the purchasing-power income effect. Their sum is the Marshallian response. In an \emph{endowment economy}---and the intertemporal problem is one, with $y_1$ the period-1 endowment---a price change also revalues the agent's holdings. The full Slutsky decomposition therefore needs three terms, and any honest two-term grouping has to specify how the three are combined.
 \end{calloutimportant}
 
-\paragraph{Connection to Static Slutsky Equation.}
-This decomposition mirrors the static Slutsky equation:
+% --------------------------------------------------------------
+\paragraph{Two Equivalent Two-Term Groupings.}
+The three primitive channels can be packaged into two natural Slutsky-style forms, each pairing the compensated substitution with one or both of the income-type terms.
+
+\medskip
+\noindent
+\textbf{Form A (Marshallian, fixed-$W$ split).} Group the compensated substitution with the purchasing-power income effect, then keep the endowment revaluation as a separate ``wealth'' piece:
 \begin{equation}
-\frac{\partial x_i}{\partial p_j} = \underbrace{\frac{\partial h_i}{\partial p_j}}_{\text{substitution}} - \underbrace{x_j \frac{\partial x_i}{\partial W}}_{\text{income}},
-\label{eq:slutsky-static}
+\frac{d\log c_0}{d\log R} \;=\; \underbrace{(1-\theta)\,\wexp_1}_{\substack{\text{response at}\\\text{fixed nominal }W}} \;-\; \underbrace{\frac{y_1}{RW}}_{\substack{\text{endowment}\\\text{revaluation}}}.
+\label{eq:slutsky-fixedW}
 \end{equation}
-where $h_i$ is the Hicksian (compensated) demand. In the intertemporal context, the ``other good'' is future consumption, and the income effect is scaled by the agent's net position in that good (saving or borrowing).
+This is \cref{eq:slutsky-c0}. Its first term is the response that obtains if we pretend $W$ is exogenous and apply the two-good Slutsky formula directly. It is \emph{not} the Hicksian compensated effect; the two coincide only at the Cobb--Douglas benchmark $\theta = 1$.
+
+\medskip
+\noindent
+\textbf{Form B (Hicksian + net-demand income).} Group the two income-type terms together. From $a = (c_1 - y_1)/R$ and $\wexp_1 = c_1/(RW)$ we obtain the identity
+\begin{equation}
+\frac{a}{W} \;=\; \wexp_1 - \frac{y_1}{RW}.
+\label{eq:saving-identity}
+\end{equation}
+Substituting into \cref{eq:three-term}:
+\begin{equation}
+\boxed{\;\frac{d\log c_0}{d\log R} \;=\; \underbrace{-\theta\,\wexp_1}_{\substack{\text{compensated}\\\text{substitution}}} \;+\; \underbrace{\frac{a}{W}}_{\substack{\text{net-demand}\\\text{income effect}}}.\;}
+\label{eq:slutsky-hicksian}
+\end{equation}
+This is the proper Hicksian Slutsky decomposition for the intertemporal problem. The first term holds utility constant, exactly as in the static Slutsky equation. The second is the income effect of the price change, scaled by the agent's \emph{net demand} for the good whose price moved: $c_1 - y_1 = R\,a$.
+
+\begin{calloutnote}[Two Forms, One Decomposition]
+\cref{eq:slutsky-fixedW} and \cref{eq:slutsky-hicksian} are algebraically identical:
+\[
+(1-\theta)\,\wexp_1 - \frac{y_1}{RW} \;=\; -\theta\,\wexp_1 + \frac{a}{W}.
+\]
+They differ only in how the three primitive channels of \cref{eq:three-term} are grouped:
+\begin{itemize}[nosep]
+\item Form A treats $\wexp_1$ as part of the ``substitution'' piece (giving $(1-\theta)\wexp_1$) and $-y_1/(RW)$ as the wealth effect.
+\item Form B treats $\wexp_1$ as part of the income piece (giving $a/W$) and isolates $-\theta\wexp_1$ as the genuine compensated substitution.
+\end{itemize}
+Form A is the form one obtains by applying the matrix machinery directly. Form B is the one that maps cleanly onto the textbook Slutsky decomposition for an endowment economy, and onto the geometric Slutsky picture in which the indifference curve $U_0$ is held fixed.
+\end{calloutnote}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{two_period_slutsky_geometric}
+  \caption{Geometric Slutsky decomposition in the $(c_0, c_1)$ plane, for a saver (left, $y_0 = 1.6$, $y_1 = 0.4$) and a borrower (right, $y_0 = 0.4$, $y_1 = 1.6$), for a rate increase from $R_0 = 1.04$ to $R_1 = 1.25$ with $\beta = 0.96$, $\theta = 2$. Point $A$ is the old optimum, $B$ the Hicksian bundle on $U_0$ at the new price (compensated substitution, $A \to B$), $C$ the new optimum (combined income effect, $B \to C$). The budget line rotates around the endowment $\omega$, leaving $A$ inside the new budget for the saver and outside for the borrower.}
+  \label{fig:two-period-slutsky-geometric}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{two_period_slutsky_hicksian}
+  \caption{Form A (Marshallian fixed-$W$ split) of \cref{eq:slutsky-fixedW}: $d\log c_0 / d\log R = (1-\theta)\wexp_1 - y_1/(RW)$ as a function of $R$, for the saver (left) and borrower (right), $\beta = 0.96$, $\theta = 2$. The fixed-$W$ piece is identical across agents; the endowment-revaluation piece differs in magnitude (larger for the borrower, whose $W$ is smaller and whose $y_1$ is larger).}
+  \label{fig:two-period-slutsky-hicksian}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{two_period_slutsky_price_savings}
+  \caption{Form B (Hicksian + net-demand income) of \cref{eq:slutsky-hicksian}: $d\log c_0 / d\log R = -\theta\,\wexp_1 + a/W$. The compensated substitution channel is identical across agents; the net-demand income channel $a/W$ flips sign between savers and borrowers, making the saver/borrower asymmetry transparent.}
+  \label{fig:two-period-slutsky-price-savings}
+\end{figure}
+
+\paragraph{Welfare: The Envelope Theorem.}
+The consumption response describes behavior. The \emph{welfare} consequences admit a still cleaner expression. Let $V(R) = u(c_0^\star(R)) + \beta\, u(c_1^\star(R))$ denote indirect utility. Applying the envelope theorem to the lifetime budget---only the price of $c_1$ and the endowment $y_1$ are affected by $R$---gives
+\begin{equation}
+\frac{dV}{dR} = \beta\, u'(c_1^\star) \cdot a.
+\label{eq:envelope}
+\end{equation}
+The sign of $dV/dR$ is the sign of $a$ alone: savers gain from a rate increase, borrowers lose, regardless of the IES. The IES affects the magnitude of the welfare change (through how $u'(c_1^\star)$ and $a$ themselves respond) but not its sign. This is the cleanest possible distillation of the distributional content of an interest-rate change.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{two_period_welfare}
+  \caption{Welfare $V(R) - V(R_0)$ for a saver and a borrower as $R$ varies. By the envelope theorem, $dV/dR = \beta \, u'(c_1^\star) \cdot a$, which carries the sign of savings. The asymmetry is robust to $\theta$.}
+  \label{fig:two-period-welfare}
+\end{figure}
 
 \begin{calloutnote}[Who Gains, Who Loses?]
-When interest rates rise:
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{}lcc@{}}
-\toprule
-& \textbf{Substitution Effect} & \textbf{Income Effect} \\
-\midrule
-All agents & Favor future consumption & --- \\
-Savers ($a > 0$) & --- & Wealthier $\Rightarrow$ $\uparrow c_0, c_1$ \\
-Borrowers ($a < 0$) & --- & Poorer $\Rightarrow$ $\downarrow c_0, c_1$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-The distributional consequences of interest rate changes depend critically on whether households are net savers or net borrowers.
+A rate increase makes savers ($a > 0$) better off and borrowers ($a < 0$) worse off, by the envelope formula \cref{eq:envelope}. The consumption response can be read in either of the two equivalent two-term forms:
+\begin{itemize}[nosep]
+\item \emph{Form A} \cref{eq:slutsky-fixedW}: the fixed-$W$ piece $(1-\theta)\wexp_1$ is common across agents; the endowment-revaluation piece $-y_1/(RW)$ is larger in magnitude for the borrower, whose lifetime wealth is more concentrated in $y_1$.
+\item \emph{Form B} \cref{eq:slutsky-hicksian}: the compensated substitution $-\theta\wexp_1$ is common across agents; the net-demand income channel $a/W$ flips sign between savers and borrowers.
+\end{itemize}
+In both readings, a borrower's $c_0$ falls by more than a saver's. Welfare, by the envelope theorem, follows the sign of $a$ directly.
 \end{calloutnote}
+
+\paragraph{Connection to the Static Slutsky Equation.}
+Form B \cref{eq:slutsky-hicksian} is the intertemporal instance of the standard Slutsky equation for an \emph{endowment economy}:
+\begin{equation}
+\frac{\partial x_i^M}{\partial p_j} \;=\; \underbrace{\frac{\partial h_i}{\partial p_j}}_{\substack{\text{Hicksian}\\\text{substitution}}} \;-\; \underbrace{(x_j^\star - e_j)\,\frac{\partial x_i^M}{\partial W}}_{\substack{\text{net-demand}\\\text{income effect}}},
+\label{eq:slutsky-static}
+\end{equation}
+where $h_i$ is the Hicksian (compensated) demand and $e_j$ is the endowment of good $j$. In the textbook consumer problem $e_j = 0$ and the income term reduces to $-x_j^\star \partial x_i^M / \partial W$, scaled by gross consumption. In an endowment economy, the agent receives endowment $e_j$ valued at $p_j$, so a price change revalues both the consumption bundle and the endowment. The relevant net position is the difference, $x_j^\star - e_j$.
+
+In our intertemporal problem, $j = 1$ refers to future consumption, $p_1 = q = 1/R$, and $e_1 = y_1$. The net demand is $c_1 - y_1 = R\,a$. The savings position $a$ is therefore the natural intertemporal counterpart of static net demand, and its sign is the sign of whether the agent is a net buyer or a net seller of future consumption. A saver (net buyer of $c_1$) is hurt by a price increase on $c_1$---which is exactly a fall in $R$. A borrower (net seller of $c_1$) gains. \cref{eq:slutsky-hicksian} states this precisely.
 
 \paragraph{Application: Capital Income Taxation.}
 The Slutsky decomposition clarifies the effects of taxing capital income---a central question in public finance. Suppose the government imposes a proportional tax $\tau$ on capital income, so the after-tax gross return is $R(1-\tau)$ rather than $R$. From the agent's perspective, this is equivalent to a reduction in the interest rate.
@@ -617,37 +735,37 @@ Consider two policy designs:
 
 \medskip
 \noindent
-\textit{Tax without rebate.} The government collects revenue $\tau R a$ (where $a = y_0 - c_0$ is savings) and does not return it to the household. The agent faces the after-tax return $R(1-\tau)$ and has lower lifetime wealth. Both substitution and income effects operate: the lower return discourages saving (substitution), and for savers, the tax reduces wealth, further reducing consumption in both periods (income effect).
+\textit{Tax without rebate.} The government collects revenue $\tau R a$ (where $a = a_0 + y_0 - c_0$ is savings) and does not return it. The agent faces the after-tax return $R(1-\tau)$ and the full Slutsky response applies: both the fixed-$W$ response and the endowment revaluation operate.
 
 \medskip
 \noindent
-\textit{Tax with lump-sum rebate.} The government collects the same revenue but returns it as a lump-sum transfer $T = \tau R a$. The agent still faces the after-tax return $R(1-\tau)$ in the Euler equation, but lifetime wealth is unchanged: the present value of resources remains $W$. Only the substitution effect operates.
+\textit{Tax with lump-sum rebate.} The government collects the same revenue but returns it as a lump-sum transfer that exactly offsets the change in lifetime wealth, so $W$ is unchanged. Only the fixed-$W$ response operates.
 
 \medskip
-This distinction maps directly onto compensated versus uncompensated responses:
+This distinction maps onto fixed-$W$ versus uncompensated responses:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{@{}lll@{}}
 \toprule
-\textbf{Policy} & \textbf{Effect on $c_0$} & \textbf{Elasticity Concept} \\
+\textbf{Policy} & \textbf{Effect on $c_0$} & \textbf{Response} \\
 \midrule
-Tax with rebate & $(1-\theta) \, \wexp_1 \cdot \dfrac{d\tau}{1-\tau}$ & Compensated (Hicksian) \\[8pt]
+Tax with $W$-preserving rebate & $(1-\theta) \, \wexp_1 \cdot \dfrac{d\tau}{1-\tau}$ & Fixed-$W$ (Form A) \\[8pt]
 Tax without rebate & Full Slutsky formula & Uncompensated (Marshallian) \\
 \bottomrule
 \end{tabular}
 \end{center}
+The literal Hicksian deadweight-loss calculation requires a transfer that keeps \emph{utility} (not $W$) constant, which differs from the lump-sum scheme above except at $\theta = 1$. We treat the $W$-preserving rebate here because it is the natural macroeconomic implementation: revenue is rebated lump-sum, period.
 
 \begin{calloutimportant}[Efficiency versus Distribution]
-The welfare cost of capital taxation depends on the \emph{substitution effect} alone---the distortion in intertemporal allocation caused by the tax wedge. This is governed by the IES $\theta$:
+The welfare cost of capital taxation depends on the \emph{compensated substitution channel} $-\theta\,\wexp_1$ in Form B \cref{eq:slutsky-hicksian}---the genuine intertemporal-allocation distortion caused by the tax wedge. This is governed by the IES $\theta$:
 \begin{itemize}[nosep]
-\item If $\theta$ is large, the substitution effect is large, and capital taxes are highly distortionary.
-\item If $\theta$ is small, agents are unwilling to substitute across time, and capital taxes cause little distortion.
+\item If $\theta$ is large, the compensated substitution is large in magnitude, and capital taxes are highly distortionary.
+\item If $\theta$ is small, agents are unwilling to substitute across time, and capital taxes cause little allocative distortion.
 \end{itemize}
+The \emph{distributional} impact, by contrast, works through the net-demand income channel of \cref{eq:slutsky-hicksian} and the envelope welfare formula \cref{eq:envelope}: a capital income tax transfers resources from savers to the government (or to borrowers, if the revenue is redistributed). Whether this is desirable depends on the correlation between saving and welfare-relevant characteristics.
 
-The \emph{distributional} impact, by contrast, depends on the income effect and hence on saving positions. A capital income tax transfers resources from savers to borrowers (or to the government). Whether this is desirable depends on the correlation between saving and welfare-relevant characteristics.
-
-The Cobb-Douglas case ($\theta = 1$) is again the knife-edge: the substitution effect on current consumption is zero, so a revenue-neutral capital tax has no effect on $c_0$. The tax is non-distortionary in its effect on the intertemporal allocation of consumption, though it still redistributes between savers and borrowers.
+The Cobb--Douglas case ($\theta = 1$) is again a knife-edge: the fixed-$W$ response on $c_0$ is zero, so a $W$-preserving capital tax has no effect on current consumption. But the Hicksian compensated channel $-\theta\wexp_1 = -\wexp_1$ is still nonzero---the tax still causes deadweight loss, even at the Cobb--Douglas benchmark. The two ``substitution effects'' diverge here.
 \end{calloutimportant}
 
 % --------------------------------------------------------------
@@ -664,14 +782,14 @@ The Cobb-Douglas case ($\theta = 1$) is again the knife-edge: the substitution e
 \toprule
 \textbf{Object} & \textbf{Formula} \\
 \midrule
-Lifetime wealth & $W = b_0 + y_0 + R^{-1} y_1$ \\[6pt]
+Lifetime wealth & $W = a_0 + y_0 + R^{-1} y_1$ \\[6pt]
 Lifetime budget & $c_0 + R^{-1} c_1 = W$ \\[6pt]
 Euler equation & $u'(c_0) = \beta R \, u'(c_1)$ \\[6pt]
 Consumption ratio (CRRA) & $c_1 / c_0 = (\beta R)^{\theta}$ \\[6pt]
 Price index & $\Pstar = \left( \omega_0 + \omega_1 R^{\theta-1} \right)^{1/(1-\theta)}$ \\[6pt]
 Optimal $c_0$ & $c_0^* = \wexp_0 \cdot W$ \\[6pt]
 Optimal $c_1$ & $c_1^* = \wexp_1 \cdot R \cdot W$ \\[6pt]
-Savings & $a = y_0 - c_0^* = y_0 - \wexp_0 \cdot W$ \\[6pt]
+Savings & $a = a_0 + y_0 - c_0^* = a_0 + y_0 - \wexp_0 \cdot W$ \\[6pt]
 \bottomrule
 \end{tabular}
 \end{table}

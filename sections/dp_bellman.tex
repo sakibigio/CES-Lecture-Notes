@@ -1,0 +1,187 @@
+% ==============================================================
+\section{The Bellman Equation}
+\label{sec:dp-bellman}
+% ==============================================================
+
+The recursive formulation rewrites the sequence problem as a single functional equation: the Bellman equation. The value function defined on the state space replaces the choice of an entire path, and the operator $T$ from the previous chapter acquires a $\max$ to become the Bellman operator $T^\star$. The contraction argument extends without modification, delivering existence, uniqueness, and a constructive algorithm.
+
+% --------------------------------------------------------------
+\subsection{The Principle of Optimality}
+\label{subsec:dp-principle}
+% --------------------------------------------------------------
+
+The recursive reformulation rests on a simple observation due to Bellman.
+
+\paragraph{The Statement.}
+Let $V(W)$ denote the maximum value attainable from any date onward when the state is $W$. By stationarity of the environment, $V$ depends only on $W$, not on the date. Then:
+\begin{equation}
+V(W) = \max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V(W') \big); \; 1-\beta, \, 1-1/\theta \Big),
+\label{eq:bellman-equation}
+\end{equation}
+subject to $W' = R'(W - c)$, where $R'$ is the random return realized between today and tomorrow.
+
+\paragraph{The Logic.}
+Equation \cref{eq:bellman-equation} says: the optimal value today equals the best combination of (i) today's consumption $c$ and (ii) the optimal value starting from tomorrow's wealth $W'$. The agent need not commit to a path---only to today's choice $c$. Tomorrow, faced with wealth $W'$, the agent solves the same problem.
+
+\begin{proposition}[Principle of Optimality]
+\label{prop:principle-optimality}
+A policy $\{c_t\}$ that solves the sequence problem \cref{eq:sequence-problem} also satisfies the Bellman equation \cref{eq:bellman-equation} at every date and state visited along the path. Conversely, a stationary policy $c = g(W)$ satisfying \cref{eq:bellman-equation} solves the sequence problem.
+\end{proposition}
+
+The formal proof uses two arguments: (i) any candidate policy can be decomposed into ``what we do today'' and ``what we do from tomorrow on,'' and (ii) the optimal value of the latter is, by definition, $V(W')$. The Bellman equation is the explicit decomposition.
+
+\begin{calloutnote}[Time Consistency]
+The principle of optimality is also a statement about \emph{time consistency}: at every date and state, the agent's continuation plan is itself optimal for the continuation problem. With time-separable preferences this is automatic; for Epstein--Zin it requires that the certainty equivalent $\mu$ be defined recursively, which is precisely the formulation we adopted in \cref{sec:epstein-zin}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Deriving the Bellman Equation}
+\label{subsec:dp-deriving-bellman}
+% --------------------------------------------------------------
+
+We give a direct derivation that emphasizes the parallel with the evaluation operator $T$ of \cref{sec:fixed-points}.
+
+\paragraph{Starting Point.}
+Define $V(W)$ as the supremum of $\V_0$ over all admissible policies, given $W_0 = W$. Then for any consumption choice $c$ today, the agent achieves at least
+\begin{equation}
+\Mbar\Big( c, \, \mu\big( V(R'(W - c)) \big); \; 1-\beta, \, 1-1/\theta \Big),
+\label{eq:value-bound}
+\end{equation}
+because tomorrow's wealth is $W' = R'(W - c)$ and the agent can attain $V(W')$ from tomorrow on.
+
+\paragraph{Optimization Over Today.}
+Maximizing over $c$:
+\begin{equation}
+V(W) \geq \max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V(R'(W - c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-ge}
+\end{equation}
+A symmetric argument, using that any policy starting at $W$ must choose \emph{some} $c$ today, gives the reverse inequality. Equality is the Bellman equation.
+
+\paragraph{The Evaluation Parallel.}
+Compare with the evaluation operator from \cref{eq:operator-T}:
+\begin{equation}
+(T\V)_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho).
+\end{equation}
+The Bellman equation has the same structure, with two changes:
+\begin{itemize}[leftmargin=2em]
+    \item The argument of $\Mbar$ on the right is $V$ evaluated at next-period wealth $W'$, not $\V$ indexed by next date.
+    \item There is a $\max$ over $c$.
+\end{itemize}
+Both changes reflect the shift from evaluating a given stream to choosing one.
+
+% --------------------------------------------------------------
+\subsection{The Bellman Operator}
+\label{subsec:dp-bellman-operator}
+% --------------------------------------------------------------
+
+We can package the Bellman equation as a fixed-point problem for an operator on a function space.
+
+\paragraph{Definition.}
+Let $\mathcal{C}$ denote the space of bounded continuous functions $V: \mathbb{R}_+ \to \mathbb{R}$ with the sup norm $\|V\| = \sup_W |V(W)|$. Define the \emph{Bellman operator} $T^\star: \mathcal{C} \to \mathcal{C}$ by
+\begin{equation}
+(T^\star V)(W) = \max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V(R'(W-c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-operator}
+\end{equation}
+The Bellman equation is the fixed-point condition $V = T^\star V$.
+
+\paragraph{From $T$ to $T^\star$.}
+The operator $T$ of \cref{sec:fixed-points} took a sequence-indexed value $\V_t$ and returned the same. The operator $T^\star$ takes a function $V(W)$ on the state space and returns the same. The shift in domain---from time index to state---is the substantive content of recursive optimization. The $\max$ is what distinguishes optimization from evaluation; it is the new ingredient.
+
+\begin{calloutnote}[The State Space and Time]
+In the evaluation problem, the consumption stream is given as a function of time, so the value function inherits a time index: $\V_t$. In the optimization problem, choices depend on the current state, so the value function depends on the state: $V(W)$. Time disappears as an explicit argument because the environment is stationary---the same $\Mbar$, the same $\mu$, the same $R'$ distribution at every date. This is the dimensionality reduction promised at the end of \cref{subsec:dp-curse-sequence}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Existence, Uniqueness, and Convergence}
+\label{subsec:dp-existence}
+% --------------------------------------------------------------
+
+The contraction argument from \cref{sec:fixed-points} extends almost verbatim. The presence of the $\max$ is innocuous: the maximum of two contractions is itself a contraction.
+
+\begin{proposition}[Contraction Property of $T^\star$]
+\label{prop:bellman-contraction}
+The Bellman operator $T^\star$ defined in \cref{eq:bellman-operator} is a contraction with modulus $\beta$ on $(\mathcal{C}, \|\cdot\|)$. That is, for any $V_1, V_2 \in \mathcal{C}$:
+\begin{equation}
+\|T^\star V_1 - T^\star V_2\| \leq \beta \, \|V_1 - V_2\|.
+\label{eq:contraction-Tstar}
+\end{equation}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Fix $W$ and let $c_1\opt, c_2\opt$ be the maximizers in $T^\star V_1, T^\star V_2$ respectively. By optimality:
+\begin{align}
+(T^\star V_1)(W) - (T^\star V_2)(W) &\leq \Mbar(c_2\opt, \mu(V_1)) - \Mbar(c_2\opt, \mu(V_2)) \notag \\
+&\leq \beta \, \|V_1 - V_2\|,
+\end{align}
+where the second inequality uses the Lipschitz property of $\Mbar$ in its second argument with modulus $\beta$ (the weight on the continuation value), together with the non-expansion of $\mu$. The reverse inequality follows by symmetry, and taking the supremum over $W$ delivers \cref{eq:contraction-Tstar}.
+\end{proof}
+
+\paragraph{Banach Once More.}
+By the Banach fixed-point theorem (\cref{thm:banach}), $T^\star$ has a unique fixed point $V^\star \in \mathcal{C}$, and for any initial guess $V^{(0)} \in \mathcal{C}$, the iterates $V^{(n+1)} = T^\star V^{(n)}$ satisfy
+\begin{equation}
+\|V^{(n)} - V^\star\| \leq \beta^n \|V^{(0)} - V^\star\|.
+\label{eq:bellman-convergence}
+\end{equation}
+Geometric convergence at rate $\beta$.
+
+\paragraph{The Optimal Policy.}
+Once $V^\star$ is known, the optimal policy is
+\begin{equation}
+g(W) = \arg\max_{c \in [0, W]} \Mbar\Big( c, \, \mu\big( V^\star(R'(W-c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:optimal-policy}
+\end{equation}
+Under standard concavity and continuity assumptions on $\Mbar$ and the constraint set, $g$ is single-valued and continuous (the theorem of the maximum). This is the policy function the agent executes period by period.
+
+\begin{calloutimportant}[What We Have Achieved]
+The infinite-dimensional sequence problem of \cref{eq:sequence-problem} has become a fixed-point problem in a function space:
+\[
+V^\star = T^\star V^\star, \qquad g(W) = \arg\max \text{ at } V^\star.
+\]
+Once $V^\star$ is computed---by VFI, by backward induction in the finite-horizon case, or by exploiting structure in special cases---the entire stream $\{c_t\}$ is generated by iterating the policy $g$ on the state, starting from $W_0$. The agent's problem reduces to two objects: the function $V^\star(\cdot)$ and the function $g(\cdot)$.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Finite Horizon and Backward Induction}
+\label{subsec:dp-finite-horizon}
+% --------------------------------------------------------------
+
+When $T < \infty$, the Bellman recursion is solved exactly by backward induction.
+
+\paragraph{Terminal Condition.}
+At date $T$, the agent consumes everything: $V_T(W) = W$ (or $V_T(W) = u(W)$ with the standard CRRA period utility, as an alternative).
+
+\paragraph{Backward Recursion.}
+For $t = T-1, T-2, \ldots, 0$:
+\begin{equation}
+V_t(W) = \max_{c \in [0, W]} \Mbar\Big( c, \, \mu_t\big( V_{t+1}(R_{t+1}(W-c)) \big); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:backward-induction}
+\end{equation}
+Each step solves a static optimization over $c$ given the previously computed $V_{t+1}$. The full solution requires $T$ such optimizations, each over a one-dimensional choice variable.
+
+\paragraph{Connection to the Infinite-Horizon Solution.}
+As $T \to \infty$, $V_0(W) \to V^\star(W)$. This recovers the result of \cref{subsec:backward-finite}: the infinite-horizon fixed point is the limit of finite-horizon backward inductions.
+
+\begin{calloutnote}[Practical Algorithm]
+For numerical work, even infinite-horizon problems are solved by backward induction on a truncated horizon, with the choice of $T$ determined by the desired precision. Geometric convergence at rate $\beta$ means that $T = \log(\epsilon)/\log(\beta)$ iterations suffice for tolerance $\epsilon$. With $\beta = 0.96$ and $\epsilon = 10^{-6}$, this is roughly 340 iterations.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dp-bellman-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item The \textbf{Bellman equation} $V = T^\star V$ rewrites the sequence problem as a fixed-point problem on the state space.
+    
+    \item The \textbf{Bellman operator} $T^\star$ extends the evaluation operator $T$ from \cref{sec:fixed-points} by adding a $\max$ over today's control.
+    
+    \item $T^\star$ is a \textbf{contraction} with modulus $\beta$, inheriting this property from $T$. Existence, uniqueness, and geometric convergence follow from the Banach theorem.
+    
+    \item The \textbf{policy function} $g(W)$, the maximizer at $V^\star$, generates the optimal stream by iteration on the state.
+    
+    \item In the \textbf{finite-horizon} case, backward induction solves the problem exactly in $T$ steps. The infinite-horizon solution is the limit.
+\end{enumerate}
+\end{calloutimportant}
+
+The Bellman equation gives us \emph{existence} and a constructive method, but it does not yet tell us much about the \emph{shape} of the optimal policy. For that we turn to the first-order and envelope conditions, which extract the Euler equation---the workhorse characterization of intertemporal optimality.

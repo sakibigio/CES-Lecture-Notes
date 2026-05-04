@@ -106,7 +106,6 @@ Taking the ratio of consumption at adjacent dates:
 \frac{c_{t+1}^*}{c_t^*} = \frac{\omega_{t+1}}{\omega_t} \left( \frac{Q_{t+1}}{Q_t} \right)^{-\theta} = \beta^{\theta} \left( R_t \right)^{\theta} = (\beta R_t)^{\theta}.
 \label{eq:euler-T}
 \end{equation}
-
 Equivalently, in the familiar form:
 \begin{equation}
 u'(c_t) = \beta R_t \, u'(c_{t+1}), \qquad t = 0, 1, \ldots, T-1.
@@ -197,13 +196,13 @@ Substituting into \cref{eq:consumption-elasticity-clean}:
 
 For $t > s$ (consumption after the interest rate change):
 \begin{equation}
-\boxed{\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \left( 1 - \sum_{\tau > s} \wexp_{\tau} \right)}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.}
+\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \left( 1 - \sum_{\tau > s} \wexp_{\tau} \right)}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.
 \label{eq:cross-elasticity-after}
 \end{equation}
 
 For $t \leq s$ (consumption before or at the interest rate change):
 \begin{equation}
-\boxed{\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \sum_{\tau > s} \wexp_{\tau}}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.}
+\frac{d \log c_t}{d \log R_s} = \underbrace{\theta \sum_{\tau > s} \wexp_{\tau}}_{\text{substitution}} + \underbrace{\left( \sum_{\tau > s} \wexp_{\tau} - \sum_{\tau > s} \phi_{\tau} \right)}_{\text{income}}.
 \label{eq:cross-elasticity-before}
 \end{equation}
 

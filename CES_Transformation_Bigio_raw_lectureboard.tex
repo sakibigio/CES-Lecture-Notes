@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\usepackage{setspace} % Include the package
+\onehalfspacing       % Set 1.5 line spacing
+
+\title{Transformations and Optimization in CES Frameworks}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+This note formalizes the transformation techniques used to solve
+Constant Elasticity of Substitution (CES) optimization problems,
+bridging our generalized means framework with practical consumer and
+production theory.
+
+\section{Transformations and Homogeneity}
+
+We begin by examining the optimization of a CES utility function under
+homogeneous prices. Consider the canonical maximization problem over
+consumption bundle $\boldsymbol{c} = (c_1, \dots, c_N)$:
+
+\textbf{Definition 1.1 (Primal Utility Problem)}
+$$ \max_{\boldsymbol{c}} U(\boldsymbol{c}; \boldsymbol{\omega}, \rho) = \left( \sum_{i=1}^N \omega_i^{1-\rho} c_i^\rho \right)^{\frac{1}{\rho}} $$
+Subject to the budget constraint: $$ \sum_{i=1}^N p_i c_i = W $$ where
+$\boldsymbol{p}$ is the price vector and $W$ is total wealth.
+
+To simplify the problem, we apply a change of variables, transforming
+from consumption levels $c_i$ to expenditure shares $s_i$.
+
+\textbf{Definition 1.2 (Expenditure Share)} The expenditure share $s_i$ is
+defined as:
+$$ s_i \equiv \frac{p_i c_i}{W} \implies c_i = \frac{s_i W}{p_i} $$
+
+Under this substitution, the budget constraint linearizes into a unit
+simplex constraint: $$ \sum_{i=1}^N s_i = 1 $$
+
+\subsection{The Homogeneous Price Benchmark}
+
+Consider the case where all prices are uniform, $p_i = P$ for all $i$.
+Substituting $c_i = \frac{s_i W}{P}$ into the primal objective yields:
+
+$$ U(\boldsymbol{s}) = \left( \sum_{i=1}^N \omega_i^{1-\rho} \left(\frac{s_i W}{P}\right)^\rho \right)^{\frac{1}{\rho}} = \frac{W}{P} \left( \sum_{i=1}^N \omega_i^{1-\rho} s_i^\rho \right)^{\frac{1}{\rho}} $$
+
+\textbf{Proposition 1.3 (Benchmark Solution)} For homogeneous prices, the
+optimal expenditure shares map exactly to the canonical preference
+weights: $$ s_i^* = \omega_i \quad \forall i $$ This implies for optimal
+consumption: $$ c_i^* = \omega_i \frac{W}{P} $$ Yielding the maximized
+utility $\mathcal{U}^* = \frac{W}{P}$.
+
+\textit{(Note: The classical representation of this benchmark involves weights
+$\tilde{\omega}_i$ that sum to one. These transformed classical weights
+relate to the canonical weights via
+$\tilde{\omega}_i = \frac{\omega_i^{1-\rho}}{\sum_j \omega_j^{1-\rho}}$.)}
+
+\vspace{1em}\hrule\vspace{1em}
+
+\section{Transformation with Heterogeneous Prices}
+
+When prices are unequal across goods ($p_i \neq p_j$), the
+transformation approach remains fully tractable. Substituting
+$c_i = \frac{s_i W}{p_i}$ into the objective function yields:
+
+$$ \max_{\boldsymbol{s}} \left( \sum_{i=1}^N \omega_i^{1-\rho} \left(\frac{s_i W}{p_i}\right)^\rho \right)^{\frac{1}{\rho}} = W \max_{\boldsymbol{s}} \left( \sum_{i=1}^N \omega_i^{1-\rho} p_i^{-\rho} s_i^\rho \right)^{\frac{1}{\rho}} $$
+Subject to the share constraint $\sum_{i=1}^N s_i = 1$.
+
+To express the weights in terms of primitives, let $\chi_i = \omega_i^{1-\rho} p_i^{-\rho} = \left( \frac{\omega_i}{p_i^{\frac{\rho}{1-\rho}}} \right)^{1-\rho}$. We define the classical weights $\tilde{\omega}_i$ that satisfy $\sum_{i=1}^N \tilde{\omega}_i = 1$:
+
+$$ \tilde{\omega}_i = \frac{\chi_i}{\sum_{j=1}^N \chi_j} $$
+
+Where we denote the denominator sum $\sum_{j=1}^N \chi_j$ as a constant $K$.
+
+\textbf{Proposition 2.1 (Inverse Weight Transformation and Ideal Price Index)} To return to the Canonical version of the weights, we use the Inverse Weight Transformation (Proposition 2.40). We establish a set of adjusted canonical weights $\bar{\omega}_i$ that satisfy:
+
+$$ \bar{\omega}_i = \frac{\tilde{\omega}_i^{\frac{1}{1-\rho}}}{\sum_{j=1}^N \tilde{\omega}_j^{\frac{1}{1-\rho}}} = \frac{\frac{\omega_i}{p_i^{\frac{\rho}{1-\rho}}}}{\sum_{j=1}^N \frac{\omega_j}{p_j^{\frac{\rho}{1-\rho}}}} $$
+
+The denominator of this adjusted canonical weight establishes the price sum $S_p = \sum_{j=1}^N \omega_j p_j^{\frac{\rho}{\rho-1}}$. We can express $\bar{\omega}_i$ natively as:
+
+$$ \bar{\omega}_i = \frac{\omega_i p_i^{\frac{\rho}{\rho-1}}}{S_p} $$
+
+To substitute the adjusted canonical weights back into our objective function, we rearrange our definition to isolate the primitive terms:
+$$ \omega_i^{1-\rho} p_i^{-\rho} = \bar{\omega}_i^{1-\rho} S_p^{1-\rho} $$
+
+Substituting this into the transformed objective function, we can factor out the constant $S_p$:
+$$ W \max_{\boldsymbol{s}} \left( \sum_{i=1}^N \bar{\omega}_i^{1-\rho} S_p^{1-\rho} s_i^\rho \right)^{\frac{1}{\rho}} = W \cdot S_p^{\frac{1-\rho}{\rho}} \max_{\boldsymbol{s}} \left( \sum_{i=1}^N \bar{\omega}_i^{1-\rho} s_i^\rho \right)^{\frac{1}{\rho}} $$
+
+This mathematically extracts a scaling factor $S_p^{\frac{1-\rho}{\rho}}$. We define the canonical CES ideal price index $P^*$ such that this scaling factor naturally represents the aggregate price adjustment $\frac{1}{P^*}$:
+$$ \frac{1}{P^*} \equiv S_p^{\frac{1-\rho}{\rho}} \implies P^* = S_p^{\frac{\rho-1}{\rho}} = \left( \sum_{j=1}^N \omega_j p_j^{\frac{\rho}{\rho-1}} \right)^{\frac{\rho-1}{\rho}} $$
+
+This leaves our objective in the clean canonical benchmark form:
+$$ \frac{W}{P^*} \max_{\boldsymbol{s}} \left( \sum_{i=1}^N \bar{\omega}_i^{1-\rho} s_i^\rho \right)^{\frac{1}{\rho}} $$
+
+Subject to $\sum s_i = 1$. Structurally, this is identical to our
+homogeneous benchmark problem. Applying the benchmark solution yields
+the optimal shares:
+$$ s_i^* = \bar{\omega}_i $$
+
+Since $P^* = S_p^{\frac{\rho-1}{\rho}}$, it follows that $S_p = (P^*)^{\frac{\rho}{\rho-1}}$. Substituting this back into our definition of $\bar{\omega}_i$, we can express the optimal shares strictly in terms of the price index:
+$$ s_i^* = \frac{\omega_i p_i^{\frac{\rho}{\rho-1}}}{(P^*)^{\frac{\rho}{\rho-1}}} = \omega_i \left( \frac{p_i}{P^*} \right)^{\frac{\rho}{\rho-1}} $$
+
+Rearranging to solve for optimal consumption $c_i^*$:
+$$ c_i^* = \omega_i \left( \frac{p_i}{P^*} \right)^{\frac{\rho}{\rho-1}} \frac{W}{p_i} $$
+
+\vspace{1em}\hrule\vspace{1em}
+
+\section{Review and Direct Optimization}
+
+To verify the optimality conditions, we can alternatively set up the
+Lagrangian $\mathcal{L}$ for the direct optimization of expenditure
+shares in the transformed heterogeneous price scenario:
+
+$$ \mathcal{L} = \left( \sum_{i=1}^N \bar{\omega}_i^{1-\rho} s_i^\rho \right)^{\frac{1}{\rho}} + \lambda \left( 1 - \sum_{i=1}^N s_i \right) $$
+
+Let $S = \sum_{i=1}^N \bar{\omega}_i^{1-\rho} s_i^\rho$ be the inner sum.
+Taking the First Order Conditions (FOC) with respect to share $s_i$:
+
+$$ S^{\frac{1}{\rho}-1} \bar{\omega}_i^{1-\rho} s_i^{\rho-1} = \lambda \quad (1) $$
+
+With respect to another share $s_j$:
+
+$$ S^{\frac{1}{\rho}-1} \bar{\omega}_j^{1-\rho} s_j^{\rho-1} = \lambda \quad (2) $$
+
+By dividing condition (1) by condition (2), the aggregate terms and the
+shadow price multiplier $\lambda$ cancel cleanly. This yields the
+optimality condition governing substitution between any two goods:
+
+$$ 1 = \frac{\bar{\omega}_i^{1-\rho} s_i^{\rho-1}}{\bar{\omega}_j^{1-\rho} s_j^{\rho-1}} $$
+
+Rearranging verifies our previous finding: this condition
+holds if and only if $s_i = \bar{\omega}_i$ for all $i$. At the optimum,
+summing these conditions verifies that the Lagrange multiplier equals
+the maximized value of this normalized problem ($\lambda = 1$). (For
+context, in the original primal problem over consumption $c_i$, the
+corresponding multiplier resolves to the inverse of the price index,
+$\lambda_{primal} = (P^*)^{-1}$.)
+
+\vspace{1em}\hrule\vspace{1em}
+
+\section{Limits and Properties of the Price Index}
+
+By defining a new elasticity exponent parameter $\tilde{\rho}$
+corresponding to $\frac{\rho}{\rho-1}$, we can express the ideal price
+index $P^*$ explicitly as a classical generalized mean of prices:
+
+$$ \tilde{\rho} \equiv \frac{\rho}{\rho-1} \iff \rho = \frac{\tilde{\rho}}{\tilde{\rho}-1} $$
+
+$$ P^* = \left( \sum_{i=1}^N \omega_i p_i^{\tilde{\rho}} \right)^{\frac{1}{\tilde{\rho}}} $$
+
+\textbf{Proposition 4.1 (Limits of the Price Index)} The price index strictly
+obeys limiting behavior corresponding to the underlying elasticity of
+substitution:
+
+\begin{enumerate}
+    \item \textbf{Leontief Limit (}$\rho \to -\infty$\textbf{):} As $\rho \to -\infty$,
+    $\tilde{\rho} \to 1$. The price index simplifies to a linear sum:
+    $$
+    P^* \to \sum_{i=1}^N \omega_i p_i
+    $$ 
+    This corresponds to
+    perfectly complementary utility:
+    $\mathcal{U} = \min \left\{ \frac{c_i}{\omega_i} \right\}$.
+
+    \item \textbf{Cobb-Douglas Limit (}$\rho \to 0$\textbf{):} As $\rho \to 0$,
+    $\tilde{\rho} \to 0$. The price index resolves into a geometric
+    mean: $$ P^* \to \prod_{i=1}^N p_i^{\omega_i} $$ Corresponding to
+    Cobb-Douglas utility:
+    $\mathcal{U} = \prod_{i=1}^N \left(\frac{c_i}{\omega_i}\right)^{\omega_i}$.
+
+    \item \textbf{Perfect Substitutes Limit (}$\rho \to 1^-$\textbf{):} As $\rho \to 1$ from
+    below, $\tilde{\rho} \to -\infty$. The index identifies the minimum
+    cost option: $$ P^* \to \min_i \{ p_i \} $$
+\end{enumerate}
+
+Because the price index maps to a classical generalized mean, its
+derivative with respect to the exponent is structurally positive when
+prices are non-uniform:
+$\frac{\partial P^*}{\partial \tilde{\rho}} > 0$.
+
+\end{document}

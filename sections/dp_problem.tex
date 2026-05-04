@@ -1,0 +1,126 @@
+% ==============================================================
+\section{The Sequence Problem}
+\label{sec:dp-sequence-problem}
+% ==============================================================
+
+We begin by formulating the agent's problem in its most direct form: a single optimization over an entire sequence of choices. This formulation makes the difficulty transparent and motivates the recursive reformulation that follows.
+
+% --------------------------------------------------------------
+\subsection{Setup}
+\label{subsec:dp-setup}
+% --------------------------------------------------------------
+
+A representative agent makes consumption and savings decisions over a horizon $t = 0, 1, \ldots, T$ (possibly $T = \infty$). At each date $t$, the agent observes the state $W_t$, chooses a control $c_t$, and the state evolves according to a transition rule.
+
+\paragraph{The State.}
+The state $W_t \in \mathbb{R}_+$ summarizes everything the agent needs to know about the past. In the canonical example, $W_t$ is wealth carried into period $t$, but the framework accommodates richer states---multiple assets, persistent income shocks, habit stocks---without modification.
+
+\paragraph{The Control.}
+The control $c_t \in [0, W_t]$ is consumption. Implicitly, savings is the residual $s_t = W_t - c_t$. We will sometimes write the problem with savings as the explicit choice variable; the two formulations are equivalent.
+
+\paragraph{The Transition.}
+Given a state $W_t$ and a control $c_t$, the next-period state is
+\begin{equation}
+W_{t+1} = R \cdot (W_t - c_t),
+\label{eq:dp-transition-deterministic}
+\end{equation}
+where $R$ is the gross return on savings. The deterministic case sets the stage; we extend to $R_{t+1}$ random in \cref{subsec:dp-stochastic}.
+
+\paragraph{The Objective.}
+The agent ranks consumption streams using the recursive utility developed in \cref{ch:recursive-structure}:
+\begin{equation}
+\V_0 = \Mbar(c_0, \V_1; 1-\beta, \rho), \quad \V_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho),
+\label{eq:dp-recursive-objective}
+\end{equation}
+with terminal condition $\V_T = c_T$ in the finite-horizon case. The parameter $\rho = 1 - 1/\theta$ encodes the intertemporal elasticity of substitution.
+
+\begin{calloutnote}[Why the Recursive Form]
+We deliberately write the objective recursively rather than as a discounted sum. The recursive form makes two things clear. First, it accommodates Epstein--Zin preferences and other non-time-separable specifications without notational change---only the inner aggregator differs. Second, it shows that the present optimization problem is built on top of the evaluation operator $T$ from \cref{sec:fixed-points}: we now optimize \emph{over} the streams that $T$ evaluates.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Sequential Formulation}
+\label{subsec:dp-sequential}
+% --------------------------------------------------------------
+
+The agent's problem, written as a single optimization over the entire path, is:
+\begin{equation}
+\max_{\{c_t\}_{t=0}^{T}} \V_0 \quad \text{subject to} \quad W_{t+1} = R(W_t - c_t), \quad c_t \in [0, W_t], \quad W_0 \text{ given}.
+\label{eq:sequence-problem}
+\end{equation}
+
+\paragraph{The Choice Object.}
+The agent chooses an entire sequence $\{c_0, c_1, \ldots, c_T\}$ at date $0$. In the infinite-horizon case, this is an infinite-dimensional optimization. The Lagrangian has $T+1$ multipliers (one per budget constraint), and the first-order conditions are a system of $T+1$ Euler equations.
+
+\paragraph{Lagrangian Approach.}
+Forming the Lagrangian and taking first-order conditions yields, for each interior $t$:
+\begin{equation}
+\frac{\partial \V_0}{\partial c_t} = \mu_t,
+\label{eq:lagrangian-foc}
+\end{equation}
+where $\mu_t$ is the multiplier on the period-$t$ budget constraint. Combining adjacent FOCs eliminates the multipliers and produces an Euler equation linking $c_t$ and $c_{t+1}$. This works, but it requires manipulating an infinite system. We seek a more economical formulation.
+
+% --------------------------------------------------------------
+\subsection{The Curse of the Sequence}
+\label{subsec:dp-curse-sequence}
+% --------------------------------------------------------------
+
+The sequential formulation has three drawbacks that the recursive formulation will resolve.
+
+\paragraph{Dimensionality.}
+The choice space is infinite-dimensional. Numerical optimization over $\{c_t\}_{t=0}^{T}$ scales poorly as $T$ grows, and the limit $T \to \infty$ is not well-posed for direct numerical attack.
+
+\paragraph{Time Inconsistency Risk.}
+If preferences are not time-separable, optimizing over the full path at date $0$ may produce plans the agent will not want to execute at later dates. The recursive formulation builds in time consistency by construction: the period-$t$ problem takes $W_t$ as given and re-optimizes from there.
+
+\paragraph{Lack of Structure.}
+The sequential formulation does not exploit the recursive structure of the objective. The aggregator $\Mbar$ has the same form at every date; the budget constraint has the same form at every date; only the data ($W_0$, $R$, $\beta$) appear at the beginning. A formulation that respects this stationarity will be far more economical.
+
+\begin{calloutimportant}[The Path Forward]
+The recursive structure of the previous chapter showed that evaluating an infinite stream reduces to a single equation in a single unknown: the value function $\V$. We will now show that \emph{optimizing} over the stream reduces to a single equation as well---the Bellman equation---in which the unknown is again a value function, but now defined on the state $W$ rather than on time.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Extension to Uncertainty}
+\label{subsec:dp-stochastic}
+% --------------------------------------------------------------
+
+We close this section by indicating how the setup generalizes when returns are random. The full development is interleaved with the deterministic case in subsequent sections.
+
+\paragraph{Stochastic Returns.}
+Let $\{R_{t+1}\}$ be a sequence of random gross returns drawn from a distribution that may depend on a state variable $z_t$ (an aggregate shock, an investment opportunity index, etc.). The transition becomes:
+\begin{equation}
+W_{t+1} = R_{t+1} \cdot (W_t - c_t),
+\label{eq:dp-transition-stochastic}
+\end{equation}
+and the objective uses the certainty-equivalent operator $\mu_t$ developed in \cref{sec:risk-weighted-averages}:
+\begin{equation}
+\V_t = \Mbar\big( c_t, \mu_t(\V_{t+1}); \, 1-\beta, \, 1 - 1/\theta \big), \qquad
+\mu_t(X) = \big( \E_t[X^{1-\gamma}] \big)^{1/(1-\gamma)}.
+\label{eq:dp-ez-objective}
+\end{equation}
+The deterministic case is recovered by $\gamma = 1/\theta$ (which collapses Epstein--Zin to time-separable CRRA) and degenerate $R_{t+1}$.
+
+\paragraph{Information.}
+Choices at date $t$ are measurable with respect to information available at date $t$, denoted $\mathcal{F}_t$. The agent knows $W_t$ and $z_t$ when choosing $c_t$; the realization $R_{t+1}$ is revealed at date $t+1$.
+
+\begin{calloutnote}[Notation]
+Throughout this chapter we use $\E_t[\cdot] = \E[\cdot \mid \mathcal{F}_t]$ for the conditional expectation and $\mu_t(\cdot)$ for the certainty equivalent. When the problem is deterministic, $\mu_t(X) = X$, and all formulas collapse to their certainty counterparts.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dp-problem-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Setup of the Optimization Problem]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item The agent's problem has a state $W_t$ (wealth), a control $c_t$ (consumption), and a transition $W_{t+1} = R_{t+1}(W_t - c_t)$.
+    
+    \item The objective is the recursive utility $\V_t = \Mbar(c_t, \mu_t(\V_{t+1}); 1-\beta, 1-1/\theta)$.
+    
+    \item The \textbf{sequence problem} is to choose $\{c_t\}$ to maximize $\V_0$ subject to the transition. This is infinite-dimensional and does not exploit the stationarity of the problem.
+    
+    \item The next section reformulates the problem \textbf{recursively}, defining a value function on states rather than on time.
+\end{enumerate}
+\end{calloutimportant}

@@ -1,0 +1,201 @@
+% ==============================================================
+\section{Optimality Conditions}
+\label{sec:dp-euler}
+% ==============================================================
+
+The Bellman equation establishes existence and structure of the value function. The Euler equation, derived by combining first-order and envelope conditions, characterizes optimal choices directly. It links marginal utility today to expected marginal utility tomorrow through the return on savings, and provides the bridge to asset pricing via the stochastic discount factor.
+
+% --------------------------------------------------------------
+\subsection{First-Order Conditions}
+\label{subsec:dp-foc}
+% --------------------------------------------------------------
+
+We begin with the deterministic case for transparency, then extend to uncertainty.
+
+\paragraph{The Deterministic Bellman.}
+With certain return $R$, the Bellman equation is
+\begin{equation}
+V(W) = \max_{c \in [0, W]} \Mbar\Big( c, \, V(R(W-c)); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-det}
+\end{equation}
+Because $\Mbar$ is monotone in its second argument and $V$ is increasing, the right-hand side is differentiable in $c$ at an interior optimum.
+
+\paragraph{Differentiating the Aggregator.}
+Recall the canonical mean (used here in classical form for clarity):
+\begin{equation}
+\Mbar(x_1, x_2; \omega, \rho) = \big( \omega x_1^\rho + (1-\omega) x_2^\rho \big)^{1/\rho}.
+\label{eq:agg-recall}
+\end{equation}
+The marginal contribution of $x_1$ to $\Mbar$ is, by the chain rule:
+\begin{equation}
+\frac{\partial \Mbar}{\partial x_1} = \omega \, x_1^{\rho-1} \, \Mbar^{1-\rho}.
+\label{eq:dMbar-dx1}
+\end{equation}
+Symmetric expression for $\partial \Mbar / \partial x_2$, with $\omega$ replaced by $1-\omega$.
+
+\paragraph{The First-Order Condition.}
+Let $\rho = 1 - 1/\theta$ and $\omega = 1-\beta$. Differentiating \cref{eq:bellman-det} with respect to $c$ and setting to zero:
+\begin{equation}
+(1-\beta) c^{-1/\theta} \cdot \Mbar^{1/\theta} \;=\; \beta \, V(W')^{-1/\theta} \cdot \Mbar^{1/\theta} \cdot V'(W') \cdot R,
+\label{eq:foc-raw}
+\end{equation}
+where $W' = R(W-c)$. Cancelling $\Mbar^{1/\theta}$:
+\begin{equation}
+(1-\beta) \, c^{-1/\theta} \;=\; \beta \, V(W')^{-1/\theta} \, V'(W') \, R.
+\label{eq:foc-clean}
+\end{equation}
+This equates today's marginal utility to the discounted return-weighted marginal utility of next-period \emph{wealth}. To interpret the right-hand side, we need an expression for $V'(W')$. That is the role of the envelope theorem.
+
+% --------------------------------------------------------------
+\subsection{The Envelope Theorem}
+\label{subsec:dp-envelope}
+% --------------------------------------------------------------
+
+The envelope theorem allows us to compute $V'(W)$ without re-optimizing, by exploiting that the optimum is interior.
+
+\paragraph{Statement.}
+Let $g(W)$ be the optimal consumption policy. Then
+\begin{equation}
+V(W) = \Mbar\big( g(W), \, V(R(W - g(W))); \; 1-\beta, \, 1-1/\theta \big).
+\label{eq:V-at-optimum}
+\end{equation}
+Differentiating both sides with respect to $W$ and using the FOC (so that the indirect effect through $g'(W)$ vanishes):
+\begin{equation}
+V'(W) = \frac{\partial \Mbar}{\partial x_2} \cdot V'(W') \cdot R = \beta \, V(W')^{-1/\theta} \cdot V'(W') \cdot R \cdot \Mbar^{1/\theta}.
+\label{eq:envelope-raw}
+\end{equation}
+
+\paragraph{Simplification via the FOC.}
+Compare \cref{eq:envelope-raw} with the FOC \cref{eq:foc-clean}. The right-hand sides are identical (both equal $\beta V(W')^{-1/\theta} V'(W') R$ times $\Mbar^{1/\theta}$). Therefore:
+\begin{equation}
+V'(W) = (1-\beta) \, c^{-1/\theta} \, \Mbar^{1/\theta}.
+\label{eq:envelope}
+\end{equation}
+This is the envelope condition. It says: the marginal value of wealth equals the marginal utility of consumption, scaled by the marginal contribution of consumption to the recursive aggregator.
+
+\begin{calloutnote}[Why the Envelope Theorem Works]
+The envelope theorem is the statement that, at an interior optimum, the indirect effect of changing $W$ through the policy $g(W)$ vanishes because of the FOC. So $V'(W)$ depends only on the \emph{direct} effect of $W$ on the period objective. With CES preferences, this direct effect has a particularly clean form, given by \cref{eq:envelope}.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The Euler Equation}
+\label{subsec:dp-euler-derivation}
+% --------------------------------------------------------------
+
+Substituting the envelope condition \cref{eq:envelope} into the FOC \cref{eq:foc-clean} eliminates $V'$ and produces a relation purely in terms of consumption and wealth.
+
+\paragraph{Derivation.}
+At date $t$, the envelope condition gives $V'(W_t) = (1-\beta) c_t^{-1/\theta} \Mbar_t^{1/\theta}$. At date $t+1$, similarly: $V'(W_{t+1}) = (1-\beta) c_{t+1}^{-1/\theta} \Mbar_{t+1}^{1/\theta}$. Substituting the latter into the FOC:
+\begin{equation}
+(1-\beta) c_t^{-1/\theta} = \beta \, V(W_{t+1})^{-1/\theta} \cdot (1-\beta) c_{t+1}^{-1/\theta} \, \Mbar_{t+1}^{1/\theta} \cdot R.
+\label{eq:euler-raw}
+\end{equation}
+
+Using $V(W_{t+1}) = \Mbar_{t+1}$ at the optimum (this is just the Bellman equation evaluated along the path):
+\begin{equation}
+c_t^{-1/\theta} = \beta R \, c_{t+1}^{-1/\theta}.
+\label{eq:euler-deterministic}
+\end{equation}
+This is the \emph{Euler equation} in its time-separable form. The CES aggregator $\Mbar_{t+1}$ cancels out: the recursive structure leaves no residue, and we recover the familiar Euler equation of the discounted utility framework.
+
+\paragraph{Reading the Euler Equation.}
+\begin{equation}
+\frac{c_{t+1}}{c_t} = (\beta R)^{\theta}.
+\label{eq:euler-growth}
+\end{equation}
+Consumption grows when $\beta R > 1$ (return exceeds the rate of time preference) and at a rate determined by the IES $\theta$. A high IES means consumption is highly responsive to interest rates; a low IES means the agent prefers a smooth path regardless of the return.
+
+\begin{calloutimportant}[The CES Cancellation]
+The Euler equation \cref{eq:euler-deterministic} is striking in what it does \emph{not} contain: there is no trace of the recursive aggregator $\Mbar$, the value function $V$, or the path of wealth. The CES structure ensures that all of these cancel from the optimality condition, leaving a relation that involves only consumption and the return. This is the analytical advantage of CES preferences---the inter-period optimality condition is \emph{free of state variables} other than consumption and the return.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{The Stochastic Euler Equation}
+\label{subsec:dp-stochastic-euler}
+% --------------------------------------------------------------
+
+When returns are random, the FOC and envelope conditions extend to expected versions, and the Euler equation acquires an expectation operator. The CES cancellation continues to hold under time-separable preferences but breaks down for Epstein--Zin, where a residual term involving the certainty-equivalent ratio survives.
+
+\paragraph{Time-Separable Case.}
+For CRRA preferences with $\gamma = 1/\theta$, the same derivation yields:
+\begin{equation}
+\boxed{c_t^{-1/\theta} = \beta \, \E_t\!\left[ R_{t+1} \, c_{t+1}^{-1/\theta} \right].}
+\label{eq:euler-crra-stochastic}
+\end{equation}
+This is the canonical consumption-based asset pricing equation. In the form
+\begin{equation}
+1 = \E_t\!\left[ \beta \left(\frac{c_{t+1}}{c_t}\right)^{-1/\theta} R_{t+1} \right],
+\label{eq:euler-asset-pricing}
+\end{equation}
+it says that the expected return weighted by the marginal-rate-of-substitution between today and tomorrow equals one---the absence-of-arbitrage condition.
+
+\paragraph{The Stochastic Discount Factor.}
+Define
+\begin{equation}
+M_{t+1} = \beta \left( \frac{c_{t+1}}{c_t} \right)^{-1/\theta}.
+\label{eq:sdf-crra}
+\end{equation}
+Then the Euler equation becomes $\E_t[M_{t+1} R_{t+1}] = 1$, the standard pricing equation. The SDF $M_{t+1}$ is the random ``discount factor'' that prices any asset payoff. This connects dynamic programming to asset pricing: the very same first-order condition that characterizes the consumer's optimum also delivers the pricing kernel for financial markets.
+
+\paragraph{Epstein--Zin Case.}
+For general Epstein--Zin preferences ($\gamma \neq 1/\theta$), an additional term appears that captures the difference between risk aversion ($\gamma$) and intertemporal substitution ($\theta$):
+\begin{equation}
+\boxed{1 = \E_t\!\left[ \beta^\theta \left(\frac{c_{t+1}}{c_t}\right)^{-\theta/\theta'} \!\!\left(\frac{R_{t+1}^p \, v_{t+1}}{\mu_t(R_{t+1}^p \, v_{t+1})}\right)^{\!\theta - 1} R_{t+1} \right],}
+\label{eq:euler-ez}
+\end{equation}
+where $\theta' = 1/(1 - 1/\gamma)$, $R_{t+1}^p$ is the return on the optimal portfolio, $v_{t+1}$ is the normalized value (developed in \cref{sec:dp-homothetic}), and $\mu_t$ is the certainty equivalent. The second factor is the Epstein--Zin correction; it vanishes when $\gamma = 1/\theta$.
+
+\begin{calloutnote}[Two Roles of CES]
+The CES structure plays two distinct roles in this section. First, in the time-separable case it makes the Euler equation \emph{simple}---the aggregator drops out. Second, in the Epstein--Zin case it makes the \emph{form} of the deviation tractable: the residual term in \cref{eq:euler-ez} is a power function of a CES ratio, not a complicated nonlinear expression. Both pieces of tractability stem from the same source: CES is the only aggregator whose marginal product is a power function.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Connection to the Static Canonical Problem}
+\label{subsec:dp-static-connection}
+% --------------------------------------------------------------
+
+The Euler equation has an instructive reinterpretation as the FOC of a \emph{static} CES allocation problem.
+
+\paragraph{The Two-Good Analogy.}
+Consider a static problem: allocate one unit of resources between two goods with prices $p_1, p_2$ and CES weights $\omega, 1-\omega$:
+\begin{equation}
+\max_{x_1, x_2} \Mbar(x_1, x_2; \omega, \rho) \quad \text{s.t.} \quad p_1 x_1 + p_2 x_2 = 1.
+\label{eq:static-ces}
+\end{equation}
+The FOC equates the price ratio to the marginal-rate-of-substitution:
+\begin{equation}
+\frac{p_1}{p_2} = \frac{\omega}{1-\omega} \left( \frac{x_1}{x_2} \right)^{\rho-1}.
+\label{eq:static-foc}
+\end{equation}
+
+\paragraph{Mapping the Dynamic FOC.}
+The Euler equation \cref{eq:euler-deterministic} is exactly \cref{eq:static-foc} with the substitutions:
+\[
+x_1 \leftrightarrow c_t, \quad x_2 \leftrightarrow c_{t+1}, \quad \omega \leftrightarrow 1-\beta, \quad \frac{p_1}{p_2} \leftrightarrow R.
+\]
+Today's consumption and tomorrow's consumption are two ``goods''; their relative price is the gross return $R$; the CES weights are $1-\beta$ and $\beta$. The intertemporal allocation problem is, mathematically, a two-good static CES problem.
+
+\begin{calloutimportant}[Why This Matters]
+The mapping in \cref{subsec:dp-static-connection} is not just a rhetorical flourish---it is the entry point to all of the comparative statics developed in \cref{ch:comparative-statics}. The price index, the KL representation, the substitution-versus-wealth decomposition, the elasticities of demand: \emph{all of them apply to dynamic problems with the relabeling above}. The static CES technology developed in Part I of these notes is, in this sense, a complete toolkit for the dynamic problem we are now solving.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dp-euler-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item The \textbf{first-order condition} from the Bellman equation equates the marginal utility of consumption to the discounted return-weighted marginal value of wealth.
+    
+    \item The \textbf{envelope theorem} eliminates the unknown $V'$ in favor of the marginal utility of consumption: $V'(W) = (1-\beta) c^{-1/\theta} \Mbar^{1/\theta}$.
+    
+    \item Combining the two yields the \textbf{Euler equation} $c_t^{-1/\theta} = \beta R \, c_{t+1}^{-1/\theta}$ (deterministic) or $c_t^{-1/\theta} = \beta \E_t[R_{t+1} c_{t+1}^{-1/\theta}]$ (stochastic, time-separable).
+    
+    \item Defining $M_{t+1} = \beta (c_{t+1}/c_t)^{-1/\theta}$ as the \textbf{stochastic discount factor}, the Euler equation becomes the asset pricing condition $\E_t[M_{t+1} R_{t+1}] = 1$.
+    
+    \item The Euler equation has the same form as the FOC of a \textbf{static two-good CES} allocation problem, with consumption today and tomorrow as the two goods and the gross return as the relative price.
+\end{enumerate}
+\end{calloutimportant}
+
+The Euler equation tells us how consumption should evolve along the optimal path. To convert this differential information into a level---to find $c_t$ as a function of the state $W_t$---we need to combine the Euler equation with the budget constraint. This is most cleanly done by exploiting the homothetic structure of CES preferences, which we develop next.

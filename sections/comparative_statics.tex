@@ -2,9 +2,6 @@
 % Chapter: Comparative Statics of CES Demand
 % ==============================================================
 
-\chapter{Comparative Statics}
-\label{ch:comparative-statics}
-
 \epigraph{This may be regarded as the Fundamental Equation of Value Theory.}{\textit{John R.\ Hicks}, on the Slutsky equation, \textit{Value and Capital} (1939)}
 
 \epigraph{The complicated analyses which economists endeavour to carry through are not mere gymnastics. They are instruments for bettering human life.}{\textit{A.C.\ Pigou}}
@@ -50,6 +47,13 @@ where $\varepsilon = 1/(1-\rho)$ is the elasticity of substitution and $\Pstar$ 
 
 The optimized value of the mean is $\M\opt = B / \Pstar$---the budget deflated by the price index.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_1}
+    \caption{CES demand curves for good~1 across values of~$\varepsilon$. Higher substitutability flattens the demand curve.}
+    \label{fig:ces-demand-curves}
+\end{figure}
+
 The expenditure shares are:
 \begin{equation}
 \label{eq:cs-shares}
@@ -57,6 +61,13 @@ w_i \equiv \frac{p_i x_i\opt}{B} = \frac{\omega_i p_i^{1-\varepsilon}}{\sum_j \o
 \end{equation}
 
 These are the induced weights of the price index---a fact that will prove central to the information-theoretic results below.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_2}
+    \caption{Expenditure share of good~1 as a function of the relative price~$p_1/p_2$. When $\varepsilon > 1$, the share falls with $p_1$ (substitution dominates); when $\varepsilon < 1$, the share rises (income effect dominates). At $\varepsilon = 1$ (Cobb-Douglas), the share equals $\omega_1$ regardless of price.}
+    \label{fig:expenditure-share-vs-price}
+\end{figure}
 
 % --------------------------------------------------------------
 \paragraph{Notation and Conventions.}
@@ -100,6 +111,13 @@ The myopic elasticity becomes the relevant elasticity in two important settings:
 \end{enumerate}
 In these cases, the price index is effectively exogenous and the myopic response governs behavior.
 \end{calloutimportant}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_3}
+    \caption{Expenditure share of good~1 as a function of~$\varepsilon$ at fixed prices. When good~1 is expensive ($p_1 = 2 > p_2$), higher substitutability shifts spending away from it; when it is cheap ($p_1 = 0.5 < p_2$), the opposite occurs. At $\varepsilon = 1$, the share equals the preference weight~$\omega_1$.}
+    \label{fig:expenditure-share-vs-sigma}
+\end{figure}
 
 % ==============================================================
 \section{Price Elasticities}
@@ -226,6 +244,13 @@ The gross substitutes property ($\varepsilon > 1$) has profound implications:
 \end{enumerate}
 \end{calloutimportant}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_6}
+    \caption{Cross-price elasticity $\eta_{12} = (\varepsilon - 1)w_2$ as a function of~$\varepsilon$ for different expenditure shares~$w_2$. Goods are gross substitutes when $\varepsilon > 1$ and gross complements when $\varepsilon < 1$.}
+    \label{fig:cross-price-elasticity}
+\end{figure}
+
 \begin{calloutnote}[Gross versus Net Substitutes]
 Goods are always \emph{net substitutes} in the CES framework: the Hicksian cross-price elasticity $\eta_{ij}^H = \varepsilon w_j > 0$ for all $\varepsilon > 0$. However, goods may be \emph{gross complements} when $\varepsilon < 1$. The wealth effect (captured in the $-1$ term in $\varepsilon - 1$) can reverse the sign.
 \end{calloutnote}
@@ -246,6 +271,25 @@ The exact own-price elasticity admits a Slutsky decomposition into substitution 
 \end{equation}
 
 Both terms are negative (for normal goods), so demand is always downward-sloping in own price. The substitution effect captures the reallocation toward other goods at constant utility; the wealth effect captures the reduction in real purchasing power.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chapter5/fig5_4}
+        \caption{Exact vs.\ myopic own-price elasticity}
+        \label{fig:exact-myopic-own-price}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chapter5/fig5_5}
+        \caption{Slutsky decomposition ($\varepsilon = 2$)}
+        \label{fig:slutsky-decomposition}
+    \end{subfigure}
+    \caption{Own-price elasticity decomposition. Left: the exact elasticity $\eta_{ii} = -\varepsilon(1-w_i) - w_i$ deviates from the myopic $-\varepsilon$ as $w_1$ grows. Right: the substitution and wealth components of the Slutsky decomposition.}
+    \label{fig:own-price-panel}
+\end{figure}
 
 For cross-price effects:
 \begin{equation}
@@ -281,6 +325,13 @@ The Hicksian elasticities isolate the pure substitution effect. Note that $\eta_
 \begin{calloutnote}[Symmetry of Hicksian Cross-Elasticities]
 The Slutsky symmetry condition requires $\frac{\eta_{ij}^H}{w_j} = \frac{\eta_{ji}^H}{w_i}$. For CES demands: $\frac{\varepsilon w_j}{w_j} = \varepsilon = \frac{\varepsilon w_i}{w_i}$. Symmetry holds, as it must.
 \end{calloutnote}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_7}
+    \caption{Elasticity along the demand curve ($\varepsilon = 2$). As $p_1$ rises, the expenditure share $w_1$ changes, causing the exact elasticity to deviate from the constant myopic value~$-\varepsilon$.}
+    \label{fig:elasticity-along-demand-curve}
+\end{figure}
 
 % ==============================================================
 \section{Weight Elasticities}
@@ -402,6 +453,13 @@ The sign depends on whether good $i$ is cheap or expensive relative to the price
 
 As goods become more substitutable, demand shifts toward cheaper alternatives.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_8}
+    \caption{Demand for three goods as a function of the power parameter~$\rho$. As $\rho$ increases (toward perfect substitutes), demand shifts toward the cheapest good.}
+    \label{fig:demand-vs-rho}
+\end{figure}
+
 % --------------------------------------------------------------
 \paragraph{Exact Response.}
 % --------------------------------------------------------------
@@ -449,6 +507,25 @@ The exact semi-elasticity of demand with respect to $\rho$ is:
 \begin{calloutimportant}[A Remarkable Simplification]
 The exact formula is strikingly clean: demand for good $i$ increases with $\rho$ if and only if $p_i < \bar{p}_w$---i.e., if good $i$ is cheaper than the expenditure-weighted geometric mean of prices. The price index $\Pstar$ that appeared in the myopic formula cancels out.
 \end{calloutimportant}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chapter5/fig5_9}
+        \caption{Myopic vs.\ exact rho-elasticity}
+        \label{fig:myopic-exact-rho}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chapter5/fig5_10}
+        \caption{Price-index effect: $\log(\bar{p}_w / \Pstar)$}
+        \label{fig:price-index-effect}
+    \end{subfigure}
+    \caption{Rho-elasticity decomposition. Left: the myopic semi-elasticity $\varepsilon^2\log(\Pstar/p_1)$ versus the exact $\varepsilon^2\log(\bar{p}_w/p_1)$ as $p_1$ varies. Right: the price-index correction $\log(\bar{p}_w/\Pstar)$ as a function of~$\varepsilon$; it vanishes at the Cobb-Douglas limit $\varepsilon = 1$.}
+    \label{fig:rho-elasticity-panel}
+\end{figure}
 
 % --------------------------------------------------------------
 \subsection{The KL Divergence Connection}
@@ -541,6 +618,13 @@ Consider a firm facing volatile input prices. When prices are stable (low disper
     \item The \textbf{marginal value} of substitutability equals $D_{KL} / (1-\varepsilon)^2$.
 \end{enumerate}
 \end{calloutimportant}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/chapter5/fig5_11}
+    \caption{Share reallocation as $\rho$ varies for $n = 5$ goods with dispersed prices. As $\rho$ increases (toward substitutes), expenditure concentrates on the cheapest goods. At $\rho = 0$ (Cobb-Douglas), shares equal the preference weights.}
+    \label{fig:share-reallocation}
+\end{figure}
 
 % ==============================================================
 \section{Summary}

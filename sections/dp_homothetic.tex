@@ -1,0 +1,217 @@
+% ==============================================================
+\section{Homothetic Structure and Wealth Normalization}
+\label{sec:dp-homothetic}
+% ==============================================================
+
+CES preferences are homothetic: scaling all consumption levels by a constant scales utility by the same constant. In the dynamic problem, this property has a powerful consequence---the value function is linear in wealth, the optimal policy is a constant fraction of wealth, and the state space collapses. The per-period problem becomes a static CES problem of exactly the kind studied in \cref{ch:canonical-problems}, complete with its KL representation. This section develops the implication chain.
+
+% --------------------------------------------------------------
+\subsection{Homotheticity of CES Preferences}
+\label{subsec:dp-homotheticity}
+% --------------------------------------------------------------
+
+Recall that the recursive utility $\V_t = \Mbar(c_t, \V_{t+1}; 1-\beta, \rho)$ inherits the homogeneity of $\Mbar$.
+
+\paragraph{Homogeneity of the Aggregator.}
+The classical mean $\Mbar(x_1, x_2; \omega, \rho) = (\omega x_1^\rho + (1-\omega) x_2^\rho)^{1/\rho}$ is homogeneous of degree one:
+\begin{equation}
+\Mbar(\lambda x_1, \lambda x_2; \omega, \rho) = \lambda \, \Mbar(x_1, x_2; \omega, \rho), \quad \lambda > 0.
+\label{eq:mbar-homogeneous}
+\end{equation}
+Iterating, the recursive utility $\V_0$ is homogeneous of degree one in the entire consumption stream: scaling $\{c_t\}$ by $\lambda$ scales $\V_0$ by $\lambda$.
+
+\paragraph{Homogeneity of the Constraint Set.}
+The transition $W' = R(W - c)$ is also linear, so the feasible set of consumption streams scales linearly with $W_0$: from initial wealth $\lambda W_0$, the agent can attain exactly $\lambda$ times any stream attainable from $W_0$. Combined with homogeneity of preferences, this delivers the following.
+
+\begin{proposition}[Homogeneity of the Value Function]
+\label{prop:V-homogeneous}
+The optimal value function $V$ in the deterministic problem (and in the stochastic problem with i.i.d.\ returns or, more generally, returns whose distribution is independent of $W$) satisfies
+\begin{equation}
+V(\lambda W) = \lambda V(W), \quad \lambda > 0.
+\label{eq:V-homogeneous}
+\end{equation}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+By induction on the finite-horizon problem and passage to the limit, or directly via the principle of optimality: if $\{c_t^\star\}$ is optimal from $W$, then $\{\lambda c_t^\star\}$ is feasible from $\lambda W$, and homogeneity of preferences gives a value of $\lambda V(W)$. The optimality of $\{\lambda c_t^\star\}$ from $\lambda W$ follows because any improvement could be scaled down to improve $\{c_t^\star\}$, contradicting its optimality.
+\end{proof}
+
+% --------------------------------------------------------------
+\subsection{The Normalized Bellman Equation}
+\label{subsec:dp-normalized-bellman}
+% --------------------------------------------------------------
+
+Homogeneity allows us to write $V(W) = v \cdot W$ for some scalar $v$, eliminating wealth from the Bellman equation.
+
+\paragraph{Substitution.}
+Using $V(W) = v W$ and $V(W') = v W'$ in the Bellman equation \cref{eq:bellman-equation}:
+\begin{equation}
+v W = \max_{c \in [0, W]} \Mbar\Big( c, \, \mu(v R'(W - c)); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-vW}
+\end{equation}
+
+Pull out the random gross return: $\mu(v R'(W-c)) = (W-c) \, v \, \mu(R')$ if $v$ and $W-c$ are deterministic and $\mu$ is positively homogeneous. (The certainty equivalent $\mu(X) = (\E[X^{1-\gamma}])^{1/(1-\gamma)}$ is indeed homogeneous of degree one.) Then:
+\begin{equation}
+v W = \max_{c} \Mbar\Big( c, \, (W-c) \, v \, \mu(R'); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-pulled}
+\end{equation}
+
+\paragraph{Re-Parameterizing.}
+Let $m = c/W$ denote the consumption-to-wealth ratio. Then $c = mW$ and $W - c = (1-m)W$. Substituting and using homogeneity of $\Mbar$:
+\begin{equation}
+v W = W \cdot \max_{m \in [0, 1]} \Mbar\Big( m, \, (1-m) \, v \, \mu(R'); \; 1-\beta, \, 1-1/\theta \Big).
+\label{eq:bellman-m}
+\end{equation}
+
+Dividing by $W$ delivers the \emph{normalized Bellman equation}:
+\begin{equation}
+\boxed{v = \max_{m \in [0, 1]} \Mbar\Big( m, \, (1-m) \, v \, \mu(R'); \; 1-\beta, \, 1-1/\theta \Big).}
+\label{eq:normalized-bellman}
+\end{equation}
+A scalar fixed-point equation in the scalar unknown $v$. Wealth has disappeared.
+
+\begin{calloutimportant}[The State-Space Collapse]
+The state variable $W$ has been eliminated. The Bellman equation, originally a functional equation for $V(\cdot)$ on $\mathbb{R}_+$, has become a single algebraic equation in a single number $v$. This is the practical payoff of CES homotheticity: a problem that would generically be infinite-dimensional is solved by characterizing one scalar.
+\end{calloutimportant}
+
+\paragraph{Optimal Consumption Rate.}
+The maximizer of \cref{eq:normalized-bellman}, denoted $m^\star$, is the optimal consumption-to-wealth ratio. The first-order condition is:
+\begin{equation}
+(1-\beta) \, m^{-1/\theta} = \beta \, v \, \mu(R') \cdot \big( (1-m) v \mu(R') \big)^{-1/\theta}.
+\label{eq:m-foc}
+\end{equation}
+Rearranging:
+\begin{equation}
+\frac{m^\star}{1 - m^\star} = \left( \frac{1-\beta}{\beta} \right)^\theta \cdot \big( v \, \mu(R') \big)^{\theta - 1}.
+\label{eq:m-formula}
+\end{equation}
+Substituting back into \cref{eq:normalized-bellman} pins down $v$.
+
+\paragraph{Closed Form.}
+After algebra, the stationary normalized value satisfies
+\begin{equation}
+v = \left( (1-\beta)^\theta + \beta^\theta \mu(R')^{\theta - 1} \right)^{1/(\theta - 1)} \cdot (1-\beta)^{\theta/(1-\theta)},
+\label{eq:v-closed}
+\end{equation}
+and the consumption rate is
+\begin{equation}
+m^\star = 1 - \beta^\theta \mu(R')^{\theta - 1} (1-\beta)^{1-\theta}.
+\label{eq:m-closed}
+\end{equation}
+For $\theta = 1$ (log utility), \cref{eq:m-closed} simplifies to the classic result $m^\star = 1 - \beta$: the agent consumes a constant fraction $1-\beta$ of wealth each period, regardless of the return.
+
+% --------------------------------------------------------------
+\subsection{Recovering the Static Canonical Problem}
+\label{subsec:dp-static-recovery}
+% --------------------------------------------------------------
+
+The normalized Bellman equation \cref{eq:normalized-bellman} is, structurally, the static two-good CES problem of \cref{ch:canonical-problems}.
+
+\paragraph{The Mapping.}
+Compare the canonical static problem
+\begin{equation}
+U^\star = \max_{x_1 + x_2 = 1} \Mbar(x_1, x_2; \omega, \rho)
+\label{eq:static-canonical}
+\end{equation}
+(after normalizing the budget to one) with the normalized Bellman \cref{eq:normalized-bellman}, which fixes the resource as $1$ (since $m + (1-m) = 1$). The mapping is:
+\[
+x_1 \leftrightarrow m, \quad x_2 \leftrightarrow 1 - m, \quad \omega \leftrightarrow 1 - \beta,
+\]
+together with a shadow price $p_1 = 1$ on consumption today and a shadow price $p_2 = 1/(v \mu(R'))$ on consumption tomorrow.
+
+\paragraph{The Shadow Price of the Future.}
+The shadow price of next-period ``goods'' is
+\begin{equation}
+p_2 = \frac{1}{v \, \mu(R')}.
+\label{eq:shadow-price}
+\end{equation}
+This is the cost (in today's units) of one unit of certainty-equivalent normalized future wealth. Three pieces enter: the inverse of the certainty equivalent of returns ($1/\mu(R')$), the inverse of the per-unit value of future wealth ($1/v$), and the implicit normalization $p_1 = 1$.
+
+\begin{calloutnote}[The Dynamic Price Index]
+The shadow price $p_2$ plays the role of the price index $\Pstar$ from \cref{ch:comparative-statics}, but for the dynamic problem. It aggregates the random return and the per-unit continuation value into a single number that prices ``the future.'' The KL representation of welfare developed in \cref{sec:price-index-kl} carries over directly: the agent's value $v$ depends on the dispersion of $\mu(R')$ across states, with the dispersion penalty governed by KL divergence.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{The KL Representation in Dynamic Settings}
+\label{subsec:dp-kl-representation}
+% --------------------------------------------------------------
+
+The KL representation of CES welfare (\cref{ch:information}) extends to dynamic problems with no modification beyond the relabeling above.
+
+\paragraph{Recap: The Static Result.}
+For a static CES problem with prices $\bp$ and weights $\bom$, the welfare loss from price dispersion is governed by the KL divergence between the optimal expenditure-share weights $\bw^\star$ and the preference weights $\bom$:
+\begin{equation}
+\frac{d \log \Pstar}{d \tilde{\rho}} = \frac{\KL{\bw^\star}{\bom}}{\tilde{\rho}^2}, \qquad \tilde{\rho} = \frac{\rho}{\rho - 1}.
+\label{eq:kl-static}
+\end{equation}
+Higher KL divergence means greater welfare sensitivity to substitutability.
+
+\paragraph{Two-Period Dynamic Case.}
+For the two-period problem (today vs.\ tomorrow), the KL divergence is between the weights on $c_t$ and $c_{t+1}$ implied by the budget at the optimum, and the preference weights $(1-\beta, \beta)$. With deterministic return $R$:
+\begin{equation}
+w_1^\star = \frac{c_t}{c_t + c_{t+1}/R}, \quad w_2^\star = 1 - w_1^\star, \quad \omega_1 = 1-\beta, \quad \omega_2 = \beta.
+\label{eq:dynamic-kl-weights}
+\end{equation}
+The KL divergence $\KL{\bw^\star}{\bom}$ measures the gap between optimal allocation shares and preference shares; it vanishes when $\beta R = 1$ (Euler equation balanced) and grows otherwise.
+
+\paragraph{Stochastic Case.}
+With random returns, the KL representation includes an additional layer: the divergence between the risk-neutral weights induced by the certainty equivalent and the preference weights. The decomposition
+\begin{equation}
+\frac{d \log v}{d \tilde\rho} = \KL{\text{intertemporal}}{\text{preferences}} + \KL{\text{across states}}{\text{probabilities}}
+\label{eq:kl-decomposition-dyn}
+\end{equation}
+separates the welfare cost of price dispersion across time from the welfare cost of return dispersion across states. The first term governs the IES; the second governs risk aversion. They are decoupled in Epstein--Zin precisely because the inner and outer aggregators have different parameters.
+
+\begin{calloutimportant}[Unification]
+Three observations come together at this point:
+\begin{enumerate}[leftmargin=2em]
+    \item The dynamic problem is solved by a normalized Bellman equation with no state variable.
+    \item The normalized Bellman equation is, structurally, a static two-good CES problem.
+    \item All comparative statics, KL representations, and welfare formulas from the static chapter apply with appropriate relabeling.
+\end{enumerate}
+The dynamic CES problem is, in a precise sense, the static CES problem repeated. This is the theoretical basis for the applications developed in subsequent chapters---consumption and savings, portfolio choice, and labor supply---each of which is, internally, a static CES allocation.
+\end{calloutimportant}
+
+% --------------------------------------------------------------
+\subsection{When Homotheticity Fails}
+\label{subsec:dp-non-homothetic}
+% --------------------------------------------------------------
+
+Several extensions break homotheticity and require the full state-space treatment.
+
+\paragraph{Borrowing Constraints.}
+A constraint $W - c \geq \underline{a}$ for some absolute floor $\underline{a} > 0$ violates the linear scaling of the constraint set. Wealth re-enters as a state variable, the consumption rate $m$ varies with $W$, and the value function is no longer linear.
+
+\paragraph{Subsistence Consumption.}
+A specification $u(c - \bar{c})$ for some subsistence level $\bar{c} > 0$ breaks homogeneity at low wealth levels. The agent's effective discount rate and IES vary with wealth.
+
+\paragraph{Labor Income.}
+With non-zero labor income $y_t$, total resources are $W_t + y_t/R + \cdots$, and the relevant ``wealth'' is human plus financial. If labor income is bounded away from zero, the same homothetic argument applies to total wealth, but only in the long-horizon limit.
+
+\paragraph{Time-Varying Investment Opportunities.}
+If the distribution of returns depends on a state $z_t$ (e.g., a stochastic volatility process), the value function becomes $V(W, z) = v(z) \cdot W$ with $v$ a non-trivial function of $z$. Homotheticity in $W$ survives, but a separate fixed-point problem in $v(z)$ remains.
+
+\begin{calloutnote}[Recovering Tractability]
+In each of these cases, the KL representation and the canonical-problem mapping continue to hold \emph{conditional on the additional state}. The role of CES is to provide a one-dimensional reduction in $W$, leaving the additional state(s) as the only sources of complexity. This is the divide-and-conquer logic that makes CES-based dynamic models tractable even when full homotheticity fails.
+\end{calloutnote}
+
+% --------------------------------------------------------------
+\subsection{Summary}
+\label{subsec:dp-homothetic-summary}
+% --------------------------------------------------------------
+
+\begin{calloutimportant}[Key Results]
+\begin{enumerate}[label=(\roman*), leftmargin=2em]
+    \item CES preferences and a linear budget constraint imply a \textbf{homogeneous value function}: $V(W) = v \cdot W$ for a scalar $v$.
+    
+    \item The Bellman equation reduces to a \textbf{normalized Bellman equation} in the consumption rate $m$ and the per-unit value $v$, with $W$ eliminated.
+    
+    \item Closed-form solutions: $m^\star = 1 - \beta^\theta \mu(R')^{\theta-1} (1-\beta)^{1-\theta}$ and a corresponding closed form for $v$.
+    
+    \item The normalized problem has \textbf{the same structure as a static two-good CES problem}, with the gross return playing the role of an inverse price.
+    
+    \item The \textbf{KL representation} of welfare from \cref{ch:information} carries over to the dynamic problem, with separate KL terms for intertemporal and cross-state dispersion in the Epstein--Zin case.
+    
+    \item Homotheticity fails under borrowing constraints, subsistence consumption, or non-scalar wealth, but the canonical-problem mapping survives \emph{conditionally} on additional state variables.
+\end{enumerate}
+\end{calloutimportant}
