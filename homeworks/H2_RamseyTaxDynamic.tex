@@ -1,0 +1,248 @@
+% ==============================================================
+\chapter{Homework: Optimal Taxation in a Two-Period Economy}
+\label{chap:hw-dynamic}
+% ==============================================================
+ 
+\begin{calloutimportant}[How to Answer This Homework]
+Every question requires a written response alongside any algebra. When you derive a condition, state what it means economically. When you characterize optimal taxes, explain the intuition. Written explanations carry at least as much weight as correct derivations.
+\end{calloutimportant}
+ 
+\begin{calloutnote}[Goal]
+This homework studies optimal taxation in a two-period economy where households choose how much to work and how much to save. There is a single consumption good each period. The intertemporal aggregator is a CES generalized mean over within-period utilities, using the canonical weight notation established in the lecture notes. The government can levy a consumption tax and a labor income tax in each period, and can issue debt. The central questions are: when does the Ramsey problem reduce to two independent within-period problems, and what combination of taxes implements the optimal allocation?
+\end{calloutnote}
+ 
+% ==============================================================
+\section{The Economy}
+\label{sec:economy}
+% ==============================================================
+ 
+% --------------------------------------------------------------
+\subsection{Setup}
+\label{subsec:setup}
+% --------------------------------------------------------------
+ 
+Time has two periods, $t \in \{0, 1\}$. The economy is a small open economy in which both households and the government borrow and lend at the world gross interest rate $R$. Normalize the wage to $w_t = 1$ in each period.
+ 
+\paragraph{Preferences.}
+Lifetime utility is a canonical generalized mean over within-period utilities:
+%
+\begin{equation}
+    \mathcal{V} \;=\; \mathcal{M}(V_0, V_1;\, \omega^n, \rho)
+    \;=\; \left( (1-\omega^n)^{1-\rho}\, V_0^{\rho}
+           \;+\; (\omega^n)^{1-\rho}\, V_1^{\rho} \right)^{1/\rho},
+    \label{eq:lifetime}
+\end{equation}
+%
+where $\omega^n \in (0,1)$ is the canonical weight on period-1 utility and $\rho < 1$. In canonical form, following the two-period derivation in the lecture notes:
+%
+\begin{equation}
+    \omega^n \;=\; \frac{\beta^{\theta}}{1 + \beta^{\theta}},
+    \qquad
+    1 - \omega^n \;=\; \frac{1}{1 + \beta^{\theta}},
+    \label{eq:omega-n}
+\end{equation}
+%
+where $\beta \in (0,1)$ is the discount factor and $\theta = 1/(1-\rho)$ is the intertemporal elasticity of substitution.
+ 
+Within each period, $V_t$ is a canonical generalized mean over consumption $c_t$ and leisure $\ell_t$:
+%
+\begin{equation}
+    V_t \;=\; \mathcal{M}(c_t, \ell_t;\, \omega^c, \nu)
+    \;=\; \left( (\omega^c)^{1-\nu}\, c_t^{\nu}
+           \;+\; (1-\omega^c)^{1-\nu}\, \ell_t^{\nu} \right)^{1/\nu},
+    \label{eq:Vt}
+\end{equation}
+%
+where $\omega^c \in (0,1)$ and $\nu < 1$.
+ 
+\paragraph{Time constraint.}
+Each period, the household allocates its unit time endowment between labor $n_t$ and leisure $\ell_t$ according to the CES allocation function:
+%
+\begin{equation}
+    \mathcal{H}(n_t, \ell_t;\, \omega^\ell, \phi)
+    \;\equiv\;
+    \left( (\omega^\ell)^{1-\phi}\, n_t^{\phi}
+    \;+\; (1-\omega^\ell)^{1-\phi}\, \ell_t^{\phi} \right)^{1/\phi}
+    \;=\; 1,
+    \qquad t = 0, 1,
+    \label{eq:time}
+\end{equation}
+%
+with $\phi > 1$ and $\omega^\ell \in (0,1)$. The condition $\phi > 1$ ensures the time frontier is concave.
+ 
+\paragraph{Technology.}
+A single firm produces the consumption good $y_t$ and a government good $g_t$ from labor $n_t$ via the PPF:
+%
+\begin{equation}
+    \mathcal{F}(y_t, g_t;\, \eta, \psi)
+    \;\equiv\;
+    \left( \eta^{1-\psi}\, y_t^{\psi}
+    \;+\; (1-\eta)^{1-\psi}\, g_t^{\psi} \right)^{1/\psi}
+    \;=\; n_t,
+    \label{eq:tech}
+\end{equation}
+%
+with $\eta \in (0,1)$ and $\psi > 1$. The condition $\psi > 1$ ensures a concave PPF with increasing opportunity costs. The government purchases $G$ in each period.
+ 
+\paragraph{Taxes, debt, and budget constraints.}
+The government levies an ad valorem consumption tax $\tau_t$ and a labor income tax $\tau_{w,t}$ in period $t$, and issues debt $B$ in period~0. Letting $q_t \equiv (1+\tau_t)\,p_t$ denote the consumer price of $c_t$, the household's sequential budget constraints are:
+%
+\begin{align}
+    q_0\, c_0 \;+\; S &\;=\; (1-\tau_{w,0})\, n_0,
+    \label{eq:hh0} \\
+    q_1\, c_1 &\;=\; (1-\tau_{w,1})\, n_1 \;+\; R\,S,
+    \label{eq:hh1}
+\end{align}
+%
+where $S$ is household savings carried from period~0. The government's sequential budget constraints are:
+%
+\begin{align}
+    p_0^g\, G &\;=\; \tau_0\, p_0\, c_0 \;+\; \tau_{w,0}\, n_0 \;+\; B,
+    \label{eq:gov0} \\
+    p_1^g\, G \;+\; R\,B &\;=\; \tau_1\, p_1\, c_1 \;+\; \tau_{w,1}\, n_1.
+    \label{eq:gov1}
+\end{align}
+%
+Producer prices $p_t$ and $p_t^g$ are determined endogenously by the firm's optimality conditions, which you will derive in Question~3.
+ 
+% --------------------------------------------------------------
+\subsection{What Does ``Separable'' Mean?}
+\label{subsec:separable}
+% --------------------------------------------------------------
+ 
+Several questions in this homework will ask you to argue that the two-period planner's problem is \emph{separable} into two within-period problems. We use the term in two related but distinct senses.
+ 
+\paragraph{1. Separable preferences.}
+Lifetime utility \eqref{eq:lifetime} is \emph{separable across periods} because $\mathcal{V}$ depends on consumption and leisure $(c_t, \ell_t)$ only through the within-period summary $V_t$. There is no direct link between, for example, $c_0$ and $\ell_1$: those two variables appear in $\mathcal{V}$ only through $V_0$ and $V_1$ respectively, and these two summaries are then combined by an outer aggregator. Equivalently, the marginal rate of substitution between any two within-period variables (say $c_t$ and $\ell_t$) does not depend on what happens in the other period.
+ 
+Similarly, $V_t$ in \eqref{eq:Vt} is separable between $c_t$ and $\ell_t$ from the lifetime perspective: the CES sub-aggregator over $(c_t, \ell_t)$ is the same in each period.
+ 
+\paragraph{2. A separable problem.}
+A constrained optimization problem is separable when it can be split into two independent sub-problems whose solutions do not interact. In our two-period economy, separability of the planner's problem means: for each period $t$, you can solve a within-period problem (choose $c_t, n_t, \ell_t$ given $G$) without knowing the solution to the other period. This is the kind of separation that makes the two-period Ramsey problem no harder than the static one.
+ 
+\paragraph{When does it happen?}
+Separable preferences are necessary for the problem to separate, but they are not sufficient. The intertemporal margin --- how the planner trades off resources across periods --- depends on both preferences (through the marginal value of $V_0$ versus $V_1$) and technology (through the relative price of period-0 versus period-1 resources, here governed by $R$). The problem separates when these two trade-offs already align at the symmetric allocation $V_0 = V_1$. When that alignment fails, the planner has an additional reason to shift resources across periods, and the within-period problems are no longer independent.
+ 
+The condition you will derive in Question~1 is exactly this alignment.
+ 
+\begin{calloutnote}[Why This Is Useful]
+When a problem separates, you can solve a complicated multi-period Ramsey problem by repeatedly applying the static analysis from Homework~1. The separability condition itself --- the value of $\beta$ relative to $R$ that makes the problem separable --- is also informative: departures from this condition indicate which margin (intertemporal vs.\ within-period) the policy needs to address most.
+\end{calloutnote}
+ 
+% ==============================================================
+\section{Questions}
+\label{sec:questions}
+% ==============================================================
+ 
+\paragraph{Question 1.}
+Consolidate the budget constraints and identify the separability condition.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Eliminate $S$ from \eqref{eq:hh0}--\eqref{eq:hh1} to derive the household's intertemporal budget constraint. Eliminate $B$ from \eqref{eq:gov0}--\eqref{eq:gov1} to derive the government's intertemporal budget constraint. Give the PDV interpretation of each side.
+ 
+    \item The canonical lifetime aggregator \eqref{eq:lifetime} implies a ratio condition between the marginal values of $V_0$ and $V_1$. Derive this ratio condition. In the open economy the planner can exchange one unit of period-0 resources for $R$ units of period-1 resources. Using \eqref{eq:omega-n}, find the condition on $\beta$, $\theta$, and $R$ such that the planner chooses equal within-period utilities $V_0^* = V_1^*$ at the optimum.
+ 
+    \item \emph{Written answer required.} Compare the condition from (b) to the standard $\beta R = 1$ of the additively separable model. What is the role of $\theta$? In two sentences, explain why this condition is what makes the two-period Ramsey problem separable in the sense defined above.
+\end{enumerate}
+ 
+\paragraph{Question 2.}
+Solve the Ramsey problem using the primal approach.
+ 
+The planner directly chooses $\{c_t, n_t, \ell_t\}_{t=0,1}$ to maximize $\mathcal{V}$ subject to the PPF \eqref{eq:tech} with $y_t = c_t$ and $g_t = G$, the time constraint \eqref{eq:time}, and the open-economy intertemporal resource constraint. Assume the condition from Question~1(b) holds.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Separability of the problem.} Argue that the planner's problem reduces to two independent within-period problems. Write down the within-period problem for period $t$.
+ 
+    \item \emph{Reduction to one variable.} Use the PPF (with $g_t = G$ fixed) to express $n_t = \mathcal{N}(c_t)$, and the time constraint to express $\ell_t = \mathcal{L}(c_t)$. Write the within-period planner's problem as an unconstrained maximization over $c_t$ alone.
+ 
+    \item \emph{First-order condition.} Derive the planner's FOC with respect to $c_t$ and interpret each factor. What is the social cost of one additional unit of consumption?
+ 
+    \item \emph{Written answer required.} Explain what role $\psi > 1$ plays in the FOC. What would the PPF look like if $\psi < 1$, and why would that cause problems?
+\end{enumerate}
+ 
+\paragraph{Question 3.}
+Characterize the optimal tax system.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Firm pricing.} The firm maximizes profit subject to \eqref{eq:tech}. Derive the producer prices $p_t$ and $p_t^g$ as functions of $c_t$, $G$, $n_t$, and the technology parameters. State the zero-profit condition and verify that it gives $p_t c_t + p_t^g G = n_t$.
+ 
+    \item \emph{Household optimality.} Derive the household's within-period optimality condition relating the MRS between $c_t$ and $\ell_t$ to the tax-adjusted relative price $q_t / (1-\tau_{w,t})$. Compare with the planner's FOC from Question~2(c) and characterize the relationship between $\tau_t$ and $\tau_{w,t}$ that makes the household's choice coincide with the planner's.
+ 
+    \item \emph{Revenue condition.} From \eqref{eq:gov0}--\eqref{eq:gov1}, write the per-period revenue requirement:
+    \[
+        \tau_{w,t}\, n_t \;+\; \tau_t\, p_t\, c_t
+        \;=\; p_t^g\, G.
+    \]
+    Substitute the relationship from (b) into this condition and solve for $(\tau_{w,t}, \tau_t)$ in terms of equilibrium quantities and prices.
+ 
+    \item \emph{Intertemporal taxes.} Using the separability result from Question~2(a) and the fact that $G$ is the same in both periods, what can you say about $(\tau_0^*, \tau_{w,0}^*)$ relative to $(\tau_1^*, \tau_{w,1}^*)$?
+ 
+    \item \emph{Written answer required.} Describe the optimal tax system. Are both instruments needed, and what are their signs? Is the labor--leisure margin distorted at the optimum?
+\end{enumerate}
+ 
+\paragraph{Question 4.} \emph{Discussion only --- no algebra required.}
+Suppose the government can only use a labor income tax: $\tau_t = 0$ for $t = 0, 1$, and revenue is raised entirely through $\{\tau_{w,0}, \tau_{w,1}\}$ and debt $B$. Discuss the following questions in writing, drawing on the intuition built in Questions~1--3.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Can the government still finance $G$ in each period? Which margin in the household's decision problem is now necessarily distorted, and which margin (if any) is not affected?
+ 
+    \item Compare to the full-instrument case from Question~3. Does removing the consumption tax change which margins are distorted, or does it change how much they are distorted? Explain the intuition.
+\end{enumerate}
+ 
+% ==============================================================
+\section{Computational Section}
+\label{sec:computation}
+% ==============================================================
+ 
+\begin{calloutnote}[Instructions]
+Solve numerically in Julia without hardcoding analytical solutions. You may use \texttt{Optim.jl}. AI tools are permitted for coding; written explanations must be your own.
+\end{calloutnote}
+ 
+Use the following baseline parameters, with $\psi > 1$ and $\phi > 1$ as required:
+%
+\begin{equation}
+\begin{aligned}
+    R &= 1.04, \quad \beta = 0.96, \quad \theta = 2,
+    \quad (\text{so } \omega^n = \beta^\theta/(1+\beta^\theta) \approx 0.480), \\
+    \eta &= 0.7, \quad \psi = 1.5, \quad G = 0.15, \\
+    \omega^c &= 0.6, \quad \nu = 0.5, \quad \omega^\ell = 0.5, \quad \phi = 1.5.
+\end{aligned}
+    \label{eq:params}
+\end{equation}
+ 
+\paragraph{Question 5.}
+Solve the model with labor income taxes only ($\tau_t = 0$).
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Write a Julia function \texttt{welfare(tau\_w0, tau\_w1, B, params)} that computes $\mathcal{V}$ at the equilibrium consistent with $(\tau_{w,0}, \tau_{w,1}, B)$ and $\tau_t = 0$, enforcing market clearing $c_t = y_t$ and $g_t = G$ in each period. Maximize over $(\tau_{w,0}, \tau_{w,1}, B)$ subject to the government's intertemporal budget constraint.
+ 
+    \item Report the optimal $(\tau_{w,0}^*, \tau_{w,1}^*)$ and $B^*$. Are the two labor tax rates equal? Is this consistent with the separability condition from Question~1(b)?
+ 
+    \item \emph{Written answer required.} Verify numerically that the allocation coincides with the planner's FOC from Question~2(c). Describe the verification procedure.
+\end{enumerate}
+ 
+\paragraph{Question 6.}
+Solve the model with both instruments.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Extend to \texttt{welfare\_full(tau0, tau1, tau\_w0, tau\_w1, B, params)} and maximize over all five variables subject to the government's intertemporal budget. Report the optimal $(\tau_0^*, \tau_1^*, \tau_{w,0}^*, \tau_{w,1}^*)$.
+ 
+    \item Compare welfare under the full system to welfare under labor taxes only (Question~5). Compute and report the welfare gain from adding the consumption tax.
+ 
+    \item \emph{Written answer required.} How do the numerical results compare to the analytical predictions of Question~3? Are both instruments used, and what are their signs?
+\end{enumerate}
+ 
+\paragraph{Question 7.}
+Vary $\beta$ to explore the role of patience.
+ 
+\begin{enumerate}[label=(\alph*)]
+    \item Hold all other parameters at the baseline but set $\beta \in \{0.90,\; 0.93,\; 0.96,\; 0.98,\; 1.00\}$ with $\theta = 2$ and $R = 1.04$ fixed. For each value, compute $\omega^n = \beta^\theta/(1+\beta^\theta)$ and solve both the labor-only and full-instrument Ramsey problems. Record $(\tau_{w,0}^*, \tau_{w,1}^*, B^*)$ and $\mathcal{V}^*$ in each case. Plot the optimal taxes and welfare gap as functions of $\beta$.
+ 
+    \item \emph{Written answer required.} What do you learn? Address the following:
+    \begin{enumerate}[label=(\roman*)]
+        \item At what value of $\beta$ are the two labor tax rates equal in the labor-only case, and why?
+        \item When the separability condition fails, how does the optimal tax mix respond in the labor-only case versus the full-instrument case?
+        \item Does the welfare gap between the two regimes grow or shrink as $\beta$ departs from the value satisfying the separability condition? What does this reveal?
+    \end{enumerate}
+\end{enumerate}
+ 
